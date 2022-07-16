@@ -1,4 +1,4 @@
-package com.orderdetail;
+package com.model.orderdetail;
 
 import java.io.Serializable;
 

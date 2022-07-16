@@ -1,8 +1,8 @@
-package com.order.dao;
+package com.model.order.dao;
 
 import java.util.List;
 
-import com.order.OrderVO;
+import com.model.order.OrderVO;
 
 public interface OrderDAO {
 

@@ -1,4 +1,4 @@
-package com.orderdetail.dao;
+package com.model.order.dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,31 +8,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.order.OrderVO;
-import com.order.dao.OrderDAO;
-import com.order.dao.impl.OrderJDBCDAOimpl;
-import com.orderdetail.OrderDetailVO;
+import com.model.order.OrderVO;
+import com.model.order.dao.OrderDAO;
 
-public class OrderDetailDAOimpl {
+public class OrderJDBCDAOimpl implements OrderDAO {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "Abc840924";
-
+	
 	private static final String INSERT_STMT = 
-		"insert into MonFood.ORDER_DETAIL(PRODUCT_ID, ORDER_ID, NOTE, AMOUNT, ORDERED_PRICE"
-		+ "values(?,?,?,?,?)";
+		"insert into MonFood.ORDER(USER_ID, RES_ID, DEL_ID, ORDER_STATUS, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, BONUS, PROMOTE_ID) "
+		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
-		"select * from ORDER_DETAIL order by PRODUCT_ID";
+		"select * from `ORDER` order by ORDER_ID";
 	private static final String GET_ONE_STMT = 
-		"select * from ORDER_DETAIL where PRODUCT_ID = ? and ORDER_ID = ?";
+		"select * from `ORDER` where ORDER_ID = ?";
 	private static final String DELETE = 
-		"delete from `ORDER` where PRODUCT_ID = ? and ORDER_ID = ?";
-	private static final String UPDATE = "update ORDER_DETAIL ";
-//		+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?"
-//		+ "where ORDER_ID = ?";
-
-	public void insert(OrderDetailVO orderDetailVO) {
+		"delete from `ORDER` where ORDER_ID = ?";
+	private static final String UPDATE = "update `ORDER` "
+			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?"
+			+ "where ORDER_ID = ?";
+	
+	@Override
+	public void insert(OrderVO orderVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -43,11 +42,19 @@ public class OrderDetailDAOimpl {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, orderDetailVO.getProductId());
-			pstmt.setInt(2, orderDetailVO.getOrderId());
-			pstmt.setString(3, orderDetailVO.getNote());
-			pstmt.setInt(4, orderDetailVO.getAmount());
-			pstmt.setInt(5, orderDetailVO.getOrderedPrice());
+			pstmt.setInt(1, orderVO.getUserId());
+			pstmt.setInt(2, orderVO.getResId());
+			pstmt.setInt(3, orderVO.getDelId());
+			pstmt.setInt(4, orderVO.getOrderStatus());
+			pstmt.setString(5, orderVO.getNote());
+			pstmt.setString(6, orderVO.getUserLocation());
+			pstmt.setInt(7, orderVO.getProductKcalTotal());
+			pstmt.setInt(8, orderVO.getTotal());
+			pstmt.setInt(9, orderVO.getDelCost());
+			pstmt.setBoolean(10, orderVO.getUseCash());
+			pstmt.setString(11, orderVO.getCreditId());
+			pstmt.setInt(12, orderVO.getBonus());
+			pstmt.setInt(13, orderVO.getPromoteId());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -75,10 +82,11 @@ public class OrderDetailDAOimpl {
 
 	}
 	
-	public List<OrderDetailVO> getAll() {
+	@Override
+	public List<OrderVO> getAll() {
 		
-		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
-		OrderDetailVO orderDetailVO = null;
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -90,14 +98,31 @@ public class OrderDetailDAOimpl {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				orderDetailVO = new OrderDetailVO();
-				orderDetailVO.setProductId(rs.getInt("PRODUCT_ID"));
-				orderDetailVO.setOrderId(rs.getInt("ORDER_ID"));
-				orderDetailVO.setNote(rs.getString("NOTE"));
-				orderDetailVO.setAmount(rs.getInt("AMOUNT"));
-				orderDetailVO.setOrderedPrice(rs.getInt("ORDERED_PRICE"));
+				orderVO = new OrderVO();
+				orderVO.setOrderId(rs.getInt("ORDER_ID"));
+				orderVO.setUserId(rs.getInt("USER_ID"));
+				orderVO.setResId(rs.getInt("RES_ID"));
+				orderVO.setDelId(rs.getInt("DEL_ID"));
+				orderVO.setOrderStatus(rs.getInt("ORDER_STATUS"));
+				orderVO.setNote(rs.getString("NOTE"));
+				orderVO.setUserLocation(rs.getString("USER_LOCATION"));
+				orderVO.setOrderCreate(rs.getTimestamp("ORDER_CREATE"));
+				orderVO.setOrderDone(rs.getTimestamp("ORDER_DONE"));
+				orderVO.setProductKcalTotal(rs.getInt("PRODUCT_KCAL_TOTAL"));
+				orderVO.setTotal(rs.getInt("TOTAL"));
+				orderVO.setDelCost(rs.getInt("DEL_COST"));
+				orderVO.setUseCash(rs.getBoolean("USE_CASH"));
+				orderVO.setCreditId(rs.getString("CREDIT_ID"));
+				orderVO.setBonus(rs.getInt("BONUS"));
+				orderVO.setRating(rs.getBoolean("RATING"));
+				orderVO.setResRate(rs.getDouble("RES_RATE"));
+				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
+				orderVO.setResComment(rs.getString("RES_COMMENT"));
+				orderVO.setDelComment(rs.getString("DEL_COMMENT"));
+				orderVO.setPromoteId(rs.getInt("PROMOTE_ID"));
 				
-				list.add(orderDetailVO);
+				list.add(orderVO);
+				
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -134,9 +159,10 @@ public class OrderDetailDAOimpl {
 		return list;
 	}
 	
-	public OrderDetailVO findByPrimaryKey(Integer productId, Integer orderId) {
+	@Override
+	public OrderVO findByPrimaryKey(Integer orderId) {
 		
-		OrderDetailVO orderDetailVO = null;
+		OrderVO orderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -147,19 +173,34 @@ public class OrderDetailDAOimpl {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
-			pstmt.setInt(1, productId);
-			pstmt.setInt(2, orderId);
+			pstmt.setInt(1, orderId);
 			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				
-				orderDetailVO = new OrderDetailVO();
-				orderDetailVO.setProductId(rs.getInt("PRODUCT_ID"));
-				orderDetailVO.setOrderId(rs.getInt("ORDER_ID"));
-				orderDetailVO.setNote(rs.getString("NOTE"));
-				orderDetailVO.setAmount(rs.getInt("AMOUNT"));
-				orderDetailVO.setOrderedPrice(rs.getInt("ORDERED_PRICE"));
+				orderVO = new OrderVO();
+				orderVO.setOrderId(rs.getInt("ORDER_ID"));
+				orderVO.setUserId(rs.getInt("USER_ID"));
+				orderVO.setResId(rs.getInt("RES_ID"));
+				orderVO.setDelId(rs.getInt("DEL_ID"));
+				orderVO.setOrderStatus(rs.getInt("ORDER_STATUS"));
+				orderVO.setNote(rs.getString("NOTE"));
+				orderVO.setUserLocation(rs.getString("USER_LOCATION"));
+				orderVO.setOrderCreate(rs.getTimestamp("ORDER_CREATE"));
+				orderVO.setOrderDone(rs.getTimestamp("ORDER_DONE"));
+				orderVO.setProductKcalTotal(rs.getInt("PRODUCT_KCAL_TOTAL"));
+				orderVO.setTotal(rs.getInt("TOTAL"));
+				orderVO.setDelCost(rs.getInt("DEL_COST"));
+				orderVO.setUseCash(rs.getBoolean("USE_CASH"));
+				orderVO.setCreditId(rs.getString("CREDIT_ID"));
+				orderVO.setBonus(rs.getInt("BONUS"));
+				orderVO.setRating(rs.getBoolean("RATING"));
+				orderVO.setResRate(rs.getDouble("RES_RATE"));
+				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
+				orderVO.setResComment(rs.getString("RES_COMMENT"));
+				orderVO.setDelComment(rs.getString("DEL_COMMENT"));
+				orderVO.setPromoteId(rs.getInt("PROMOTE_ID"));
 
 			}
 
@@ -192,9 +233,10 @@ public class OrderDetailDAOimpl {
 				}
 			}
 		}
-		return orderDetailVO;
+		return orderVO;
 	}
 	
+	@Override
 	public void delete(Integer orderId) {
 
 		Connection con = null;
@@ -238,6 +280,7 @@ public class OrderDetailDAOimpl {
 
 	}
 
+	@Override
 	public void update(OrderVO orderVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
