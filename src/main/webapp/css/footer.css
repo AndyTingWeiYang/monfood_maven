@@ -1,0 +1,89 @@
+/* footer a */
+a, a:hover, a:visited, a:link, a:active {
+    color: black;
+    text-decoration:none;
+    outline: none;
+}
+/* footer a */
+
+
+
+/* span.logo{
+    color: black;
+    font-size: 20px;
+}
+
+span.logo2{
+    color: white;
+    font-size: 20px;
+
+}
+
+button.btn.btn-primary{
+    background-color: #FF7F3F;
+    border: #FF7F3F;
+
+}
+
+button#location{
+    background-color: lightgray;
+    opacity: 0.7;
+    color: black;
+    border-radius: 12px;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus,
+.btn-close:focus,
+input.text,
+input.text.focus{
+    outline: none;     
+    box-shadow:none;     
+}
+
+#login{
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+div.offcanvas.offcanvas-start, div.offcanvas.offcanvas-end{
+    width: 300px;
+}
+
+a, a:hover, a:visited, a:link, a:active {
+    color: black;
+    text-decoration:none;
+    outline: none;
+}
+
+.d-flex {
+    display: flex!important;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+div.mt-4{
+    margin-left: 20px;
+}
+
+section.py-5.overflow-hidden{
+    height: 580px;
+}
+
+#page{
+    min-height: 400px;
+}
+
+#profile{
+    color: black;
+}
+
+#cart{
+    color: black;
+} */

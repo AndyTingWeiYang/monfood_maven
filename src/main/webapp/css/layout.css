@@ -1,0 +1,35 @@
+/* stop defalt BS button style */
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus,
+.btn-close:focus,
+input.text,
+input.text.focus{
+    outline: none;     
+    box-shadow:none;     
+}
+/* stop defalt BS button style */
+
+/* a with class "black" */
+a.btn.black{
+    background-color: black;
+    color: white;
+    border: none;
+}
+/* a with class "black" */
+
+a.transparent{
+    background-color: #FF7F3F;
+    border: none;
+    outline: none;     
+    box-shadow:none; 
+}
+
+/* a, a:hover, a:visited, a:link, a:active {
+    color: white;
+    text-decoration:none;
+    outline: none;
+} */
