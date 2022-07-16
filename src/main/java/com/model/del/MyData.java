@@ -1,4 +1,4 @@
-package com.del.model;
+package com.model.del;
 
 public class MyData {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";

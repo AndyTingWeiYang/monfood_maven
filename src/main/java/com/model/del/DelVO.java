@@ -1,4 +1,4 @@
-package com.del.model;
+package com.model.del;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

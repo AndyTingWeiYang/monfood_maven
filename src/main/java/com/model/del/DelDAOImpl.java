@@ -1,4 +1,4 @@
-package com.del.model;
+package com.model.del;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
