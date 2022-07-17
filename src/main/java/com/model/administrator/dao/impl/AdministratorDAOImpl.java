@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.administrator.AdministratorVO;
-import com.model.administrator.dao.AdministratoeDAO;
+import com.model.administrator.dao.AdministratorDAO;
 
-public class AdministratorDAOImpl implements AdministratoeDAO {
+public class AdministratorDAOImpl implements AdministratorDAO {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	public static final String USER = "root";
