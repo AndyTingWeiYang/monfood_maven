@@ -7,9 +7,9 @@ public class AdministratorVO implements Serializable {
 	private String adminAccount;
 	private String adminPassword;
 	private Integer permission;
-
+	
 	public AdministratorVO() {
-
+		
 	}
 
 	public Integer getAdminID() {
