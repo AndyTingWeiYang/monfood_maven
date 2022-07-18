@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.model.promotedetail.PromoteDetailDAO_interface;
+import com.model.promotedetail.PromoteDetailDAO;
 import com.model.promotedetail.PromoteDetailVO;
 
-public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
+public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -277,7 +277,7 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
 	
 	public static void main(String[] args) {
 		
-		PromoteDetailDAO_interface dao = new PromoteDetailJDBCDAO();
+		PromoteDetailDAO dao = new PromoteDetailJDBCDAO();
 			
 //		insert 應該是用不到???
 //		PromoteDetailVO promoteDetailVOi = new PromoteDetailVO();
