@@ -372,5 +372,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //		delete
 //		dao.delete(10);
 //		System.out.println("刪除成功");
+		
+		
 	}
 }

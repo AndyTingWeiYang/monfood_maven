@@ -316,5 +316,4 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 //		dao.delete();
 //		System.out.println("刪除成功");
 	}
-	
 }
