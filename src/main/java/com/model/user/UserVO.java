@@ -1,15 +1,18 @@
 package com.model.user;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Arrays;
 
-public class UserVO implements Serializable{
-private static final long serialVersionUID = 1L;
-	
+public class UserVO implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private String userName;
 	private String userAccount;
 	private String userPassword;
 	private String userTel;
-	private String userProfile; 
+	private String userProfile;
 	private java.sql.Date birthday;
 	private Integer calories;
 	private Integer budget;
@@ -17,10 +20,37 @@ private static final long serialVersionUID = 1L;
 	private Integer monsLevel;
 	private String monsName;
 	private java.sql.Timestamp updateTime;
-	
+	private Integer userId;
+
+	@Override
+	public String toString() {
+		return "UserVO [userName=" + userName + ", userAccount=" + userAccount + ", userPassword=" + userPassword
+				+ ", userTel=" + userTel + ", userProfile=" + userProfile + ", birthday=" + birthday + ", calories="
+				+ calories + ", budget=" + budget + ", profilePic=" + Arrays.toString(profilePic) + ", monsLevel="
+				+ monsLevel + ", monsName=" + monsName + ", updateTime=" + updateTime + ", userId=" + userId + "]";
+	}
+
+	public UserVO(String userName, String userAccount, String userPassword, String userTel, String userProfile,
+			Date birthday, Integer calories, Integer budget, byte[] profilePic, Integer monsLevel, String monsName,
+			Timestamp updateTime, Integer userId) {
+		super();
+		this.userName = userName;
+		this.userAccount = userAccount;
+		this.userPassword = userPassword;
+		this.userTel = userTel;
+		this.userProfile = userProfile;
+		this.birthday = birthday;
+		this.calories = calories;
+		this.budget = budget;
+		this.profilePic = profilePic;
+		this.monsLevel = monsLevel;
+		this.monsName = monsName;
+		this.updateTime = updateTime;
+		this.userId = userId;
+	}
+
 	public UserVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getUserName() {
@@ -118,4 +148,17 @@ private static final long serialVersionUID = 1L;
 	public void setUpdateTime(java.sql.Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }
