@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.model.promotelist.PromoteListVO;
 
-public interface PromoteListDAO_interface {
+public interface PromoteListDAO {
 
 	void insert(PromoteListVO promoteListVO);
 		
@@ -15,4 +15,5 @@ public interface PromoteListDAO_interface {
 		void delete(Integer promoteId);
 		
 		void update(PromoteListVO promoteListVO);
+		
 }
