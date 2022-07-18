@@ -18,8 +18,8 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
 	String passwd = "password";
 	
 	private static final String INSERT_STMT = 
-		"insert into MonFood.PROMOTE_DETAIL(PROMOTE_ID, USER_ID, USED_STATUS) "
-		+ "values(?,?,?)";
+		"insert into MonFood.PROMOTE_DETAIL(USER_ID, USED_STATUS) "
+		+ "values(?,?)";
 	private static final String GET_ALL_STMT = 
 		"select * from PROMOTE_DETAIL order by PROMOTE_ID";
 	private static final String GET_ONE_STMT = 
@@ -27,8 +27,8 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
 	private static final String DELETE = 
 		"delete from PROMOTE_DETAIL where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_DETAIL "
-			+ "set USED_STATUS = ?" 
-			+ " where USER_ID = ? and PROMOTE_ID = ?";
+			+ "set USED_STATUS = ? " 
+			+ "where USER_ID = ? and PROMOTE_ID = ?";
 	
 	@Override
 	public void insert(PromoteDetailVO promoteDetailVO) {
@@ -245,6 +245,8 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setInt(1, promoteDetailVO.getUsedStatus());
+			pstmt.setInt(2, promoteDetailVO.getUserId());
+			pstmt.setInt(3, promoteDetailVO.getPromoteId());
 						
 			pstmt.executeUpdate();
 
@@ -277,39 +279,42 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO_interface{
 		
 		PromoteDetailDAO_interface dao = new PromoteDetailJDBCDAO();
 			
-		// insert
-		PromoteDetailVO promoteDetailVOi = new PromoteDetailVO();
-		promoteDetailVOi.setPromoteId(1);
-		promoteDetailVOi.setUserId(1);
-		promoteDetailVOi.setUsedStatus(2);
+//		insert 應該是用不到???
+//		PromoteDetailVO promoteDetailVOi = new PromoteDetailVO();
+//		promoteDetailVOi.setPromoteId(1);
+//		promoteDetailVOi.setUserId(1);
+//		promoteDetailVOi.setUsedStatus(2);
 
-		dao.insert(promoteDetailVOi);
+//		dao.insert(promoteDetailVOi);
 		
-		// select all
-		List<PromoteDetailVO> list = dao.getAll();
-		for(PromoteDetailVO alist: list) {
-			System.out.print(alist.getPromoteId() + ",");
-			System.out.print(alist.getUserId() + ",");
-			System.out.print(alist.getUsedStatus() + ",");
+//		select all
+//		List<PromoteDetailVO> list = dao.getAll();
+//		for(PromoteDetailVO alist: list) {
+//			System.out.print(alist.getPromoteId() + ",");
+//			System.out.print(alist.getUserId() + ",");
+//			System.out.print(alist.getUsedStatus() + ",");
+//			System.out.println();
+//		}
+		
+//		select one
+//		PromoteDetailVO promoteDetailVO = dao.findByPrimaryKey(1);
+//		System.out.print(promoteDetailVO.getPromoteId() + ",");
+//		System.out.print(promoteDetailVO.getUserId() + ",");
+//		System.out.print(promoteDetailVO.getUsedStatus() + ",");
 
-			System.out.println();
-		}
 		
-		// select one
-		PromoteDetailVO promoteDetailVO = dao.findByPrimaryKey(1);
-		System.out.print(promoteDetailVO.getPromoteId() + ",");
-		System.out.print(promoteDetailVO.getUserId() + ",");
-		System.out.print(promoteDetailVO.getUsedStatus() + ",");
-
+//		update
+//		PromoteDetailVO promoteDetailVOu = new PromoteDetailVO();
+//		promoteDetailVOu.setUsedStatus(2);
+//		promoteDetailVOu.setUserId(3);
+//		promoteDetailVOu.setPromoteId(2);
+//
+//		dao.update(promoteDetailVOu);
+//		System.out.println("更新成功");
 		
-		// update
-		PromoteDetailVO promoteDetailVOu = new PromoteDetailVO();
-		promoteDetailVOu.setUsedStatus(1);
-
-		dao.update(promoteDetailVOu);
-		
-		// delete
-		dao.delete(6);
+//		delete
+//		dao.delete();
+//		System.out.println("刪除成功");
 	}
 	
 }
