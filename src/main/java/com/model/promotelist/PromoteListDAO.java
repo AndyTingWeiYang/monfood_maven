@@ -15,4 +15,5 @@ public interface PromoteListDAO {
 		void delete(Integer promoteId);
 		
 		void update(PromoteListVO promoteListVO);
+		
 }
