@@ -299,27 +299,30 @@ public class PromoteListJDBCDAO implements PromoteListDAO_interface{
 		
 		PromoteListDAO_interface dao = new PromoteListJDBCDAO();
 			
-		// insert
+//		insert
+		
 //		PromoteListVO promoteListVOi = new PromoteListVO();
 //		
-//		promoteListVOi.setPromoteCode("國慶快樂");
-//		promoteListVOi.setPromotePrice(100);
+//		promoteListVOi.setPromoteCode("聖誕佳節");
+//		promoteListVOi.setPromotePrice(25);
 //
-//		String d1 = "2022-10-10";
-//		java.util.Date formattedDate1 = new SimpleDateFormat("yyyy-mm-dd").parse(d1);
+//		String d1 = "2022-12-01";
+//		java.util.Date formattedDate1 = new SimpleDateFormat("yyyy-MM-dd").parse(d1);
 //		java.sql.Date date1 = new Date(formattedDate1.getTime());
 //		
-//		String d2 = "2022-10-11";
-//		java.util.Date formattedDate2 = new SimpleDateFormat("yyyy-mm-dd").parse(d2);
+//		String d2 = "2022-12-30";
+//		java.util.Date formattedDate2 = new SimpleDateFormat("yyyy-MM-dd").parse(d2);
 //		java.sql.Date date2 = new Date(formattedDate2.getTime());
 //
 //		promoteListVOi.setStartDate(date1);
 //		promoteListVOi.setEndDate(date2);
-//		promoteListVOi.setStatus(2);
-//
+//		promoteListVOi.setStatus(3);
 //		dao.insert(promoteListVOi);
+//		System.out.println("新增成功");
 		
-//		 select all
+		
+//		select all
+		
 //		List<PromoteListVO> list = dao.getAll();
 //		for(PromoteListVO alist: list) {
 //			System.out.print(alist.getPromoteId() + ",");
@@ -332,7 +335,9 @@ public class PromoteListJDBCDAO implements PromoteListDAO_interface{
 //			System.out.println();
 //		}
 		
-		// select one
+		
+//		select one
+		
 //		PromoteListVO promoteListVO = dao.findByPrimaryKey(2);
 //		System.out.print(promoteListVO.getPromoteId() + ",");
 //		System.out.print(promoteListVO.getPromoteCode() + ",");
@@ -342,27 +347,30 @@ public class PromoteListJDBCDAO implements PromoteListDAO_interface{
 //		System.out.print(promoteListVO.getStatus() + ",");
 
 		
-		// update
+//		update
+		
 //		PromoteListVO promoteListVOu = new PromoteListVO();
 //		
-//		promoteListVOu.setPromoteCode("中秋你好");
+//		promoteListVOu.setPromoteCode("端午立蛋");
 //		promoteListVOu.setPromotePrice(30);
 //		
-//		String d3 = "2022-01-01";
-//		java.util.Date formattedDate3 = new SimpleDateFormat("yyyy-mm-dd").parse(d3);
+//		String d3 = "2022-06-01";
+//		java.util.Date formattedDate3 = new SimpleDateFormat("yyyy-MM-dd").parse(d3);
 //		java.sql.Date date3 = new Date(formattedDate3.getTime());
 //		
-//		String d4 = "2022-01-02";
-//		java.util.Date formattedDate4 = new SimpleDateFormat("yyyy-mm-dd").parse(d4);
+//		String d4 = "2022-06-30";
+//		java.util.Date formattedDate4 = new SimpleDateFormat("yyyy-MM-dd").parse(d4);
 //		java.sql.Date date4 = new Date(formattedDate4.getTime());
 //		
 //		promoteListVOu.setStartDate(date3);
 //		promoteListVOu.setEndDate(date4);
-//		promoteListVOu.setStatus(1);
+//		promoteListVOu.setStatus(2);
 //		promoteListVOu.setPromoteId(6);
 //		dao.update(promoteListVOu);
+//		System.out.println("更新成功");
 		
-		// delete
+//		delete
 //		dao.delete(10);
+//		System.out.println("刪除成功");
 	}
 }
