@@ -19,7 +19,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 
 	private static final String SELECT = "select * from MonFood.ADMINISTRATOR";
 	private static final String INSERT = "insert into MonFood.ADMINISTRATOR (ADMIN_ACCOUNT, ADMIN_PASSWORD, PERMISSION) values (?, ?, ?)";
-	private static final String UPDATE = "update MonFood.ADMINISTRATOR set ADMIN_PASSWORD=?, PERMISSION =?";
+	private static final String UPDATE = "update MonFood.ADMINISTRATOR set ADMIN_PASSWORD =?, PERMISSION =? where ADMIN_ID = ?";
 	private static final String DELETE = "delete from MonFood.ADMINISTRATOR where ADMINISTRATOR_ID= ?";
 
 	static {
@@ -127,9 +127,9 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(UPDATE);
 
-			pstmt.setString(1, admin.getAdminAccount());
-			pstmt.setString(2, admin.getAdminPassword());
-			pstmt.setInt(3, admin.getPermission());
+			pstmt.setString(1, admin.getAdminPassword());
+			pstmt.setInt(2, admin.getPermission());
+			pstmt.setInt(3, admin.getAdminID());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

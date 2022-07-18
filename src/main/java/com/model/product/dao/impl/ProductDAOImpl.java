@@ -24,7 +24,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	private static final String SELECT = "select * from MonFood.PRODUCT";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME)values (?,  ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "update MonFood.PRODUCT set RES_ID =?, PRODUCT_PIC= ?, PRODUCT_STATUS= ?, PRODUCT_PRICE= ?, PRODUCT_KCAL=?, PRODUCT_NAME=? , UPDATE_TIME=? ";
+	private static final String UPDATE = "update MonFood.PRODUCT set RES_ID =?, PRODUCT_PIC= ?, PRODUCT_STATUS= ?, PRODUCT_PRICE= ?, PRODUCT_KCAL=?, PRODUCT_NAME=? , UPDATE_TIME=? where PRODUCT_ID=?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 
 	static {
@@ -46,7 +46,7 @@ public class ProductDAOImpl implements ProductDAO {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(INSERT);
 
-			pstmt.setInt(1, product.getResID());//FK
+			pstmt.setInt(1, product.getResID());// FK
 			pstmt.setBytes(2, product.getProductPic());
 			pstmt.setInt(3, product.getProductStatus());
 			pstmt.setInt(4, product.getProductPrice());
@@ -150,6 +150,7 @@ public class ProductDAOImpl implements ProductDAO {
 			pstmt.setInt(5, product.getProductKcal());
 			pstmt.setString(6, product.getProductName());
 			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+			pstmt.setInt(8, product.getProductID());
 
 			pstmt.executeUpdate();
 
