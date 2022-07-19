@@ -31,7 +31,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	}
 
 	@Override
-	public List<AdministratorVO> findAll(AdministratorVO adminVO) {
+	public List<AdministratorVO> findAll() {
 		List<AdministratorVO> adminList = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;

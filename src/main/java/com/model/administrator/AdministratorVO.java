@@ -44,4 +44,11 @@ public class AdministratorVO implements Serializable {
 		this.permission = permission;
 	}
 
+	@Override
+	public String toString() {
+		return "AdministratorVO [adminID=" + adminID + ", adminAccount=" + adminAccount + ", adminPassword="
+				+ adminPassword + ", permission=" + permission + "]";
+	}
+	
+
 }

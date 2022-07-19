@@ -2,6 +2,7 @@ package com.model.product;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class ProductVO implements Serializable {
 
@@ -80,6 +81,13 @@ public class ProductVO implements Serializable {
 
 	public void setProductPic(byte[] productPic) {
 		this.productPic = productPic;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductVO [productID=" + productID + ", resID=" + resID + ", productStatus=" + productStatus
+				+ ", productPrice=" + productPrice + ", productKcal=" + productKcal + ", productName=" + productName
+				+ ", updateTime=" + updateTime + "]";
 	}
 
 }
