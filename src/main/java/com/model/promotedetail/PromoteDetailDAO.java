@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.model.promotedetail.PromoteDetailVO;
 
-public interface PromoteDetailDAO_interface {
+public interface PromoteDetailDAO {
 
       void insert(PromoteDetailVO promoteDetailVO);
 	

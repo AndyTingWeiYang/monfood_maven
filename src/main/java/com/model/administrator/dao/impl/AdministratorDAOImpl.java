@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.administrator.AdministratorVO;
-import com.model.administrator.dao.AdministratoeDAO;
+import com.model.administrator.dao.AdministratorDAO;
 
-public class AdministratorDAOImpl implements AdministratoeDAO {
+public class AdministratorDAOImpl implements AdministratorDAO {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	public static final String USER = "root";
@@ -19,7 +19,7 @@ public class AdministratorDAOImpl implements AdministratoeDAO {
 
 	private static final String SELECT = "select * from MonFood.ADMINISTRATOR";
 	private static final String INSERT = "insert into MonFood.ADMINISTRATOR (ADMIN_ACCOUNT, ADMIN_PASSWORD, PERMISSION) values (?, ?, ?)";
-	private static final String UPDATE = "update MonFood.ADMINISTRATOR set ADMIN_PASSWORD=?, PERMISSION =?";
+	private static final String UPDATE = "update MonFood.ADMINISTRATOR set ADMIN_PASSWORD =?, PERMISSION =? where ADMIN_ID = ?";
 	private static final String DELETE = "delete from MonFood.ADMINISTRATOR where ADMINISTRATOR_ID= ?";
 
 	static {
@@ -127,9 +127,9 @@ public class AdministratorDAOImpl implements AdministratoeDAO {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(UPDATE);
 
-			pstmt.setString(1, admin.getAdminAccount());
-			pstmt.setString(2, admin.getAdminPassword());
-			pstmt.setInt(3, admin.getPermission());
+			pstmt.setString(1, admin.getAdminPassword());
+			pstmt.setInt(2, admin.getPermission());
+			pstmt.setInt(3, admin.getAdminID());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

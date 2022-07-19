@@ -60,6 +60,6 @@ public class PromoteListVO implements Serializable{
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+		
 	}
-	
 }
