@@ -40,7 +40,4 @@ public class PromoteDetailVO implements Serializable{
 	public void setUsedStatus(Integer usedStatus) {
 		this.usedStatus = usedStatus;
 	}
-
-	
-	
 }

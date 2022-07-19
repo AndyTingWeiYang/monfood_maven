@@ -12,13 +12,13 @@ import java.util.List;
 
 import com.model.del.MyData;
 import com.model.order.OrderVO;
-import com.model.promotelist.PromoteListDAO_interface;
+import com.model.promotelist.PromoteListDAO;
 import com.model.promotelist.PromoteListVO;
 
 import java.sql.Date;
 
 
-public class PromoteListJDBCDAO implements PromoteListDAO_interface{
+public class PromoteListJDBCDAO implements PromoteListDAO{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
@@ -297,7 +297,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO_interface{
 	
 	public static void main(String[] args) throws ParseException {
 		
-		PromoteListDAO_interface dao = new PromoteListJDBCDAO();
+		PromoteListDAO dao = new PromoteListJDBCDAO();
 			
 //		insert
 		
@@ -372,5 +372,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO_interface{
 //		delete
 //		dao.delete(10);
 //		System.out.println("刪除成功");
+		
+		
 	}
 }
