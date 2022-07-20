@@ -129,7 +129,7 @@ public class TestUserJDBCDAOImpl {
 //		dao.update(userVO);
 //		System.out.println("update successful");
 		
-//System.out.println(----------update----------);
+//System.out.println(----------delete----------);
 //		System.out.println("請輸入要刪除的會員編號(userId)");
 //		Integer userId = sc.nextInt();
 //		
@@ -140,44 +140,68 @@ public class TestUserJDBCDAOImpl {
 //		System.out.println("delete successful");
 		
 //System.out.println(----------selectByUserId----------);	
-//		System.out.println("請輸入要查詢的會員編號(userId)");
-//		Integer userId = sc.nextInt();
-//		
-//		sc.close();
-//		
-//		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
-//		UserVO userVO = dao.selectByUserId(userId);
-//		
-//		// 取得DB資料
-//		System.out.println("userName = " + userVO.getUserName());
-//		System.out.println("userAccount = " + userVO.getUserAccount());
-//		System.out.println("userPassword = " + userVO.getUserPassword());
-//		System.out.println("userTel = " + userVO.getUserTel());
-//		System.out.println("userProfile = " + userVO.getUserProfile());
-//		System.out.println("birthday = " + userVO.getBirthday());
-//		System.out.println("calories = " + userVO.getCalories());
-//		System.out.println("budget = " + userVO.getBudget());
-//		System.out.println("profilePic = " + userVO.getProfilePic());
-//		System.out.println("monsLevel = " + userVO.getMonsLevel());
-//		System.out.println("monsName = " + userVO.getMonsName());
-//		System.out.println("updateTime = " + userVO.getUpdateTime());
-//
-//		System.out.println("selectByUserId successful");
+		System.out.println("請輸入要查詢的會員編號(userId)");
+		Integer userId = sc.nextInt();
 		
-//System.out.println(----------getAll----------);			
-		System.out.println("為您查詢所有的會員資料");
+		sc.close();
 		
 		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
-		List<UserVO> listUserVO = dao.getAll();
-		int count = 0 ;
-		for(UserVO userVO : listUserVO) {
-			System.out.println(userVO.toString());
-			count++;
-		}
+		UserVO userVO = dao.selectByUserId(userId);
 		
-		System.out.println("查詢完畢，"+"共"+count++ +"筆資料");
+		// 取得DB資料
+		System.out.println("userName = " + userVO.getUserName());
+		System.out.println("userAccount = " + userVO.getUserAccount());
+		System.out.println("userPassword = " + userVO.getUserPassword());
+		System.out.println("userTel = " + userVO.getUserTel());
+		System.out.println("userProfile = " + userVO.getUserProfile());
+		System.out.println("birthday = " + userVO.getBirthday());
+		System.out.println("calories = " + userVO.getCalories());
+		System.out.println("budget = " + userVO.getBudget());
+		System.out.println("profilePic = " + userVO.getProfilePic());
+		System.out.println("monsLevel = " + userVO.getMonsLevel());
+		System.out.println("monsName = " + userVO.getMonsName());
+		System.out.println("updateTime = " + userVO.getUpdateTime());
+
+		System.out.println("selectByUserId successful");
+		
+//System.out.println(----------getAll----------);			
+//		System.out.println("為您查詢所有的會員資料");
+//		
+//		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
+//		List<UserVO> listUserVO = dao.getAll();
+//		int count = 0 ;
+//		for(UserVO userVO : listUserVO) {
+//			System.out.println(userVO.toString());
+//			count++;
+//		}
+//		
+//		System.out.println("查詢完畢，"+"共"+count++ +"筆資料");
+		
+//System.out.println(----------getAllUserId----------);		
+//		System.out.println("為您查詢所有的會員編號");
+//		
+//		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
+//		List<UserVO> listUserVO = dao.getAllUserId();
+//		int count = 0 ;
+//		for(UserVO userVO : listUserVO) {
+//			System.out.println("USER_ID：" + userVO.getUserId());
+//			count++;
+//		}
+//		
+//		System.out.println("查詢完畢，"+"共"+count++ +"位會員");
+
 		
 	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	//Pic IO method
 	public static byte[] getPicByteArray(String path) throws IOException{

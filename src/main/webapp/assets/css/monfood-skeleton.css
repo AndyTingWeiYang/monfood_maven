@@ -1,0 +1,132 @@
+/** global */
+a,
+a:hover,
+a:visited,
+a:link,
+a:active {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+
+button.mf-bdr-15 {
+    border-radius: 15px;
+}
+
+.btn-check:focus+.btn-outline-dark,
+.btn-outline-dark:focus {
+    box-shadow: none !important;
+}
+
+/** header */
+.mf-navbar {
+    background: #3d424e;
+}
+
+.mf-navbar .navbar-brand-wrapper {
+    background: #3d424e;
+}
+
+.mf-dropdown-menu {
+    background: #3d424e;
+}
+
+.mf-dropdown-menu .dropdown-item:hover,
+.dropdown-item:focus {
+    background: #ffffff;
+    color: #3d424e !important;
+}
+
+span.logo {
+    color: white;
+    font-size: 20px;
+}
+
+span.logo2 {
+    color: white;
+    font-size: 20px;
+
+}
+
+/** sidebar */
+.sidebar.mf-sidebar {
+    min-height: 800px;
+    background: white;
+}
+
+.sidebar .mf-sidebar {
+    background: #3d424e;
+}
+
+.sidebar.mf-sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
+    background: #3d424e;
+    color: #ffffff;
+}
+
+.sidebar.mf-sidebar .nav.sub-menu .nav-item .nav-link:hover {
+    color: #3d424e;
+}
+
+.mf-border-left {
+    border-left: 1px solid rgb(255, 254, 254);
+}
+
+.mf-dropdown-divider {
+    border-left: 1px solid rgb(255, 254, 254);
+}
+
+.mf-username {
+    color: #6c7293;
+}
+
+.sidebar .nav .nav-item.active>.nav-link {
+    background: #3d424e;
+}
+
+
+
+/** content */
+.mf-content-wrapper {
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    background: white;
+    color: black;
+}
+
+/** footer */
+.mf-footer {
+    margin-left: -260px;
+    background: #3d424e;
+    color: white !important;
+}
+
+@media (max-width: 991px) {
+    .mf-footer {
+        margin-left: 0;
+    }
+}
+
+/** DataTable */
+.dataTables_wrapper select:focus {
+    background-color: white;
+}
+
+.dataTables_wrapper .dataTable thead .sorting:before {
+    right: 0;
+}
+
+.dataTables_wrapper .dataTable thead .sorting::after {
+    right: 0;
+}
+
+.row.result{
+    width: 970px
+  }
+
+  @media (max-width: 767.98px){
+    .row.result{
+        width: 335px;
+    }
+  }
