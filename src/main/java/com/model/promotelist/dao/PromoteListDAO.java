@@ -1,4 +1,4 @@
-package com.model.promotelist;
+package com.model.promotelist.dao;
 
 import java.util.List;
 
