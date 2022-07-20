@@ -1,4 +1,4 @@
-package com.model.promotelist;
+package com.model.promotelist.dao.Impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.model.del.MyData;
 import com.model.order.OrderVO;
-import com.model.promotelist.PromoteListDAO;
+import com.model.promotelist.dao.PromoteListDAO;
 import com.model.promotelist.PromoteListVO;
 
 import java.sql.Date;
