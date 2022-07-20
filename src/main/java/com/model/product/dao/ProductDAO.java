@@ -7,7 +7,7 @@ import com.model.product.ProductVO;
 
 public interface ProductDAO {
 
-	public List<ProductVO> findAll(ProductVO product);
+	public List<ProductVO> findAll();
 
 	public void insert(ProductVO product) throws IOException;
 

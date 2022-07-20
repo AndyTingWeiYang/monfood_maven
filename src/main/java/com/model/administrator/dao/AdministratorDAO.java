@@ -6,7 +6,7 @@ import com.model.administrator.AdministratorVO;
 
 public interface AdministratorDAO {
 
-	public List<AdministratorVO> findAll (AdministratorVO admin);
+	public List<AdministratorVO> findAll ();
 	public void insert(AdministratorVO admin);
 	public void update(AdministratorVO admin);
 	public void delete(AdministratorVO adminID);

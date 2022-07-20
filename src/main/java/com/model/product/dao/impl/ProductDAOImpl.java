@@ -77,7 +77,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> findAll(ProductVO product) {
+	public List<ProductVO> findAll() {
 		List<ProductVO> productList = new ArrayList<>();
 		ProductVO productVO = null;
 

@@ -3,6 +3,7 @@ package com.model.product;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import com.model.administrator.AdministratorVO;
 import com.model.administrator.dao.AdministratorDAO;
@@ -16,8 +17,9 @@ public class TestProductAdmin {
 //		proccessInsertProduct();
 //		proccessUpdateAdmin();
 //		proccessInsertProduct();
-		proccessUpdateProduct();
-
+//		proccessUpdateProduct();
+//		proccessFindAllProduct();
+		proccessFindAllAdmin();
 	}
 
 	private static void proccessInsertAdmin() {
@@ -90,6 +92,33 @@ public class TestProductAdmin {
 		productDAO.update(product);
 		System.out.println("success update");
 
+	}
+
+	private static void proccessFindAllProduct() {
+		ProductDAO productDAO = new ProductDAOImpl();
+		List<ProductVO> productList = productDAO.findAll();
+
+		for (ProductVO product : productList) {
+
+			System.out.println(product.getProductID());
+			System.out.println(product.getProductKcal());
+			System.out.println(product.getProductName());
+			System.out.println(product.getProductPic());
+			System.out.println(product.getProductPrice());
+			System.out.println(product.getProductStatus());
+			System.out.println(product.getResID());
+		}
+	}
+
+	public static void proccessFindAllAdmin() {
+		AdministratorDAO adminDAO = new AdministratorDAOImpl();
+		List<AdministratorVO> adminList = adminDAO.findAll();
+
+		for (AdministratorVO admin : adminList) {
+
+			System.out.println(
+					admin.getAdminID() + admin.getAdminAccount() + admin.getAdminPassword() + admin.getPermission());
+		}
 	}
 
 }
