@@ -1,0 +1,29 @@
+package com.model.location;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface ILocationDAO {
+
+	//取得連線,拋出SQL例外
+	//public void getConnection() throws SQLException;
+	
+	//進行新增(新增對象),拋出SQL例外
+	public void insert(LocationVO locationVO) throws SQLException;
+	
+	//進行修改(修改對象),拋出SQL例外
+	public void update(LocationVO locationVO) throws SQLException;
+	
+	//進行刪除(刪除對象)根據PK鍵,拋出SQL例外
+	public void delete(Integer locationId) throws SQLException;
+	
+	//進行VO單一數據查找根據PK鍵,拋出SQL例外
+	public LocationVO findByPrimaryKey(Integer locationId) throws SQLException;
+	
+	//進行VO全部查找,拋出SQL例外
+	public List<LocationVO> getAll() throws SQLException;
+	
+	//關閉連線,拋出SQL例外
+	//public void closeConn() throws SQLException;
+	    
+}

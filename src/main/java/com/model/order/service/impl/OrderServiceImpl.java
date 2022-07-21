@@ -3,8 +3,9 @@ package com.model.order.service.impl;
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
+import com.model.order.service.OrderService;
 
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
 	
 	private OrderDAO dao;
 	
@@ -12,6 +13,7 @@ public class OrderServiceImpl {
 		dao = new OrderJDBCDAOimpl();
 	}
 	
+	@Override
 	public String adminFindOrderId(OrderVO orderVO) {
 		
 		final Integer orderId = orderVO.getOrderId();
@@ -21,6 +23,14 @@ public class OrderServiceImpl {
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public OrderVO adminFindVO(OrderVO orderVO) {
+		
+		final Integer orderId = orderVO.getOrderId();
+		orderVO = dao.findByPrimaryKey(orderId);
+		return orderVO;
 	}
 	
 	
