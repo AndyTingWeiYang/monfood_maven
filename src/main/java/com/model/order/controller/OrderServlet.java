@@ -18,21 +18,17 @@ import com.model.order.service.impl.OrderServiceImpl;
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
+		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
+		
 		try {
 			OrderVO orderVO = gson.fromJson(request.getReader(), OrderVO.class);
 			OrderService service = new OrderServiceImpl();
-			
 			final OrderVO result = service.adminFindVO(orderVO);
 			
-//			final String errMsg = service.adminFindOrderId(orderVO);
 			respObj.addProperty("orderId", result.getOrderId());
 			respObj.addProperty("userId", result.getUserId());
 			respObj.addProperty("resId", result.getResId());
@@ -60,7 +56,10 @@ public class OrderServlet extends HttpServlet {
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
 		response.getWriter().append(gson.toJson(respObj));
-		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
 
 }
