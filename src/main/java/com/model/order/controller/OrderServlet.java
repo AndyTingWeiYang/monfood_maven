@@ -27,29 +27,15 @@ public class OrderServlet extends HttpServlet {
 		try {
 			OrderVO orderVO = gson.fromJson(request.getReader(), OrderVO.class);
 			OrderService service = new OrderServiceImpl();
-			final OrderVO result = service.adminFindVO(orderVO);
+			final OrderVO result = service.adminFindOrderId(orderVO);
 			
-			respObj.addProperty("orderId", result.getOrderId());
-			respObj.addProperty("userId", result.getUserId());
-			respObj.addProperty("resId", result.getResId());
-			respObj.addProperty("delId", result.getDelId());
-			respObj.addProperty("orderStatus", result.getOrderStatus());
-			respObj.addProperty("note", result.getNote());
-			respObj.addProperty("userLocation", result.getUserLocation());
-			respObj.addProperty("orderCreate", result.getOrderCreate().toString());
-			respObj.addProperty("orderDone", result.getOrderDone().toString());
-			respObj.addProperty("productKcalTotal", result.getProductKcalTotal());
-			respObj.addProperty("total", result.getTotal());
-			respObj.addProperty("delCost", result.getDelCost());
-			respObj.addProperty("useCash", result.getUseCash());
-			respObj.addProperty("creditId", result.getCreditId());
-			respObj.addProperty("bonus", result.getBonus());
-			respObj.addProperty("rating", result.getRating());
-			respObj.addProperty("resRate", result.getResRate());
-			respObj.addProperty("delRate", result.getDelRate());
-			respObj.addProperty("resComment", result.getResComment());
-			respObj.addProperty("delComment", result.getDelComment());
-			respObj.addProperty("promoteId", result.getPromoteId());
+			if (result == null) {
+				respObj.addProperty("errMsg", "無此訂單");
+				response.getWriter().append(gson.toJson(respObj));
+				return;
+			}
+			
+			respObj.add("Orders", gson.toJsonTree(result));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -14,23 +14,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public String adminFindOrderId(OrderVO orderVO) {
-		
-		final Integer orderId = orderVO.getOrderId();
-		
-		if(orderId == null) {
-			return "請輸入數字";
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public OrderVO adminFindVO(OrderVO orderVO) {
+	public OrderVO adminFindOrderId(OrderVO orderVO) {
 		
 		final Integer orderId = orderVO.getOrderId();
 		orderVO = dao.findByPrimaryKey(orderId);
+
+		if(orderId == null) {
+			return null;
+		}
+		
 		return orderVO;
+		
 	}
 	
 	
