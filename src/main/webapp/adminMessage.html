@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>MonFood</title>
+  <!-- w3c.js 引入共用畫面 -->
+  
+</head>
+
+
+<body>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
+  <div class="container-scroller">
+
+    <!-- ===== sidebar start ===== -->
+    <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
+    <div w3-include-html="adminSidebar.html"></div>
+    <!-- ===== sidebar end ===== -->
+
+    <div class="container-fluid page-body-wrapper">
+      <!-- ===== header start ===== -->
+      <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
+      <div w3-include-html="adminHeader.html"></div>
+      <!-- ===== header end ===== -->
+
+      <div class="main-panel">
+        <!-- ===== 內容客製化區塊 start ===== -->
+        <div class="mf-content-wrapper mt-5">
+          <!-- 表單區塊 -->
+          <div class="jumbotron">
+            <div class="form-group row">
+              <label for="promoteMessage" class="col-sm-12 col-form-label">推播通知</label>
+              <div class="col-sm-12">
+                <input type="text" placeholder="輸入推播通知" name="promoteMessage" class="form-control" id="promoteMessage">
+              </div>
+
+              <label for="MessageStart" class="col-sm-12 col-form-label">開始日期</label>
+              <div class="col-sm-12">
+                <input type="date" name="MessageStart" class="form-control" id="MessageStart">
+              </div>
+              
+              <label for="MessageEnd" class="col-sm-12 col-form-label">結束日期</label>
+              <div class="col-sm-12">
+                <input type="date" name="MessageEnd" class="form-control" id="MessageEnd">
+              </div>
+
+              <div class="col-sm-12 d-flex justify-content-end mt-3">
+                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出新增</button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- ===== 內容客製化區塊 ===== -->
+
+
+        <!-- ===== footer start ===== -->
+        <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
+        <div w3-include-html="adminFooter.html"></div>
+        <!-- ===== footer end ===== -->
+      </div>
+    </div>
+  </div>
+  <script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      w3.includeHTML(function () {
+        var scriptObj = document.querySelectorAll('script[src^="assets"]');
+  
+        for (var i = 0; i < scriptObj.length; i++) {
+          var scriptElement = document.createElement('script');
+          scriptElement.src = scriptObj[i].getAttribute('src');
+  
+          document.head.appendChild(scriptElement);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

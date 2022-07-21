@@ -28,7 +28,9 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SELECTBYUSERID = "SELECT * FROM MonFood.USER WHERE USER_ID = ? ";
 	// 查詢全部
 	private static final String GETALL = "SELECT * FROM MonFood.USER ORDER BY USER_ID";
-	
+	// 查詢全部會員編號
+	private static final String DETALLUSERID = "SELECT USER_ID FROM MonFood.USER ORDER BY USER_ID";
+
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -171,16 +173,16 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(SELECTBYUSERID);
-			
+
 			pstmt.setInt(1, userId);
-			
-			rs = pstmt.executeQuery();  // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
-			
-			while(rs.next()) {
+
+			rs = pstmt.executeQuery(); // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
+
+			while (rs.next()) {
 				userVO = new UserVO();
 				userVO.setUserId(rs.getInt("USER_ID"));
 				userVO.setUserName(rs.getString("USER_NAME"));
@@ -223,18 +225,18 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserVO> getAll() {
 		List<UserVO> listUserVO = new ArrayList<UserVO>();
 		UserVO userVO = null;
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(GETALL);
-			
+
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				userVO = new UserVO();
 				userVO.setUserId(rs.getInt("USER_ID"));
 				userVO.setUserName(rs.getString("USER_NAME"));
@@ -245,11 +247,11 @@ public class UserDAOImpl implements UserDAO {
 				userVO.setBirthday(rs.getDate("BIRTHDAY"));
 				userVO.setCalories(rs.getInt("CALORIES"));
 				userVO.setBudget(rs.getInt("BUDGET"));
-//				userVO.setProfilePic(rs.getBytes("PROFILE_PIC"));
+//				userVO.setProfilePic(rs.getBytes("PROFILE_PIC"));  //圖片位元資料太大 如果印出來會超出位元輸出上限 所以先註解
 				userVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
 				userVO.setMonsName(rs.getString("MONS_NAME"));
 				userVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
-				
+
 				listUserVO.add(userVO); // Store the row in the list
 			}
 		} catch (SQLException se) {
@@ -270,8 +272,51 @@ public class UserDAOImpl implements UserDAO {
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
+		}
 		return listUserVO;
 	}
 
+	@Override
+	public List<UserVO> getAllUserId() {
+
+		List<UserVO> listUserVO = new ArrayList<UserVO>();
+		UserVO userVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(DETALLUSERID);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				userVO = new UserVO();
+				userVO.setUserId(rs.getInt("USER_ID"));
+
+				listUserVO.add(userVO); // Store the row in the list
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return listUserVO;
+	}
 }

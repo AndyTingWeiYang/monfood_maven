@@ -10,4 +10,6 @@ public interface UserDAO {
 	void delete(Integer userId);
 	public UserVO selectByUserId(Integer userId);
 	List<UserVO> getAll();
+	List<UserVO> getAllUserId();
+	
 }
