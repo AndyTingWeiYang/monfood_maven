@@ -1,15 +1,16 @@
-package com.model.promotedetail;
+package com.model.promotedetail.serviceImpl;
 
 import java.util.List;
 
+import com.model.promotedetail.PromoteDetailVO;
 import com.model.promotedetail.dao.PromoteDetailDAO;
 import com.model.promotedetail.dao.Impl.PromoteDetailJDBCDAO;
 
-public class PromoteDetailService {
+public class PromoteDetailServiceImpl {
 
 	private PromoteDetailDAO dao;
 
-	public PromoteDetailService() {
+	public PromoteDetailServiceImpl() {
 		dao = new PromoteDetailJDBCDAO();
 	}
 

@@ -1,16 +1,17 @@
-package com.model.promotelist;
+package com.model.promotelist.serviceImpl;
 
 import java.util.List;
 
+import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.dao.PromoteListDAO;
 import com.model.promotelist.dao.Impl.PromoteListJDBCDAO;
 
-public class PromoteListService {
+public class PromoteListServiceImpl {
 
 	
 	private PromoteListDAO dao;
 
-	public PromoteListService() {
+	public PromoteListServiceImpl() {
 		dao = new PromoteListJDBCDAO();
 	}
 
