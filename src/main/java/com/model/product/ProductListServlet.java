@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.map.HashedMap;
+
+import com.model.product.service.ProductListService;
+import com.model.product.service.impl.ProductListServiceImpl;
 
 @WebServlet("/ProductListServlet")
 public class ProductListServlet extends HttpServlet {
@@ -28,15 +32,16 @@ public class ProductListServlet extends HttpServlet {
 		processListFindAll(request, response);
 	}
 
-	private void processListFindAll(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void processListFindAll(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charcet=UTF-8");
 
 		Map<String, String> dataMap = requestToMap(request);
-		
-		
-		
-
+		ProductListService productListService = new ProductListServiceImpl();
+		List<ProductVO> productList = productListService.findAll(dataMap);
+		request.setAttribute("productList", productList);
+		RequestDispatcher rd = request.getRequestDispatcher("resprofile-product-list.jsp");
+		rd.forward(request, response);
 	}
 
 	private Map<String, String> requestToMap(HttpServletRequest request) {
