@@ -19,7 +19,7 @@ public class UserDAOImpl implements UserDAO {
 
 // SQL指令
 	// 新增
-	private static final String INSERT_STMT = "INSERT INTO MonFood.USER(USER_NAME,USER_ACCOUNT,USER_PASSWORD,USER_TEL,USER_PROFILE,BIRTHDAY,CALORIES,BUDGET,PROFILE_PIC,MONS_LEVEL,MONS_NAME, UPDATE_TIME) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_STMT = "INSERT INTO MonFood.USER(USER_NAME,USER_ACCOUNT,USER_PASSWORD,USER_TEL,BIRTHDAY,UPDATE_TIME) VALUES (?,?,?,?,?,?)";
 	// 更新
 	private static final String UPDATE = "UPDATE MonFood.USER SET USER_NAME = ?,USER_ACCOUNT = ?,USER_PASSWORD = ?,USER_TEL = ?,USER_PROFILE = ?,BIRTHDAY = ?,CALORIES = ?,BUDGET = ?,PROFILE_PIC = ?,MONS_LEVEL = ?,MONS_NAME = ?,UPDATE_TIME = ? WHERE USER_ID = ?";
 	// 刪除
@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void insert(UserVO userVO) {
+	public int insert(UserVO userVO) {
 		// get connect
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -52,14 +52,8 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setString(2, userVO.getUserAccount());
 			pstmt.setString(3, userVO.getUserPassword());
 			pstmt.setString(4, userVO.getUserTel());
-			pstmt.setString(5, userVO.getUserProfile());
-			pstmt.setDate(6, userVO.getBirthday());
-			pstmt.setInt(7, userVO.getCalories());
-			pstmt.setInt(8, userVO.getBudget());
-			pstmt.setBytes(9, userVO.getProfilePic());
-			pstmt.setInt(10, userVO.getMonsLevel());
-			pstmt.setString(11, userVO.getMonsName());
-			pstmt.setTimestamp(12, userVO.getUpdateTime());
+			pstmt.setDate(5, userVO.getBirthday());
+			pstmt.setTimestamp(6, userVO.getUpdateTime());
 
 			pstmt.executeUpdate();
 			// Handle any SQL errors
@@ -82,6 +76,7 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
+		return -1;
 	}
 
 	@Override
