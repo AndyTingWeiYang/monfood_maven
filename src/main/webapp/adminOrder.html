@@ -12,7 +12,7 @@
 
 <body>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="assets/js/jQuery-3.6.0.js"></script>
+
   <div class="container-scroller">
 
     <!-- ===== sidebar start ===== -->
@@ -37,7 +37,7 @@
                 <input type="text" name="orderId" class="form-control" id="orderId">
               </div>
               <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出查詢</button>
+                <button id="submit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出查詢</button>
               </div>
             </div>
           </div>
@@ -149,6 +149,8 @@
       </div>
     </div>
   </div>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
+  <script src="js/adminOrder.js"></script>
   <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
