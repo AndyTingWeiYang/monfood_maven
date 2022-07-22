@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>buttonContent</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
+    <!-- 整合完的buttonContent Css -->
+    <link rel="stylesheet" href="css/buttonContent.css" />
+  </head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 右下按鈕 -->
+    <div id="container-floating">
+      <!-- 配對紐 -->
+      <button
+        class="nd3 nds"
+        data-toggle="tooltip"
+        data-placement="left"
+        data-bs-toggle="modal"
+        data-bs-target="#todayPairModal"
+      >
+        <img class="reminder" id="pair" src="images/handshake.png" />
+      </button>
+      <!-- 聊天紐 -->
+      <button
+        class="nd1 nds"
+        data-toggle="tooltip"
+        data-placement="left"
+        data-bs-toggle="modal"
+        data-bs-target="#chatListModal"
+      >
+        <img class="reminder" />
+        <p class="letter">
+          <img class="chat" src="images/chat.png" />
+        </p>
+      </button>
+      <div id="floating-button" data-toggle="tooltip" data-placement="left">
+        <p class="plus"></p>
+        <img class="edit" src="images/connection.png" />
+      </div>
+    </div>
+
+    <!-- 今日配對頁面Modal -->
+    <div
+      class="modal fade"
+      id="todayPairModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <h4 id="pairTitle">今日配對</h4>
+          <!-- 三欄網格 -->
+          <div class="container">
+            <div class="row">
+              <div id="acceptPairDiv" class="col">
+                <!-- 接受配對按鈕 -->
+                <div id="acceptPair">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="acceptPairBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#waitPairModal"
+                  >
+                    接受配對
+                  </button>
+                </div>
+              </div>
+              <div class="col-6">
+                <!-- 自我介紹區塊 -->
+                <div id="intro">
+                  <div class="modal-body">
+                    <img
+                      id="headshot"
+                      src="images/istockphoto-1007179332-612x612.jpg"
+                    />
+                    <h5 class="name">David</h5>
+                    <p>
+                      自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <!-- 拒絕配對按鈕 -->
+                <div id="refusePair">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="refusePairBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#waitNightPairModal"
+                  >
+                    拒絕配對
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 等待配對頁面Modal -->
+    <div
+      class="modal"
+      id="waitPairModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <h4 id="pairTitle">等待配對</h4>
+          <div id="waitPairInfo" class="col align-self-center">
+            <img id="waitPairImg" src="images/impatient.png" alt="" />
+            <p id="sendIv">已送出邀請，請耐心等待</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 配對成功頁面Modal -->
+    <!-- <div
+      class="modal"
+      id="successPairModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <h4 id="pairTitle">配對成功</h4>
+          <div id="successPairInfo" class="col align-self-center">
+            <img id="successPairImg" src="images/friends.png" alt="" />
+            <p id="beocmeFriends">您已與David成為好友</p>
+            <a href="http://127.0.0.1:5501/messenger.html#" id="startChat"
+              >點此開始聊天</a
+            >
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- (拒絕)等待午夜配對頁面Modal -->
+    <div
+      class="modal"
+      id="waitNightPairModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <h4 id="pairTitle">等待下次配對</h4>
+          <div id="waitNightPairInfo" class="col align-self-center">
+            <img
+              id="waitNightPairImg"
+              src="images/day-and-night.png"
+              alt=""
+            />
+            <p id="nightPair">您已拒絕與David成為好友</p>
+            <p id="nightPair">等待午夜降臨</p>
+            <p id="nightPair">等待12點一到，即可進行下次配對</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 訊息列表chatListModal -->
+    <div
+      class="modal fade"
+      id="chatListModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <h5 id="messageHeader">訊息列表</h5>
+          <div class="modal-body">
+            <div class="list-group">
+              <!-- 訊息欄start -->
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                data-bs-toggle="modal"
+                data-bs-target="#chatRoomModal"
+              >
+                <div class="d-flex w-100">
+                  <div id="avatarList"></div>
+                  <div id="chatList">
+                    <h5 class="mb-1">David</h5>
+                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                  </div>
+                  <div id="sendTime">
+                    <small>22:30</small>
+                    <br />
+                    <span id="messageNum" class="badge rounded-pill">14</span>
+                  </div>
+                </div>
+              </a>
+              <!-- 訊息欄end -->
+              <!-- 訊息欄start -->
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                data-bs-toggle="modal"
+                data-bs-target="#chatRoomModal"
+              >
+                <div class="d-flex w-100">
+                  <div id="avatarList"></div>
+                  <div id="chatList">
+                    <h5 class="mb-1">David</h5>
+                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                  </div>
+                  <div id="sendTime">
+                    <small>22:30</small>
+                    <br />
+                    <span id="messageNum" class="badge rounded-pill">14</span>
+                  </div>
+                </div>
+              </a>
+              <!-- 訊息欄end -->
+              <!-- 訊息欄start -->
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                data-bs-toggle="modal"
+                data-bs-target="#chatRoomModal"
+              >
+                <div class="d-flex w-100">
+                  <div id="avatarList"></div>
+                  <div id="chatList">
+                    <h5 class="mb-1">David</h5>
+                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                  </div>
+                  <div id="sendTime">
+                    <small>22:30</small>
+                    <br />
+                    <span id="messageNum" class="badge rounded-pill">14</span>
+                  </div>
+                </div>
+              </a>
+              <!-- 訊息欄end -->
+              <!-- 訊息欄start -->
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                data-bs-toggle="modal"
+                data-bs-target="#chatRoomModal"
+              >
+                <div class="d-flex w-100">
+                  <div id="avatarList"></div>
+                  <div id="chatList">
+                    <h5 class="mb-1">David</h5>
+                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                  </div>
+                  <div id="sendTime">
+                    <small>22:30</small>
+                    <br />
+                    <span id="messageNum" class="badge rounded-pill">14</span>
+                  </div>
+                </div>
+              </a>
+              <!-- 訊息欄end -->
+              <!-- 訊息欄start -->
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                data-bs-toggle="modal"
+                data-bs-target="#chatRoomModal"
+              >
+                <div class="d-flex w-100">
+                  <div id="avatarList"></div>
+                  <div id="chatList">
+                    <h5 class="mb-1">David</h5>
+                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                  </div>
+                  <div id="sendTime">
+                    <small>22:30</small>
+                    <br />
+                    <span id="messageNum" class="badge rounded-pill">14</span>
+                  </div>
+                </div>
+              </a>
+              <!-- 訊息欄end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 聊天室燈箱chatRoomModal -->
+    <div
+      class="modal fade"
+      id="chatRoomModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalHeader" class="modal-header">
+            <h5>
+              <span class="logo">Mon</span><span class="logo2">Food</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- 聊天室 -->
+
+            <div class="top_menu">
+              <div class="buttons">
+                <button
+                  id="back"
+                  data-bs-toggle="modal"
+                  data-bs-target="#chatListModal"
+                >
+                  <
+                </button>
+              </div>
+              <div class="title">David</div>
+            </div>
+            <ul class="messages"></ul>
+            <!-- 最下面文字訊息框及送出 -->
+            <div id="sendMsg" class="bottom_wrapper clearfix">
+              <div class="message_input_wrapper">
+                <input class="message_input" placeholder="請輸入文字. . . " />
+              </div>
+              <div class="send_message">
+                <div class="icon"></div>
+                <div class="text">送出</div>
+              </div>
+            </div>
+          </div>
+          <!-- 聊天內容 -->
+          <div class="message_template">
+            <li class="message">
+              <div class="avatar"></div>
+              <div class="text_wrapper">
+                <div class="text"></div>
+              </div>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      // 聊天室
+      (function () {
+        var Message;
+        Message = function (arg) {
+          (this.text = arg.text), (this.message_side = arg.message_side);
+          this.draw = (function (_this) {
+            return function () {
+              var $message;
+              $message = $($(".message_template").clone().html());
+              $message
+                .addClass(_this.message_side)
+                .find(".text")
+                .html(_this.text);
+              $(".messages").append($message);
+              return setTimeout(function () {
+                return $message.addClass("appeared");
+              }, 0);
+            };
+          })(this);
+          return this;
+        };
+        $(function () {
+          var getMessageText, message_side, sendMessage;
+          message_side = "right";
+          getMessageText = function () {
+            var $message_input;
+            $message_input = $(".message_input");
+            return $message_input.val();
+          };
+          sendMessage = function (text) {
+            var $messages, message;
+            if (text.trim() === "") {
+              return;
+            }
+            $(".message_input").val("");
+            $messages = $(".messages");
+            message_side = message_side === "left" ? "right" : "left";
+            message = new Message({
+              text: text,
+              message_side: message_side,
+            });
+            message.draw();
+            return $messages.animate(
+              { scrollTop: $messages.prop("scrollHeight") },
+              300
+            );
+          };
+          $(".send_message").click(function (e) {
+            return sendMessage(getMessageText());
+          });
+          $(".message_input").keyup(function (e) {
+            if (e.which === 13) {
+              return sendMessage(getMessageText());
+            }
+          });
+        });
+      }.call(this));
+
+      //配對local storage
+
+      //to be asked
+      $("#acceptPair").click(function () {
+        localStorage.setItem("acceptPage", 10);
+        if (localStorage.getItem("acceptPage") == 10) {
+          $("#todayPairModal").hide();
+        } else {
+          $("#todayPairModal").show();
+        }
+      });
+    </script>
+  </body>
+</html>
