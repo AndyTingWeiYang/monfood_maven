@@ -29,56 +29,104 @@
           <!-- ===== 內容客製化區塊 start ===== -->
           <div class="mf-content-wrapper mt-4">
             <!-- 表單區塊 -->
-            <div class="jumbotron" style="padding-bottom: 50px">
+            <div
+              class="jumbotron"
+              style="
+                margin-left: 70px;
+                padding-bottom: 50px;
+                padding-left: 95px;
+                width: 700px;
+              "
+            >
               <div class="form-group row">
-                <label for="promoteCode" class="col-sm-12 col-form-label"
+                <label
+                  for="promoteCode"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
                   >優惠券代碼</label
                 >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="width: 500px">
                   <input
                     type="text"
                     placeholder="輸入優惠券代碼"
                     name="promoteCode"
                     class="form-control"
                     id="promoteCode"
+                    style="margin: 10px"
                   />
                 </div>
 
-                <label for="promotePrice" class="col-sm-12 col-form-label"
+                <label
+                  for="promotePrice"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
                   >折扣金額</label
                 >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="width: 500px">
                   <input
                     type="text"
                     placeholder="輸入折扣金額"
                     name="promotePrice"
                     class="form-control"
                     id="promotePrice"
+                    style="margin: 10px"
                   />
                 </div>
 
-                <label for="promoteStart" class="col-sm-12 col-form-label"
+                <label
+                  for="promoteStart"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
                   >開始日期</label
                 >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="width: 500px">
                   <input
                     type="date"
                     name="promoteStart"
                     class="form-control"
                     id="promoteStart"
+                    style="margin: 10px"
                   />
                 </div>
 
-                <label for="promoteEnd" class="col-sm-12 col-form-label"
+                <label
+                  for="promoteEnd"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
                   >結束日期</label
                 >
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="width: 500px">
                   <input
                     type="date"
                     name="promoteEnd"
                     class="form-control"
                     id="promoteEnd"
+                    style="margin: 10px"
                   />
+                </div>
+                <label
+                  for="status"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >優惠券狀態</label
+                >
+                <div class="col-sm-12">
+                  <select
+                    name="status"
+                    id=""
+                    style="
+                      padding-left: 8px;
+                      border-color: #ced4da;
+                      border-radius: 4px;
+                      font-size: 14px;
+                      height: 33px;
+                      margin: 10px;
+                    "
+                  >
+                    <option value="0">過期</option>
+                    <option value="1">使用中</option>
+                    <option value="2">未生效</option>
+                  </select>
                 </div>
 
                 <div class="col-sm-12 d-flex justify-content-end mt-3">
@@ -103,25 +151,24 @@
       </div>
     </div>
     <script>
-    var sDay;
-    var eDay;
+      var sDay;
+      var eDay;
       document
         .querySelector("input#promoteStart")
         .addEventListener("change", function () {
           $("input#promoteStart").attr("value", $(this).val());
           //赋值
-          sDay=this.value;
+          sDay = this.value;
         });
-      
+
       document
-      .querySelector("input#promoteEnd")
-      .addEventListener("change", function () {
-        $("input#promoteEnd").attr("value", $(this).val());
-        //赋值
-        eDay=this.value;
-      });
-      
-      
+        .querySelector("input#promoteEnd")
+        .addEventListener("change", function () {
+          $("input#promoteEnd").attr("value", $(this).val());
+          //赋值
+          eDay = this.value;
+        });
+
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
 
       document.addEventListener("DOMContentLoaded", function () {
@@ -134,8 +181,6 @@
 
             document.head.appendChild(scriptElement);
           }
-
-        
         });
       });
       const promoteCode = document.querySelector("#promoteCode");
@@ -144,12 +189,7 @@
       const endDate = document.querySelector("#promoteEnd");
 
       document.querySelector("button").addEventListener("click", () => {
-        if (
-          !promoteCode.value ||
-          !promotePrice.value ||
-          !sDay ||
-          !eDay
-        ) {
+        if (!promoteCode.value || !promotePrice.value || !sDay || !eDay) {
           alert("錯誤");
           return;
         } else {
@@ -160,7 +200,6 @@
               "content-Type": "application.json",
             },
             body: JSON.stringify({
-//             	promoteID: 13,
               promoteCode: promoteCode.value,
               promotePrice: promotePrice.value,
               startDate: sDay,
