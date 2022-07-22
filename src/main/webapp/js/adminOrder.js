@@ -3,7 +3,7 @@ $(function(){
     
     const orderId = $('#orderId');
 
-    $('#orderId').on('click', function(){
+    $('#orderId').on('blur', function(){
         $('#errMsg').text('');
   
     })
@@ -20,7 +20,7 @@ $(function(){
 //        console.log(orderId.val());
         let errMsg;
         let numCheck = /^[0-9]*$/;
-        if(orderId.val() == null || orderId.val() == ''){
+        if(orderId.val().trim() == null || orderId.val().trim() == ''){
             
             errMsg = '*請輸入訂單編號'
             $('#errMsg').text(errMsg);
@@ -28,7 +28,7 @@ $(function(){
             return;
         }
 
-        if(!numCheck.test(orderId.val())){
+        if(!numCheck.test(orderId.val().trim())){
 
             errMsg = '*請輸入數字'
             $('#errMsg').text(errMsg);
@@ -39,11 +39,12 @@ $(function(){
         $.ajax({
             url: 'OrderServlet',
             type: 'POST',
-            data: JSON.stringify({orderId : orderId.val()}),
+            data: JSON.stringify({orderId : orderId.val().trim()}),
             dataType: 'json',
             success: function(data){
                 // console.log(data.errMsg);
                 // console.log(data.orderId);
+                $('#errMsg').text('');
                 if(data.errMsg == '無此訂單'){
                     errMsg = '*無此訂單'
                     $('#errMsg').text(errMsg);
@@ -78,10 +79,6 @@ $(function(){
 
                 $('#content').html(table_html);
             }
-
-
-
-
 
 
         })
