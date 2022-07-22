@@ -103,7 +103,27 @@
       </div>
     </div>
     <script>
+    var sDay;
+    var eDay;
+      document
+        .querySelector("input#promoteStart")
+        .addEventListener("change", function () {
+          $("input#promoteStart").attr("value", $(this).val());
+          //赋值
+          sDay=this.value;
+        });
+      
+      document
+      .querySelector("input#promoteEnd")
+      .addEventListener("change", function () {
+        $("input#promoteEnd").attr("value", $(this).val());
+        //赋值
+        eDay=this.value;
+      });
+      
+      
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+
       document.addEventListener("DOMContentLoaded", function () {
         w3.includeHTML(function () {
           var scriptObj = document.querySelectorAll('script[src^="assets"]');
@@ -114,7 +134,46 @@
 
             document.head.appendChild(scriptElement);
           }
+
+        
         });
+      });
+      const promoteCode = document.querySelector("#promoteCode");
+      const promotePrice = document.querySelector("#promotePrice");
+      const startDate = document.querySelector("#promoteStart");
+      const endDate = document.querySelector("#promoteEnd");
+
+      document.querySelector("button").addEventListener("click", () => {
+        if (
+          !promoteCode.value ||
+          !promotePrice.value ||
+          !sDay ||
+          !eDay
+        ) {
+          alert("錯誤");
+          return;
+        } else {
+          var url = "PromoteListServlet";
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "content-Type": "application.json",
+            },
+            body: JSON.stringify({
+//             	promoteID: 13,
+              promoteCode: promoteCode.value,
+              promotePrice: promotePrice.value,
+              startDate: sDay,
+              endDate: eDay,
+              status: 1,
+            }),
+          })
+            .then((resp) => resp.json())
+            .then((body) => {
+              const msg = body.errMsg ?? "success";
+              alert(msg);
+            });
+        }
       });
     </script>
   </body>
