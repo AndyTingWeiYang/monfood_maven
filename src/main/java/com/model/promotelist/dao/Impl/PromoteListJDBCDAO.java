@@ -31,8 +31,8 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 			"select * from PROMOTE_LIST order by PROMOTE_ID";
 	private static final String GET_ONE_STMT = 
 			"select * from PROMOTE_LIST where PROMOTE_ID = ?";
-	private static final String DELETE = 
-			"delete from PROMOTE_LIST where PROMOTE_ID = ?";
+//	private static final String DELETE = 
+//			"delete from PROMOTE_LIST where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_LIST "
 				+ "set PROMOTE_CODE = ?, PROMOTE_PRICE = ?, START_DATE = ?, END_DATE = ?, STATUS = ? "
 				+ "where PROMOTE_ID = ?";
@@ -208,46 +208,46 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		return promoteListVO;
 	}
 	
-	@Override
-	public void delete(Integer promoteId) {
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setInt(1, promoteId);
-
-			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
+//	@Override
+//	public void delete(Integer promoteId) {
+//
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(DELETE);
+//
+//			pstmt.setInt(1, promoteId);
+//
+//			pstmt.executeUpdate();
+//
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//
+//	}
 	
 	@Override
 	public void update(PromoteListVO promoteListVO) {
