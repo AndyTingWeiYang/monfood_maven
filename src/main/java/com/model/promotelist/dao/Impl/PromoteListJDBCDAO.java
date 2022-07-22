@@ -39,7 +39,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		
 	
 	@Override
-	public void insert(PromoteListVO promoteListVO) {
+	public Integer insert(PromoteListVO promoteListVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -81,7 +81,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 				}
 			}
 		}
-
+		return 1;
 	}
 	
 	@Override

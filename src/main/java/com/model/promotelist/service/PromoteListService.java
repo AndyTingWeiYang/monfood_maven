@@ -4,8 +4,12 @@ import com.model.promotelist.PromoteListVO;
 
 public interface PromoteListService {
 
-	String adminFindPromoteListId(PromoteListVO promoteListVO);
 
+	String adminAddPromoteList(PromoteListVO promoteListVO);
+	
+	String adminUpdatePromoteList(PromoteListVO promoteListVO);
+	
 	PromoteListVO adminFindVO(PromoteListVO promoteListVO);
+	
 
 }

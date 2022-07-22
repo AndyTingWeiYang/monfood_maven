@@ -6,7 +6,7 @@ import com.model.promotelist.PromoteListVO;
 
 public interface PromoteListDAO {
 
-	void insert(PromoteListVO promoteListVO);
+		Integer insert(PromoteListVO promoteListVO);
 		
 		List<PromoteListVO> getAll();
 		
