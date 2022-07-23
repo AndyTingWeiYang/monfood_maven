@@ -113,7 +113,7 @@
                 <div class="col-sm-12">
                   <select
                     name="status"
-                    id=""
+                    id="status"
                     style="
                       padding-left: 8px;
                       border-color: #ced4da;
@@ -187,9 +187,16 @@
       const promotePrice = document.querySelector("#promotePrice");
       const startDate = document.querySelector("#promoteStart");
       const endDate = document.querySelector("#promoteEnd");
+      const status = document.querySelector("#status");
 
       document.querySelector("button").addEventListener("click", () => {
-        if (!promoteCode.value || !promotePrice.value || !sDay || !eDay) {
+        if (
+          !promoteCode.value ||
+          !promotePrice.value ||
+          !sDay ||
+          !eDay ||
+          !status
+        ) {
           alert("錯誤");
           return;
         } else {
@@ -204,7 +211,7 @@
               promotePrice: promotePrice.value,
               startDate: sDay,
               endDate: eDay,
-              status: 1,
+              status: status.value,
             }),
           })
             .then((resp) => resp.json())
