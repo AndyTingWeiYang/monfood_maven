@@ -39,7 +39,7 @@ public class ProductListServiceImpl implements ProductListService {
 		if (proccessCheckMsg(maxPrice)) {
 			return null;
 		}
-
+		// 最大金額不得小於最小金額
 		if (Integer.parseInt(maxPrice) < Integer.parseInt(minPrice)) {
 			return null;
 		}
@@ -66,5 +66,8 @@ public class ProductListServiceImpl implements ProductListService {
 		}
 		return false;
 	}
+	
+	
+	
 
 }
