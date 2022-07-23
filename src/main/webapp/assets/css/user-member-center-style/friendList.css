@@ -1,0 +1,73 @@
+#friendList{
+  width:80%;
+  margin:10% 10% 10% 10%;
+  list-style: none;
+  overflow-y: auto;
+  height: 400px;
+}
+
+#avatarList{
+  margin-top: 10px;
+  margin-left: 5px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-block;
+  background-image: url("/monfood_maven/images/istockphoto-1007179332-612x612.jpg");
+  background-size:cover;
+  background-position: center;
+  }
+
+#friendName{
+   margin:25px 0 0 20px;
+  font-size: 20px;
+}
+
+#searchForm{
+  display: inline-flex;
+  margin-bottom: 10px;
+  width:100%;
+ }
+
+#searchIcon{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#choose{
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  margin-left: 30px;
+  background-color: #FF7F3F;
+  border:none;
+  border-radius: 30px;
+}
+
+#friendListDiv{
+  margin-right: 30px;
+  display: inline-flex;
+  border:1px solid lightgray;
+}
+
+.-on{
+  display: none;
+}
+
+#removeBtn{
+  border: none;
+  border-radius: 30px;
+  height: 40%;
+  background-color: lightgray;
+  margin-top: 20px;
+
+}
+
+#removeBtnDiv{
+  margin-left: calc(100% - 190px);
+}
+
+#searchBtn{
+  border:1px solid lightgray;
+  border-radius: 10%;
+}
