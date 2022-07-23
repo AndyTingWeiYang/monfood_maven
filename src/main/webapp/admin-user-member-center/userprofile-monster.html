@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonFood-Demo</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="/monfood_maven/assets/js/jQuery-3.6.0.js"></script>
+</head>
+<script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        w3.includeHTML(function () {
+            var scriptObj = document.querySelectorAll('script[src^="/monfood_maven/assets"]');
+
+            for (var i = 0; i < scriptObj.length; i++) {
+                var scriptElement = document.createElement('script');
+                scriptElement.src = scriptObj[i].getAttribute('src');
+
+                document.head.appendChild(scriptElement);
+            }
+        });
+    });
+</script>
+
+<body>
+    <div class="container-scroller">
+        <div w3-include-html="sidebar.html"></div>
+        <div class="container-fluid page-body-wrapper">
+            <div w3-include-html="header.html"></div>
+            <div class="main-panel">
+                <div class="mf-content-wrapper-user-3">
+                    <!-- 內容都寫在content-wrapper -->
+                    <div class="mf-test-test">
+                        <h6>小怪獸</h6>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <img class="mf-img-little-monster" src="/monfood_maven/images/0bca57b27bed8e50cf33ac9411a45482d61d807b.png"></img>
+                    </div>
+                    <div class="mf-user-test-3">
+                        <p class="mf-user-test-p1">小怪獸名稱</p>                       
+                        <div class="mf-test-1 input-group">
+                            <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button type="button" id="button-addon2">修改</button>
+                            </div>
+                        </div>
+                        <p class="mf-user-test-p1">紅利折抵</p>
+                        <input type="text" disabled>
+                        <div class="mf-user-div-lv-1">
+                            <div class="mf-user-div-lv-2">等級:<span>L1</span></div>
+                            <div>等級:<span>L2</span></div>
+                        </div>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                    </div>                    
+                    
+                </div>
+                <div w3-include-html="footer.html"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
