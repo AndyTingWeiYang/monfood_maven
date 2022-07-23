@@ -11,5 +11,6 @@ public interface UserDAO {
 	public UserVO selectByUserId(Integer userId);
 	List<UserVO> getAll();
 	List<UserVO> getAllUserId();
+	List<UserVO> isDuplicateAccount(String userAccount);
 	
 }

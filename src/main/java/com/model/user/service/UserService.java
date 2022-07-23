@@ -7,4 +7,5 @@ public interface UserService {
 	String userLogin(UserVO userVO);
 	String userModify(UserVO userVO);
 	String userForgetPass(UserVO userVO);
+	String isDuplicateAccount(UserVO userVO);
 }

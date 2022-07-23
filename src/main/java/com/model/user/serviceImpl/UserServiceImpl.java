@@ -1,14 +1,18 @@
 package com.model.user.serviceImpl;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import com.model.user.UserVO;
+import com.model.user.dao.UserDAO;
 import com.model.user.dao.impl.UserDAOImpl;
 import com.model.user.service.UserService;
 
 public class UserServiceImpl implements UserService {
-	private UserDAOImpl dao;
+	private UserDAO dao;  // 介面型態 跟spring銜接
 	
 	public UserServiceImpl(){
 		dao = new UserDAOImpl();
@@ -18,14 +22,14 @@ public class UserServiceImpl implements UserService {
 	public String userRegister(UserVO userVO) {
 		final String userName = userVO.getUserName();
 		// 電子郵件格式驗證
-		String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";		                         
 		// 密碼格式驗證
-		String regex2 = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$/";
+		String regex2 = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
 		// 手機號碼格式驗證
-		String regex3 = "/[0-9]/";
-		String regex4 = "/^09/";
+		String regex3 = "\\d{10}";
+		String regex4 = "^09[0-9]{2}\\d{6}$";
 		// 生日格式驗證
-		String regex5 = "/^\\d{4}\\-\\d{2}\\-\\d{2}$/";
+		String regex5 = "^\\d{4}\\-\\d{2}\\-\\d{2}$";
 		
 		if(userName == null || userName.equals("")) {
 			return "請輸入完整姓名";	
@@ -35,7 +39,7 @@ public class UserServiceImpl implements UserService {
 		if(userAccount == null || userAccount.equals("")) {
 			return "請輸入電子郵件";	
 		}else if(!(Pattern.matches(regex, userAccount))){
-			return "格式錯誤";		
+			return "電子郵件格式錯誤";		
 		}
 		
 		final String userPassword = userVO.getUserPassword();
@@ -49,17 +53,17 @@ public class UserServiceImpl implements UserService {
 		if(userTel == null || userTel.equals("")) {
 			return "請輸入手機號碼";
 		}else if(!(Pattern.matches(regex3, userTel))) {
-			return "請輸入數字";
+			return "手機號碼應為10碼數字";
 		}else if(!(Pattern.matches(regex4, userTel))) {
 			return "手機號碼開頭為09";
-		}else if(!(userTel.length()==10)) {
-			return "手機號碼應為10碼";
 		}
 		
 		final Date birthday = userVO.getBirthday();
+		String birth = birthday.toString();
+		System.out.println(birth);		
 		if(birthday == null || birthday.equals("")) {
 			return "請輸入出生日期";	
-		}else if(!(Pattern.matches(regex5, (CharSequence) birthday))) {
+		}else if(!(Pattern.matches(regex5, birth))) {
 			return "輸入格式為年-月-日 範例：1990-01-01";
 		}
 		
@@ -68,7 +72,8 @@ public class UserServiceImpl implements UserService {
 			return "註冊失敗，請重新註冊";
 		}
 		
-		return null;
+		System.out.println("im in UserServiceImpl");
+		return "Register Success";   // 沒有回傳就等於成功
 	}
 
 	@Override
@@ -87,6 +92,27 @@ public class UserServiceImpl implements UserService {
 	public String userForgetPass(UserVO userVO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String isDuplicateAccount(UserVO userVO) {
+		final String userAccount = userVO.getUserAccount();
+		final List<UserVO> listUserVO = dao.isDuplicateAccount(userAccount);
+//		System.out.println(listUserVO);
+		
+		int count = 0;
+		for (UserVO userVO2: listUserVO) {
+//			System.out.println("USER_ACCOUNT:"+userVO2.getUserAccount());
+			count++;
+		}
+		System.out.println(count);
+		if (count >= 1 ) {
+			return "帳號重複，請重新輸入";
+		}
+		
+		System.out.println("im in UserServiceImpl Account Pass");
+		return "pass";   
+		
 	}
 
 	

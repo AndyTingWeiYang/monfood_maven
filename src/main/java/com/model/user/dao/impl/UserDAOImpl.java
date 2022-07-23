@@ -30,6 +30,8 @@ public class UserDAOImpl implements UserDAO {
 	private static final String GETALL = "SELECT * FROM MonFood.USER ORDER BY USER_ID";
 	// 查詢全部會員編號
 	private static final String DETALLUSERID = "SELECT USER_ID FROM MonFood.USER ORDER BY USER_ID";
+	// 查詢是否有此會員帳號
+	private static final String ISDUPLICATEACCOUNT = "SELECT USER_ACCOUNT FROM MonFood.USER WHERE USER_ACCOUNT = ? ";  
 
 	static {
 		try {
@@ -55,7 +57,8 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setDate(5, userVO.getBirthday());
 			pstmt.setTimestamp(6, userVO.getUpdateTime());
 
-			pstmt.executeUpdate();
+			System.out.println("in UserDAOImpl im done");
+			return pstmt.executeUpdate();
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured when you insert. " + se.getMessage());
@@ -76,7 +79,6 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
-		return -1;
 	}
 
 	@Override
@@ -312,6 +314,51 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
+		return listUserVO;
+	}
+
+	@Override
+	public List<UserVO> isDuplicateAccount(String userAccount) {
+		List<UserVO> listUserVO = new ArrayList<UserVO>();
+		UserVO userVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(ISDUPLICATEACCOUNT);
+			
+			pstmt.setString(1,userAccount);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				userVO = new UserVO();
+				userVO.setUserAccount(rs.getString("USER_ACCOUNT"));
+				listUserVO.add(userVO);
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you check isDuplicateAccount. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
 		return listUserVO;
 	}
 }

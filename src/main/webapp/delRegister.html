@@ -5,10 +5,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>MonFood | delRegister</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/indexHeader.css">
-      <link rel="stylesheet" href="/css/footer.css">
-      <link rel="stylesheet" href="/css/layout.css">
-      <link rel="stylesheet" href="/css/index.css">
+      
+      <link rel="stylesheet" href="./css/index.css">
       <!-- datepicker -->
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -88,7 +86,7 @@
           <div class="container">
             <a class="navbar-brand d-inline-flex" href="index.html">
               <span class="logo">Mon</span>
-              <span class="logo2">Food</span>
+              <span class="logo2" style="color: white;">Food</span>
             </a>
           </div>
         </nav>
@@ -394,7 +392,7 @@
         
         $(".enter").on("click",function(){
           $.ajax({
-            url: "UserServlet",           // 資料請求的網址
+            url: "XXX",           // 資料請求的網址
             type: "POST",                  // GET | POST | PUT | DELETE | PATCH
             data: JSON.stringify({
               "userName": $("#name").val(),

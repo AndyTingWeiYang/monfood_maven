@@ -5,10 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>MonFood | userRegister</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-      <link rel="stylesheet" href="/css/indexHeader.css">
-      <link rel="stylesheet" href="/css/footer.css">
-      <link rel="stylesheet" href="/css/layout.css">
-      <link rel="stylesheet" href="/css/index.css">
+      <link rel="stylesheet" href="./css/index.css">
       <!-- datepicker -->
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -76,6 +73,11 @@
         font-size: 10px;
       }
 
+      .passspan{
+        color: green;
+        font-size: 10px;
+      }
+
       </style>
   </head>
   
@@ -88,7 +90,7 @@
           <div class="container">
             <a class="navbar-brand d-inline-flex" href="index.html">
               <span class="logo">Mon</span>
-              <span class="logo2">Food</span>
+              <span class="logo2" style="color: white;">Food</span>
             </a>
           </div>
         </nav>
@@ -99,8 +101,8 @@
         <!-- section -->
       <div class="container">
         <div class=" row mx-auto">
-          <!-- action=""  method="post" -->
-            <form   class="row g-3 form-group">
+          <!-- action="UserServlet"  method="post"  value="註冊資料"-->
+            <div class="row g-3 form-group">
                 <div class="col-12">
                   <h3 style="text-align: center">會員免費註冊</h3>
                 </div>
@@ -108,33 +110,33 @@
                
                 <div class="col-md-10 col-12">
                   <input type="text" class="form-control" id="username" placeholder="姓名" required />
-                  <span class="noticespan namespan"></span>
+                  <span class="namespan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="email" class="form-control" id="useremail" placeholder="電子信箱(帳號)" required />
-                  <span class="noticespan emailspan"></span>
+                  <span class="emailspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="password" class="form-control" id="userpassword" placeholder="會員密碼" required />
-                  <span class="noticespan passwordspan"></span>
+                  <span class="passwordspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="password" class="form-control" id="password-check" placeholder="確認密碼" required />
-                  <span class="noticespan passwordcheckspan"></span>
+                  <span class="passwordcheckspan"></span>
 
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="tel" class="form-control" id="userphone-num" placeholder="手機號碼" maxlength="10" required />
-                  <span class="noticespan phonenumspan"></span>
+                  <span class="phonenumspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="text" class="form-control" id="userbirthday" placeholder="出生日期  範例：1990-01-01" />
-                  <span class="noticespan birthdayspan"></span>
+                  <span class="birthdayspan"></span>
                 </div>
   
                 <div class="col-md-8 check">
@@ -273,14 +275,14 @@
                 <div class="col-12 col-md-2 d-flex justify-content-center">
                   <button type="button" class="enter btn btn-primary">送出</button>
                 </div>
-              </form>
+              </div>
         </div>
       </div>
         
         <!-- section -->
       </main>
       
-      <script src="../vendors/jquery/jquery-3.6.0.min.js"></script>
+      <script src="assets/js/jQuery-3.6.0.js"></script>
       <!-- datepicker -->
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
@@ -290,18 +292,21 @@
           // 姓名驗證
           $("#username").on("blur",function(){
             if($("#username").val().trim() == ""){
-              $(".namespan").text('*請輸入完整姓名');               
+              $(".namespan").addClass("noticespan").text('*請輸入完整姓名');               
             }else{
-              $(".namespan").text('');              
+              $(".namespan").removeClass("noticespan").text('');              
             }
           });
           
           // email驗證
           $("#useremail").on("blur",function(){
+            var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
             if($("#useremail").val().trim() == ""){
-              $(".emailspan").text('*請輸入完整電子郵件帳號');  
+              $(".emailspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
+            }else if(!(pattern.test($("#useremail").val().trim()))){
+              $(".emailspan").addClass("noticespan").text('*請輸入正確格式');
             }else{
-              $(".emailspan").text('');
+              $(".emailspan").removeClass("noticespan").text('');
             }
           });
           
@@ -315,22 +320,22 @@
           $("#userpassword").on("blur",function(){
             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if($("#userpassword").val().trim() == ""){
-              $(".passwordspan").text('*請輸入密碼');  
+              $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
             }else if(!(pattern.test($("#userpassword").val().trim()))){
-              $(".passwordspan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
+              $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
             }else{
-              $(".passwordspan").text('');
+              $(".passwordspan").removeClass("noticespan").text('');
             }
           });
          
           // 確認密碼驗證
           $("#password-check").on("blur",function(){
             if($("#password-check").val().trim() == ""){
-              $(".passwordcheckspan").text('*請再次輸入密碼');            
-            }else if($("#password-check").val() != $("#password").val()){
-              $(".passwordcheckspan").text('*請與密碼輸入一致');  
+              $(".passwordcheckspan").addClass("noticespan").text('*請再次輸入密碼');            
+            }else if($("#password-check").val() != $("#userpassword").val()){
+              $(".passwordcheckspan").addClass("noticespan").text('*請與密碼輸入一致');  
             }else{
-              $(".passwordcheckspan").text('');             
+              $(".passwordcheckspan").removeClass("noticespan").text('');             
             }   
           });
           
@@ -338,15 +343,15 @@
           $("#userphone-num").on("blur",function(){
             var pattern = /[0-9]/;
             if($("#userphone-num").val().trim() == ""){
-              $(".phonenumspan").text('*請輸入手機號碼');  
+              $(".phonenumspan").addClass("noticespan").text('*請輸入手機號碼');  
             }else if(!(pattern.test($("#userphone-num").val().trim()))){
-              $(".phonenumspan").text('*請輸入數字');               
+              $(".phonenumspan").addClass("noticespan").text('*請輸入數字');               
             }else if($("#userphone-num").val().trim().length<10){
-              $(".phonenumspan").text('*手機號碼格式錯誤'); 
+              $(".phonenumspan").addClass("noticespan").text('*手機號碼格式錯誤'); 
             }else if(!(/^09/.test($("#userphone-num").val()))){
-              $(".phonenumspan").text('*手機號碼開頭為09'); 
+              $(".phonenumspan").addClass("noticespan").text('*手機號碼開頭為09'); 
             }else{
-              $(".phonenumspan").text('');
+              $(".phonenumspan").removeClass("noticespan").text('');
             }
           });
           
@@ -374,9 +379,9 @@
             }).on("change", function (e) {
               // $(this).datepicker('hide');        
               if(!(/^\d{4}\-\d{2}\-\d{2}$/.test($("#userbirthday").val()))){
-                $(".birthdayspan").text('*輸入格式為年-月-日 範例：1990-01-01'); 
+                $(".birthdayspan").addClass("noticespan").text('*輸入格式為年-月-日 範例：1990-01-01'); 
               }else{
-                $(".birthdayspan").text('');
+                $(".birthdayspan").removeClass("noticespan").text('');
                 console.log($("#userbirthday").val());
               }
             });
@@ -386,26 +391,54 @@
             $("#gridCheck").prop("checked", true);
           });
         });      
+       
         
-        
-
-
-
-        
-        $(".enter").on("click",function(){
-          $.ajax({
-            url: "UserServlet",           // 資料請求的網址
-            type: "POST",                  // GET | POST | PUT | DELETE | PATCH
-            data: JSON.stringify({
-              "userName": $("#username").val(),
-              "userEmail": $("#useremail").val(),
-              "userPassword": $("#userpassword-check").val(),
-              "userPhone": $("#userphone-num").val(),
-              "userBirthday": $("#userbirthday").val()
-            }),             // 將物件資料(不用雙引號) 傳送到指定的 url
-            dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
+        // 發ajax確認是否有帳號重複
+        $("#useremail").on("focusout",function(){
+          if($("#useremail").val().trim() != ""){
+            $.ajax({
+            url: "UserServlet",           
+            type: "POST",                  
+            data: JSON.stringify({             
+              "userAccount": $("#useremail").val().trim(),          
+            }),            
+            contentType : "application/json;charset=utf-8",
+            dataType: "json",             
             success: function(data){      // request 成功取得回應後執行
-              console.log(data);
+              $(".emailspan").addClass("passspan").text('此帳號可以使用'); 
+            },
+            error: function(xhr){         // request 發生錯誤的話執行
+              $(".emailspan").addClass("noticespan").text('此帳號已被使用');
+            },
+
+          });
+          }
+        });
+
+
+
+
+        // 註冊資料發出給伺服器
+        $(".enter").on("click",function(){
+          if($("span").hasClass("noticespan")){
+            alert("註冊尚未成功");
+            return;
+          }
+          $.ajax({
+            url: "UserServlet",           
+            type: "POST",                  
+            data: JSON.stringify({
+              "userName": $("#username").val().trim(),
+              "userAccount": $("#useremail").val().trim(),
+              "userPassword": $("#userpassword").val().trim(),
+              "userTel": $("#userphone-num").val().trim(),
+              "birthday": $("#userbirthday").val()
+            }),             
+            contentType : "application/json;charset=utf-8",
+            dataType: "json",             
+            success: function(data){      // request 成功取得回應後執行
+              location.href="./RegisterSuccess.html";
+              
             }
           });
         });
