@@ -1,0 +1,61 @@
+div.modal-content{
+    border: none;
+}
+
+div.modal-header{
+    padding: 8px;
+    background-color: #FF7F3F;
+}
+
+div.modal-body{
+    /* margin: 16px; */
+}
+
+span.logo{
+    color: black;
+    font-size: 20px;
+}
+
+span.logo2{
+    color: white;
+    font-size: 20px;
+
+}
+
+.modal img{
+    height: 100px;
+    width: 100px;
+}
+
+div.star_block{
+    display: inline-block;
+}
+div.star_block > span.star{
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 3px;
+}
+div.star_block > span.star.-on{
+    color: yellow;
+}
+
+div.row{
+    margin: 5px;
+}
+
+button.next, button.next:hover{
+    border-radius: 12px;
+    font-size: 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;     
+    box-shadow:none;  
+}
+
+button.back{
+    border: none;
+    background-color: white;
+    width: 20px;
+    
+}
