@@ -41,7 +41,7 @@
                 <span class="nav-link">商家帳號</span>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="/res-bank-account.html" aria-expanded="false"
+                <a class="nav-link" data-toggle="collapse" href="resprofile-bank-account.jsp" aria-expanded="false"
                     aria-controls="ui-basic">
                     <span class="menu-icon">
                         <i class="mdi mdi-square-inc-cash"></i>
@@ -51,7 +51,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a id="resAccountBtn" class="nav-link" data-toggle="collapse" href="/resprofile-status.html"
+                <a id="resAccountBtn" class="nav-link" data-toggle="collapse" href="resprofile-status.jsp"
                     aria-expanded="false" aria-controls="ui-basic">
                     <span class="menu-icon">
                         <i class="mdi mdi-laptop"></i>
@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="/resprofile-info.html" aria-expanded="false"
+                <a class="nav-link" data-toggle="collapse" href="resprofile-info.jsp" aria-expanded="false"
                     aria-controls="ui-basic">
                     <span class="menu-icon">
                         <i class="mdi mdi-laptop"></i>
@@ -69,7 +69,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="/resprofile-product-list.html">
+                <a class="nav-link" href="resprofile-product-list.jsp">
                     <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                     </span>
@@ -77,7 +77,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="/resprofile-new-product.html">
+                <a class="nav-link" href="resprofile-new-product.jsp">
                     <span class="menu-icon">
                         <i class="mdi mdi-plus-circle"></i>
                     </span>
@@ -85,7 +85,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="/resprofile-mailbox.html">
+                <a class="nav-link" href="resprofile-mailbox.jsp">
                     <span class="menu-icon">
                         <i class="mdi mdi-email-open-outline"></i>
                     </span>
@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="/resprofile-product-history.html">
+                <a class="nav-link" href="resprofile-product-history.jsp">
                     <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                     </span>

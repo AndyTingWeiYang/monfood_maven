@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,22 +10,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員資訊</title>
-    <!-- w3c.js 引入共用畫面 -->
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="/assets/js/jQuery-3.6.0.js"></script>
+ 
+    <script src='<c:url value="/assets/js/jQuery-3.6.0.js"/>'></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="font-awesome" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/assets/css/resprofile-css/res-bank-account.css">
+    <link rel="stylesheet" href='<c:url value="/assets/css/resprofile-css/res-bank-account.css" />'>
 
 </head>
 
 <script>
-    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+   
     document.addEventListener('DOMContentLoaded', function () {
-        w3.includeHTML(function () {
             function init() {
                 $("button.btn_edit").click(function () {
                     if ($("form.bank_info").attr("data-edit") == undefined) { // 進入編輯狀態
@@ -49,8 +51,6 @@
                             $("select.form-select").val(update_bank_code).attr("hidden", true);
                             $("form.bank_info").removeAttr("data-edit");
                             $("button.btn_edit").html("修改");
-
-                        }
                     }
                 });
             }
@@ -107,29 +107,19 @@
                     $('#checkAccount').append($('<i>').addClass('fa-solid fa-circle-check').addClass('addclass')).append('輸入正確!');
                 }
             }
-
-
-            var scriptObj = document.querySelectorAll('script[src^="/assets"]');
-
-            for (var i = 0; i < scriptObj.length; i++) {
-                var scriptElement = document.createElement('script');
-                scriptElement.src = scriptObj[i].getAttribute('src');
-                document.head.appendChild(scriptElement);
-            }
             init();
             $('#accountName').on('blur', checkAccountName);
             $('#account').on('blur', checkAccount);
-        });
+        }
     });
 </script>
 
 <body>
 
     <div class="container-scroller">
-        <div w3-include-html="resprofile-sidebar.html"></div>
-
+    <div><jsp:include page="resprofile-sidebar.jsp"/></div>
         <div class="container-fluid page-body-wrapper">
-            <div w3-include-html="resprofile-header.html"></div>
+        <jsp:include page="resprofile-header.jsp"/>
             <div class="main-panel">
                 <div class="content-wrapper">
 
@@ -278,7 +268,8 @@
                     </div>
 
                 </div>
-                <div w3-include-html="resprofile-footer.html"></div>
+                
+                <jsp:include page="resprofile-footer.jsp"/>
             </div>
         </div>
     </div>
