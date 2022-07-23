@@ -1,90 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>MonFood</title>
+    <!-- w3c.js 引入共用畫面 -->
+  </head>
+  <body>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>MonFood</title>
-  <!-- w3c.js 引入共用畫面 -->
+    <div class="container-scroller">
+      <!-- ===== sidebar start ===== -->
+      <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
+      <div w3-include-html="adminSidebar.html"></div>
+      <!-- ===== sidebar end ===== -->
 
-</head>
-<body>
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="assets/js/jQuery-3.6.0.js"></script>
+      <div class="container-fluid page-body-wrapper">
+        <!-- ===== header start ===== -->
+        <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
+        <div w3-include-html="adminHeader.html"></div>
+        <!-- ===== header end ===== -->
 
-  <div class="container-scroller">
+        <div class="main-panel">
+          <!-- ===== 內容客製化區塊 start ===== -->
+          <div class="mf-content-wrapper mt-4">
+            <!-- 表單區塊 -->
+            <div
+              class="jumbotron"
+              style="
+                margin-left: 70px;
+                padding-bottom: 50px;
+                padding-left: 95px;
+                width: 700px;
+              "
+            >
+              <div class="form-group row">
+                <label
+                  for="promoteCode"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >優惠券代碼</label
+                >
+                <div class="col-sm-12" style="width: 500px">
+                  <input
+                    type="text"
+                    placeholder="輸入優惠券代碼"
+                    name="promoteCode"
+                    class="form-control"
+                    id="promoteCode"
+                    style="margin: 10px"
+                  />
+                </div>
 
-    <!-- ===== sidebar start ===== -->
-    <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
-    <div w3-include-html="adminSidebar.html"></div>
-    <!-- ===== sidebar end ===== -->
+                <label
+                  for="promotePrice"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >折扣金額</label
+                >
+                <div class="col-sm-12" style="width: 500px">
+                  <input
+                    type="text"
+                    placeholder="輸入折扣金額"
+                    name="promotePrice"
+                    class="form-control"
+                    id="promotePrice"
+                    style="margin: 10px"
+                  />
+                </div>
 
-    <div class="container-fluid page-body-wrapper">
-      <!-- ===== header start ===== -->
-      <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
-      <div w3-include-html="adminHeader.html"></div>
-      <!-- ===== header end ===== -->
+                <label
+                  for="promoteStart"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >開始日期</label
+                >
+                <div class="col-sm-12" style="width: 500px">
+                  <input
+                    type="date"
+                    name="promoteStart"
+                    class="form-control"
+                    id="promoteStart"
+                    style="margin: 10px"
+                  />
+                </div>
 
-      <div class="main-panel">
-        <!-- ===== 內容客製化區塊 start ===== -->
-        <div class="mf-content-wrapper mt-4">
-          <!-- 表單區塊 -->
-          <div class="jumbotron" style="padding-bottom: 50px;">
-            <div class="form-group row">
-              <label for="promoteCode" class="col-sm-12 col-form-label">優惠券代碼</label>
-              <div class="col-sm-12">
-                <input type="text" placeholder="輸入優惠券代碼" name="promoteCode" class="form-control" id="promoteCode">
+                <label
+                  for="promoteEnd"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >結束日期</label
+                >
+                <div class="col-sm-12" style="width: 500px">
+                  <input
+                    type="date"
+                    name="promoteEnd"
+                    class="form-control"
+                    id="promoteEnd"
+                    style="margin: 10px"
+                  />
+                </div>
+                <label
+                  for="status"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 18px; padding-left: 20px"
+                  >優惠券狀態</label
+                >
+                <div class="col-sm-12">
+                  <select
+                    name="status"
+                    id=""
+                    style="
+                      padding-left: 8px;
+                      border-color: #ced4da;
+                      border-radius: 4px;
+                      font-size: 14px;
+                      height: 33px;
+                      margin: 10px;
+                    "
+                  >
+                    <option value="0">過期</option>
+                    <option value="1">使用中</option>
+                    <option value="2">未生效</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-12 d-flex justify-content-end mt-3">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="background: #3d424e; border: none"
+                  >
+                    送出新增
+                  </button>
+                </div>
               </div>
-
-              <label for="promotePrice" class="col-sm-12 col-form-label">折扣金額</label>
-              <div class="col-sm-12">
-                <input type="text" placeholder="輸入折扣金額" name="promotePrice" class="form-control" id="promotePrice">
-              </div>
-
-              <label for="promoteStart" class="col-sm-12 col-form-label">開始日期</label>
-              <div class="col-sm-12">
-                <input type="date" name="promoteStart" class="form-control" id="promoteStart">
-              </div>
-              
-              <label for="promoteEnd" class="col-sm-12 col-form-label">結束日期</label>
-              <div class="col-sm-12">
-                <input type="date" name="promoteEnd" class="form-control" id="promoteEnd">
-              </div>
-
-              <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出新增</button>
-              </div>
-
             </div>
           </div>
-          
+          <!-- ===== 內容客製化區塊 ===== -->
+
+          <!-- ===== footer start ===== -->
+          <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
+          <div w3-include-html="adminFooter.html"></div>
+          <!-- ===== footer end ===== -->
         </div>
-        <!-- ===== 內容客製化區塊 ===== -->
-
-
-        <!-- ===== footer start ===== -->
-        <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
-        <div w3-include-html="adminFooter.html"></div>
-        <!-- ===== footer end ===== -->
       </div>
     </div>
-  </div>
-  <script>
-    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      w3.includeHTML(function () {
-        var scriptObj = document.querySelectorAll('script[src^="assets"]');
-  
-        for (var i = 0; i < scriptObj.length; i++) {
-          var scriptElement = document.createElement('script');
-          scriptElement.src = scriptObj[i].getAttribute('src');
-  
-          document.head.appendChild(scriptElement);
+    <script>
+      var sDay;
+      var eDay;
+      document
+        .querySelector("input#promoteStart")
+        .addEventListener("change", function () {
+          $("input#promoteStart").attr("value", $(this).val());
+          //赋值
+          sDay = this.value;
+        });
+
+      document
+        .querySelector("input#promoteEnd")
+        .addEventListener("change", function () {
+          $("input#promoteEnd").attr("value", $(this).val());
+          //赋值
+          eDay = this.value;
+        });
+
+      // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        w3.includeHTML(function () {
+          var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+          for (var i = 0; i < scriptObj.length; i++) {
+            var scriptElement = document.createElement("script");
+            scriptElement.src = scriptObj[i].getAttribute("src");
+
+            document.head.appendChild(scriptElement);
+          }
+        });
+      });
+      const promoteCode = document.querySelector("#promoteCode");
+      const promotePrice = document.querySelector("#promotePrice");
+      const startDate = document.querySelector("#promoteStart");
+      const endDate = document.querySelector("#promoteEnd");
+
+      document.querySelector("button").addEventListener("click", () => {
+        if (!promoteCode.value || !promotePrice.value || !sDay || !eDay) {
+          alert("錯誤");
+          return;
+        } else {
+          var url = "PromoteListServlet";
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "content-Type": "application.json",
+            },
+            body: JSON.stringify({
+              promoteCode: promoteCode.value,
+              promotePrice: promotePrice.value,
+              startDate: sDay,
+              endDate: eDay,
+              status: 1,
+            }),
+          })
+            .then((resp) => resp.json())
+            .then((body) => {
+              const msg = body.errMsg ?? "success";
+              alert(msg);
+            });
         }
       });
-    });
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>

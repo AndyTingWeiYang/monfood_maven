@@ -26,7 +26,7 @@ public class LocationJDBCDAO implements ILocationDAO{
 	private static final String DELETE = 
 			"DELETE FROM MonFood.LOCATION where LOCATION_ID = ?";
 	private static final String UPDATE = 
-			"UPDATE MonFood.LOCATION set LOCATION_ID=?, USER_ID=?, ZIP_CODE=?, LOCATION=?, DEFAULT_STATUS=? where LOCATION_ID = ?";
+			"UPDATE MonFood.LOCATION set USER_ID=?, ZIP_CODE=?, LOCATION=?, DEFAULT_STATUS=? where LOCATION_ID = ?";
 
 	@Override
 	public void insert(LocationVO locationVO) throws SQLException {
@@ -209,11 +209,11 @@ public class LocationJDBCDAO implements ILocationDAO{
 			while (rs.next()) {
 				// locationVO 也稱為 Domain objects 區域 對象
 				locationVO = new LocationVO();
-				locationVO.setLocationId(rs.getInt("locationId"));;//第一個欄位
-				locationVO.setUserId(rs.getInt("userId"));//第二個欄位
-				locationVO.setZipCode(rs.getInt("zipCode"));//第三個欄位
-				locationVO.setLocation(rs.getString("location"));//第四個欄位
-				locationVO.setDefaultStatus(rs.getInt("defaultStatus"));//第五個欄位
+				locationVO.setLocationId(rs.getInt("LOCATION_ID"));;//第一個欄位
+				locationVO.setUserId(rs.getInt("USER_ID"));//第二個欄位
+				locationVO.setZipCode(rs.getInt("ZIP_CODE"));//第三個欄位
+				locationVO.setLocation(rs.getString("LOCATION"));//第四個欄位
+				locationVO.setDefaultStatus(rs.getInt("DEFAULT_STATUS"));//第五個欄位
 				
 			}
 
@@ -269,11 +269,11 @@ public class LocationJDBCDAO implements ILocationDAO{
 			while (rs.next()) {
 				// monsterVO 也稱為 Domain objects 區域 對象
 				locationVO = new LocationVO();
-				locationVO.setLocationId(rs.getInt("locationId"));;//第一個欄位
-				locationVO.setUserId(rs.getInt("userId"));//第二個欄位
-				locationVO.setZipCode(rs.getInt("zipCode"));//第三個欄位
-				locationVO.setLocation(rs.getString("location"));//第四個欄位
-				locationVO.setDefaultStatus(rs.getInt("defaultStatus"));//第五個欄位
+				locationVO.setLocationId(rs.getInt("LOCATION_ID"));;//第一個欄位
+				locationVO.setUserId(rs.getInt("USER_ID"));//第二個欄位
+				locationVO.setZipCode(rs.getInt("ZIP_CODE"));//第三個欄位
+				locationVO.setLocation(rs.getString("LOCATION"));//第四個欄位
+				locationVO.setDefaultStatus(rs.getInt("DEFAULT_STATUS"));//第五個欄位
 				list.add(locationVO); // Store the row in the list(將行存儲在列表中)
 			}
 			
@@ -305,39 +305,53 @@ public class LocationJDBCDAO implements ILocationDAO{
 		}
 		return list;
 	}
+	
+	//測試
 	public static void main(String[] args) throws SQLException {
 		LocationJDBCDAO dao = new LocationJDBCDAO();
 		
-		// 新增
+		// 新增OK
 //		LocationVO locationVO1 = new LocationVO();
 //		locationVO1.setLocationId(6);
-//		locationVO1.setUserId(6);
-//		locationVO1.setZipCode(222);
+//		locationVO1.setUserId(5);//只能選擇已在資料庫內的使用者
+//		locationVO1.setZipCode(105);//只能選擇已在資料庫內的ZipCode
 //		locationVO1.setLocation("xxx");
 //		locationVO1.setDefaultStatus(1);
 //		dao.insert(locationVO1);
+//		System.out.println("新增成功");
 
-		// 修改
-//		MonsterVO monsterVO2 = new MonsterVO();
-//		monsterVO2.setMonsLevel(6);
-//		monsterVO2.setDiscount(25);
-//		monsterVO2.setMonsPic(null);
-//		dao.update(monsterVO2);
+		// 修改  BUG待處理
+//		LocationVO locationVO2 = new LocationVO();
+//		locationVO2.setLocationId(7);
+//		locationVO2.setUserId(5);
+//		locationVO2.setZipCode(100);
+//		locationVO2.setLocation("xxxooo");
+//		locationVO2.setDefaultStatus(1);
+//		dao.update(locationVO2);
+//		System.out.println("修改成功");
 
 		// 刪除OK
 //		dao.delete(6);
+//		System.out.println("刪除成功");
 
-		// 查詢
-//		MonsterVO monsterVO3 = dao.findByPrimaryKey(1);
-//		System.out.println(monsterVO3.getMonsLevel() + ",");
-//		System.out.println(monsterVO3.getDiscount() + ",");
-//		System.out.println(monsterVO3.getMonsPic() + ",");
-		System.out.println("---------------------");
+		// 查詢OK
+//		LocationVO locationVO3 = dao.findByPrimaryKey(1);
+//		System.out.print(locationVO3.getLocationId()+" ");
+//		System.out.print(locationVO3.getUserId()+" ");
+//		System.out.print(locationVO3.getZipCode()+" ");
+//		System.out.print(locationVO3.getLocation()+" ");
+//		System.out.println(locationVO3.getDefaultStatus()+" ");
+//		System.out.println("---------------------");
 		
-		//查詢全部
+		//查詢全部OK
 //		List<LocationVO> list = dao.getAll();
 //		for (LocationVO locationVO4 : list) {
-//			System.out.println(locationVO4.getLocationId());
+//			System.out.print(locationVO4.getLocationId()+" ");
+//			System.out.print(locationVO4.getUserId()+" ");
+//			System.out.print(locationVO4.getZipCode()+" ");
+//			System.out.print(locationVO4.getLocation()+" ");
+//			System.out.println(locationVO4.getDefaultStatus()+" ");
+//			System.out.println("---------------------");
 //		}
 	}
 }

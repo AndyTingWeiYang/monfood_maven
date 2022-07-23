@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adminLoaction</title>
+</head>
+<body>
+	<select name="adminLocation" id="adminlocation">
+		<option value="000" class="optionStart">請選擇行政區域</option>
+	</select>
+	<hr>
+	<input type="text" class="zipCode">
+	<input type="text" class="adminRegion">
+	<button type="button">新增</button>
+
+	<script>
+        const zipCode = document.querySelector(".zipCode");
+        const adminRegion = document.querySelector(".adminRegion");
+        
+        document.querySelector("button").addEventListener("click", () => {
+            if(!zipCode.value || !adminRegion.value){
+                alert("write down sth plz");
+                return;
+            }
+
+            const url = "adminLocation/add"
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "content-Type": "application.json"
+                },
+                body: JSON.stringify({
+                    zipCode: zipCode.value,
+                    adminRegion: adminRegion.value,
+                })
+
+            })
+            .then(resp => resp.json())
+            .then(body =>{
+                const msg = body.errMsg ?? "success";
+                alert(msg);
+            });
+        });
+        
+        document.querySelector("select#adminlocation").addEventListener("click", () => {
+            if(document.querySelector("select#adminlocation").getAttribute("class")!="-on"){
+              document.querySelector("select#adminlocation").classList.add("-on")
+            
+            const url = "adminLocation/getAll"
+           // alert("hi");
+            fetch(url)
+              .then(function (response) {
+                // 接收到回傳的物件
+                if (response.ok) {
+                  // 如果正確取得資料，沒有發生錯誤
+                  console.log("回應沒問題");
+                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                }
+                throw new Error(response.statusText);
+              })
+              .then(function (data) {
+                // 這裡真的取得資料：data
+                var obj = JSON.stringify(data);
+                var mapData = JSON.parse(obj);
+                console.log(data[0]);
+                console.log("========");
+                console.log(mapData);
+                console.log(mapData[0]);
+                //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
+                for(i=0; i<data.length; i++){
+                	var code = mapData[i].zipCode;
+                	var region = mapData[i].adminRegion;
+                  const option = document.createElement("option");
+                  const textoption = document.createTextNode(code + region);
+                  option.appendChild(textoption);
+                	document.querySelector("select#adminlocation").appendChild(option);
+                	
+                }
+              })
+              .catch(function (error) {
+                // 發生任何錯誤，就會執行 catch 裡的程式
+                console.log(error); // 這裡取得錯誤資訊：error
+              });
+            }
+          });
+   </script>
+</body>
+</html>

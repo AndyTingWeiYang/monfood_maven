@@ -1,5 +1,7 @@
 package com.model.order.service.impl;
 
+import java.util.List;
+
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
@@ -14,23 +16,29 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public String adminFindOrderId(OrderVO orderVO) {
+	public OrderVO adminFindOrderId(OrderVO orderVO) {
 		
 		final Integer orderId = orderVO.getOrderId();
 		
+		// validate orderId
 		if(orderId == null) {
-			return "請輸入數字";
+			return null;
 		}
 		
-		return null;
+		orderVO = dao.findByPrimaryKey(orderId);
+		// validate if the data exists in table
+		if(orderVO == null) {
+			return null;
+		}
+		
+		// data exists, return to controller
+		return orderVO;
+		
 	}
 	
-	@Override
-	public OrderVO adminFindVO(OrderVO orderVO) {
-		
-		final Integer orderId = orderVO.getOrderId();
-		orderVO = dao.findByPrimaryKey(orderId);
-		return orderVO;
+	public List<OrderVO> adminFindOrderAll(){
+		List<OrderVO> list = dao.getAll();
+		return list;
 	}
 	
 	

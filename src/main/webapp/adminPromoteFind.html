@@ -1,160 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>MonFood</title>
+    <link rel="stylesheet" href="/assets/css/jquery.dataTables.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
+    <!-- w3c.js 引入共用畫面 -->
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>MonFood</title>
-  <!-- w3c.js 引入共用畫面 -->
+  <body>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="/assets/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <div class="container-scroller">
+      <!-- ===== sidebar start ===== -->
+      <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
+      <div w3-include-html="adminSidebar.html"></div>
+      <!-- ===== sidebar end ===== -->
 
-</head>
+      <div class="container-fluid page-body-wrapper">
+        <!-- ===== header start ===== -->
+        <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
+        <div w3-include-html="adminHeader.html"></div>
+        <!-- ===== header end ===== -->
 
-
-<body>
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="assets/js/jQuery-3.6.0.js"></script>
-  <div class="container-scroller">
-
-    <!-- ===== sidebar start ===== -->
-    <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
-    <div w3-include-html="adminSidebar.html"></div>
-    <!-- ===== sidebar end ===== -->
-
-    <div class="container-fluid page-body-wrapper">
-      <!-- ===== header start ===== -->
-      <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
-      <div w3-include-html="adminHeader.html"></div>
-      <!-- ===== header end ===== -->
-
-      <div class="main-panel">
-        <!-- ===== 內容客製化區塊 start ===== -->
-        <div class="mf-content-wrapper mt-4">
-          <!-- 表單區塊 -->
-          <div class="row result">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header"style="background-color: #e9ecef;">
-                  <h3 class="card-title" style="color: black;">所有優惠券</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Reason</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>183</td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>219</td>
-                        <td>Alexander Pierce</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>657</td>
-                        <td>Bob Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>175</td>
-                        <td>Mike Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>134</td>
-                        <td>Jim Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>494</td>
-                        <td>Victoria Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>832</td>
-                        <td>Michael Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+        <div class="main-panel">
+          <!-- ===== 內容客製化區塊 start ===== -->
+          <div class="mf-content-wrapper mt-4">
+            <!-- 表單區塊-->
+            <div class="container">
+              <table id="prductList" class="display" style="width: 100%">
+                <thead>
+                  <tr>
+                    <th>優惠券編號</th>
+                    <th>優惠券名稱</th>
+                    <th>優惠折抵</th>
+                    <th>開始日期</th>
+                    <th>結束日期</th>
+                    <th>狀態</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01</td>
+                    <td>新年一月</td>
+                    <td>20</td>
+                    <td>2022-01-01</td>
+                    <td>2022-01-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          <a href="resprofile-account.html" id="manual-ajax"
+                            >修改</a
+                          >
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>02</td>
+                    <td>天天過年</td>
+                    <td>15</td>
+                    <td>2022-02-01</td>
+                    <td>2022-02-28</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          <a href="/resprofile-account.html" rel="modal:open"
+                            >修改</a
+                          >
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>03</td>
+                    <td>風和日麗</td>
+                    <td>66</td>
+                    <td>2022-03-01</td>
+                    <td>2022-03-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>04</td>
+                    <td>陰雨綿綿</td>
+                    <td>39</td>
+                    <td>2022-04-01</td>
+                    <td>2022-04-30</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>05</td>
+                    <td>夏天好熱</td>
+                    <td>30</td>
+                    <td>2022-05-01</td>
+                    <td>2022-05-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>06</td>
+                    <td>端午立蛋</td>
+                    <td>30</td>
+                    <td>2022-06-01</td>
+                    <td>2022-06-30</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>07</td>
+                    <td>飄飄開門</td>
+                    <td>75</td>
+                    <td>2022-07-01</td>
+                    <td>2022-07-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>08</td>
+                    <td>中秋賞月</td>
+                    <td>25</td>
+                    <td>2022-08-01</td>
+                    <td>2022-08-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>09</td>
+                    <td>謝謝老師</td>
+                    <td>50</td>
+                    <td>2022-09-01</td>
+                    <td>2022-09-30</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>國慶快樂</td>
+                    <td>100</td>
+                    <td>2022-10-01</td>
+                    <td>2022-10-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>11</td>
+                    <td>天寒地凍</td>
+                    <td>11</td>
+                    <td>2022-11-01</td>
+                    <td>2022-11-30</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td>聖誕快樂</td>
+                    <td>25</td>
+                    <td>2022-12-01</td>
+                    <td>2022-12-31</td>
+                    <td>無</td>
+                    <td>
+                      <div class="mf-btn-center">
+                        <button class="btn btn-outline-secondary btn-sm mb-1">
+                          修改
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+          <!-- ===== 內容客製化區塊 ===== -->
 
-
+          <!-- ===== footer start ===== -->
+          <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
+          <div w3-include-html="adminFooter.html"></div>
+          <!-- ===== footer end ===== -->
         </div>
-        <!-- ===== 內容客製化區塊 ===== -->
-
-
-        <!-- ===== footer start ===== -->
-        <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
-        <div w3-include-html="adminFooter.html"></div>
-        <!-- ===== footer end ===== -->
       </div>
     </div>
-  </div>
-  <script>
-    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      w3.includeHTML(function () {
-        var scriptObj = document.querySelectorAll('script[src^="assets"]');
-  
-        for (var i = 0; i < scriptObj.length; i++) {
-          var scriptElement = document.createElement('script');
-          scriptElement.src = scriptObj[i].getAttribute('src');
-  
-          document.head.appendChild(scriptElement);
-        }
-      });
-    });
-  </script>
-</body>
+    <script>
+      // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        w3.includeHTML(function () {
+          function init() {
+            $("#prductList").DataTable();
 
+            $("#manual-ajax").click(function (event) {
+              event.preventDefault();
+              this.blur(); // Manually remove focus from clicked link.
+              $.get(this.href, function (html) {
+                $(html).appendTo("body").modal();
+              });
+            });
+          }
+
+          var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+          for (var i = 0; i < scriptObj.length; i++) {
+            var scriptElement = document.createElement("script");
+            scriptElement.src = scriptObj[i].getAttribute("src");
+
+            document.head.appendChild(scriptElement);
+          }
+          init();
+        });
+      });
+    </script>
+  </body>
 </html>

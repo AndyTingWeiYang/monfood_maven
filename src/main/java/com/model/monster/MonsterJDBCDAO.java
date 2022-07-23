@@ -24,7 +24,7 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 	private static final String DELETE = 
 			"DELETE FROM MonFood.MONSTER where MONS_LEVEL = ?";
 	private static final String UPDATE = 
-			"UPDATE MonFood.MONSTER set MONS_LEVEL=?, DISCOUNT=?, MONS_PIC=? where MONS_LEVEL = ?";
+			"UPDATE MonFood.MONSTER set DISCOUNT = ?, MONS_PIC = ? where MONS_LEVEL = ?";
 
 	@Override
 	public void insert(MonsterVO monsterVO) throws SQLException {
@@ -203,9 +203,9 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 			while (rs.next()) {
 				// monsterVO 也稱為 Domain objects 區域 對象
 				monsterVO = new MonsterVO();
-				monsterVO.setMonsLevel(rs.getInt("monsLevel"));
-				monsterVO.setDiscount(rs.getInt("discount"));
-				monsterVO.setMonsPic(rs.getBytes("monsPic"));//第三個欄位圖片byte[]用Bytes
+				monsterVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
+				monsterVO.setDiscount(rs.getInt("DISCOUNT"));
+				monsterVO.setMonsPic(rs.getBytes("MONS_PIC"));//第三個欄位圖片byte[]用Bytes
 				
 			}
 
@@ -262,9 +262,9 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 			while (rs.next()) {
 				// monsterVO 也稱為 Domain objects 區域 對象
 				monsterVO = new MonsterVO();
-				monsterVO.setMonsLevel(rs.getInt("monsLevel"));
-				monsterVO.setDiscount(rs.getInt("discount"));
-				monsterVO.setMonsPic(rs.getBytes("monsPic"));//第三個欄位圖片byte[]用Bytes
+				monsterVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
+				monsterVO.setDiscount(rs.getInt("DISCOUNT"));
+				monsterVO.setMonsPic(rs.getBytes("MONS_PIC"));//第三個欄位圖片byte[]用Bytes
 				list.add(monsterVO); // Store the row in the list(將行存儲在列表中)
 			}
 			
@@ -297,39 +297,46 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 		return list;
 	}
 
+	//測試
 	public static void main(String[] args) throws SQLException {
 		
 		MonsterJDBCDAO dao = new MonsterJDBCDAO();
 
 		// 新增OK
 //		MonsterVO monsterVO1 = new MonsterVO();
-//		monsterVO1.setMonsLevel(6);
-//		monsterVO1.setDiscount(25);
+//		monsterVO1.setMonsLevel(7);
+//		monsterVO1.setDiscount(55);
 //		monsterVO1.setMonsPic(null);
 //		dao.insert(monsterVO1);
 
-		// 修改
+		// 修改  BUG待處理
 //		MonsterVO monsterVO2 = new MonsterVO();
-//		monsterVO2.setMonsLevel(6);
-//		monsterVO2.setDiscount(25);
+//		monsterVO2.setMonsLevel(1);
+//		System.out.println("有");
+//		monsterVO2.setDiscount(2);
+//		System.out.println("有");
 //		monsterVO2.setMonsPic(null);
+//		System.out.println("有");
 //		dao.update(monsterVO2);
+//		System.out.println("修改成功");
 
 		// 刪除OK
 //		dao.delete(6);
 
-		// 查詢
-//		MonsterVO monsterVO3 = dao.findByPrimaryKey(1);
+		// 查詢OK
+//		MonsterVO monsterVO3 = dao.findByPrimaryKey(3);
 //		System.out.println(monsterVO3.getMonsLevel() + ",");
 //		System.out.println(monsterVO3.getDiscount() + ",");
 //		System.out.println(monsterVO3.getMonsPic() + ",");
 //		System.out.println("---------------------");
 		
-		//查詢全部
-		List<MonsterVO> list = dao.getAll();
-		for (MonsterVO monsterVO4 : list) {
-			System.out.println(monsterVO4.getMonsLevel());
-		}
+		//查詢全部OK
+//		List<MonsterVO> list = dao.getAll();
+//		for (MonsterVO monsterVO4 : list) {
+//			System.out.println(monsterVO4.getMonsLevel());
+//			System.out.println(monsterVO4.getDiscount());
+//			System.out.println(monsterVO4.getMonsPic());
+//		}
 	}
 	
 

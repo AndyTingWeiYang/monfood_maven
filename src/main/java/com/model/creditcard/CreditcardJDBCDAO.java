@@ -1,6 +1,7 @@
 package com.model.creditcard;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,11 +22,11 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM CREDITCARD order by CREDITCARD_ID";
 	private static final String GET_ONE_STMT = 
-			"SELECT CREDITCARD_ID,USER_ID,CARD_NUM,SECURITY_CODE,EX_DATE,DEFAULT_STATUS FROM MonFood.CREDITCARD where MONS_LEVEL = ?";
+			"SELECT CREDITCARD_ID,USER_ID,CARD_NUM,SECURITY_CODE,EX_DATE,DEFAULT_STATUS FROM MonFood.CREDITCARD where CREDITCARD_ID = ?";
 	private static final String DELETE = 
 			"DELETE FROM MonFood.CREDITCARD where CREDITCARD_ID = ?";
 	private static final String UPDATE = 
-			"UPDATE MonFood.CREDITCARD set CREDITCARD_ID=?, USER_ID=?, CARD_NUM=?, SECURITY_CODE=?, EX_DATE=?, DEFAULT_STATUS=? where CREDITCARD_ID = ?";
+			"UPDATE MonFood.CREDITCARD set USER_ID, CARD_NUM=?, SECURITY_CODE=?, EX_DATE=?, DEFAULT_STATUS=? where CREDITCARD_ID = ?";
 
 	@Override
 	public void insert(CreditcardVO creditcardVO) throws SQLException {
@@ -48,7 +49,7 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 			pstmt.setString(3, creditcardVO.getCardNum());//第三個欄位
 			pstmt.setString(4, creditcardVO.getSecurityCode());//第四個欄位
 			pstmt.setDate(5, creditcardVO.getExDate());//第五個欄位
-			pstmt.setInt(5, creditcardVO.getDefaultStatus());//第六個欄位
+			pstmt.setInt(6, creditcardVO.getDefaultStatus());//第六個欄位
 			
 			pstmt.executeUpdate();//參數化查詢呼叫執行更新
 
@@ -102,7 +103,7 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 			pstmt.setString(3, creditcardVO.getCardNum());//第三個欄位
 			pstmt.setString(4, creditcardVO.getSecurityCode());//第四個欄位
 			pstmt.setDate(5, creditcardVO.getExDate());//第五個欄位
-			pstmt.setInt(5, creditcardVO.getDefaultStatus());//第六個欄位
+			pstmt.setInt(6, creditcardVO.getDefaultStatus());//第六個欄位
 			
 			pstmt.executeUpdate();//參數化查詢呼叫執行更新
 
@@ -210,12 +211,12 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 			while (rs.next()) {
 				// creditcardVO 也稱為 Domain objects 區域 對象
 				creditcardVO = new CreditcardVO();
-				creditcardVO.setCreditcardId(rs.getInt("creditcardId"));//第一個欄位
-				creditcardVO.setUserId(rs.getInt("userId"));//第二個欄位
-				creditcardVO.setCardNum(rs.getString("cardNum"));;//第三個欄位
-				creditcardVO.setSecurityCode(rs.getString("securityCode"));//第四個欄位
-				creditcardVO.setExDate(rs.getDate("exDate"));//第五個欄位
-				creditcardVO.setDefaultStatus(rs.getInt("defaultStatus"));//第六個欄位
+				creditcardVO.setCreditcardId(rs.getInt("CREDITCARD_ID"));//第一個欄位
+				creditcardVO.setUserId(rs.getInt("USER_ID"));//第二個欄位
+				creditcardVO.setCardNum(rs.getString("CARD_NUM"));;//第三個欄位
+				creditcardVO.setSecurityCode(rs.getString("SECURITY_CODE"));//第四個欄位
+				creditcardVO.setExDate(rs.getDate("EX_DATE"));//第五個欄位
+				creditcardVO.setDefaultStatus(rs.getInt("DEFAULT_STATUS"));//第六個欄位
 				
 			}
 
@@ -271,12 +272,12 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 			while (rs.next()) {
 				// creditcardVO 也稱為 Domain objects 區域 對象
 				creditcardVO = new CreditcardVO();
-				creditcardVO.setCreditcardId(rs.getInt("creditcardId"));//第一個欄位
-				creditcardVO.setUserId(rs.getInt("userId"));//第二個欄位
-				creditcardVO.setCardNum(rs.getString("cardNum"));;//第三個欄位
-				creditcardVO.setSecurityCode(rs.getString("securityCode"));//第四個欄位
-				creditcardVO.setExDate(rs.getDate("exDate"));//第五個欄位
-				creditcardVO.setDefaultStatus(rs.getInt("defaultStatus"));//第六個欄位
+				creditcardVO.setCreditcardId(rs.getInt("CREDITCARD_ID"));//第一個欄位
+				creditcardVO.setUserId(rs.getInt("USER_ID"));//第二個欄位
+				creditcardVO.setCardNum(rs.getString("CARD_NUM"));;//第三個欄位
+				creditcardVO.setSecurityCode(rs.getString("SECURITY_CODE"));//第四個欄位
+				creditcardVO.setExDate(rs.getDate("EX_DATE"));//第五個欄位
+				creditcardVO.setDefaultStatus(rs.getInt("DEFAULT_STATUS"));//第六個欄位
 				list.add(creditcardVO); // Store the row in the list(將行存儲在列表中)
 			}
 			
@@ -308,5 +309,57 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 		}
 		return list;
 	}
+	
+	//測試
+	public static void main(String[] args) throws SQLException {
+		CreditcardJDBCDAO dao = new CreditcardJDBCDAO();
+		// 新增OK
+//		CreditcardVO creditcardVO1 = new CreditcardVO();
+//		creditcardVO1.setCreditcardId(7);
+//		creditcardVO1.setUserId(5); //只能選擇已在資料庫內的使用者
+//		creditcardVO1.setCardNum("33333333");
+//		creditcardVO1.setSecurityCode("5555555");
+//		creditcardVO1.setExDate(java.sql.Date.valueOf("2022-12-12"));
+//		creditcardVO1.setDefaultStatus(0);
+//		dao.insert(creditcardVO1);
+//		System.out.println("新增成功");
 
+		// 修改 BUG待處理
+//		CreditcardVO creditcardVO2 = new CreditcardVO();
+//		creditcardVO2.setCreditcardId(6);
+//		creditcardVO2.setUserId(6);
+//		creditcardVO2.setCardNum("5");
+//		creditcardVO2.setSecurityCode("5");
+//		creditcardVO2.setExDate(java.sql.Date.valueOf("2022-12-14"));
+//		creditcardVO2.setDefaultStatus(1);
+//		dao.update(creditcardVO2);
+//		System.out.println("修改成功");
+
+		// 刪除OK
+//		dao.delete(7);//選擇要刪除的卡號ID
+//		System.out.println("刪除成功");
+		
+		// 查詢OK
+//		CreditcardVO creditcardVO3 = dao.findByPrimaryKey(3);
+//		System.out.println(creditcardVO3.getCreditcardId() + ",");
+//		System.out.println(creditcardVO3.getUserId() + ",");
+//		System.out.println(creditcardVO3.getCardNum() + ",");
+//		System.out.println(creditcardVO3.getSecurityCode() + ",");
+//		System.out.println(creditcardVO3.getExDate() + ",");
+//		System.out.println(creditcardVO3.getDefaultStatus() + ",");
+//		System.out.println("---------------------");
+		
+		//查詢全部OK
+//		List<CreditcardVO> list = dao.getAll();
+//		for (CreditcardVO creditcardVO4 : list) {
+//		System.out.println(creditcardVO4.getCreditcardId());
+//		System.out.println(creditcardVO4.getUserId());
+//		System.out.println(creditcardVO4.getCardNum());
+//		System.out.println(creditcardVO4.getSecurityCode());
+//		System.out.println(creditcardVO4.getExDate());
+//		System.out.println(creditcardVO4.getDefaultStatus());
+//		System.out.println("---------------------");
+//		}
+
+	}
 }
