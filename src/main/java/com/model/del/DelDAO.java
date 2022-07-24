@@ -13,6 +13,8 @@ public interface DelDAO {
 
 	// 查詢單筆資料所以用pk ID作為條件搜尋會傳回一筆資料
 	DelVO findByDelID(Integer delID);
+	DelVO findByDelName(String delName);
+	
 
 	// select all 不用條件所以沒有參數 但是會回傳很多物件所以用有順序的list搭配delvo泛型做承接
 	List<DelVO> getAll();
