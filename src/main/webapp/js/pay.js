@@ -141,4 +141,23 @@ window.addEventListener('load', function(){
     }
   })
 
+  var data = {
+
+    "redId" : 1,
+    "redName" : '123',
+    "amount" : 5,
+    "productID" : 1,
+    "productName" : '煎餃',
+    "productPrice" : 50,
+    "productKcal" : 100
+    
+  };
+  
+  // RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID
+
+
+
+
+
+
 })
