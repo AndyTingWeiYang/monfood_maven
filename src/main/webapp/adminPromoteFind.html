@@ -7,19 +7,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>MonFood</title>
-    <link rel="stylesheet" href="/assets/css/jquery.dataTables.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
-    />
     <!-- w3c.js 引入共用畫面 -->
   </head>
 
   <body>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="assets/js/jQuery-3.6.0.js"></script>
-    <script src="/assets/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
     <div class="container-scroller">
       <!-- ===== sidebar start ===== -->
       <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
@@ -34,23 +27,82 @@
 
         <div class="main-panel">
           <!-- ===== 內容客製化區塊 start ===== -->
-          <div class="mf-content-wrapper mt-4">
-            <!-- 表單區塊-->
-            <div class="container">
-              <table id="prductList" class="display" style="width: 100%">
-                <thead>
-                  <tr>
-                    <th>優惠券編號</th>
-                    <th>優惠券名稱</th>
-                    <th>優惠折抵</th>
-                    <th>開始日期</th>
-                    <th>結束日期</th>
-                    <th>狀態</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="content"></tbody>
-              </table>
+          <div class="mf-content-wrapper mt-5">
+            <!-- 表單區塊 -->
+            <div
+              class="jumbotron"
+              style="
+                padding-bottom: 20px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+              "
+            >
+              <div class="form-group row">
+                <label
+                  for="promoteId"
+                  class="col-sm-12 col-form-label"
+                  style="font-size: 25px; margin-bottom: 10px"
+                  >查詢優惠券</label
+                >
+                <div class="col-sm-12">
+                  <input
+                    type="text"
+                    placeholder="輸入優惠券編號"
+                    name="promoteId"
+                    class="form-control"
+                    id="promoteId"
+                  />
+                </div>
+                <span id="errMsg" style="color: red; font-size: 12px"></span>
+                <div class="col-sm-12 d-flex justify-content-end mt-3">
+                  <button
+                    id="selectAll"
+                    type="submit"
+                    class="btn btn-primary"
+                    style="background: #3d424e; border: none"
+                  >
+                    查詢所有優惠券
+                  </button>
+                  <button
+                    id="selectOne"
+                    type="submit"
+                    class="btn btn-primary"
+                    style="background: #3d424e; border: none; margin-left: 10px"
+                  >
+                    單筆優惠券查詢
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row result">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header" style="background-color: #e9ecef">
+                    <h3 class="card-title" style="color: black">查詢結果</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div
+                    class="card-body table-responsive p-0"
+                    style="height: 300px"
+                  >
+                    <table class="table table-head-fixed text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>優惠券編號</th>
+                          <th>優惠券代碼</th>
+                          <th>優惠折抵</th>
+                          <th>開始日期</th>
+                          <th>結束日期</th>
+                          <th>狀態</th>
+                        </tr>
+                      </thead>
+                      <tbody id="content"></tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
             </div>
           </div>
           <!-- ===== 內容客製化區塊 ===== -->
@@ -62,22 +114,12 @@
         </div>
       </div>
     </div>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+
     <script>
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
       document.addEventListener("DOMContentLoaded", function () {
         w3.includeHTML(function () {
-          function init() {
-            $("#prductList").DataTable();
-
-            $("#manual-ajax").click(function (event) {
-              event.preventDefault();
-              this.blur(); // Manually remove focus from clicked link.
-              $.get(this.href, function (html) {
-                $(html).appendTo("body").modal();
-              });
-            });
-          }
-
           var scriptObj = document.querySelectorAll('script[src^="assets"]');
 
           for (var i = 0; i < scriptObj.length; i++) {
@@ -86,15 +128,70 @@
 
             document.head.appendChild(scriptElement);
           }
-          init();
         });
       });
-      //
       $(function () {
         const promoteId = $("#promoteId");
 
         $("#promoteId").on("blur", function () {
           $("#errMsg").text("");
+        });
+
+        $("#promoteId").keypress(function (e) {
+          if (e.which == 13) {
+            $("#selectOne").click();
+          }
+        });
+
+        // selectOne
+        $("#selectOne").on("click", function () {
+          //        console.log(orderId.val());
+          let errMsg;
+          let numCheck = /^[0-9]*$/;
+          if (promoteId.val().trim() == null || promoteId.val().trim() == "") {
+            errMsg = "*優惠券編號請勿空白";
+            $("#errMsg").text(errMsg);
+
+            return;
+          }
+
+          if (!numCheck.test(promoteId.val().trim())) {
+            errMsg = "*請輸入數字";
+            $("#errMsg").text(errMsg);
+
+            return;
+          }
+
+          // $.ajax({
+          //   url: "PromoteListAllServlet",
+          //   type: "POST",
+          //   data: JSON.stringify({ promoteId: promoteId.val().trim() }),
+          //   dataType: "json",
+          //   success: function (data) {
+          //     console.log(data);
+          //     // console.log(data.orderId);
+          //     $("#errMsg").text("");
+          //     if (data.errMsg == "無此優惠券") {
+          //       errMsg = "*無此優惠券";
+          //       $("#errMsg").text(errMsg);
+          //       return;
+          //     }
+          //     console.log(data);
+
+          //     let table_html = `
+          //   <tr>
+          //       <td>${data.promoteId}</td>
+          //       <td>${data.PromoteList.promoteCode}</td>
+          //       <td>${data.PromoteList.promotePrice}</td>
+          //       <td>${data.PromoteList.startDate}</td>
+          //       <td>${data.PromoteList.endDate}</td>
+          //       <td>${data.PromoteList.status}</td>
+          //   </tr>
+          //   `;
+
+          //     $("#content").html(table_html);
+          //   },
+          // });
         });
 
         // selectAll
@@ -103,39 +200,45 @@
           let errMsg;
 
           $.ajax({
-            url: "AdminPromoteListAllServlet",
+            url: "PromoteListAllServlet",
             type: "POST",
             dataType: "json",
             // dataType: 'json',
             success: function (data) {
               console.log(data);
-              console.log(data.PromoteList[1]);
-              $("#errMsg").text("");
 
-              if (data.errMsg == "系統錯誤") {
-                errMsg = "*系統錯誤";
-                $("#errMsg").text(errMsg);
-                return;
-              }
+              $.each(data, function () {
+                console.log(data);
+                $.each(this, function (index, data) {
+                  console.log(data.endDate);
+                  console.log(index);
 
-              let table_html = `
-            <tr>
-                <td>${data.PromoteList.promoteId}</td>
-                <td>${data.PromoteList.promoteCode}</td>
-                <td>${data.PromoteList.startDate}</td>
-                <td>${data.PromoteList.endDate}</td>
-                <td>${data.PromoteList.status}</td>
+                  let table_html = `
+                  <tr>
+                    <td>${data.promoteId}</td>
+                    <td>${data.promoteCode}</td>
+                    <td>${data.promotePrice}</td>
+                    <td>${data.startDate}</td>
+                    <td>${data.endDate}</td>
+                    <td>${data.status}</td>
+                    </tr>
+                    `;
+                  $("#content").append(table_html);
+                });
+              });
+              // var test = data.PromoteList[i];
 
-            </tr>
-            `;
+              // $("#errMsg").text("");
 
-              $("#content").html(table_html);
+              // if (data.errMsg == "系統錯誤") {
+              //   errMsg = "*系統錯誤";
+              //   $("#errMsg").text(errMsg);
+              //   return;
+              // }
             },
           });
         });
       });
-
-      //
     </script>
   </body>
 </html>

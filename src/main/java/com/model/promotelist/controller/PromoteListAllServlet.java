@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
 import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.service.PromoteListService;
 import com.model.promotelist.service.Impl.PromoteListServiceImpl;
@@ -20,14 +21,15 @@ import com.model.promotelist.service.Impl.PromoteListServiceImpl;
 public class PromoteListAllServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-	
+		
 		try {
-			PromoteListService service = new PromoteListServiceImpl();
-			List<PromoteListVO> list = service.adminFindPromoteListAll();
+			PromoteListService promoteListService = new PromoteListServiceImpl();
+			List<PromoteListVO> list = promoteListService.adminFindPromoteListAll();
 			
 			// add the list into json format
 			respObj.add("PromoteList", gson.toJsonTree(list));
@@ -35,14 +37,48 @@ public class PromoteListAllServlet extends HttpServlet{
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
+	
+	
+	
+//	  分隔線
+	
+//	public void doGet(HttpServletRequest req, HttpServletResponse res)
+//            throws ServletException, IOException {
+//		doPost(req, res);
+//	}
+
+	
+//		分隔線	
+	
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+//			throws ServletException, IOException {
+//		request.setCharacterEncoding("UTF-8");
+//		response.setContentType("text/html; charset=UTF-8");	
+//		Gson gson = new Gson();
+//		JsonObject respObj = new JsonObject();
+//		List<PromoteListVO> datas = null;
+//		
+//		PromoteListVO promoteListVO = gson.fromJson(request.getReader(), PromoteListVO.class);
+//		PromoteListServiceImpl prmotListServiceImpl = new PromoteListServiceImpl();
+//		datas = prmotListServiceImpl.adminFindPromoteListAll();
+
+//		分隔線
+		
+//		try {
+//			PromoteListService service = new PromoteListServiceImpl();
+//			List<PromoteListVO> list = service.adminFindPromoteListAll();
+//			
+//			// add the list into json format
+//			respObj.add("PromoteList", gson.toJsonTree(list));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			respObj.addProperty("errMsg", "系統錯誤");
+//		}
 		
 		// return data
 		response.getWriter().append(gson.toJson(respObj));
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
 	
 	
 }
