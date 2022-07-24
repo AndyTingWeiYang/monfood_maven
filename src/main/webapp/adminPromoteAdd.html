@@ -216,7 +216,7 @@
           })
             .then((resp) => resp.json())
             .then((body) => {
-              const msg = body.errMsg ?? "success";
+              const msg = body.errMsg ?? "新增成功";
               alert(msg);
             });
         }
