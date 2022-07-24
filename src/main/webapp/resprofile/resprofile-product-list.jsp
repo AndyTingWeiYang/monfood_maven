@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,11 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品列表</title>
     <link rel="stylesheet" href="<c:url value='/assets/css/jquery.dataTables.min.css' />">
-<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
-
     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <script src="<c:url value='/assets/js/jquery.dataTables.min.js' />"></script>
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
     <style>
         .mf-btn-center {
             width: 60%;

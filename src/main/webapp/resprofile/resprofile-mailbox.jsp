@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商家資訊</title>
-    <!-- w3c.js 引入共用畫面 -->
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="/assets/js/jQuery-3.6.0.js"></script>
+    <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <style>
         .gradient-custom {
             background: rgb(210, 196, 178)
@@ -31,7 +32,6 @@
 
 </head>
 <script>
-    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
         function init() {
             $('.mouse-cursor').each(function (index, element) {
@@ -44,26 +44,14 @@
                 })
             });
         }
-
-        w3.includeHTML(function () {
-            var scriptObj = document.querySelectorAll('script[src^="/assets"]');
-
-            for (var i = 0; i < scriptObj.length; i++) {
-                var scriptElement = document.createElement('script');
-                scriptElement.src = scriptObj[i].getAttribute('src');
-                document.head.appendChild(scriptElement);
-            }
-
-            init();
-        });
+        init();
     });
 </script>
-
 <body>
     <div class="container-scroller">
-        <div w3-include-html="resprofile-sidebar.html"></div>
+    <div><jsp:include page="resprofile-sidebar.jsp" /></div>
         <div class="container-fluid page-body-wrapper">
-            <div w3-include-html="resprofile-header.html"></div>
+        <jsp:include page="resprofile-header.jsp" />
             <div class="main-panel">
                 <div class="mf-content-wrapper">
                     <section class="gradient-custom" style="height: 100vh; overflow-y: auto;">
@@ -165,9 +153,8 @@
                             </div>
                         </div>
                     </section>
-
                 </div>
-                <div w3-include-html="resprofile-footer.html"></div>
+                <jsp:include page="resprofile-footer.jsp" />
             </div>
         </div>
 
