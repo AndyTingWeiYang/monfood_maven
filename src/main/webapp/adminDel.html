@@ -5,6 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>MonFood</title>
+
+  <style>
+    input.platenumber{
+      display: none;
+    }
+  </style>
   <!-- w3c.js 引入共用畫面 -->
   
 </head>
@@ -34,19 +40,23 @@
             <div class="form-group row">
               <label for="delName" class="col-sm-12 col-form-label">外送員姓名</label>
               <div class="col-sm-12">
-                <input type="text" placeholder="輸入查詢外送員姓名" name="delName" class="form-control" id="delName">
+                <input type="text" placeholder="輸入查詢外送員姓名" name="delName" class="form-control inputDelName" id="delName">
               </div>
-              <label for="delTel" class="col-sm-12 col-form-label">外送員電話</label>
+              <label for="delTel" class="col-sm-12 col-form-label inputDelTel">外送員電話</label>
               <div class="col-sm-12">
                 <input type="text" placeholder="輸入查詢外送員電話" name="delTel" class="form-control" id="delTel">
               </div>
               <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出查詢</button>
+                <button type="button" class="btn btn-primary delGetAll">list all</button>
+                <!-- <a class="delGetAll" href="adminDelGetAll.html">list all</a> -->
+                <button type="submit" class="btn btn-primary delGetOne" style="background: #3d424e; border: none;">送出查詢</button>
               </div>
 
             </div>
           </div>
-       
+
+          <!-- ========查詢結果========================================================================== -->
+          
           <div class="row result">
             <div class="col-12">
               <div class="card">
@@ -59,86 +69,37 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Reason</th>
+                        <th>姓名</th>
+                        <th>帳號</th>
+                        <th>密碼</th>
+                        <th>電話</th>
+                        <th>生日</th>
+                        <th>車牌號碼</th>
+                        <th>狀態</th>
+                        <th>銀行帳戶名稱</th>
+                        <th>銀行名稱</th>
+                        <th>銀行代碼</th>
+                        <th>銀行帳號</th>
+                        
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>183</td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>219</td>
-                        <td>Alexander Pierce</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>657</td>
-                        <td>Bob Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>175</td>
-                        <td>Mike Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>134</td>
-                        <td>Jim Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>494</td>
-                        <td>Victoria Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>832</td>
-                        <td>Michael Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
+                    <tbody class="result">
+                      
                     </tbody>
                   </table>
                 </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        </div>
+          
+          
+          
+          
+          
+          <!-- ========查詢結果========================================================================== -->
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
@@ -155,7 +116,11 @@
       </div>
     </div>
   </div>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
   <script>
+
+
+
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
       w3.includeHTML(function () {
@@ -168,6 +133,167 @@
           document.head.appendChild(scriptElement);
         }
       });
+    });
+
+// edit
+    $(".result").on("click", ".edit", function(){
+      $("input.platenumber").toggleClass("-on");
+    });
+
+
+
+// getOne
+    $(".delGetOne").on("click", function(){
+      var inputDelName = $(".inputDelName").val().trim();
+      var inputDelTel = $(".inputDelTel").val().trim();
+      console.log(!inputDelName && !inputDelTel);
+      if(!inputDelName && !inputDelTel){
+        alert("請輸入帳號或是手機號碼");
+      }
+
+      const url = "AdminDelGetOne";
+            fetch((url),{
+                  method: "POST",
+                  headers: {
+                    "content-Type": "application.json"
+                  },
+                  body: JSON.stringify({
+                    delName: inputDelName
+                  })
+            })
+              .then(function (response) {
+                // 接收到回傳的物件
+                if (response.ok) {
+                  // 如果正確取得資料，沒有發生錯誤
+                  console.log("回應沒問題");
+                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                
+                }
+                throw new Error(response.statusText);
+              })
+              .then(function (data) {
+                // 這裡真的取得資料：data
+                var obj = JSON.stringify(data);
+                var mapData = JSON.parse(obj);
+                console.log(data);
+              	var delID = mapData.delID;
+                var delName = mapData.delName;
+                var delAccount = mapData.delAccount;
+                var delPassword = mapData.delPassword;
+                var delTel = mapData.delTel;
+                var delBirthday = mapData.delBirthday;
+                var platenumber = mapData.platenumber;
+                var status = mapData.status;
+                var delAccountName = mapData.delAccountName;
+                var delBankname = mapData.delBankname;
+                var delBankcode = mapData.delBankcode;
+                var delBankaccount = mapData.delBankaccount;
+                //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
+               
+
+                  // const tr = document.createElement("tr");
+                  var delVO = `
+                  <tr>
+                    <td>${delID}</td>
+                    <td>${delName}</td>
+                    <td>${delAccount}</td>
+                    <td>${delPassword}</td>
+                    <td>${delTel}</td>
+                    <td>${delBirthday}</td>
+                    <td class="platenumber">${platenumber}</td>
+                    <td><input class="platenumber -on"></td>
+                    <td>${status}</td>
+                    <td>${delAccountName}</td>
+                    <td>${delBankname}</td>
+                    <td>${delBankcode}</td>
+                    <td>${delBankaccount}</td>
+                    <td><button class="edit">修改</button></td>
+                   
+                </tr>
+                  `
+                 $("tbody.result").append(delVO);
+           
+                	
+              
+              })
+              .catch(function (error) {
+                // 發生任何錯誤，就會執行 catch 裡的程式
+                console.log(error); // 這裡取得錯誤資訊：error
+              });
+
+
+    });
+
+
+
+
+
+//getAll
+    document.querySelector("button.delGetAll").addEventListener("click", function(){
+      const url = "AdminDelGetAll";
+            fetch(url)
+              .then(function (response) {
+                // 接收到回傳的物件
+                if (response.ok) {
+                  // 如果正確取得資料，沒有發生錯誤
+                  console.log("回應沒問題");
+                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                }
+                throw new Error(response.statusText);
+              })
+              .then(function (data) {
+                // 這裡真的取得資料：data
+                var obj = JSON.stringify(data);
+                var mapData = JSON.parse(obj);
+                console.log(data[0]);
+                console.log("========");
+                console.log(mapData);
+                console.log(mapData[0]);
+                //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
+                for(i=0; i<data.length; i++){
+                	var delID = mapData[i].delID;
+                	var delName = mapData[i].delName;
+                  var delAccount = mapData[i].delAccount;
+                  var delPassword = mapData[i].delPassword;
+                  var delTel = mapData[i].delTel;
+                  var delBirthday = mapData[i].delBirthday;
+                  var platenumber = mapData[i].platenumber;
+                  var status = mapData[i].status;
+                  var delAccountName = mapData[i].delAccountName;
+                  var delBankname = mapData[i].delBankname;
+                  var delBankcode = mapData[i].delBankcode;
+                  var delBankaccount = mapData[i].delBankaccount;
+
+                  console.log(delID);
+
+                  // const tr = document.createElement("tr");
+                  var delVO = `
+                  <tr>
+                    <td>${delID}</td>
+                    <td>${delName}</td>
+                    <td>${delAccount}</td>
+                    <td>${delPassword}</td>
+                    <td>${delTel}</td>
+                    <td>${delBirthday}</td>
+                    <td>${platenumber}</td>
+                    <td>${status}</td>
+                    <td>${delAccountName}</td>
+                    <td>${delBankname}</td>
+                    <td>${delBankcode}</td>
+                    <td>${delBankaccount}</td>
+                    <td><button class="edit">修改</button></td>
+                   
+                </tr>
+                  `
+                 $("tbody.result").append(delVO);
+           
+                	
+                }
+              })
+              .catch(function (error) {
+                // 發生任何錯誤，就會執行 catch 裡的程式
+                console.log(error); // 這裡取得錯誤資訊：error
+              });
     });
   </script>
 </body>
