@@ -93,10 +93,8 @@ $(function(){
             url: 'AdminOrderAllServlet',
             type: 'POST',
             dataType: 'json',
-            // dataType: 'json',
             success: function(data){
-                 console.log(data);
-                 console.log(data.Orders[1]);
+
                 $('#errMsg').text('');
 
                 if(data.errMsg == '系統錯誤'){
@@ -105,33 +103,39 @@ $(function(){
                     return;
                 }
 
-                let table_html = `
-                <tr>
-                    <td>${data.Orders.orderId}</td>
-                    <td>${data.Orders.userId}</td>
-                    <td>${data.Orders.resId}</td>
-                    <td>${data.Orders.delId}</td>
-                    <td>${data.Orders.orderStatus}</td>
-                    <td>${data.Orders.note == undefined ? '' : data.Orders.note}</td>
-                    <td>${data.Orders.userLocation}</td>
-                    <td>${data.Orders.orderCreate}</td>
-                    <td>${data.Orders.orderDone}</td>
-                    <td>${data.Orders.productKcalTotal}</td>
-                    <td>${data.Orders.total}</td>
-                    <td>${data.Orders.delCost}</td>
-                    <td>${data.Orders.useCash}</td>
-                    <td>${data.Orders.creditId == undefined ? '' : data.Orders.creditId}</td>
-                    <td>${data.Orders.bonus == undefined ? '' : data.Orders.bonus}</td>
-                    <td>${data.Orders.rating == undefined ? '' : data.Orders.rating}</td>
-                    <td>${data.Orders.resRate == undefined ? '' : data.Orders.resRate}</td>
-                    <td>${data.Orders.delRate == undefined ? '' : data.Orders.delRate}</td>
-                    <td>${data.Orders.resComment == undefined ? '' : data.Orders.resComment}</td>
-                    <td>${data.Orders.delComment == undefined ? '' : data.Orders.delComment}</td>
-                    <td>${data.Orders.promoteId == undefined ? '' : data.Orders.promoteId}</td>
-                </tr>
-                `
+                $.each(data, function(){
+                    $.each(this, function(index, data){
 
-                $('#content').html(table_html);
+                        let table_html = 
+                            `
+                                <tr>
+                                    <td>${data.orderId}</td>
+                                    <td>${data.userId}</td>
+                                    <td>${data.resId}</td>
+                                    <td>${data.delId}</td>
+                                    <td>${data.orderStatus}</td>
+                                    <td>${data.note == undefined ? '' : data.note}</td>
+                                    <td>${data.userLocation}</td>
+                                    <td>${data.orderCreate}</td>
+                                    <td>${data.orderDone}</td>
+                                    <td>${data.productKcalTotal}</td>
+                                    <td>${data.total}</td>
+                                    <td>${data.delCost}</td>
+                                    <td>${data.useCash}</td>
+                                    <td>${data.creditId == undefined ? '' : data.creditId}</td>
+                                    <td>${data.bonus == undefined ? '' : data.bonus}</td>
+                                    <td>${data.rating == undefined ? '' : data.rating}</td>
+                                    <td>${data.resRate == undefined ? '' : data.resRate}</td>
+                                    <td>${data.delRate == undefined ? '' : data.delRate}</td>
+                                    <td>${data.resComment == undefined ? '' : data.resComment}</td>
+                                    <td>${data.delComment == undefined ? '' : data.delComment}</td>
+                                    <td>${data.promoteId == undefined ? '' : data.promoteId}</td>
+                                </tr>
+                            `
+                        
+                        $('#content').append(table_html);
+                    })
+                })
             }
 
 
