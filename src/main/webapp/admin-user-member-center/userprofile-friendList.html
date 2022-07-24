@@ -1,147 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MonFood-Demo</title>
     <!-- w3c.js 引入共用畫面 -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="/monfood_maven/assets/js/jQuery-3.6.0.js"></script>
-    <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css" />
-</head>
-<script>
+    <link
+      rel="stylesheet"
+      href="/monfood_maven/assets/css/user-member-center-style/friendList.css"
+    />
+  </head>
+  <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        w3.includeHTML(function () {
-            var scriptObj = document.querySelectorAll('script[src^="/monfood_maven/assets"]');
+    document.addEventListener("DOMContentLoaded", function () {
+      w3.includeHTML(function () {
+        var scriptObj = document.querySelectorAll(
+          'script[src^="/monfood_maven/assets"]'
+        );
 
-            for (var i = 0; i < scriptObj.length; i++) {
-                var scriptElement = document.createElement('script');
-                scriptElement.src = scriptObj[i].getAttribute('src');
+        for (var i = 0; i < scriptObj.length; i++) {
+          var scriptElement = document.createElement("script");
+          scriptElement.src = scriptObj[i].getAttribute("src");
 
-                document.head.appendChild(scriptElement);
-            }
-        });
+          document.head.appendChild(scriptElement);
+        }
+      });
     });
-</script>
+  </script>
 
-<body>
+  <body>
     <div class="container-scroller">
-        <div w3-include-html="sidebar.html"></div>
-        <div class="container-fluid page-body-wrapper">
-            <div w3-include-html="header.html"></div>
-            <div class="main-panel">
-                <div class="mf-content-wrapper-user-3">
-                    <!-- 內容都寫在content-wrapper -->
-                    <div class="mf-test-test">
-                        <h6>好友列表</h6>
-                    </div>                  
-                    <div id="friendList" class="list-group">
-                        <!-- 搜尋框 -->
-                        <form id="searchForm" class="form-inline active-pink-3 active-pink-4">
-                          <input
-                            class="form-control form-control-sm ml-3 w-75"
-                            type="text"
-                            placeholder="Search"
-                            aria-label="Search"
-                          />
-                          <!-- searchIcon -->
-                          <button id ="searchBtn">        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            id="searchIcon"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-search"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                            />
-                          </svg></button>
-                  
-                        </form>
-                        <!-- 訊息列表 -->
-                  
-                  
-                          <!-- 好友列表-->
-                          <div id="friendListDiv">
-                            <div class="d-flex w-100">
-                              <h5 id="avatarList" class="mb-1"></h5>
-                              <p id="friendName">David</p>
-                              <div id="removeBtnDiv"> <button id="removeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg></button></div>
-                            </div>
-                          </div>
-                  
-                          <div id="friendListDiv">
-                            <div class="d-flex w-100">
-                              <h5 id="avatarList" class="mb-1"></h5>
-                              <p id="friendName">David</p>
-                              <div id="removeBtnDiv"> <button id="removeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg></button></div>
-                            </div>
-                          </div>
-                  
-                          <div id="friendListDiv">
-                            <div class="d-flex w-100">
-                              <h5 id="avatarList" class="mb-1"></h5>
-                              <p id="friendName">David</p>
-                              <div id="removeBtnDiv"> <button id="removeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg></button></div>
-                            </div>
-                          </div>
-                  
-                          <div id="friendListDiv">
-                            <div class="d-flex w-100">
-                              <h5 id="avatarList" class="mb-1"></h5>
-                              <p id="friendName">David</p>
-                              <div id="removeBtnDiv"> <button id="removeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg></button></div>
-                            </div>
-                          </div>
-                          
-                          <div id="friendListDiv">
-                            <div class="d-flex w-100">
-                              <h5 id="avatarList" class="mb-1"></h5>
-                              <p id="friendName">David</p>
-                              <div id="removeBtnDiv"> <button id="removeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg></button></div>
-                            </div>
-                          </div>
-                                       
-                  
-                      <script>
-                      w3.includeHTML(function () {
-                    	  
-                        $("#friendListDiv ").on("click", '#removeBtn',function () {
-                          let yes = confirm("確認刪除此位好友? 您將永遠無法與他成為好友");
-                          if(yes) {
-                            $("#friendListDiv").remove();
-                          }
-                  
-                  
-                        });
-                      });
-                      </script>
-                    </div>
-                </div>
-                <div w3-include-html="footer.html"></div>
+      <div w3-include-html="sidebar.html"></div>
+      <div class="container-fluid page-body-wrapper">
+        <div w3-include-html="header.html"></div>
+        <div class="main-panel">
+          <div class="mf-content-wrapper-user-3">
+            <!-- 內容都寫在content-wrapper -->
+            <div class="mf-test-test">
+              <h6>好友列表</h6>
             </div>
-        </div>
-    </div>
-</body>
+            <div id="friendList" class="list-group">
+              <!-- 搜尋框 -->
+              <!-- <form
+                id="searchForm"
+                class="form-inline active-pink-3 active-pink-4"
+              >
+                <input
+                  class="form-control form-control-sm ml-3 w-75"
+                  type="text"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <!-- searchIcon -->
+              <!-- <button id="searchBtn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="searchIcon"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-search"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                    />
+                  </svg>
+                </button>
+              </form> -->
 
+              <!-- 訊息列表 -->
+
+              <!-- 好友列表-->
+
+              <script>
+                window.onload = function () {
+                  $.ajax({
+                    url: "http://localhost:8080/monfood_maven/PairListServlet",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                      for (var i = 0; i < data.length; i++) {
+                        var html = "";
+                        html += ` <div id="friendListDiv">
+                  <div class="d-flex w-100">
+                    <h5 id="avatarList" class="mb-1"></h5>
+                    <p id="friendName">${data[i].userName}</p>
+                    <div id="removeBtnDiv">
+                      <button id="removeBtn">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-trash"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>`;
+                        $("#friendList").append(html);
+                      }
+                    },
+                  });
+                };
+
+                w3.includeHTML(function () {
+                  $(document).on("click", "#removeBtn", function () {
+                    let yes = confirm(
+                      "確認刪除此位好友? 您將永遠無法與他成為好友"
+                    );
+                    if (yes) {
+                      $(this).parent().parent().parent().remove();
+                    }
+                  });
+                });
+              </script>
+            </div>
+          </div>
+          <div w3-include-html="footer.html"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
