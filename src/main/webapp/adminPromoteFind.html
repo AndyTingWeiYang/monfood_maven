@@ -78,7 +78,12 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header" style="background-color: #e9ecef">
-                    <h3 class="card-title" style="color: black">查詢結果</h3>
+                    <h3
+                      class="card-title"
+                      style="color: black; margin: 10px; font-size: 25px"
+                    >
+                      查詢結果
+                    </h3>
                   </div>
                   <!-- /.card-header -->
                   <div
@@ -145,53 +150,52 @@
 
         // selectOne
         $("#selectOne").on("click", function () {
-          //        console.log(orderId.val());
           let errMsg;
           let numCheck = /^[0-9]*$/;
           if (promoteId.val().trim() == null || promoteId.val().trim() == "") {
             errMsg = "*優惠券編號請勿空白";
             $("#errMsg").text(errMsg);
-
             return;
           }
 
           if (!numCheck.test(promoteId.val().trim())) {
             errMsg = "*請輸入數字";
             $("#errMsg").text(errMsg);
-
             return;
           }
 
-          // $.ajax({
-          //   url: "PromoteListAllServlet",
-          //   type: "POST",
-          //   data: JSON.stringify({ promoteId: promoteId.val().trim() }),
-          //   dataType: "json",
-          //   success: function (data) {
-          //     console.log(data);
-          //     // console.log(data.orderId);
-          //     $("#errMsg").text("");
-          //     if (data.errMsg == "無此優惠券") {
-          //       errMsg = "*無此優惠券";
-          //       $("#errMsg").text(errMsg);
-          //       return;
-          //     }
-          //     console.log(data);
+          console.log("我在這");
 
-          //     let table_html = `
-          //   <tr>
-          //       <td>${data.promoteId}</td>
-          //       <td>${data.PromoteList.promoteCode}</td>
-          //       <td>${data.PromoteList.promotePrice}</td>
-          //       <td>${data.PromoteList.startDate}</td>
-          //       <td>${data.PromoteList.endDate}</td>
-          //       <td>${data.PromoteList.status}</td>
-          //   </tr>
-          //   `;
+          $.ajax({
+            url: "PromoteListOneServlet",
+            type: "POST",
+            data: JSON.stringify({ promoteId: promoteId.val().trim() }),
+            dataType: "json",
+            success: function (data) {
+              console.log(data);
 
-          //     $("#content").html(table_html);
-          //   },
-          // });
+              // $("#errMsg").text("");
+              // if (data.errMsg == "無此優惠券") {
+              //   errMsg = "*無此優惠券";
+              //   $("#errMsg").text(errMsg);
+              //   return;
+              // }
+              console.log(data);
+
+              let table_html = `
+            <tr>
+                <td>${data.promoteId}</td>
+                <td>${data.promoteCode}</td>
+                <td>${data.promotePrice}</td>
+                <td>${data.startDate}</td>
+                <td>${data.endDate}</td>
+                <td>${data.status}</td>
+            </tr>
+            `;
+
+              $("#content").html(table_html);
+            },
+          });
         });
 
         // selectAll
@@ -203,7 +207,7 @@
             url: "PromoteListAllServlet",
             type: "POST",
             dataType: "json",
-            // dataType: 'json',
+
             success: function (data) {
               console.log(data);
 
@@ -226,7 +230,6 @@
                   $("#content").append(table_html);
                 });
               });
-              // var test = data.PromoteList[i];
 
               // $("#errMsg").text("");
 

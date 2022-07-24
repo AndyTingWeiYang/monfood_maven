@@ -11,62 +11,49 @@ import java.util.List;
 import com.model.promotedetail.PromoteDetailVO;
 import com.model.promotedetail.dao.PromoteDetailDAO;
 
+
 public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
 	
-	private static final String GET_ALL_STMT = 
-		"select * from PROMOTE_DETAIL order by PROMOTE_ID";
+	private static final String INSERT_STMT = 
+			"insert into MonFood.PROMOTE_DETAIL(PROMOTE_ID, USER_ID, USED_STATUS) "
+			+ "values(?,?,?)";
+//	private static final String GET_ALL_STMT = 
+//		"select * from PROMOTE_DETAIL order by PROMOTE_ID";
 	private static final String GET_ONE_STMT = 
 		"select * from PROMOTE_DETAIL where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_DETAIL "
 			+ "set USED_STATUS = ? " 
 			+ "where USER_ID = ? and PROMOTE_ID = ?";
 	
-
 	@Override
-	public List<PromoteDetailVO> getAll() {
-		
-		List<PromoteDetailVO> list = new ArrayList<PromoteDetailVO>();
-		PromoteDetailVO promoteDetailVO = null;
+	public Integer insert(PromoteDetailVO promoteDetailVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
+
 		try {
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				promoteDetailVO = new PromoteDetailVO();
-				promoteDetailVO.setPromoteId(rs.getInt("PROMOTE_ID"));
-				promoteDetailVO.setUserId(rs.getInt("USER_ID"));
-				promoteDetailVO.setUsedStatus(rs.getInt("USED_STATUS"));
-				
-				list.add(promoteDetailVO);
-				
-			}
-			
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setInt(1, promoteDetailVO.getPromoteId());
+			pstmt.setInt(2, promoteDetailVO.getUserId());
+			pstmt.setInt(3, promoteDetailVO.getUsedStatus());
+
+			pstmt.executeUpdate();
+
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -82,12 +69,71 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 				}
 			}
 		}
-		return list;
+		return 1;
 	}
+	
+//	@Override
+//	public List<PromoteDetailVO> getAll() {
+//		
+//		List<PromoteDetailVO> list = new ArrayList<PromoteDetailVO>();
+//		PromoteDetailVO promoteDetailVO = null;
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(GET_ALL_STMT);
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				promoteDetailVO = new PromoteDetailVO();
+//				promoteDetailVO.setPromoteId(rs.getInt("PROMOTE_ID"));
+//				promoteDetailVO.setUserId(rs.getInt("USER_ID"));
+//				promoteDetailVO.setUsedStatus(rs.getInt("USED_STATUS"));
+//				
+//				list.add(promoteDetailVO);
+//				
+//			}
+//			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return list;
+//	}
 	
 	
 	@Override
-	public PromoteDetailVO findByPrimaryKey(Integer promoteId) {
+	public PromoteDetailVO findByID(Integer promoteId) {
 		
 		PromoteDetailVO promoteDetailVO = null;
 		Connection con = null;
@@ -219,4 +265,6 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 		
 
 	}
+
+
 }

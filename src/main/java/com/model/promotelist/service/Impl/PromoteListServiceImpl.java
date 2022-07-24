@@ -66,7 +66,7 @@ public class PromoteListServiceImpl implements PromoteListService {
 	}
 
 	@Override
-	public PromoteListVO adminFindVO(PromoteListVO promoteListVO) {
+	public PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO) {
 		return null;
 	}
 
