@@ -60,14 +60,16 @@ public class PromoteListServiceImpl implements PromoteListService {
 	}
 	
 	@Override
+	public PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO) {
+		Integer promoteId = promoteListVO.getPromoteId();
+		PromoteListVO one = dao.findByPrimaryKey(promoteId);
+		return one;
+	}
+	
+	@Override
 	public String adminUpdatePromoteList(PromoteListVO promoteListVO) {
 		return null;
 		
-	}
-
-	@Override
-	public PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO) {
-		return null;
 	}
 
 
