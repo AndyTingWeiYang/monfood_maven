@@ -1,6 +1,7 @@
 package com.model.promotelist.service.Impl;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.dao.PromoteListDAO;
@@ -18,8 +19,8 @@ public class PromoteListServiceImpl implements PromoteListService {
 	public String adminAddPromoteList(PromoteListVO promoteListVO) {
 		
 		final String promoteCode = promoteListVO.getPromoteCode();
-		if(promoteCode == null) {
-			return "請輸入優惠代碼";
+		if(promoteCode == null || promoteCode.trim().length() == 0) {
+			return "優惠代碼請勿空白";
 		}
 		
 		final Integer promotePrice = promoteListVO.getPromotePrice();
@@ -53,55 +54,25 @@ public class PromoteListServiceImpl implements PromoteListService {
 	}
 
 	@Override
-	public String adminUpdatePromoteList(PromoteListVO promoteListVO) {
-		
-		
-		
-		final String promoteCode = promoteListVO.getPromoteCode();
-		if(promoteCode == null) {
-			return "請輸入優惠代碼";
-		}
-		
-		final Integer promotePrice = promoteListVO.getPromotePrice();
-		if(promotePrice == null) {
-			return "折扣金額請勿空白";
-		}
-		
-		final Date starDate = promoteListVO.getStartDate();
-		if(starDate == null) {
-			return "請輸入開始日期";
-		}
-		
-		final Date endDate = promoteListVO.getEndDate();
-		if(endDate == null) {
-			return "請輸入結束日期";
-		}
-		
-		final Integer status = promoteListVO.getStatus();
-		if(status == null) {
-			return "請輸入優惠券狀態(數字)";
-		}
-		
-		final Integer result = dao.insert(promoteListVO);
-		if(result < 1) {
-			
-		}
-			return "系統錯誤";
-		
+	public List<PromoteListVO> adminFindPromoteListAll() {
+		List<PromoteListVO> list = dao.getAll();
+		return list;
 	}
-
+	
 	@Override
-	public PromoteListVO adminFindVO(PromoteListVO promoteListVO) {
-		// TODO Auto-generated method stub
+	public PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO) {
+		Integer promoteId = promoteListVO.getPromoteId();
+		PromoteListVO one = dao.findByPrimaryKey(promoteId);
+		return one;
+	}
+	
+	@Override
+	public String adminUpdatePromoteList(PromoteListVO promoteListVO) {
 		return null;
+		
 	}
 
-//	@Override
-//	public PromoteListVO adminFindVO(PromoteListVO promoteListVO) {
-//		
-//		final Integer promoteId = promoteListVO.getPromoteId();
-//		promoteListVO = dao.findByPrimaryKey(promoteId);
-//		return promoteListVO;
-//	}
+
+
 
 }

@@ -29,7 +29,7 @@ public class ProductHistoryServiceImpl implements ProductHistoryService {
 
 		// 檢核無誤 呼叫 DAO
 		ProductDAO prodctDao = new ProductDAOImpl();
-		List<ProductVO> prodcutList = prodctDao.findAll();
+		List<ProductVO> prodcutList = prodctDao.findAll(new ProductVO());
 		return prodcutList;
 	}
 

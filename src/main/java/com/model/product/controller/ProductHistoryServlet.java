@@ -1,4 +1,4 @@
-package com.model.product;
+package com.model.product.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.model.product.ProductVO;
 import com.model.product.service.ProductHistoryService;
 import com.model.product.service.impl.ProductHistoryServiceImpl;
 

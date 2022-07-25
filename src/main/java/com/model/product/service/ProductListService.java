@@ -7,5 +7,9 @@ import com.model.product.ProductVO;
 
 public interface ProductListService {
 
-	public List<ProductVO> findAll(Map<String, String> dataMap);
+	public List<ProductVO> findAll(Map<String, Object> dataMap);
+	
+	public ProductVO findPic(String productId);
+	
+	public boolean insertResult(Map<String, Object> dataMap);
 }

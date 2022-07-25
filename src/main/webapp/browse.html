@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>browse_new</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/userHeader.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/browse.css" />
+  </head>
+  <body>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6AB8jcKkzMnwsPPZhMQBRgKXF_lXaX84&libraries=places"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!-- offcanvas -->
+    <div
+      class="offcanvas offcanvas-end"
+      id="sidebar"
+      tabindex="-1"
+      aria-labelledby="sidebar-label"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebar-label"></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- offcanvas_body -->
+      <div class="col-12">
+        <ul class="" style="padding: 0">
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h5>勁辣雞腿堡套餐</h5>
+                  <div class="d-flex justify-content-between">
+                    <div class="main" style="font-size: 14px">勁辣雞腿堡</div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 14px">薯條</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 14px">可樂</div>
+                  </div>
+
+                  <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
+                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+          <hr style="margin-top: 10px; margin-bottom: 10px" />
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin-left: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h5>勁辣雞腿堡套餐</h5>
+                  <div class="d-flex justify-content-between">
+                    <div class="main" style="font-size: 14px">勁辣雞腿堡</div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 14px">薯條</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 14px">可樂</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+          <hr style="margin-top: 10px; margin-bottom: 10px" />
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin-left: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h5>勁辣雞腿堡套餐</h5>
+                  <div class="d-flex justify-content-between">
+                    <div class="main" style="font-size: 14px">勁辣雞腿堡</div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 14px">薯條</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 14px">可樂</div>
+                  </div>
+
+                  <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
+                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="checkout"
+        style="display: flex; justify-content: space-around; margin-top: 10px"
+      >
+        <button
+          class="checkout_btn"
+          style="border: none; border-radius: 5px; font-size: 20px"
+        >
+          前往結帳
+        </button>
+      </div>
+    </div>
+
+    <!-- offcanvas -->
+    <!-- offcanvas bottom-->
+    <div
+      class="offcanvas offcanvas-bottom justify-content-center"
+      id="bottombar"
+      tabindex="-1"
+      aria-labelledby="sidebar-label"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebar-label">更改外送地址</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <div class="container">
+          <div class="row">
+            <div class="col d-flex justify-content-between">
+              <input
+                type="text"
+                id="address"
+                placeholder="請輸入地址"
+                style="width: 75%"
+              />
+              <button
+                class="btn textConfirm"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
+                確認
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <ul style="padding: 0">
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">桃園市龜山區文青二路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">台北市松山區健康路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">新北市新店區湖子內路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- offcanvas bottom-->
+
+    <header>
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg" style="background-color: #ff7f3f">
+        <div class="container">
+          <a href="userprofile.html" class="transparent" id="profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </a>
+
+          <a class="navbar-brand d-inline-flex" href="index.html">
+            <span class="logo">Mon</span>
+            <span class="logo2">Food</span>
+          </a>
+
+          <div class="d-inline-flex align-items-center">
+            <a
+              href=""
+              class="transparent"
+              id="cart"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#sidebar"
+              aria-controls="sidebar"
+            >
+              <!-- <button class="btn btn-primary" id="cart" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar"> -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-cart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                />
+              </svg>
+              <!-- </button> -->
+            </a>
+
+            <a href="userLogin.html" class="btn btn-primary black" id="login">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                /></svg
+              ><span class="login">登入</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <!-- navbar -->
+    </header>
+
+    <main>
+      <!--  -->
+      <div
+        class="notification"
+        style="
+          justify-content: space-around;
+          align-content: center;
+          flex-wrap: wrap;
+          color: black;
+          font-size: 30px;
+        "
+      >
+        輸入【生鮮七五】，最高折抵 $100 ! 生鮮雜貨 75 折！<br />日常補貨每日三省，省錢、省事、又省力！！！
+      </div>
+      <!--  -->
+
+      <!-- <section class="overflow-hidden"> -->
+
+      <div class="loc_and_input">
+        <div class="container-fluid">
+          <div
+            class="row"
+            style="padding-right: 50; margin-left: 30px; margin-right: 90px"
+          >
+            <div style="padding: 0px" class="col-xl-6 col-lg-12 col-sm-12 col">
+              <div
+                class="col-lg-6 col-md-12"
+                style="float: right; margin-right: 10px"
+              >
+                <div style="margin-top: 43px">
+                  <div id="map" style="display: none"></div>
+                </div>
+                <span id="finalAddress">台北市中正區濟南路一段321號</span>
+                <a
+                  href=""
+                  id="changeAddress"
+                  class="btn btn-primary"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#bottombar"
+                  aria-controls="sidebar"
+                  style="
+                    height: 26px;
+                    width: 40px;
+                    font-size: 15px;
+                    border-radius: 5px;
+                    padding: 0px;
+                    float: right;
+                    margin-left: 5px;
+                  "
+                >
+                  更改
+                </a>
+              </div>
+              <div></div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-sm-12 col">
+              <input
+                class="search"
+                id="search"
+                type="text"
+                style="margin-left: 10px; float: left"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="upper_part">
+        <!-- check_box start -->
+
+        <div class="flip">
+          <span class="1" style="font-size: 20px">選擇篩選條件</span>
+        </div>
+        <div class="panel">
+          <!--  -->
+          <div>
+            分類
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1"
+              >專屬推薦</label
+            >
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+            />
+            <label class="form-check-label" for="flexRadioDefault2"
+              >熱門餐點</label
+            >
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault3"
+            />
+            <label class="form-check-label" for="flexRadioDefault3"
+              >價格(低→高)</label
+            >
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault4"
+            />
+            <label class="form-check-label" for="flexRadioDefault4"
+              >價格(低→高)</label
+            >
+          </div>
+
+          <div>
+            價格範圍
+            <span class="price_range">
+              <input type="text" class="range" style="width: 130px" />
+              到
+              <input type="text" class="range" style="width: 130px" />
+              元
+            </span>
+          </div>
+
+          <!-- 外送費 -->
+
+          <div class="delfee">
+            外送費
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              $25
+            </label>
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              $40
+            </label>
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault3"
+            />
+            <label class="form-check-label" for="flexRadioDefault3">
+              $60
+            </label>
+
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault4"
+            />
+            <label class="form-check-label" for="flexRadioDefault4">
+              $60+
+            </label>
+          </div>
+
+          <div>
+            飲食限制
+            <span class="button">
+              <button class="restriction">蔬食料理</button>
+              <button class="restriction">純素食料理</button>
+              <button class="restriction">無麩質料理</button>
+              <button class="restriction">過敏者可食用</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- check_box end-->
+      <!-- test slide -->
+      <div
+        id="carouselExampleSlidesOnly"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        style="margin: 30px 150px 30px 150px"
+      >
+        <div
+          class="carousel-inner"
+          style="
+            overflow: hidden;
+            display: block;
+            height: 276px;
+            min-height: fit-content;
+          "
+        >
+          <div class="carousel-item active">
+            <img
+              src="images/healthy.png"
+              class="d-block w-100"
+              alt="..."
+              style="overflow: hidden"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="images/head.webp"
+              class="d-block w-100"
+              alt="..."
+              style="overflow: hidden"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="images/header-home-precon-food.jpg"
+              class="d-block w-100"
+              alt="..."
+              style="overflow: hidden; display: block"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- test slide -->
+
+      <!-- product today head -->
+
+      <div class="todaypromote_head">
+        <span class="s1"> 本日優惠 </span>
+      </div>
+
+      <!-- product today head end -->
+
+      <!-- 測試new -->
+      <div class="container">
+        <div class="row" style="justify-content: space-around">
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/111.jpg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="
+                        text-align: left;
+                        margin-top: 15px;
+                        padding-left: 0;
+                      "
+                    >
+                      麥當勞(三重店)
+                    </div>
+
+                    <div
+                      class="col-md-6"
+                      style="
+                        font-size: 12px;
+                        padding-right: 0;
+                        text-align: end;
+                        margin-top: 15px;
+                      "
+                    >
+                      4.0
+                    </div>
+                  </div>
+
+                  <div
+                    class="row justify-content-between"
+                    style="margin: 0; margin-top: 15px"
+                  >
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      45TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      5-20分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/dumpling.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    有煎餃子館(忠杭店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      30TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      10-25分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--  -->
+        </div>
+        <!-- 以下可新增新的row -->
+      </div>
+
+      <div class="popular_head">
+        <span class="s3"> 熱門餐廳 </span>
+      </div>
+
+      <div class="container">
+        <div class="row" style="justify-content: space-around">
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+        </div>
+        <!-- row結束 -->
+        <div class="row" style="justify-content: space-around">
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+          <div
+            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
+          >
+            <a href="restaurant.html">
+              <div>
+                <div
+                  class="btn btn-primary"
+                  style="
+                    background-color: white;
+                    color: black;
+                    border: 1px solid lightgray;
+                    overflow: hidden;
+                    border-radius: 10px;
+                  "
+                >
+                  <div
+                    id="product_img"
+                    style="height: 170px; width: 270px; overflow: hidden"
+                  >
+                    <img
+                      src="images/curry.jpeg"
+                      alt=""
+                      class="mt-1"
+                      height="170px"
+                      width="270px"
+                    />
+                  </div>
+
+                  <p style="text-align: left; margin-top: 15px">
+                    無名咖哩(台大店)
+                  </p>
+
+                  <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      class="col-md-6 d-flex"
+                      style="font-size: 12px; padding-left: 0"
+                    >
+                      55TWD費用
+                    </div>
+                    <div
+                      class="col-md-6"
+                      style="font-size: 12px; padding-right: 0; text-align: end"
+                    >
+                      20-35分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!--  -->
+        </div>
+      </div>
+
+      <!-- product end -->
+      <li class="d-flex justify-content-center">
+        <div class="show_more">
+          <button class="show_more">顯示更多</button>
+        </div>
+      </li>
+    </main>
+
+    <!-- Footer -->
+    <div style="background-color: #ff7f3f">
+      <div
+        class="container pb-0 mb-0 text-light"
+        style="background-color: #ff7f3f"
+      >
+        <footer>
+          <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
+            <div class="col-12">
+              <div class="row justify-content-between">
+                <div class="col-6 align-self-center">
+                  <a class="navbar-brand d-inline-flex" href="index.html">
+                    <span class="logo">Mon</span>
+                    <span class="logo2">Food</span>
+                  </a>
+                </div>
+
+                <div
+                  class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0"
+                  style="font-size: 13px"
+                >
+                  <ul class="list-unstyled justify-content-center">
+                    <li class="mt-3 mb-1">
+                      <a href="resLogin.html" class="transparent"
+                        >新增您的餐廳</a
+                      >
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="aboutUs.html">關於MonFood</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Footer -->
+
+    <script src="jquery/jquery.js"></script>
+    <script src="js/browse.js"></script>
+  </body>
+</html>
