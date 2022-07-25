@@ -87,6 +87,13 @@
                                         placeholder="請輸入商品熱量 (份/kcal)">
                                 </div>
                             </div>
+                            <div class="col-sm-6 ">
+                                <label for="stock" class="col-sm-12 col-form-label">商品庫存</label>
+                                <div>
+                                    <input id="stock" type="text" name="stock" class="form-control" 
+                                        placeholder="請輸入數量">
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <label for="productStatus" class="col-sm-12 col-form-label">商品狀態</label>
                                 <select id="productStatus" name="productStatus" class="form-select"

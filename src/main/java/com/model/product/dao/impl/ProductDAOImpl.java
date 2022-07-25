@@ -1,6 +1,5 @@
 package com.model.product.dao.impl;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -35,45 +34,6 @@ public class ProductDAOImpl implements ProductDAO {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void insert(ProductVO product) throws IOException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-			pstmt = conn.prepareStatement(INSERT);
-
-			pstmt.setInt(1, product.getResID());// FK
-			pstmt.setBytes(2, product.getProductPic());
-			pstmt.setInt(3, product.getProductStatus());
-			pstmt.setInt(4, product.getProductPrice());
-			pstmt.setInt(5, product.getProductKcal());
-			pstmt.setString(6, product.getProductName());
-			// 時間轉換:抓當下時間
-			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 
@@ -268,6 +228,12 @@ public class ProductDAOImpl implements ProductDAO {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(INSERT);
 
+			// 動態 sql 指令
+			StringBuffer sbf = new StringBuffer();
+			sbf.append(
+					"select resID, producrPic, productPrice, productKcal, updatTime,stock  from MonFood.PRODUCT where '1=1' ");
+
+			
 			pstmt.setInt(1, product.getResID());// FK
 			pstmt.setBytes(2, product.getProductPic());
 			pstmt.setInt(3, product.getProductStatus());
@@ -278,7 +244,7 @@ public class ProductDAOImpl implements ProductDAO {
 			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
 
 			int count = pstmt.executeUpdate();
-			if(count > 0) {
+			if (count > 0) {
 				return true;
 			}
 		} catch (SQLException e) {

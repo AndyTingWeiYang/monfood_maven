@@ -68,7 +68,7 @@ public class TestProductAdmin {
 		product.setResID(4);
 
 		ProductDAO productDAO = new ProductDAOImpl();
-		productDAO.insert(product);
+		
 
 		in.close();
 		System.out.println("success insert");
@@ -96,7 +96,8 @@ public class TestProductAdmin {
 
 	private static void proccessFindAllProduct() {
 		ProductDAO productDAO = new ProductDAOImpl();
-		List<ProductVO> productList = productDAO.findAll();
+		ProductVO productVO = null;
+		List<ProductVO> productList = productDAO.findAll(productVO);
 
 		for (ProductVO product : productList) {
 
