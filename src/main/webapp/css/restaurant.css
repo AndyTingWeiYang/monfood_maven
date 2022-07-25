@@ -1,0 +1,123 @@
+.res_img{
+  
+    height: 200px;
+    background-color: lightgray;
+    overflow: hidden;
+}
+
+.res_name{
+    font-size: 40px;
+}
+.detail{
+    margin-left: 7px;
+}
+.information{
+    font-size: 18px;
+    float: right;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+}
+.nav-link{
+    color: rgb(161, 161, 161);
+}
+.tab-content{
+    margin-top: 50px;
+}
+
+.form-check-input{
+  /* 讓radio跟文字平行 */
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-bottom: 1px;
+  }
+
+  .flip{
+    margin:0px;
+    border: 1px solid lightgray;
+    height: fit-content;
+
+    padding:5px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.panel{
+    margin:0px;
+    padding:5px;
+    text-align:center;
+    border:solid 1px #c3c3c3;
+    display:none;
+}
+
+.flip{
+  text-align: left;
+}
+.form-check-label{
+  text-align: left;
+}
+
+
+
+.btn-primary{
+  background-color: transparent;
+  color: black;
+  border: none;
+  opacity: 0.8;
+  
+}
+
+.btn-primary:hover{
+  background-color: transparent;
+  color: black;
+  border: none;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.add_to_cart{
+  background-color: lightgray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 37px;
+}
+.add_to_cart:hover{
+  background-color: lightgray;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  height: 37px;
+}
+
+.cancel{
+  background-color: lightgray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 37px;
+}
+.cancel:hover{
+  background-color: lightgray;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  height: 37px;
+}
+
+.information_title{
+  border: 1px solid lightgray;
+  margin: 20px;
+}
+
+.modal-header{
+  background-color: #ff7f3f;
+  height: 50px;
+}
+.modal-content{
+  border: none;
+}
+.opened_time{
+  margin-top: 2px; 
+  padding: none;
+}
