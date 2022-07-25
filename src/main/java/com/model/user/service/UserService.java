@@ -4,8 +4,8 @@ import com.model.user.UserVO;
 
 public interface UserService {
 	String userRegister(UserVO userVo);
-	String userLogin(UserVO userVO);
+	public UserVO userLogin(UserVO userVO);
 	String userModify(UserVO userVO);
-	String userForgetPass(UserVO userVO);
+	String resetPassword(UserVO userVO);
 	String isDuplicateAccount(UserVO userVO);
 }
