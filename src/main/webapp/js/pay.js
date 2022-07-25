@@ -141,18 +141,34 @@ window.addEventListener('load', function(){
     }
   })
 
-  var data = {
-
-    "redId" : 1,
-    "redName" : '123',
-    "amount" : 5,
+  var data = {"cartList" : [{
+    "resId" : 4,
+    "resName" : '麥當勞-台北民生店',
     "productID" : 1,
-    "productName" : '煎餃',
-    "productPrice" : 50,
-    "productKcal" : 100
-    
+    "productName" : '雙層牛肉吉士堡',
+    "amount" : 5,
+    "productPrice" : 65,
+    "productKcal" : 467
+  },
+  {
+    "resId" : 4,
+    "resName" : '麥當勞-台北民生店',
+    "amount" : 5,
+    "productID" : 2,
+    "productName" : '大麥克',
+    "productPrice" : 75,
+    "productKcal" : 548
+  }]
   };
+
+  sessionStorage.setItem('cartList', JSON.stringify(data));
   
+  $('.submit').on('click', function(){
+
+    let cartList = JSON.parse(sessionStorage.getItem('cartList'));
+    console.log(cartList.cartList[0])
+
+  })
   // RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID
 
 
