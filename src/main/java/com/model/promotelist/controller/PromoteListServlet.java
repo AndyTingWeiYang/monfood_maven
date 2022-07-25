@@ -35,22 +35,14 @@ public class PromoteListServlet extends HttpServlet {
 		String result = null;
 		PrintWriter out = response.getWriter();
 		
-		
 		try {
 			PromoteListVO promoteListVO = gson.fromJson(request.getReader(), PromoteListVO.class);
 			PromoteListService service = new PromoteListServiceImpl();
 			result = service.adminAddPromoteList(promoteListVO);
 
-//			respObj.addProperty("promoteId", result.getPromoteId());
-//			respObj.addProperty("promoteCode", result.getPromoteCode());
-//			respObj.addProperty("promotePrice", result.getPromotePrice());
-//			respObj.addProperty("startDate", result.getStartDate());
-//			respObj.addProperty("endDate", result.getEndDate());
-//			respObj.addProperty("status", result.getStatus());
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			respObj.addProperty("errMsg", "系統錯誤");
+			respObj.addProperty("errMsg", "servlet系統錯誤");
 		}
 		response.getWriter().append(gson.toJson(respObj));
 	}
