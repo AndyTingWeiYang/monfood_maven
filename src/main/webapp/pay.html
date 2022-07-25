@@ -17,8 +17,8 @@
 <body>
   <script src="js/venders/jquery/jquery-3.6.0.min.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6AB8jcKkzMnwsPPZhMQBRgKXF_lXaX84&libraries=places"></script>
-  <script src="js/pay.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="js/pay.js"></script>
     
     <!-- offcanvas bottom-->
     <div class="offcanvas offcanvas-bottom justify-content-center" id="bottombar" tabindex="-1" aria-labelledby="sidebar-label">
@@ -307,7 +307,13 @@
                     <div>優惠代碼</div>
                     <div>$-20</div>
                   </div>
-                  <input type="text" class="discount" value="" placeholder="輸入優惠代碼">
+                  <div class="d-flex justify-content-between">
+                    <input type="text" class="discount" value="" placeholder="輸入優惠代碼">
+                    <button class="btn btn-primary disConfirm" type="submit">確認</button>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <input type="text" style="margin-top: 5px;" class="discount" value="" placeholder="輸入訂單備註">
+                  </div>
                   <div class="d-flex justify-content-between mb-2">
                     <div>總金額</div>
                     <div>$257</div>
@@ -316,7 +322,7 @@
                 
                 <hr style="margin-top: 10px; margin-bottom: 10px;">
                 
-                <form action="">
+                
                   <div class="pay">
                     <h5>付款方式</h5>
                     <div class="form-check">
@@ -355,7 +361,7 @@
                     </div>
                     <button class="btn btn-primary submit" type="submit">送出訂單</button>
                   </div>
-                </form>
+              
               </div>
             </div>
 
