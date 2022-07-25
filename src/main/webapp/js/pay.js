@@ -148,7 +148,8 @@ window.addEventListener('load', function(){
     "productName" : '雙層牛肉吉士堡',
     "amount" : 5,
     "productPrice" : 65,
-    "productKcal" : 467
+    "productKcal" : 467,
+    "img" : xxx
   },
   {
     "resId" : 4,
@@ -157,7 +158,8 @@ window.addEventListener('load', function(){
     "productID" : 2,
     "productName" : '大麥克',
     "productPrice" : 75,
-    "productKcal" : 548
+    "productKcal" : 548,
+    "img" : xxx
   }]
   };
 
