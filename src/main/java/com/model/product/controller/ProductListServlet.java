@@ -1,4 +1,4 @@
-package com.model.product;
+package com.model.product.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,12 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.map.HashedMap;
 
+import com.model.product.ProductVO;
 import com.model.product.service.ProductListService;
 import com.model.product.service.impl.ProductListServiceImpl;
 
-@WebServlet("/ProductListServlet")
+@WebServlet("/resprofile/ProductListServlet")
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private ProductListService productListService;
+	
+	public ProductListServlet() {
+		this.productListService = new ProductListServiceImpl();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,17 +43,19 @@ public class ProductListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charcet=UTF-8");
 
-		Map<String, String> dataMap = requestToMap(request);
-		ProductListService productListService = new ProductListServiceImpl();
+		Map<String, Object> dataMap = requestToMap(request);
+		
 		List<ProductVO> productList = productListService.findAll(dataMap);
+
+		
 		request.setAttribute("productList", productList);
 		RequestDispatcher rd = request.getRequestDispatcher("resprofile-product-list.jsp");
 		rd.forward(request, response);
 	}
 
-	private Map<String, String> requestToMap(HttpServletRequest request) {
+	private Map<String, Object> requestToMap(HttpServletRequest request) {
 		Enumeration<String> parameterNames = request.getParameterNames();
-		Map<String, String> dataMap = new HashedMap<>();
+		Map<String, Object> dataMap = new HashedMap<>();
 		while (parameterNames.hasMoreElements()) {
 			String key = (String) parameterNames.nextElement();
 			dataMap.put(key, request.getParameter(key));

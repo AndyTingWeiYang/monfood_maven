@@ -12,7 +12,10 @@ public class ProductVO implements Serializable {
 	private Integer productPrice;
 	private Integer productKcal;
 	private String productName;
+	private Integer stock;
 	private java.sql.Timestamp updateTime;
+	private Integer minPrice;
+	private Integer maxPrice;
 	private byte[] productPic;
 
 	public ProductVO() {
@@ -67,6 +70,14 @@ public class ProductVO implements Serializable {
 		this.productName = productName;
 	}
 
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 	public java.sql.Timestamp getUpdateTime() {
 		return updateTime;
 	}
@@ -83,11 +94,30 @@ public class ProductVO implements Serializable {
 		this.productPic = productPic;
 	}
 
+	public Integer getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(Integer minPrice) {
+		this.minPrice = minPrice;
+	}
+
+	public Integer getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(Integer maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVO [productID=" + productID + ", resID=" + resID + ", productStatus=" + productStatus
 				+ ", productPrice=" + productPrice + ", productKcal=" + productKcal + ", productName=" + productName
-				+ ", updateTime=" + updateTime + "]";
+				+ ", stock=" + stock + ", updateTime=" + updateTime + ", minPrice=" + minPrice + ", maxPrice="
+				+ maxPrice + ", productPic=" + Arrays.toString(productPic) + "]";
 	}
+
+	
 
 }

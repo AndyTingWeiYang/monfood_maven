@@ -41,25 +41,6 @@
                 <span class="nav-link">商家帳號</span>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="resprofile-bank-account.jsp" aria-expanded="false"
-                    aria-controls="ui-basic">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-square-inc-cash"></i>
-                    </span>
-                    <span class="menu-title">商家帳戶</span>
-
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a id="resAccountBtn" class="nav-link" data-toggle="collapse" href="resprofile-status.jsp"
-                    aria-expanded="false" aria-controls="ui-basic">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-laptop"></i>
-                    </span>
-                    <span class="menu-title">帳戶狀態</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="resprofile-info.jsp" aria-expanded="false"
                     aria-controls="ui-basic">
                     <span class="menu-icon">

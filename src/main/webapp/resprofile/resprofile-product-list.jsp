@@ -37,25 +37,12 @@
             <div class="main-panel">
                 <div class="mf-content-wrapper">
                     <!-- 表單區塊 -->
-                    <form class="jumbotron" method="post" action="">
+                    <form class="jumbotron" method="post" action="ProductListServlet">
                         <div class="form-group row ">
                             <div class="row col-md-6 col-sm-12 mb-3">
-                                <label for="productId" class="col-form-label col-md-12 col-sm-12">商品編號</label>
+                                <label for="productID" class="col-form-label col-md-12 col-sm-12">商品編號</label>
                                 <div class="col-md-12 col-sm-12">
-                                    <input id="productId" type="text" name="productId" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row col-md-6 col-sm-12 mb-3">
-                                <label for="resCategory" class="col-form-label col-md-12 col-sm-12">類別查詢</label>
-                                <div class="col-md-12 col-sm-12">
-                                    <select id="resCategory" name="resCategory" class="form-select"
-                                        aria-label="Default select example">
-                                        <option selected>請選擇</option>
-                                        <option value="1">台式</option>
-                                        <option value="2">美式</option>
-                                        <option value="3">日式</option>
-                                        <option value="4">韓式</option>
-                                    </select>
+                                    <input id="productID" type="text" name="productID" class="form-control">
                                 </div>
                             </div>
 
@@ -66,7 +53,7 @@
                                 </div>
                             </div>
 
-                            <div class="row col-md-6 col-sm-12 mb-3">
+                            <div class="row col-md-12 col-sm-12 mb-3">
                                 <label for="mintPrice" class="col-form-label col-md-12 col-sm-12">價格範圍</label>
                                 <div class="row col-md-12 col-sm-12 justify-content-center">
                                     <div class="col-md-5">
@@ -82,8 +69,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-outline-dark mf-bdr-15">查詢</button>
-                            <button type="button" class="btn btn-outline-dark mf-bdr-15 ml-4">清除</button>
+                            <button type="submit" class="btn btn-outline-dark mf-bdr-15">查詢</button>
+                            <button type="reset" class="btn btn-outline-dark mf-bdr-15 ml-4">清除</button>
                         </div>
                     </form>
                     <!-- DataTable -->
@@ -93,7 +80,6 @@
                                 <tr>
                                     <th>商品ID</th>
                                     <th>商品名稱</th>
-                                    <th>餐廳類別</th>
                                     <th>商品單價</th>
                                     <th>數量</th>
                                     <th>商品照片</th>
@@ -102,211 +88,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>123</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">
-                                                <a href="resprofile-account.html" id="manual-ajax">修改</a>
-                                            </button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>124</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">
-                                                <a href="/resprofile-account.html" rel="modal:open">修改</a>
-                                            </button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>125</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>126</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>127</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>128</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>129</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>130</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>131</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>132</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>133</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>134</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>135</td>
-                                    <td>勁辣雞腿堡</td>
-                                    <td>美式</td>
-                                    <td>75</td>
-                                    <td>99</td>
-                                    <td>照片</td>
-                                    <td>上架中</td>
-                                    <td>
-                                        <div class="mf-btn-center">
-                                            <button class="btn btn-outline-secondary btn-sm mb-1">修改</button>
-                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            	<c:forEach var="product" items="${productList}" begin="0" step="1" varStatus="i">                            	
+	                                <tr>
+	                                    <td>${product.productID}</td>
+	                                    <td>${product.productName}</td>
+	                                    <td>${product.productPrice}</td>
+	                                    <td>${product.stock}</td>
+	                                    <td><img style="width: 120px; height: 80px" src="ProductPicServlet?productID=${product.productID}" /></td>
+	                                    <td>${product.productStatus}</td>
+	                                    <td>
+	                                        <div class="mf-btn-center">
+	                                            <button class="btn btn-outline-secondary btn-sm mb-1">
+	                                                <a href="resprofile-account.jsp" id="manual-ajax">修改</a>
+	                                            </button>
+	                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
+	                                        </div>
+	                                    </td>
+	                                </tr>
+                            	</c:forEach>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th>商品ID</th>
                                     <th>商品名稱</th>
-                                    <th>餐廳類別</th>
                                     <th>商品單價</th>
                                     <th>數量</th>
                                     <th>商品照片</th>

@@ -26,6 +26,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME)values (?,  ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "update MonFood.PRODUCT set RES_ID =?, PRODUCT_PIC= ?, PRODUCT_STATUS= ?, PRODUCT_PRICE= ?, PRODUCT_KCAL=?, PRODUCT_NAME=? , UPDATE_TIME=? where PRODUCT_ID=?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
+	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
 
 	static {
 //			Context context = new InitialContext();
@@ -77,7 +78,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> findAll() {
+	public List<ProductVO> findAll(ProductVO product) {
 		List<ProductVO> productList = new ArrayList<>();
 		ProductVO productVO = null;
 
@@ -92,14 +93,14 @@ public class ProductDAOImpl implements ProductDAO {
 
 			while (rs.next()) {
 				productVO = new ProductVO();
-				productVO.setProductID(1);
-				productVO.setResID(rs.getInt(2));
-				productVO.setProductPic(rs.getBytes(3));
-				productVO.setProductStatus(rs.getInt(4));
-				productVO.setProductPrice(rs.getInt(5));
-				productVO.setProductKcal(rs.getInt(6));
-				productVO.setProductName(rs.getString(7));
-				productVO.setUpdateTime(rs.getTimestamp(8));
+				productVO.setProductID(rs.getInt("PRODUCT_ID"));
+				productVO.setResID(rs.getInt("RES_ID"));
+				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+				productVO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				productVO.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				productVO.setProductName(rs.getString("PRODUCT_NAME"));
+				productVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				productVO.setStock(rs.getInt("STOCK"));
 
 				productList.add(productVO);
 			}
@@ -203,6 +204,104 @@ public class ProductDAOImpl implements ProductDAO {
 				}
 			}
 		}
+	}
+
+	@Override
+	public ProductVO findPic(String productId) {
+		ProductVO productVO = new ProductVO();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1, Integer.parseInt(productId));
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				productVO.setProductID(rs.getInt("PRODUCT_ID"));
+				productVO.setResID(rs.getInt("RES_ID"));
+				productVO.setProductPic(rs.getBytes("PRODUCT_PIC"));
+				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+				productVO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				productVO.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				productVO.setProductName(rs.getString("PRODUCT_NAME"));
+				productVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				productVO.setStock(rs.getInt("STOCK"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return productVO;
+	}
+
+	@Override
+	public boolean insertResult(ProductVO product) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(INSERT);
+
+			pstmt.setInt(1, product.getResID());// FK
+			pstmt.setBytes(2, product.getProductPic());
+			pstmt.setInt(3, product.getProductStatus());
+			pstmt.setInt(4, product.getProductPrice());
+			pstmt.setInt(5, product.getProductKcal());
+			pstmt.setString(6, product.getProductName());
+			// 時間轉換:抓當下時間
+			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+
+			int count = pstmt.executeUpdate();
+			if(count > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
 	}
 
 }

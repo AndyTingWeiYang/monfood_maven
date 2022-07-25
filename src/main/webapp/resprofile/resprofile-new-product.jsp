@@ -30,9 +30,9 @@
     $(document).ready(function () {
         function fileUpload() {
 
-            $("#inp-theme-fa6-1").fileinput({
-                theme: "fa6",
-                language: "zh-TW"
+            $('#productPic').fileinput({
+                theme: 'fa6',
+                language: 'zh-TW'
             });
 
         }
@@ -42,7 +42,6 @@
 
 <body>
     <div class="container-scroller">
-        <div w3-include-html=""></div>
         <div><jsp:include page="resprofile-sidebar.jsp" /></div>
         <div class="container-fluid page-body-wrapper">
             <jsp:include page="resprofile-header.jsp" />
@@ -50,7 +49,7 @@
                 <div class="mf-content-wrapper">
 
                     <!-- 表單區塊 -->
-                    <form method="post" action="">
+                    <form method="post" action="NewProductServlet" enctype="multipart/form-data">
                         <div class="jumbotron form-group row">
                             <!-- 並排兩格區塊:餐廳資訊 -->
                             <div class="col-sm-6 ">
@@ -98,22 +97,15 @@
                                     <option value="3">下架</option>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="productSale" class="col-sm-12 col-form-label">促銷狀態</label>
-                                <div>
-                                    <input type="checkbox" name="productSale">是否使用優惠券
-                                    <input type="checkbox" class="ml-2" name="productSale">是否為促銷商品
-                                </div>
-                            </div>
                         </div>
                         <div class="file-loading">
-                            <input id="inp-theme-fa6-1" name="inp-theme-fa6-1" type="file" multiple accept="image">
+                            <input id="productPic" name="productPic" type="file" multiple accept="image">
                         </div>
+	                    <div class="d-flex justify-content-end mt-3">
+	                        <button type="submit" class="btn btn-outline-dark mf-bdr-15">確定</button>
+	                        <button type="reset" class="btn btn-outline-dark mf-bdr-15 ml-2">取消</button>
+	                    </div>
                     </form>
-                    <div class="d-flex justify-content-end mt-3">
-                        <button type="button" class="btn btn-outline-dark mf-bdr-15">確定</button>
-                        <button type="button" class="btn btn-outline-dark mf-bdr-15 ml-2">取消</button>
-                    </div>
                 </div>
                 <jsp:include page="resprofile-footer.jsp" />
             </div>
