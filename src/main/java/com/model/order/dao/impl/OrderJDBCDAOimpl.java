@@ -18,8 +18,8 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	String passwd = "Abc840924";
 	
 	private static final String INSERT_STMT = 
-		"insert into MonFood.ORDER(USER_ID, RES_ID, DEL_ID, ORDER_STATUS, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, BONUS, PROMOTE_ID) "
-		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
+		+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
 		"select * from `ORDER` order by ORDER_ID";
 	private static final String GET_ONE_STMT = 
@@ -44,17 +44,15 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 
 			pstmt.setInt(1, orderVO.getUserId());
 			pstmt.setInt(2, orderVO.getResId());
-			pstmt.setInt(3, orderVO.getDelId());
-			pstmt.setInt(4, orderVO.getOrderStatus());
-			pstmt.setString(5, orderVO.getNote());
-			pstmt.setString(6, orderVO.getUserLocation());
-			pstmt.setInt(7, orderVO.getProductKcalTotal());
-			pstmt.setInt(8, orderVO.getTotal());
-			pstmt.setInt(9, orderVO.getDelCost());
-			pstmt.setBoolean(10, orderVO.getUseCash());
-			pstmt.setString(11, orderVO.getCreditId());
-			pstmt.setInt(12, orderVO.getBonus());
-			pstmt.setInt(13, orderVO.getPromoteId());
+			pstmt.setString(3, orderVO.getNote());
+			pstmt.setString(4, orderVO.getUserLocation());
+			pstmt.setInt(5, orderVO.getProductKcalTotal());
+			pstmt.setInt(6, orderVO.getTotal());
+			pstmt.setInt(7, orderVO.getDelCost());
+			pstmt.setBoolean(8, orderVO.getUseCash());
+			pstmt.setString(9, orderVO.getCreditId());
+			pstmt.setInt(10, orderVO.getDiscount());
+			pstmt.setInt(11, orderVO.getPromoteId());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -113,7 +111,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				orderVO.setDelCost(rs.getInt("DEL_COST"));
 				orderVO.setUseCash(rs.getBoolean("USE_CASH"));
 				orderVO.setCreditId(rs.getString("CREDIT_ID"));
-				orderVO.setBonus(rs.getInt("BONUS"));
+				orderVO.setDiscount(rs.getInt("DISCOUNT"));
 				orderVO.setRating(rs.getBoolean("RATING"));
 				orderVO.setResRate(rs.getDouble("RES_RATE"));
 				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
@@ -194,7 +192,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				orderVO.setDelCost(rs.getInt("DEL_COST"));
 				orderVO.setUseCash(rs.getBoolean("USE_CASH"));
 				orderVO.setCreditId(rs.getString("CREDIT_ID"));
-				orderVO.setBonus(rs.getInt("BONUS"));
+				orderVO.setDiscount(rs.getInt("DISCOUNT"));
 				orderVO.setRating(rs.getBoolean("RATING"));
 				orderVO.setResRate(rs.getDouble("RES_RATE"));
 				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
@@ -336,8 +334,6 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		OrderVO orderVOi = new OrderVO();
 		orderVOi.setUserId(1);
 		orderVOi.setResId(1);
-		orderVOi.setDelId(2);
-		orderVOi.setOrderStatus(1);
 		orderVOi.setNote("快");
 		orderVOi.setUserLocation("台北市中正區濟南路一段321號");
 		orderVOi.setProductKcalTotal(123);
@@ -345,7 +341,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		orderVOi.setDelCost(10);
 		orderVOi.setUseCash(false);
 		orderVOi.setCreditId("1234444444");
-		orderVOi.setBonus(10);
+		orderVOi.setDiscount(10);
 		orderVOi.setPromoteId(1);
 		dao.insert(orderVOi);
 		
@@ -366,7 +362,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			System.out.print(alist.getDelCost() + ",");
 			System.out.print(alist.getUseCash() + ",");
 			System.out.print(alist.getCreditId() + ",");
-			System.out.print(alist.getBonus() + ",");
+			System.out.print(alist.getDiscount() + ",");
 			System.out.print(alist.getRating() + ",");
 			System.out.print(alist.getResRate() + ",");
 			System.out.print(alist.getDelRate() + ",");
@@ -392,7 +388,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		System.out.print(orderVO.getDelCost() + ",");
 		System.out.print(orderVO.getUseCash() + ",");
 		System.out.print(orderVO.getCreditId() + ",");
-		System.out.print(orderVO.getBonus() + ",");
+		System.out.print(orderVO.getDiscount() + ",");
 		System.out.print(orderVO.getRating() + ",");
 		System.out.print(orderVO.getResRate() + ",");
 		System.out.print(orderVO.getDelRate() + ",");

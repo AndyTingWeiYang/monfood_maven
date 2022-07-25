@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 public class OrderVO implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private Integer orderId;
 	private Integer userId;
 	private Integer resId;
@@ -20,7 +21,7 @@ public class OrderVO implements Serializable{
 	private Integer delCost;
 	private Boolean useCash;
 	private String creditId;
-	private Integer bonus;
+	private Integer discount;
 	private Boolean rating;
 	private Double resRate;
 	private Double delRate;
@@ -33,7 +34,7 @@ public class OrderVO implements Serializable{
 	
 	public OrderVO(Integer orderId, Integer userId, Integer resId, Integer delId, Integer orderStatus, String note,
 			String userLocation, Timestamp orderCreate, Timestamp orderDone, Integer productKcalTotal, Integer total, Integer delCost, Boolean useCash,
-			String creditId, Integer bonus, Boolean rating, Double resRate, Double delRate, String resComment,
+			String creditId, Integer discount, Boolean rating, Double resRate, Double delRate, String resComment,
 			String delComment, Integer promoteId) {
 		this.orderId = orderId;
 		this.userId = userId;
@@ -49,7 +50,7 @@ public class OrderVO implements Serializable{
 		this.delCost = delCost;
 		this.useCash = useCash;
 		this.creditId = creditId;
-		this.bonus = bonus;
+		this.discount = discount;
 		this.rating = rating;
 		this.resRate = resRate;
 		this.delRate = delRate;
@@ -142,11 +143,11 @@ public class OrderVO implements Serializable{
 	public void setCreditId(String creditId) {
 		this.creditId = creditId;
 	}
-	public Integer getBonus() {
-		return bonus;
+	public Integer getDiscount() {
+		return discount;
 	}
-	public void setBonus(Integer bonus) {
-		this.bonus = bonus;
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
 	}
 	public Boolean getRating() {
 		return rating;

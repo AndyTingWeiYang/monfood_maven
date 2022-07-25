@@ -1,0 +1,287 @@
+div.loc_and_input{
+    text-align: center;
+}
+
+.notification{
+    text-align: center;
+    height: 150px;
+    display: flex;
+    background-color: #F6D14B;
+}
+
+input.search{
+    width: 350px;
+    height: 40px;
+    border: 1px solid gray;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: gray;
+}
+
+.flip{
+    margin:0px;
+    border: 1px solid lightgray;
+    height: fit-content;
+    padding:5px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.panel{
+    margin:0px;
+    padding:5px;
+    text-align:center;
+    border:solid 1px #c3c3c3;
+    display:none;
+}
+
+
+.restriction{
+    margin: 10px;
+    border: transparent;
+    border-radius: 5px;
+}
+
+.restriction:focus{
+    background-color: #ff7f3f;
+    color: white;
+}
+
+#mid-btn{
+    border: 1px solid gray;
+    border-radius: 20px;    
+}
+#mid-btn2{
+    border: 1px solid gray;
+    border-radius: 20px;
+}
+
+.todaypromote_head{   
+    margin-left: 160px;
+    font-size: 20px;
+}
+
+.popular_head {
+    margin-left: 160px;
+    font-size: 20px;
+}
+
+span.viewall{   
+    text-align: right;
+    border: 1px solid red;
+    float: right;
+}
+
+button.viewall{
+    border: 1px solid gray;
+    border-radius: 20px;
+}
+
+span.s2{
+    float: right;
+}
+
+div.slide{
+    margin: 30px 100px 30px 100px;
+}
+
+button.carousel-control-prev{
+    margin-top: 35px;
+}
+
+button.carousel-control-next{
+    margin-top: 35px;
+}
+
+
+.res_name{
+    list-style: none;
+}
+
+#res_name{
+    font-size: 20px;
+}
+.row {
+    margin: 20px 60px 20px 60px;
+}
+.change_add{
+    opacity: 0.8;
+}
+.change_add:hover{
+    opacity: 1.2;
+    transform: scale(1.1);
+}
+
+.current_add{
+    opacity: 0.8;
+}
+
+.current_add{
+    opacity: 1.2;
+    transform: scale(1.1);
+}
+
+
+button.show_more{
+    border: transparent;
+    border-radius: 20px;
+    width: 150px;
+    height: 50px;
+}
+
+.show_more{
+    margin-top: 20px;
+}
+
+.checkout_btn{
+    width: 100px;
+}
+
+.change_add_1, .change_add_2, .add_new_add{
+    border: none;
+    opacity: 0.8;
+}
+
+.change_add_1:hover, .change_add_2:hover, .add_new_add:hover{
+    opacity: 1.2;
+    transform: scale(1.1);
+}
+
+/*  */
+/* a#changeAddress{
+    padding: 1px; 
+    background-color: lightgray;
+    border: none;
+    font-size: 8px;
+    border-radius: 0;
+}
+
+a#changeAddress:focus{
+    color: black;
+}
+
+li{
+    list-style: none;
+    margin-top: 10px;
+}
+
+
+a > div > div{
+    font-size: 12px;
+}
+
+
+div.offcanvas-bottom.show{
+    margin: 0 300px;
+    height: 500px; 
+}
+
+@media (max-width: 767.98px){
+    div.offcanvas-bottom.show{
+        margin: 0 0;
+    }
+} */
+
+@media (max-width: 767.98px){
+    .container{
+        width: 100%;
+    }
+}
+
+a#changeAddress{
+    padding: 1px; 
+    background-color: lightgray;
+    border: none;
+    font-size: 8px;
+    border-radius: 0;
+}
+
+a#changeAddress:focus{
+    color: black;
+}
+
+li{
+    list-style: none;
+    margin-top: 10px;
+}
+
+select.form-select, select.form-select:focus{
+    outline: none;
+    width: 60px;
+    font-size: 0.1px;
+    box-shadow: none;
+    border-color: rgb(206, 212, 218);
+}
+@media (max-width: 767.98px){
+    select.form-select{
+        height: 30px;
+        font-size: 10px;
+    }
+}
+
+a > div > div{
+    font-size: 12px;
+}
+
+div.amount, div.pay{
+    margin: 0px 30px;
+}
+
+input.discount{
+    background-color: rgb(233, 230, 230);
+    border: none;
+}
+
+.form-check-input:checked, .form-check-input.focus, .form-check-input:active{
+    background-color: rgb(46, 45, 45); 
+    border-color: rgb(46, 45, 45); 
+    outline: none;
+    box-shadow: none;
+}
+
+button.btn.submit{
+    background-color: rgb(46, 45, 45);
+    color: white;
+    border: rgb(46, 45, 45);
+    width: 100%;
+    margin-top: 20px;
+}
+
+div.offcanvas-bottom.show{
+    margin: 0 300px;
+    height: 500px; 
+}
+
+@media (max-width: 767.98px){
+    div.offcanvas-bottom.show{
+        margin: 0 0;
+    }
+}
+
+.pac-container {
+    z-index: 1062 !important;
+  }
+
+
+
+div.del{
+    padding-left: 40px;
+}
+@media (max-width: 767.98px){
+    div.del{
+        padding-left: 12px;
+    }
+}
+
+#map{
+    width: 100%;
+    height: 200px;
+}
+
+/* .offcanvas{
+    z-index: 20;   
+} */
+
+
+

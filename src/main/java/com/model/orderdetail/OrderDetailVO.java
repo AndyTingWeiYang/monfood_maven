@@ -3,6 +3,7 @@ package com.model.orderdetail;
 import java.io.Serializable;
 
 public class OrderDetailVO implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer productId;
 	private Integer orderId;
 	private String note;

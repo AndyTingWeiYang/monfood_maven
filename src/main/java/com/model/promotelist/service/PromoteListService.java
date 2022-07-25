@@ -7,14 +7,17 @@ import com.model.promotelist.PromoteListVO;
 
 public interface PromoteListService {
 
-
+	//add
 	String adminAddPromoteList(PromoteListVO promoteListVO);
 	
+	//getall
 	List<PromoteListVO> adminFindPromoteListAll();
 	
+	//update
 	String adminUpdatePromoteList(PromoteListVO promoteListVO);
 	
-	PromoteListVO adminFindVO(PromoteListVO promoteListVO);
+	//getone
+	PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO);
 	
 
 }

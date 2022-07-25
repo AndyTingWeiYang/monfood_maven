@@ -1,3 +1,41 @@
+$(function () {
+  $(".flip").click(function () {
+    $(".panel").slideToggle("slow");
+    $(".xs1").toggle();
+    $(".xs2").toggle();
+  });
+});
+
+//   
+
+function showPopup() {
+  var overlay = document.getElementById("overlay");
+  overlay.style.display = "block";
+}
+function hidePopup() {
+  var overlay = document.getElementById("overlay");
+  overlay.style.display = "none";
+}
+
+$(document).ready(function() {
+  $('#change_add_1').click(function() {
+      $('#curr_add').html('台北市中正區濟南路一段321號');
+      
+  })
+});
+
+$(document).ready(function() {
+  $('#change_add_2').click(function() {
+      $('#curr_add').html('新北市新莊區新泰路100號');
+  })
+});
+
+navigator.geolocation.getCurrentPosition(function(position) {
+  do_something(position.coords.latitude, position.coords.longitude);
+});
+
+
+// google
 window.addEventListener('load', function(){
 
   var mylatlng = { lat: 25.0393131, lng: 121.3871121 };
@@ -133,47 +171,13 @@ window.addEventListener('load', function(){
     });
     })
   }
-
-  // select 標籤
-  $('select').on('change', function(){
-    if($(this).find('option:selected').val() == 0){
-      $(this).closest('li').remove();
-    }
-  })
-
-  var data = {"cartList" : [{
-    "resId" : 4,
-    "resName" : '麥當勞-台北民生店',
-    "productID" : 1,
-    "productName" : '雙層牛肉吉士堡',
-    "amount" : 5,
-    "productPrice" : 65,
-    "productKcal" : 467
-  },
-  {
-    "resId" : 4,
-    "resName" : '麥當勞-台北民生店',
-    "amount" : 5,
-    "productID" : 2,
-    "productName" : '大麥克',
-    "productPrice" : 75,
-    "productKcal" : 548
-  }]
-  };
-
-  sessionStorage.setItem('cartList', JSON.stringify(data));
+// select 標籤
+$('select').on('change', function(){
+  if($(this).find('option:selected').val() == 0){
+    $(this).closest('li').remove();
+  }
+})
   
-  $('.submit').on('click', function(){
-
-    let cartList = JSON.parse(sessionStorage.getItem('cartList'));
-    console.log(cartList.cartList[0])
-
-  })
-  // RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID
-
-
-
-
 
 
 })
