@@ -19,14 +19,15 @@ public class PairListDaoImpl implements PairListDao {
 	String PASSWORD = "12345678";
 
 	// 將名單放進PairList
-	// INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`) VALUES ( ?, ?);
+	// INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`,`PAIRED_DATE` ) VALUES ( ?, ?, ?);
 	public boolean insert(PairListVo pairListVo) {
 		int rowCount = 0;
-		String sql = "INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`) VALUES ( ?, ?);";
+		String sql = "INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`,`PAIRED_DATE` ) VALUES ( ?, ?, ?);";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, pairListVo.getUseraId());
 			ps.setInt(2, pairListVo.getUserbId());
+			ps.setDate(3,pairListVo.getPairedDate());
 			rowCount = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,16 +37,16 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	// 更新A會員答案
-	// update PAIR_LIST set USER_A_ANSWER = ? where USER_A_ID = ? and PAIR_ID = ?;
+	// update PAIR_LIST set USER_A_ANSWER = ? where USER_A_ID = ? and USER_B_ID = ?;
 
 	public boolean updateUseraAnswer(PairListVo pairListVo) {
 		int rowCount = 0;
-		String sql = "update PAIR_LIST set USER_A_ANSWER = ? where USER_A_ID = ? and PAIR_ID = ?;";
+		String sql = "update PAIR_LIST set USER_A_ANSWER = ? where USER_A_ID = ? and USER_B_ID = ?;";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, pairListVo.getUseraAnswer());
 			ps.setInt(2, pairListVo.getUseraId());
-			ps.setInt(3, pairListVo.getPairId());
+			ps.setInt(3, pairListVo.getUserbId());
 			rowCount = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,16 +55,15 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	// 更新B會員答案
-	// 需要嗎? 好像要?[to be checked]
-	// update PAIR_LIST set USER_B_ANSWER = ? where USER_B_ID = ? and PAIR_ID = ?;
+	// update PAIR_LIST set USER_B_ANSWER = ? where USER_B_ID = ? and USER_A_ID = ?;
 	public boolean updateUserbAnswer(PairListVo pairListVo) {
 		int rowCount = 0;
-		String sql = "update PAIR_LIST set USER_B_ANSWER = ? where USER_B_ID = ? and PAIR_ID = ?;";
+		String sql = "update PAIR_LIST set USER_B_ANSWER = ? where USER_B_ID = ? and USER_A_ID = ?;";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, pairListVo.getUserbAnswer());
 			ps.setInt(2, pairListVo.getUserbId());
-			ps.setInt(3, pairListVo.getPairId());
+			ps.setInt(3, pairListVo.getUseraId());
 			rowCount = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,20 +89,19 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	// 查找A會員好友 ?為A會員ID > 查詢結果為B會員ID
-	// union不會重複結果；union all會重複
 //	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and status = 1
 //	union
 //	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and status = 1;
-	public List<PairListVo> selectByIdAndStatus(Integer userAId ) {
+	public List<PairListVo> selectByIdAndStatus(Integer useraId ) {
 		List<PairListVo> list = new ArrayList<PairListVo>();
 		PairListVo pairListVo = null;
 		String sql = "	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and status = ?" + "	union"
 				+ "	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and status = ?;";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setInt(1, userAId);
+			ps.setInt(1, useraId);
 			ps.setInt(2, 1);
-			ps.setInt(3, userAId);
+			ps.setInt(3, useraId);
 			ps.setInt(4, 1);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -118,20 +117,35 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	//尋找A會員是否已被配對過 (雙向)  ( ?為A會員ID) 
-	//這樣查找好友好像可以不用雙向? [to be checked]
 //	select USER_A_ID from PAIR_LIST where USER_B_ID = ?
-//	union
-//	select USER_B_ID from PAIR_LIST where USER_A_ID = ?;
-	public List<PairListVo> selectById(Integer userAId) {
+	public List<PairListVo> selectById(Integer useraId) {
 		List<PairListVo> list = new ArrayList<PairListVo>();
 		PairListVo pairListVo = null;	
-		String sql = "select USER_A_ID from PAIR_LIST where USER_B_ID = ?"
-				+ "union"
-				+ "select USER_B_ID from PAIR_LIST where USER_A_ID = ?;";
+		String sql = "select USER_A_ID from PAIR_LIST where USER_B_ID = ?";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
-			ps.setInt(1, userAId);
-			ps.setInt(2, userAId);
+			ps.setInt(1, useraId);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				pairListVo = new PairListVo();
+				pairListVo.setUserbId(rs.getInt(1));
+				list.add(pairListVo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	//尋找A會員是否已被配對過 (雙向2)  ( ?為A會員ID) 
+//	select USER_B_ID from PAIR_LIST where USER_A_ID = ?
+	public List<PairListVo> selectById2(Integer useraId) {
+		List<PairListVo> list = new ArrayList<PairListVo>();
+		PairListVo pairListVo = null;	
+		String sql = "select USER_B_ID from PAIR_LIST where USER_A_ID = ?";
+		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement ps = connection.prepareStatement(sql)) {
+			ps.setInt(1, useraId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				pairListVo = new PairListVo();
@@ -153,18 +167,21 @@ public class PairListDaoImpl implements PairListDao {
 //		PairListVo vo = new PairListVo();
 //		vo.setUseraId(3);
 //		vo.setUserbId(5);
+//		java.util.Date today = new java.util.Date();
+//		java.sql.Date pairedDate = new java.sql.Date(today.getTime());
+//		vo.setPairedDate(pairedDate);
 //		dao.insert(vo);
 //
-//		// updateupdateUseraAnswer
+//		// updateUseraAnswer
 //		vo.setUseraAnswer(1);
-//		vo.setUseraId(1);
-//		vo.setPairId(1);
+//		vo.setUseraId(5);
+//		vo.setUserbId(1);
 //		dao.updateUseraAnswer(vo);
 //
-//		// updateupdateUserbAnswer
+//		// updateUserbAnswer
 //		vo.setUserbAnswer(1);
-//		vo.setUserbId(2);
-//		vo.setPairId(1);
+//		vo.setUserbId(3);
+//		vo.setUseraId(2);
 //		dao.updateUserbAnswer(vo);
 //
 //		// updateStatus
@@ -182,11 +199,16 @@ public class PairListDaoImpl implements PairListDao {
 //		}
 //		
 //		//selectById
-//		List<PairListVo> list = dao.selectByIdAndStatus(1);
+//		List<PairListVo> list = dao.selectById(1);
 //		for(PairListVo alist: list) {
 //			System.out.print(alist.getUserbId() + ",");
 //		}
-//
+		
+		//selectById2
+//		List<PairListVo> list = dao.selectById2(1);
+//		for(PairListVo alist: list) {
+//			System.out.print(alist.getUserbId() + ",");
+//		}
 	}
 
 }

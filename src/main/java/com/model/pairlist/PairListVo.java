@@ -1,5 +1,9 @@
 package com.model.pairlist;
 
+import java.sql.Date;
+
+import javax.xml.crypto.Data;
+
 public class PairListVo {
 	private Integer pairId;
 	private Integer useraId;
@@ -7,13 +11,14 @@ public class PairListVo {
 	private Integer useraAnswer;
 	private Integer userbAnswer;
 	private Integer status;
+	private java.sql.Date pairedDate;
 	
 	public PairListVo() {
 
 	}
 
 	public PairListVo(Integer pairId, Integer useraId, Integer userbId, Integer useraAnswer, Integer userbAnswer,
-			Integer status) {
+			Integer status, Date pairedDate, Date updateDate) {
 		super();
 		this.pairId = pairId;
 		this.useraId = useraId;
@@ -21,6 +26,7 @@ public class PairListVo {
 		this.useraAnswer = useraAnswer;
 		this.userbAnswer = userbAnswer;
 		this.status = status;
+		this.pairedDate = pairedDate;
 	}
 
 	public Integer getPairId() {
@@ -70,5 +76,14 @@ public class PairListVo {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
+	public java.sql.Date getPairedDate() {
+		return pairedDate;
+	}
+
+	public void setPairedDate(java.sql.Date pairedDate) {
+		this.pairedDate = pairedDate;
+	}
+
+
 }
