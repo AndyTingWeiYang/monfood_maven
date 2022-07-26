@@ -19,14 +19,15 @@ public class PairListDaoImpl implements PairListDao {
 	String PASSWORD = "12345678";
 
 	// 將名單放進PairList
-	// INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`) VALUES ( ?, ?);
+	// INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`,`PAIRED_DATE` ) VALUES ( ?, ?, ?);
 	public boolean insert(PairListVo pairListVo) {
 		int rowCount = 0;
-		String sql = "INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`) VALUES ( ?, ?);";
+		String sql = "INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`,`PAIRED_DATE` ) VALUES ( ?, ?, ?);";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, pairListVo.getUseraId());
 			ps.setInt(2, pairListVo.getUserbId());
+			ps.setDate(3,pairListVo.getPairedDate());
 			rowCount = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,10 +163,13 @@ public class PairListDaoImpl implements PairListDao {
 	// test
 	public static void main(String[] args) {
 //		// insert
-		PairListDao dao = new PairListDaoImpl();
-		PairListVo vo = new PairListVo();
+//		PairListDao dao = new PairListDaoImpl();
+//		PairListVo vo = new PairListVo();
 //		vo.setUseraId(3);
 //		vo.setUserbId(5);
+//		java.util.Date today = new java.util.Date();
+//		java.sql.Date pairedDate = new java.sql.Date(today.getTime());
+//		vo.setPairedDate(pairedDate);
 //		dao.insert(vo);
 //
 //		// updateUseraAnswer
