@@ -21,8 +21,6 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 	private static final String INSERT_STMT = 
 			"insert into MonFood.PROMOTE_DETAIL(PROMOTE_ID, USER_ID, USED_STATUS) "
 			+ "values(?,?,?)";
-//	private static final String GET_ALL_STMT = 
-//		"select * from PROMOTE_DETAIL order by PROMOTE_ID";
 	private static final String GET_ONE_STMT = 
 		"select * from PROMOTE_DETAIL where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_DETAIL "
