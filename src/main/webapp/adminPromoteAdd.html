@@ -8,6 +8,12 @@
     />
     <title>MonFood</title>
     <!-- w3c.js 引入共用畫面 -->
+    <style>
+      .noticespan {
+        color: red;
+        font-size: 10px;
+      }
+    </style>
   </head>
   <body>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
@@ -54,6 +60,7 @@
                     id="promoteCode"
                     style="margin: 10px"
                   />
+                  <span class="promoteCode"></span>
                 </div>
 
                 <label
@@ -219,6 +226,15 @@
               const msg = body.errMsg ?? "新增成功";
               alert(msg);
             });
+        }
+      });
+
+      // 手機號碼驗證
+      $("#promoteCode").on("blur", function () {
+        var pattern = /[0-9]/;
+        var promoteCode = $("#promoteCode").val().trim();
+        if (pattern.test(promoteCode)) {
+          $(".promoteCode").addClass("noticespan").text("*請輸入數字");
         }
       });
     </script>

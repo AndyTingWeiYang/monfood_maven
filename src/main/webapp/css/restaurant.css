@@ -121,3 +121,61 @@
   margin-top: 2px; 
   padding: none;
 }
+/*  */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+.Qcontainer {
+  
+  width: 45%;
+  margin: 0 auto;
+}
+.container h1 {
+  font-weight: bold;
+}
+
+.quantity-control {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  margin: 0 auto;
+  background: #eaeaea;
+  border-radius: 10px;
+  padding: 1rem 0.4rem;
+  margin-top: 4rem;
+}
+
+.quantity-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0px 8px;
+  cursor: pointer;
+}
+.quantity-btn svg {
+  width: 15px;
+  height: 15px;
+}
+.quantity-input {
+  outline: none;
+  user-select: none;
+  text-align: center;
+  width: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+}
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
