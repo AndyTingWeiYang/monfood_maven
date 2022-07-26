@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
-import java.sql.Timestamp;
 
 import com.model.pairlist.PairListVo;
 import com.model.pairlist.dao.PairListDao;
@@ -54,10 +53,10 @@ public class PairListServiceImpl implements PairListService {
 	// 配對方法 
 	public void match() {
 		// 取得所有會員ID
-		List<UserVO> listUserVO = userDao.getAllUserId();
+		List<Integer> listUserVO = userDao.getAllUserId();
 		ArrayList<Integer> user = new ArrayList<>();
-		for (UserVO userVO1 : listUserVO) {
-			int userId = userVO1.getUserId();
+		for (Integer userVO1 : listUserVO) {
+			int userId = userVO1;
 			// 將結果放進user集合中，user集合為所有會員ID的集合
 			user.add(userId);
 		}
@@ -109,10 +108,13 @@ public class PairListServiceImpl implements PairListService {
 		toPairb.add(availblePaired.get(0));
 		System.out.println("被配對到的B會員" + toPairb);
         
-        //幫user[0]與availblePaired[0]配對
+        //幫user[0]與availblePaired[0]配對，並加入配對日期
         PairListVo vo = new PairListVo();
 		vo.setUseraId(user.get(0));
 		vo.setUserbId(availblePaired.get(0));
+		java.util.Date today = new java.util.Date();
+		java.sql.Date pairedDate = new java.sql.Date(today.getTime());
+		vo.setPairedDate(pairedDate);
         pairDao.insert(vo);
 
      
