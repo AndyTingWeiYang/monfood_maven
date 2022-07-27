@@ -8,4 +8,5 @@ public interface OrderService {
 
 	OrderVO adminFindOrderId(OrderVO orderVO);
 	List<OrderVO> adminFindOrderAll();
+	Integer createOrder(OrderVO orderVO);
 }

@@ -6,17 +6,15 @@ public class OrderDetailVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer productId;
 	private Integer orderId;
-	private String note;
 	private Integer amount;
 	private Integer orderedPrice;
 	
 	public OrderDetailVO() {
 	}
 	
-	public OrderDetailVO(Integer productId, Integer orderId, String note, Integer amount, Integer orderedPrice) {
+	public OrderDetailVO(Integer productId, Integer orderId, Integer amount, Integer orderedPrice) {
 		this.productId = productId;
 		this.orderId = orderId;
-		this.note = note;
 		this.amount = amount;
 		this.orderedPrice = orderedPrice;
 	}
@@ -32,12 +30,6 @@ public class OrderDetailVO implements Serializable{
 	}
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
-	}
-	public String getNote() {
-		return note;
-	}
-	public void setNote(String note) {
-		this.note = note;
 	}
 	public Integer getAmount() {
 		return amount;
