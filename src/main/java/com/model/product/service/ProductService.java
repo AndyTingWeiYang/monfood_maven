@@ -5,11 +5,13 @@ import java.util.Map;
 
 import com.model.product.ProductVO;
 
-public interface ProductListService {
+public interface ProductService {
+
+	public ProductVO findByID(String productID);
 
 	public List<ProductVO> findAll(Map<String, Object> dataMap);
-	
-	public ProductVO findPic(String productId);
-	
+
+	public ProductVO findPic(String productID);
+
 	public boolean insertResult(Map<String, Object> dataMap);
 }
