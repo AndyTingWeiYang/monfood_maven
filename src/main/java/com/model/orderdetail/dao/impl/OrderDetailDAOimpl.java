@@ -18,15 +18,15 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 	String passwd = "Abc840924";
 
 	private static final String INSERT_STMT = 
-		"insert into MonFood.ORDER_DETAIL(PRODUCT_ID, ORDER_ID, NOTE, AMOUNT, ORDERED_PRICE)"
-		+ "values(?,?,?,?,?)";
+		"insert into MonFood.ORDER_DETAIL(PRODUCT_ID, ORDER_ID, AMOUNT, ORDERED_PRICE)"
+		+ "values(?,?,?,?)";
 	private static final String GET_ALL_STMT = 
 		"select * from ORDER_DETAIL order by PRODUCT_ID";
 	private static final String GET_ONE_STMT = 
 		"select * from ORDER_DETAIL where PRODUCT_ID = ? and ORDER_ID = ?";
 	private static final String DELETE = 
 		"delete from ORDER_DETAIL where PRODUCT_ID = ? and ORDER_ID = ?";
-	private static final String UPDATE = "update ORDER_DETAIL set NOTE = ?, AMOUNT = ?, ORDERED_PRICE = ? where PRODUCT_ID = ? and ORDER_ID = ?";
+	private static final String UPDATE = "update ORDER_DETAIL set AMOUNT = ?, ORDERED_PRICE = ? where PRODUCT_ID = ? and ORDER_ID = ?";
 
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -42,9 +42,8 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 
 			pstmt.setInt(1, orderDetailVO.getProductId());
 			pstmt.setInt(2, orderDetailVO.getOrderId());
-			pstmt.setString(3, orderDetailVO.getNote());
-			pstmt.setInt(4, orderDetailVO.getAmount());
-			pstmt.setInt(5, orderDetailVO.getOrderedPrice());
+			pstmt.setInt(3, orderDetailVO.getAmount());
+			pstmt.setInt(4, orderDetailVO.getOrderedPrice());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -91,7 +90,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 				orderDetailVO = new OrderDetailVO();
 				orderDetailVO.setProductId(rs.getInt("PRODUCT_ID"));
 				orderDetailVO.setOrderId(rs.getInt("ORDER_ID"));
-				orderDetailVO.setNote(rs.getString("NOTE"));
 				orderDetailVO.setAmount(rs.getInt("AMOUNT"));
 				orderDetailVO.setOrderedPrice(rs.getInt("ORDERED_PRICE"));
 				
@@ -156,7 +154,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 				orderDetailVO = new OrderDetailVO();
 				orderDetailVO.setProductId(rs.getInt("PRODUCT_ID"));
 				orderDetailVO.setOrderId(rs.getInt("ORDER_ID"));
-				orderDetailVO.setNote(rs.getString("NOTE"));
 				orderDetailVO.setAmount(rs.getInt("AMOUNT"));
 				orderDetailVO.setOrderedPrice(rs.getInt("ORDERED_PRICE"));
 
@@ -250,11 +247,10 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, orderDetailVO.getNote());
-			pstmt.setInt(2, orderDetailVO.getAmount());
-			pstmt.setInt(3, orderDetailVO.getOrderedPrice());
-			pstmt.setInt(4, orderDetailVO.getProductId());
-			pstmt.setInt(5, orderDetailVO.getOrderId());
+			pstmt.setInt(1, orderDetailVO.getAmount());
+			pstmt.setInt(2, orderDetailVO.getOrderedPrice());
+			pstmt.setInt(3, orderDetailVO.getProductId());
+			pstmt.setInt(4, orderDetailVO.getOrderId());
 			
 			pstmt.executeUpdate();
 
@@ -294,7 +290,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 		OrderDetailVO orderDetailVOi = new OrderDetailVO(); 
 		orderDetailVOi.setProductId(2);
 		orderDetailVOi.setOrderId(1);
-		orderDetailVOi.setNote("快");
 		orderDetailVOi.setAmount(10);
 		orderDetailVOi.setOrderedPrice(100);
 		dao.insert(orderDetailVOi);
@@ -307,7 +302,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 		for(OrderDetailVO alist: list) {
 			System.out.print(alist.getProductId() + ",");
 			System.out.print(alist.getOrderId() + ",");
-			System.out.print(alist.getNote() + ",");
 			System.out.print(alist.getAmount() + ",");
 			System.out.print(alist.getOrderedPrice() + ",");
 			System.out.println();
@@ -319,7 +313,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 		System.out.println("select one");
 		System.out.print(orderDetailVO.getProductId() + ",");
 		System.out.print(orderDetailVO.getOrderId() + ",");
-		System.out.print(orderDetailVO.getNote() + ",");
 		System.out.print(orderDetailVO.getAmount() + ",");
 		System.out.print(orderDetailVO.getOrderedPrice());
 		System.out.println();
@@ -327,7 +320,6 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 		
 		// update
 		OrderDetailVO orderDetailVOu = new OrderDetailVO();
-		orderDetailVOu.setNote("快!!!");
 		orderDetailVOu.setAmount(12);
 		orderDetailVOu.setOrderedPrice(1000);
 		orderDetailVOu.setProductId(2);

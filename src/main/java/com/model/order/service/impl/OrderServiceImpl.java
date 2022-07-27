@@ -36,9 +36,19 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 	
+	@Override
 	public List<OrderVO> adminFindOrderAll(){
 		List<OrderVO> list = dao.getAll();
 		return list;
+	}
+	
+	@Override
+	public Integer createOrder(OrderVO orderVO) {
+		Integer generatedKey = dao.insert(orderVO);
+		if(generatedKey == null) {
+			return null;
+		}
+		return generatedKey;
 	}
 	
 	
