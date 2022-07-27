@@ -7,8 +7,6 @@ import com.model.promotedetail.PromoteDetailVO;
 
 public interface PromoteDetailDAO {
 	
-//	  	List<PromoteDetailVO> getAll();
-	
 	  	PromoteDetailVO findByID(Integer promoteId);
 	
 	  	void update(PromoteDetailVO promoteDetailVO);
