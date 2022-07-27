@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.product.ProductVO;
-import com.model.product.service.ProductListService;
-import com.model.product.service.impl.ProductListServiceImpl;
+import com.model.product.service.ProductService;
+import com.model.product.service.impl.ProductServiceImpl;
 
 @WebServlet("/resprofile/ProductPicServlet")
 public class ProductPicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ProductListService productListService;
+	private ProductService productListService;
 
 	public ProductPicServlet() {
-		this.productListService = new ProductListServiceImpl();
+		this.productListService = new ProductServiceImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

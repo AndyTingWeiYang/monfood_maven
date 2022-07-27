@@ -11,15 +11,15 @@ import com.google.gson.GsonBuilder;
 import com.model.product.ProductVO;
 import com.model.product.dao.ProductDAO;
 import com.model.product.dao.impl.ProductDAOImpl;
-import com.model.product.service.ProductListService;
+import com.model.product.service.ProductService;
 import com.model.product.util.IntTypeAdapter;
 
-public class ProductListServiceImpl implements ProductListService {
+public class ProductServiceImpl implements ProductService {
 
 	private ProductDAO productDao;
 	private Gson gson;
 
-	public ProductListServiceImpl() {
+	public ProductServiceImpl() {
 		this.productDao = new ProductDAOImpl();
 		// Gson NumberException handle
 		this.gson = new GsonBuilder().registerTypeAdapter(int.class, new IntTypeAdapter())
@@ -106,4 +106,9 @@ public class ProductListServiceImpl implements ProductListService {
 		return result;
 	}
 
+	@Override
+	public ProductVO findByID(String productID) {
+		return productDao.findByID(productID);
+	}
+	
 }
