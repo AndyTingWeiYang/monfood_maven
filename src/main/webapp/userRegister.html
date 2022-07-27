@@ -110,33 +110,33 @@
                
                 <div class="col-md-10 col-12">
                   <input type="text" class="form-control" id="username" placeholder="姓名" required />
-                  <span class="namespan"></span>
+                  <span class="noticespan namespan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="email" class="form-control" id="useremail" placeholder="電子信箱(帳號)" required />
-                  <span class="emailspan"></span>
+                  <span class="noticespan emailspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="password" class="form-control" id="userpassword" placeholder="會員密碼" required />
-                  <span class="passwordspan"></span>
+                  <span class="noticespan passwordspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="password" class="form-control" id="password-check" placeholder="確認密碼" required />
-                  <span class="passwordcheckspan"></span>
+                  <span class="noticespan passwordcheckspan"></span>
 
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="tel" class="form-control" id="userphone-num" placeholder="手機號碼" maxlength="10" required />
-                  <span class="phonenumspan"></span>
+                  <span class="noticespan phonenumspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
                   <input type="text" class="form-control" id="userbirthday" placeholder="出生日期  範例：1990-01-01" />
-                  <span class="birthdayspan"></span>
+                  <span class="noticespan birthdayspan"></span>
                 </div>
   
                 <div class="col-md-8 check">
@@ -397,7 +397,7 @@
         $("#useremail").on("focusout",function(){
           if($("#useremail").val().trim() != ""){
             $.ajax({
-            url: "UserServlet",           
+            url: "UserAccountPassServlet",           
             type: "POST",                  
             data: JSON.stringify({             
               "userAccount": $("#useremail").val().trim(),          
@@ -425,7 +425,7 @@
             return;
           }
           $.ajax({
-            url: "UserServlet",           
+            url: "UserRegisterServlet",           
             type: "POST",                  
             data: JSON.stringify({
               "userName": $("#username").val().trim(),
@@ -437,7 +437,7 @@
             contentType : "application/json;charset=utf-8",
             dataType: "json",             
             success: function(data){      // request 成功取得回應後執行
-              location.href="./RegisterSuccess.html";
+              location.href="./registerSuccess.html";
               
             }
           });
