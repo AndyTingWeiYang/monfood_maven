@@ -49,6 +49,34 @@ public class PairListServiceImpl implements PairListService {
 //		List<UserVO> result = pair.findFriends();
 //		System.out.println(result);
 //	}
+	
+	//取得當日配對者ID並取出資料
+	public List<UserVO> findPairInfo(Integer useraId, java.sql.Date pairedDate){
+		// 要拿到的list
+		List<UserVO> listUserVO = new ArrayList<UserVO>();
+		UserVO userVO = null;
+		List<PairListVo> list = pairDao.selectByIdAndPairedDate(useraId, pairedDate);
+		for (PairListVo alist : list) {
+			// 取出a會員的所有好友id
+			int a = alist.getUserbId();
+			// 取出配對者id的會員資料
+			userVO = userDao.selectByUserId(a);
+			// 資料放進list
+			listUserVO.add(userVO);
+		}
+
+		return listUserVO;
+		
+	}
+	
+	//findPairInfo()方法test [to be deleted]
+//	public static void main(String[] args) {
+//		PairListService pair = new PairListServiceImpl();
+//		java.util.Date date = new java.util.Date();
+//		java.sql.Date today = new java.sql.Date(date.getTime());
+//		List<UserVO> result = pair.findPairInfo(1,today);
+//		System.out.println(result);
+//	}
 
 	// 配對方法 
 	public void match() {
@@ -84,7 +112,7 @@ public class PairListServiceImpl implements PairListService {
 		List<PairListVo> pairedId2Vo = pairDao.selectById2(user.get(0));
 		ArrayList<Integer> pairedId2 = new ArrayList<>();
 		for(PairListVo alist: pairedId2Vo) {
-			int id = alist.getUserbId();
+			int id = alist.getUseraId();
 			pairedId2.add(id);
 		}
 			
