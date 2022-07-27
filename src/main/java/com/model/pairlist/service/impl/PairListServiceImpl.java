@@ -77,6 +77,33 @@ public class PairListServiceImpl implements PairListService {
 //		List<UserVO> result = pair.findPairInfo(1,today);
 //		System.out.println(result);
 //	}
+	
+	
+	//更新會員答案及狀態
+	public boolean updateAnswerAndStatus(PairListVo pairListVo) {
+		//雙向查找useraId及userbId欄位，並修改答案
+		pairDao.updateUseraAnswer(pairListVo);
+		pairDao.updateUserbAnswer(pairListVo);
+		//如果兩者結果皆為1，將狀態改為1
+		pairDao.updateStatus(pairListVo);	
+		return true;		
+	}
+	
+	
+	//updateAnswerAndStatus()方法test [to be deleted]
+//	public static void main(String[] args) {
+//		PairListService pair = new PairListServiceImpl();
+//		PairListVo vo = new PairListVo();
+//		vo.setUseraAnswer(1); //前端傳來參數(參數為同個使用者)
+//		vo.setUserbAnswer(1); //前端傳來參數(參數為同個使用者)
+//		vo.setUseraId(11); //userID(參數為同個使用者)
+//		vo.setUserbId(11); //userID(參數為同個使用者)
+//		java.util.Date date = new java.util.Date();
+//		java.sql.Date today = new java.sql.Date(date.getTime());
+//		vo.setPairedDate(today);
+//		pair.updateAnswerAndStatus(vo);
+//
+//	}
 
 	// 配對方法 
 	public void match() {
