@@ -9,6 +9,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 
 import com.model.product.ProductVO;
 import com.model.product.dao.ProductDAO;
@@ -40,7 +44,6 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<ProductVO> findAll(ProductVO product) {
 		List<ProductVO> productList = new ArrayList<>();
-		ProductVO productVO = null;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -48,11 +51,54 @@ public class ProductDAOImpl implements ProductDAO {
 
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-			pstmt = conn.prepareStatement(SELECT);
-			rs = pstmt.executeQuery();
 
+			// 動態 sql 指令
+			StringBuffer sbf = new StringBuffer();
+			sbf.append("select * from MonFood.PRODUCT where 1 = 1 ");
+
+			// 取得產品 ID
+			// 將Integer->String判斷是否為空
+			String productIdStr = castTypeToStr(product.getProductID());
+			Map<String, Object> fieldMap = new HashedMap<>();
+			if (StringUtils.isNotBlank(productIdStr)) {
+				sbf.append(" and PRODUCT_ID = ? ");
+				fieldMap.put("productId", productIdStr);
+			}
+
+			// 取得產品名
+			String productName = product.getProductName();
+			if (StringUtils.isNotBlank(productName)) {
+				sbf.append(" and PRODUCT_NAME = ? ");
+				fieldMap.put("productName", productName);
+			}
+
+			// 取得最大/小金額
+			// 將數字轉型
+			String minPriceStr = castTypeToStr(product.getMinPrice());
+			String maxPriceStr = castTypeToStr(product.getMaxPrice());
+			if (StringUtils.isNotBlank(minPriceStr) && StringUtils.isNotBlank(maxPriceStr)) {
+				sbf.append(" and PRODUCT_PRICE between ? and ? ");
+				fieldMap.put("minPrice", product.getMinPrice());
+				fieldMap.put("maxPrice", product.getMaxPrice());
+			}
+
+			// 將組好的 sql 指令放進 pstmt
+			pstmt = conn.prepareStatement(sbf.toString());
+
+			int fieldIndex = 1;
+			for (String key : fieldMap.keySet()) {
+				Object value = fieldMap.get(key);
+				if (value instanceof Integer) {
+					pstmt.setInt(fieldIndex, (int) value);
+				} else if (value instanceof String) {
+					pstmt.setString(fieldIndex, value.toString());
+				}
+				fieldIndex++;
+			}
+
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				productVO = new ProductVO();
+				ProductVO productVO = new ProductVO();
 				productVO.setProductID(rs.getInt("PRODUCT_ID"));
 				productVO.setResID(rs.getInt("RES_ID"));
 				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
@@ -228,12 +274,6 @@ public class ProductDAOImpl implements ProductDAO {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(INSERT);
 
-			// 動態 sql 指令
-			StringBuffer sbf = new StringBuffer();
-			sbf.append(
-					"select resID, producrPic, productPrice, productKcal, updatTime,stock  from MonFood.PRODUCT where '1=1' ");
-
-			
 			pstmt.setInt(1, product.getResID());// FK
 			pstmt.setBytes(2, product.getProductPic());
 			pstmt.setInt(3, product.getProductStatus());
@@ -268,6 +308,48 @@ public class ProductDAOImpl implements ProductDAO {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public ProductVO findByID(String productID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductVO product = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(SELECT_BY_ID);
+			pstmt.setInt(1, Integer.parseInt(productID));
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				product = new ProductVO();
+				product.setProductID(rs.getInt("PRODUCT_ID"));
+				product.setResID(rs.getInt("RES_ID"));
+				product.setProductPic(rs.getBytes("PRODUCT_PIC"));
+				product.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				product.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+				product.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				product.setProductName(rs.getString("PRODUCT_NAME"));
+				product.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				product.setStock(rs.getInt("STOCK"));
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return product;
+	}
+
+	private <T> String castTypeToStr(T value) {
+		String data = null;
+		if (value != null) {
+			data = value.toString();
+		}
+
+		return data;
 	}
 
 }

@@ -28,10 +28,14 @@
 <script>
     $(document).ready(function () {
         function fileUpload() {
-
             $('#productPic').fileinput({
                 theme: 'fa6',
-                language: 'zh-TW'
+                language: 'zh-TW',
+                initialPreviewAsData: true,
+                removeFromPreviewOnError: true,
+                initialPreview: [
+                	'<%=request.getContextPath()%>/resprofile/ProductPicServlet?productID=${product.productID}',
+                ],
             });
         }
         fileUpload();
@@ -47,7 +51,7 @@
                 <div class="mf-content-wrapper">
 
                     <!-- 表單區塊 -->
-                    <form method="post" action="NewProductServlet" enctype="multipart/form-data">
+                    <form method="post" action="UpdateProductServlet" enctype="multipart/form-data">
                         <div class="jumbotron form-group row">
                             <!-- 並排兩格區塊:餐廳資訊 -->
                             <div class="col-sm-6 ">
@@ -65,46 +69,46 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="productName" class="col-sm-12 col-form-label">商品名稱</label>
+                                <label for="productName" class="col-sm-12 col-form-label" >商品名稱</label>
                                 <div>
                                     <input id="productName" type="text" name="productName" class="form-control"
-                                        placeholder="請輸入商品名稱">
+                                        placeholder="請輸入商品名稱" value="${product.productName}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="productPrice" class="col-sm-12 col-form-label">商品價格</label>
                                 <div>
                                     <input id="productPrice" type="text" name="productPrice" class="form-control"
-                                        placeholder="請輸入商品價格">
+                                        placeholder="請輸入商品價格" value="${product.productPrice}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="productKcal" class="col-sm-12 col-form-label">商品熱量</label>
                                 <div>
                                     <input id="productKcal" type="text" name="productKcal" class="form-control"
-                                        placeholder="請輸入商品熱量 (份/kcal)">
+                                        placeholder="請輸入商品熱量 (份/kcal)" value="${product.productKcal}">
                                 </div>
                             </div>
-                            <div class="col-sm-6 ">
+                            <div class="col-sm-6">
                                 <label for="stock" class="col-sm-12 col-form-label">商品庫存</label>
                                 <div>
                                     <input id="stock" type="text" name="stock" class="form-control" 
-                                        placeholder="請輸入數量">
+                                        placeholder="請輸入數量" value="${product.stock}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="productStatus" class="col-sm-12 col-form-label">商品狀態</label>
                                 <select id="productStatus" name="productStatus" class="form-select"
                                     aria-label="Default select example">
-                                    <option selected>請選擇</option>
-                                    <option value="1">上架</option>
-                                    <option value="2">售完</option>
-                                    <option value="3">下架</option>
+                                    <option>請選擇</option>
+                                    <option value="1" ${(product.productStatus==1)?'selected':'' }>上架</option>
+                                    <option value="2" ${(product.productStatus==2)?'selected':'' }>售完</option>
+                                    <option value="3" ${(product.productStatus==3)?'selected':'' }>下架</option>
                                 </select>
                             </div>
                         </div>
                         <div class="file-loading">
-                            <input id="productPic" name="productPic" type="file" multiple accept="image">
+                            <input id="productPic" name="productPic" type="file" multiple accept="image" value="${product.productPic}">
                         </div>
 	                    <div class="d-flex justify-content-end mt-3">
 	                        <button type="submit" class="btn btn-outline-dark mf-bdr-15">確定</button>
