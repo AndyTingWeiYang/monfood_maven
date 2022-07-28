@@ -6,7 +6,7 @@ public interface DelDAO {
 	// 對Del表格的相關操作方法
 	void add(DelVO delVO);
 
-	void update(DelVO delVO);
+	DelVO update(DelVO delVO);
 
 	// 刪除會搭配條件進行 所以這邊用id作為條件進行刪除
 	void delete(Integer delID);

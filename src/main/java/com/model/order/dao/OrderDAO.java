@@ -6,7 +6,7 @@ import com.model.order.OrderVO;
 
 public interface OrderDAO {
 
-	void insert(OrderVO orderVO);
+	Integer insert(OrderVO orderVO);
 
 	List<OrderVO> getAll();
 
