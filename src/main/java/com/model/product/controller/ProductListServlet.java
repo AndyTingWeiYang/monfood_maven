@@ -16,17 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections4.map.HashedMap;
 
 import com.model.product.ProductVO;
-import com.model.product.service.ProductListService;
-import com.model.product.service.impl.ProductListServiceImpl;
+import com.model.product.service.ProductService;
+import com.model.product.service.impl.ProductServiceImpl;
 
 @WebServlet("/resprofile/ProductListServlet")
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private ProductListService productListService;
+	private ProductService productListService;
 	
 	public ProductListServlet() {
-		this.productListService = new ProductListServiceImpl();
+		this.productListService = new ProductServiceImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

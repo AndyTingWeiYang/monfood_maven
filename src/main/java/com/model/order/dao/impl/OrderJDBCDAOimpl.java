@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	
 	private static final String INSERT_STMT = 
 		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
-		+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		+ "values(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
 		"select * from `ORDER` order by ORDER_ID";
 	private static final String GET_ONE_STMT = 
@@ -31,16 +32,16 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			+ "where ORDER_ID = ?";
 	
 	@Override
-	public void insert(OrderVO orderVO) {
+	public Integer insert(OrderVO orderVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		Integer generatedKey;
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setInt(1, orderVO.getUserId());
 			pstmt.setInt(2, orderVO.getResId());
@@ -54,6 +55,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			pstmt.setInt(10, orderVO.getDiscount());
 			pstmt.setInt(11, orderVO.getPromoteId());
 			pstmt.executeUpdate();
+			ResultSet rs=pstmt.getGeneratedKeys();
+			rs.next();
+			generatedKey = rs.getInt(1);
 
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -77,7 +81,8 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				}
 			}
 		}
-
+		
+		return generatedKey;
 	}
 	
 	@Override

@@ -7,9 +7,15 @@
   <title>MonFood</title>
 
   <style>
-    input.platenumber{
+
+
+    /* div.result{
       display: none;
     }
+
+    div.-on{
+      display: block;
+    } */
   </style>
   <!-- w3c.js 引入共用畫面 -->
   
@@ -54,10 +60,42 @@
 
             </div>
           </div>
+<!-- =========================================================== -->
+<!-- <div class="card-body table-responsive p-0" style="height: 300px;">
+  <table class="table table-head-fixed text-nowrap">
+    <thead>
+      <tr>
+        
+        <th>電話</th>
+        <th>車牌號碼</th>
+        <th>狀態</th>
+        <th>銀行帳戶名稱</th>
+        <th>銀行名稱</th>
+        <th>銀行代碼</th>
+        <th>銀行帳號</th>
+        
+      </tr>
+      <tr>
+       
+        <th><input type="editTel"></th>
+        <th><input type="editplatenumber"></th>
+        <th><input type="editStatus"></th>
+        <th><input type="editBankname"></th>
+        <th><input type="editBankcode"></th>
+        <th><input type="editBancaccount"></th>
+      </tr>
+    </thead>
+   
+  </table>
+</div> -->
 
+
+
+
+         
           <!-- ========查詢結果========================================================================== -->
           
-          <div class="row result">
+          <div class="row result ">
             <div class="col-12">
               <div class="card">
                 <div class="card-header"style="background-color: #e9ecef;">
@@ -67,21 +105,7 @@
                 <div class="card-body table-responsive p-0" style="height: 300px;">
                   <table class="table table-head-fixed text-nowrap">
                     <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>姓名</th>
-                        <th>帳號</th>
-                        <th>密碼</th>
-                        <th>電話</th>
-                        <th>生日</th>
-                        <th>車牌號碼</th>
-                        <th>狀態</th>
-                        <th>銀行帳戶名稱</th>
-                        <th>銀行名稱</th>
-                        <th>銀行代碼</th>
-                        <th>銀行帳號</th>
-                        
-                      </tr>
+             
                     </thead>
                     <tbody class="result">
                       
@@ -94,6 +118,10 @@
             </div>
           </div>
         </div>
+
+
+
+    
           
           
           
@@ -136,8 +164,64 @@
     });
 
 // edit
-    $(".result").on("click", ".edit", function(){
-      $("input.platenumber").toggleClass("-on");
+    $(".result").on("click", "button.edit", function(){
+      
+      var delID =  $(".delID").val();
+      var delName = $("td.delName").val();
+      var delAccount = $("td.delAccount").val();
+      var editPassword = $("input.editPassword").val();
+      var editTel = $("input.editTel").val();
+      var delBirthday = $("td.delBirthday").val();
+      var editPlatenumber = $("input.editPlatenumber").val();
+      var editStatus = $("input.editStatus").val();
+      var updateTime = new Date().toDateString;
+      var editAccountname = $("input.editAccountname").val();
+      var editBankname = $("input.editBankname").val();
+      var editBankcode = $("input.editBankcode").val();
+      var editBankaccount = $("input.editBankaccount").val();
+      var delEdit = "delEdit";
+
+      console.log(delID);
+      console.log(editPassword);
+
+      const url = "AdminDelEdit";
+      fetch((url), {
+        method: "POST",
+        headers: {
+          "content-Type": "application.json"
+        },
+        body: JSON.stringify({
+
+          // action: delEdit,
+          "delID": delID,
+          "delName": delName,
+          "delAccount": delAccount,
+          "delPassword": editPassword,
+          "delTel": editTel,
+          "delBirthday": delBirthday,
+          "platenumber": editPlatenumber,
+          "status": editStatus,
+          "updateTime": updateTime,
+          "delAccountName": editAccountname,
+          "delBankname": editBankname,
+          "delBankcode": editBankcode,
+          "delBankaccount": editBankaccount
+        
+        })
+      }).then(function(response){
+        if(response.ok){
+          console.log("修改成功收到回應");
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      }).then(function(data){
+        console.log(data);
+      });
+     
+            
+
+
+    
     });
 
 
@@ -147,6 +231,7 @@
       var inputDelName = $(".inputDelName").val().trim();
       var inputDelTel = $(".inputDelTel").val().trim();
       console.log(!inputDelName && !inputDelTel);
+      // $("div.result").addClass("-on");
       if(!inputDelName && !inputDelTel){
         alert("請輸入帳號或是手機號碼");
       }
@@ -165,7 +250,7 @@
                 // 接收到回傳的物件
                 if (response.ok) {
                   // 如果正確取得資料，沒有發生錯誤
-                  console.log("回應沒問題");
+                  console.log("getone回應沒問題");
                   return response.json(); // 將取得的資料，再使用 .json() 解析資料
                 
                 }
@@ -189,27 +274,70 @@
                 var delBankcode = mapData.delBankcode;
                 var delBankaccount = mapData.delBankaccount;
                 //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
-               
+                
+                        
+    
+                        
 
                   // const tr = document.createElement("tr");
                   var delVO = `
                   <tr>
-                    <td>${delID}</td>
-                    <td>${delName}</td>
-                    <td>${delAccount}</td>
-                    <td>${delPassword}</td>
-                    <td>${delTel}</td>
-                    <td>${delBirthday}</td>
-                    <td class="platenumber">${platenumber}</td>
-                    <td><input class="platenumber -on"></td>
-                    <td>${status}</td>
-                    <td>${delAccountName}</td>
-                    <td>${delBankname}</td>
-                    <td>${delBankcode}</td>
-                    <td>${delBankaccount}</td>
+                    <th>ID</th>
+                    <td class="delID">${delID}</td>
+                  </tr>
+                  <tr>
+                    <th>姓名</th>
+                    <td class="delName">${delName}</td>
+                  </tr>
+                  <tr> 
+                    <th>帳號</th>
+                    <td class="delAccounr">${delAccount}</td>
+                  </tr>
+                  <tr>   
+                    <th>密碼</th>
+                    <td><input class="editPassword" value="${delPassword}"></td>
+                    <td><button class="edit ${delPassword}">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>生日</th>
+                    <td class="delBirthday">${delBirthday}"</td>
+                  </tr>
+                  <tr>   
+                    <th>電話</th>
+                    <td><input class="editTel delID" value="${delTel}"></td>
                     <td><button class="edit">修改</button></td>
-                   
-                </tr>
+                  </tr>
+                  <tr>   
+                    <th>車牌號碼</th>
+                    <td><input class="editPlatenumber" value="${platenumber}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>狀態</th>
+                    <td><input class="editStatus" value="${status}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>銀行帳戶名稱</th>
+                    <td><input class="editAccountname" value="${delAccountName}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>銀行名稱</th>
+                    <td><input class="editBankname" value="${delBankname}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>銀行代碼</th>
+                    <td><input class="editBankcode" value="${delBankcode}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                  <tr>   
+                    <th>銀行帳號</th>
+                    <td><input class="editBankaccount" value="${delBankaccount}"></td>
+                    <td><button class="edit">修改</button></td>
+                  </tr>
+                
                   `
                  $("tbody.result").append(delVO);
            
@@ -231,6 +359,7 @@
 //getAll
     document.querySelector("button.delGetAll").addEventListener("click", function(){
       const url = "AdminDelGetAll";
+      $("div.result").addClass("-on");
             fetch(url)
               .then(function (response) {
                 // 接收到回傳的物件
@@ -273,9 +402,9 @@
                     <td>${delName}</td>
                     <td>${delAccount}</td>
                     <td>${delPassword}</td>
-                    <td>${delTel}</td>
                     <td>${delBirthday}</td>
-                    <td>${platenumber}</td>
+                    <td>${delTel}</td>
+                    <td class="platenumber">${platenumber}</td>
                     <td>${status}</td>
                     <td>${delAccountName}</td>
                     <td>${delBankname}</td>

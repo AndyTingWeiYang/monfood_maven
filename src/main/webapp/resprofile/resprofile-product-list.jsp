@@ -98,10 +98,9 @@
 	                                    <td>${product.productStatus}</td>
 	                                    <td>
 	                                        <div class="mf-btn-center">
-	                                            <button class="btn btn-outline-secondary btn-sm mb-1">
-	                                                <a href="resprofile-account.jsp" id="manual-ajax">修改</a>
-	                                            </button>
-	                                            <button class="btn btn-outline-secondary btn-sm">取消</button>
+	                                        	<a class="btn btn-outline-secondary btn-sm mb-1" href="<%=request.getContextPath()%>/resprofile/UpdateProductServlet?productID=${product.productID}" id="manual-ajax">
+	                                            	修改
+                                                </a>
 	                                        </div>
 	                                    </td>
 	                                </tr>

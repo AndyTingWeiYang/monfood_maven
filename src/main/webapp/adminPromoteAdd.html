@@ -8,6 +8,12 @@
     />
     <title>MonFood</title>
     <!-- w3c.js 引入共用畫面 -->
+    <style>
+      .noticespan {
+        color: red;
+        font-size: 10px;
+      }
+    </style>
   </head>
   <body>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
@@ -54,6 +60,10 @@
                     id="promoteCode"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan promoteCodespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
 
                 <label
@@ -71,6 +81,10 @@
                     id="promotePrice"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan promotePricespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
 
                 <label
@@ -197,7 +211,7 @@
           !eDay ||
           !status
         ) {
-          alert("錯誤");
+          alert("資料請填寫完整");
           return;
         } else {
           var url = "PromoteListServlet";
@@ -219,6 +233,48 @@
               const msg = body.errMsg ?? "新增成功";
               alert(msg);
             });
+        }
+      });
+
+      //優惠代碼驗證
+      $("#promoteCode").on("blur", function () {
+        var numCheck = /^[0-9]*$/;
+        //空白驗證
+        if (
+          $("#promoteCode").val().trim() == null ||
+          $("#promoteCode").val().trim() == ""
+        ) {
+          $(".promoteCodespan")
+            .addClass("noticespan")
+            .text("*優惠券代碼請勿空白");
+          //格式驗證
+        } else if (numCheck.test($("#promoteCode").val().trim())) {
+          $(".promoteCodespan")
+            .addClass("noticespan")
+            .text("*優惠券代碼請輸入文字");
+        } else {
+          $(".promoteCodespan").removeClass("noticespan").text("");
+        }
+      });
+
+      //優惠金額驗證
+      $("#promotePrice").on("blur", function () {
+        var numCheck = /^[0-9]*$/;
+        //空白驗證
+        if (
+          $("#promotePrice").val().trim() == null ||
+          $("#promotePrice").val().trim() == ""
+        ) {
+          $(".promotePricespan")
+            .addClass("noticespan")
+            .text("*優惠金額碼請勿空白");
+          //格式驗證
+        } else if (!numCheck.test($("#promotePrice").val().trim())) {
+          $(".promotePricespan")
+            .addClass("noticespan")
+            .text("*優惠金額請輸入數字");
+        } else {
+          $(".promotePricespan").removeClass("noticespan").text("");
         }
       });
     </script>
