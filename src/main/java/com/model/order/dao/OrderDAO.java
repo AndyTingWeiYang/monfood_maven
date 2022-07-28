@@ -16,4 +16,6 @@ public interface OrderDAO {
 
 	void update(OrderVO orderVO);
 
+	Integer insertNoPromote(OrderVO orderVO);
+
 }

@@ -233,6 +233,15 @@ window.addEventListener('load', function(){
   var promoteId;
   $('#promoteConfirm').on('click', function(){
     $('#promoteMsg').text('');
+    if($('.promoteText').val().trim() == '' || $('.promoteText').val().trim() == null){
+      let errMsg = `
+            <span id="errMsg" style="color: red; font-size:12px">*請輸入正確代碼</span>
+          `
+      $('#promoteMsg').append(errMsg);
+      return;
+    }
+
+    // $('#promoteMsg').text('');
     let promoteCode = $('.promoteText').val();
     $.ajax({
       url: 'PromoteCheckServlet',
@@ -257,8 +266,10 @@ window.addEventListener('load', function(){
             <div>優惠代碼</div>
             <div>$-<span id="promotePrice">${msg.promoteCode.promotePrice}</span></div>
           `
-        $('#promoteMsg').append(successMsg)
+        $('#promoteMsg').append(successMsg);
         $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('#promotePrice').text()));
+        $('.promoteText').attr('disabled', true);
+        $('#promoteConfirm').attr('disabled', true);
 
       
       },
@@ -325,7 +336,7 @@ window.addEventListener('load', function(){
         }
       });
     }else{
-      
+
       // 使用優惠券
       $.ajax({
         url: 'OrderServlet',
