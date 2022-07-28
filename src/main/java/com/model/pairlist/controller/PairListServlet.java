@@ -1,6 +1,7 @@
 package com.model.pairlist.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -27,13 +28,14 @@ public class PairListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//useraId待改為從登入session獲取的id參數(先寫死) [to be revised]
-		Integer useraId =1;
+		Integer useraId =2;
 		Gson gson = new Gson();
 //		PairListVo pairVO = gson.fromJson(req.getReader(), PairListVo.class);
 		resp.setContentType("application/json;charset=UTF-8");//回傳json格式並使用UTF-8編碼
 		resp.addHeader("Access-Control-Allow-Origin", "*");//*為允許可以跨域連線進自己設計的本機連線
 		PairListService service = new PairListServiceImpl();
 		PrintWriter out = resp.getWriter();
+
 		out.print(gson.toJson(service.findFriends(useraId)));
 
 }

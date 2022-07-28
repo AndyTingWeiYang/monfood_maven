@@ -21,18 +21,20 @@ public class UserVO implements Serializable {
 	private String monsName;
 	private java.sql.Timestamp updateTime;
 	private Integer userId;
+	private Integer userAccountStatus;
 
 	@Override
 	public String toString() {
 		return "UserVO [userName=" + userName + ", userAccount=" + userAccount + ", userPassword=" + userPassword
 				+ ", userTel=" + userTel + ", userProfile=" + userProfile + ", birthday=" + birthday + ", calories="
 				+ calories + ", budget=" + budget + ", profilePic=" + Arrays.toString(profilePic) + ", monsLevel="
-				+ monsLevel + ", monsName=" + monsName + ", updateTime=" + updateTime + ", userId=" + userId + "]";
+				+ monsLevel + ", monsName=" + monsName + ", updateTime=" + updateTime + ", userId=" + userId
+				+ ", userAccountStatus=" + userAccountStatus + "]";
 	}
 
 	public UserVO(String userName, String userAccount, String userPassword, String userTel, String userProfile,
 			Date birthday, Integer calories, Integer budget, byte[] profilePic, Integer monsLevel, String monsName,
-			Timestamp updateTime, Integer userId) {
+			Timestamp updateTime, Integer userId, Integer userAccountStatus) {
 		super();
 		this.userName = userName;
 		this.userAccount = userAccount;
@@ -47,6 +49,7 @@ public class UserVO implements Serializable {
 		this.monsName = monsName;
 		this.updateTime = updateTime;
 		this.userId = userId;
+		this.userAccountStatus = userAccountStatus;
 	}
 
 	public UserVO() {
@@ -159,6 +162,14 @@ public class UserVO implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Integer getUserAccountStatus() {
+		return userAccountStatus;
+	}
+
+	public void setUserAccountStatus(Integer userAccountStatus) {
+		this.userAccountStatus = userAccountStatus;
 	}
 
 }

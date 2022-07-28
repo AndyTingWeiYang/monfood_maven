@@ -1,6 +1,10 @@
 package com.model.user.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,15 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import com.model.user.UserVO;
 import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
-@WebServlet("/ResetPass")
-public class ResetPass extends HttpServlet {
+@WebServlet("/AccountStatusServlet/*")
+public class AccountStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -27,23 +28,29 @@ public class ResetPass extends HttpServlet {
 		JsonObject respObj = new JsonObject();
 
 		try {
-			UserVO fromUserKeyInVO = gson.fromJson(request.getReader(), UserVO.class);
+			// 取得網址中的使用者帳號
+			String URL = request.getRequestURI().toString();
+
+			String[] params = URL.split("/");
+			String userAccount = null;
+
+			for (int i = 0; i < 1; i++) {
+				userAccount = params[3];
+				System.err.println(userAccount);
+			}
+
+			// 呼叫service生效帳號
 			UserService service = new UserServiceImpl();
-//			UserVO userVO = new UserVO();
-
-			final String resetResult = service.resetPassword(fromUserKeyInVO);
-
-			System.out.println("我在ResetPass Servlet = " + resetResult);
+			final String resetResult = service.resetAccountStatus(userAccount);
 
 			if (resetResult == "ResetSuccessfully") {
-				respObj.addProperty("Success", "updateSuccess"); 
+				respObj.addProperty("Success", "updateSuccess");
 				response.getWriter().append(gson.toJson(respObj));
 			} else if (resetResult == "ResetFailed") {
 				respObj.addProperty("Failed", "updateFailed");
 				response.getWriter().append(gson.toJson(respObj));
 			}
-
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
@@ -54,4 +61,5 @@ public class ResetPass extends HttpServlet {
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
+
 }
