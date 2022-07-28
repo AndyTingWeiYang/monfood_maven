@@ -16,7 +16,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "Abc840924";
+	String passwd = "password";
 	
 	private static final String INSERT_STMT = 
 		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
