@@ -13,5 +13,8 @@ public interface PromoteDetailService {
 	//getone
 	PromoteDetailVO FindPromoteDetailOne(PromoteDetailVO promoteDetailVO);
 	
+	//getonebyCode
+	PromoteDetailVO findPromteDetailByCode(PromoteDetailVO promoteDetailVO);
+	
 	}
 
