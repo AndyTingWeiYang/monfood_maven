@@ -1,6 +1,7 @@
 package com.model.pairlist.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
@@ -81,6 +82,11 @@ public class PairListServiceImpl implements PairListService {
 	
 	//更新會員答案及狀態
 	public boolean updateAnswerAndStatus(PairListVo pairListVo) {
+		final int useraAnswer = pairListVo.getUseraAnswer();
+		final int userbAnswer = pairListVo.getUserbAnswer();
+//		final int useraId = pairListVo.getUseraId();
+//		final int userbId = pairListVo.getUserbId();
+//		final Date pairedDate = pairListVo.getPairedDate();
 		//雙向查找useraId及userbId欄位，並修改答案
 		pairDao.updateUseraAnswer(pairListVo);
 		pairDao.updateUserbAnswer(pairListVo);
@@ -207,9 +213,9 @@ public class PairListServiceImpl implements PairListService {
 	}
 
 	// 配對方法test
-	public static void main(String[] args) {
-		PairListService p = new PairListServiceImpl();
-		p.match();
-	}
+//	public static void main(String[] args) {
+//		PairListService p = new PairListServiceImpl();
+//		p.match();
+//	}
 
 }

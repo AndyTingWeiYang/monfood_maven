@@ -13,5 +13,6 @@ public interface PairListDao {
 	List<PairListVo> selectByIdAndStatus(Integer useraId) ;
 	List<PairListVo> selectById(Integer useraId);
 	List<PairListVo> selectById2(Integer useraId);
+	List<PairListVo> selectByIdAndPairedDate(Integer useraId, java.sql.Date pairedDate);
 
 }
