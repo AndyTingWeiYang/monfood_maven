@@ -7,6 +7,7 @@ import com.model.user.UserVO;
 public interface UserDAO {
 	int insert(UserVO userVO);
 	String updatePassword(UserVO userVO);
+	String updateAccountStatus(String userAccount);
 	void delete(Integer userId);
 	public UserVO selectByUserId(Integer userId);
 	public UserVO selectByUserAccount(String userAccount);

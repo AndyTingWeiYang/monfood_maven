@@ -16,6 +16,8 @@ import com.model.user.UserVO;
 import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
+import mailservice.MailService;
+
 @WebServlet("/UserAccountPassServlet")
 public class UserAccountPassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,18 +26,22 @@ public class UserAccountPassServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
+		
 
+		
 		try {
 			UserVO userVO = gson.fromJson(request.getReader(), UserVO.class);
 
 			UserService service = new UserServiceImpl();
 
 			final String checkAccount = service.isDuplicateAccount(userVO);
-			System.out.println("in UserServlet - checkAccount：" + checkAccount);
+			System.out.println("in UserAccountPassServlet - checkAccount：" + checkAccount);
 			if (checkAccount == "pass") {
-				respObj.addProperty("checkAccount Success", "帳號通過!!");
+				respObj.addProperty("checkAccountSuccess", "Success");
+				response.getWriter().append(gson.toJson(respObj));	
+			}else if(checkAccount == "DuplicateAccount") {
+				respObj.addProperty("checkAccountFailed", "Failed");
 				response.getWriter().append(gson.toJson(respObj));
-				
 			}
 
 		} catch (Exception e) {

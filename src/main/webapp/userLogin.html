@@ -147,7 +147,9 @@
             location.href="./resetPassword.html";
           });
 
-
+          function getcookie(SessionID){
+            console.log(SessionID)
+          }
 
 
 
@@ -185,7 +187,6 @@
           $("#useremail , #userpassword").on("blur",function(){
             if($("#useremail").val().trim() != "" && $("#userpassword").val().trim() != ""){
               $(".pointspan").removeClass("noticespan").text('');
-
             }
           });
 
