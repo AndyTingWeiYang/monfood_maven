@@ -134,9 +134,20 @@ window.addEventListener('load', function(){
     })
   }
 
+  // radio標籤
+  $('#cash').on('click', function(){
+      $('#cash').attr('checked', 'checked');
+      $('#creditcard').removeAttr('checked');    
+      // console.log($('input[name=pay]:checked').val())
+  })
 
+  $('#creditcard').on('click', function(){
+      $('#creditcard').attr('checked', 'checked');
+      $('#cash').removeAttr('checked');
+      // console.log($('input[name=pay]:checked').val())
+    })
 
-
+  // 購物車假資料
   var data = {"cartList" : [{
       resId : 4,
       resName : '麥當勞-台北民生店',
@@ -160,10 +171,13 @@ window.addEventListener('load', function(){
   };
 
   sessionStorage.setItem('cartList', JSON.stringify(data));
+
+  // 從session 取得購物車假資料
   let cartData = JSON.parse(sessionStorage.getItem('cartList'));
   var itemTotal = 0;
   var kcalTotal = 0;
 
+  // 將購物車資料渲染至頁面
   $.each(cartData, function(){
     $.each(this, function(index, data){
       let cartLi = 
@@ -212,14 +226,14 @@ window.addEventListener('load', function(){
         $('.cartList').append(cartLi);
       })
     })
-    
+  // 小記
   $('.itemTotal').text(itemTotal);
+  // 總金額
   $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('.promote').text()));
-
+  
+  // 送出訂單
   $('.submit').on('click', function(){
-
     let cartList = JSON.parse(sessionStorage.getItem('cartList'));
-
     $.ajax({
       url: 'OrderServlet',
       type: 'POST',
@@ -231,8 +245,8 @@ window.addEventListener('load', function(){
         productKcalTotal : kcalTotal,
         total : $('#total').text(),
         delCost : $('.delCost').text(),
-        useCash : true,
-        creditId : '',
+        useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
+        creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : '1234567812345678'),
         discount : -20,
         promoteId : 1
         
@@ -269,6 +283,10 @@ window.addEventListener('load', function(){
     });
 
   })
+
+
+
+
 
   // select 標籤
   $('select').on('change', function(){
