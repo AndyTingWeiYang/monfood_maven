@@ -15,7 +15,7 @@ public class OrderDetailDAOimpl implements OrderDetailDAO {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "Abc840924";
+	String passwd = "password";
 
 	private static final String INSERT_STMT = 
 		"insert into MonFood.ORDER_DETAIL(PRODUCT_ID, ORDER_ID, AMOUNT, ORDERED_PRICE)"
