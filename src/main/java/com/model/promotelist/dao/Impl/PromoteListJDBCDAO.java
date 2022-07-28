@@ -17,27 +17,23 @@ import com.model.promotelist.PromoteListVO;
 
 import java.sql.Date;
 
-
-public class PromoteListJDBCDAO implements PromoteListDAO{
+public class PromoteListJDBCDAO implements PromoteListDAO {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
-	
-	private static final String INSERT_STMT = 
-			"insert into MonFood.PROMOTE_LIST(PROMOTE_CODE, PROMOTE_PRICE, START_DATE, END_DATE, STATUS) "
+
+	private static final String INSERT_STMT = "insert into MonFood.PROMOTE_LIST(PROMOTE_CODE, PROMOTE_PRICE, START_DATE, END_DATE, STATUS) "
 			+ "values(?,?,?,?,?)";
-	private static final String GET_ALL_STMT = 
-			"select * from PROMOTE_LIST order by PROMOTE_ID";
-	private static final String GET_ONE_STMT = 
-			"select * from PROMOTE_LIST where PROMOTE_ID = ?";
+	private static final String GET_ALL_STMT = "select * from PROMOTE_LIST order by PROMOTE_ID";
+	private static final String GET_ONE_STMT = "select * from PROMOTE_LIST where PROMOTE_ID = ?";
+	private static final String FIND_BY_CODE = "select * from PROMOTE_LIST where PROMOTE_CODE = ?";
 //	private static final String DELETE = 
 //			"delete from PROMOTE_LIST where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_LIST "
-				+ "set PROMOTE_CODE = ?, PROMOTE_PRICE = ?, START_DATE = ?, END_DATE = ?, STATUS = ? "
-				+ "where PROMOTE_ID = ?";
-		
-	
+			+ "set PROMOTE_CODE = ?, PROMOTE_PRICE = ?, START_DATE = ?, END_DATE = ?, STATUS = ? "
+			+ "where PROMOTE_ID = ?";
+
 	@Override
 	public Integer insert(PromoteListVO promoteListVO) {
 
@@ -56,15 +52,13 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 			pstmt.setDate(3, promoteListVO.getStartDate());
 			pstmt.setDate(4, promoteListVO.getEndDate());
 			pstmt.setInt(5, promoteListVO.getStatus());
-			
+
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -83,22 +77,22 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		}
 		return 1;
 	}
-	
+
 	@Override
 	public List<PromoteListVO> getAll() {
-		
+
 		List<PromoteListVO> list = new ArrayList<PromoteListVO>();
 		PromoteListVO promoteListVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				promoteListVO = new PromoteListVO();
 				promoteListVO.setPromoteId(rs.getInt("PROMOTE_ID"));
@@ -107,18 +101,16 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 				promoteListVO.setStartDate(rs.getDate("START_DATE"));
 				promoteListVO.setEndDate(rs.getDate("END_DATE"));
 				promoteListVO.setStatus(rs.getInt("STATUS"));
-				
+
 				list.add(promoteListVO);
-				
+
 			}
-			
+
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -145,10 +137,10 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		}
 		return list;
 	}
-	
+
 	@Override
 	public PromoteListVO findByPrimaryKey(Integer promoteId) {
-		
+
 		PromoteListVO promoteListVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -159,13 +151,13 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
+
 			pstmt.setInt(1, promoteId);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				
+
 				promoteListVO = new PromoteListVO();
 				promoteListVO.setPromoteId(rs.getInt("PROMOTE_ID"));
 				promoteListVO.setPromoteCode(rs.getString("PROMOTE_CODE"));
@@ -173,15 +165,13 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 				promoteListVO.setStartDate(rs.getDate("START_DATE"));
 				promoteListVO.setEndDate(rs.getDate("END_DATE"));
 				promoteListVO.setStatus(rs.getInt("STATUS"));
-				
+
 			}
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -207,7 +197,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		}
 		return promoteListVO;
 	}
-	
+
 //	@Override
 //	public void delete(Integer promoteId) {
 //
@@ -248,12 +238,12 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //		}
 //
 //	}
-	
+
 	@Override
 	public void update(PromoteListVO promoteListVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 
 			Class.forName(driver);
@@ -266,16 +256,13 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 			pstmt.setDate(4, promoteListVO.getEndDate());
 			pstmt.setInt(5, promoteListVO.getStatus());
 			pstmt.setInt(6, promoteListVO.getPromoteId());
-			
-						
+
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -294,13 +281,73 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 		}
 
 	}
-	
+
+	@Override
+	public PromoteListVO findByCode(String promoteCode) {
+
+		PromoteListVO promoteListVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_BY_CODE);
+
+			pstmt.setString(1, promoteCode);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				promoteListVO = new PromoteListVO();
+				promoteListVO.setPromoteId(rs.getInt("PROMOTE_ID"));
+				promoteListVO.setPromoteCode(rs.getString("PROMOTE_CODE"));
+				promoteListVO.setPromotePrice(rs.getInt("PROMOTE_PRICE"));
+				promoteListVO.setStartDate(rs.getDate("START_DATE"));
+				promoteListVO.setEndDate(rs.getDate("END_DATE"));
+				promoteListVO.setStatus(rs.getInt("STATUS"));
+
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return promoteListVO;
+	}
+
 	public static void main(String[] args) throws ParseException {
-		
+
 		PromoteListDAO dao = new PromoteListJDBCDAO();
-			
+
 //		insert
-		
+
 //		PromoteListVO promoteListVOi = new PromoteListVO();
 //		
 //		promoteListVOi.setPromoteCode("聖誕佳節");
@@ -319,10 +366,9 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //		promoteListVOi.setStatus(3);
 //		dao.insert(promoteListVOi);
 //		System.out.println("新增成功");
-		
-		
+
 //		select all
-		
+
 //		List<PromoteListVO> list = dao.getAll();
 //		for(PromoteListVO alist: list) {
 //			System.out.print(alist.getPromoteId() + ",");
@@ -334,10 +380,9 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //
 //			System.out.println();
 //		}
-		
-		
+
 //		select one
-		
+
 //		PromoteListVO promoteListVO = dao.findByPrimaryKey(2);
 //		System.out.print(promoteListVO.getPromoteId() + ",");
 //		System.out.print(promoteListVO.getPromoteCode() + ",");
@@ -346,9 +391,8 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //		System.out.print(promoteListVO.getEndDate() + ",");
 //		System.out.print(promoteListVO.getStatus() + ",");
 
-		
 //		update
-		
+
 //		PromoteListVO promoteListVOu = new PromoteListVO();
 //		
 //		promoteListVOu.setPromoteCode("端午立蛋");
@@ -368,11 +412,11 @@ public class PromoteListJDBCDAO implements PromoteListDAO{
 //		promoteListVOu.setPromoteId(6);
 //		dao.update(promoteListVOu);
 //		System.out.println("更新成功");
-		
+
 //		delete
 //		dao.delete(10);
 //		System.out.println("刪除成功");
-		
-		
+
 	}
+
 }
