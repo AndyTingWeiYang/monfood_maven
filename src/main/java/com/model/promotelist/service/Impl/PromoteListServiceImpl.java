@@ -72,6 +72,12 @@ public class PromoteListServiceImpl implements PromoteListService {
 		
 	}
 
+	@Override
+	public PromoteListVO adminFindListByCode(PromoteListVO promoteListVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

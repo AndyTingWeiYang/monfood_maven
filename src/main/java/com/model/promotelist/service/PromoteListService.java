@@ -19,5 +19,8 @@ public interface PromoteListService {
 	//getone
 	PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO);
 	
+	//getbyCode
+	PromoteListVO adminFindListByCode(PromoteListVO promoteListVO);
+	
 
 }

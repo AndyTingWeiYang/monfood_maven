@@ -12,8 +12,9 @@ public interface PromoteListDAO {
 		
 		PromoteListVO findByPrimaryKey(Integer promoteId);
 		
-		void update(PromoteListVO promoteListVO);
+		PromoteListVO findByCode(String promoteCode);
 		
+		void update(PromoteListVO promoteListVO);
 		
 //		void delete(Integer promoteId);
 }
