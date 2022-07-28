@@ -264,5 +264,65 @@ public class PromoteDetailJDBCDAO implements PromoteDetailDAO{
 
 	}
 
+	@Override
+	public PromoteDetailVO findByCode(String promoteCode) {
+			
+			PromoteDetailVO promoteDetailVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 
-}
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ONE_STMT);
+				
+				pstmt.setString(1, promoteCode);
+				
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					
+					promoteDetailVO = new PromoteDetailVO();
+					promoteDetailVO.setPromoteId(rs.getInt("PROMOTE_ID"));
+					promoteDetailVO.setUserId(rs.getInt("USER_ID"));
+					promoteDetailVO.setUsedStatus(rs.getInt("USED_STATUS"));
+					
+				}
+
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return promoteDetailVO;
+		}
+		
+	}
+
+
