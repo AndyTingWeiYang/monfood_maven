@@ -42,31 +42,8 @@ public class DelService {
 	}
 	
 	
-	public DelVO updateDel(Integer delID,String delName, String delAccount, String delPassword, String delTel, Date delBirthday,
-			String platenumber, Integer status, Timestamp updateTime, byte[] delIDPhoto, byte[] carLicense,
-			byte[] driverLicense, byte[] criminalRecord, byte[] insurance, String delAccountName, String delBankname,
-			String delBankcode, String delBankaccount) {
-		
-		DelVO delVO = new DelVO();
-		
-		delVO.setDelID(delID);
-		delVO.setDelName(delName);
-		delVO.setDelAccount(delAccountName);
-		delVO.setDelPassword(delPassword);
-		delVO.setDelTel(delTel); 
-		delVO.setDelBirthday(delBirthday);
-		delVO.setPlatenumber(platenumber); 
-		delVO.setStatus(status); 
-		delVO.setUpdateTime(updateTime);
-		delVO.setDelIDPhoto(delIDPhoto); 
-		delVO.setCarLicense(carLicense);
-		delVO.setDriverLicense(driverLicense);
-		delVO.setCriminalRecord(criminalRecord); 
-		delVO.setInsurance(insurance);
-		delVO.setDelAccountName(delAccountName); 
-		delVO.setDelBankname(delBankname); 
-		delVO.setDelBankcode(delBankcode); 
-		delVO.setDelBankaccount(delBankaccount); 
+	public DelVO updateDel(DelVO delVO) {
+				
 		dao.update(delVO);
 		
 		return delVO;

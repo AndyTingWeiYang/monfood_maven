@@ -29,30 +29,30 @@ public class DelVO implements Serializable {
 		super();
 	}
 
-	public DelVO(Integer delID, String delName, String delAccount, String delPassword, String delTel, Date delBirthday,
-			String platenumber, Integer status, Timestamp updateTime, byte[] delIDPhoto, byte[] carLicense,
-			byte[] driverLicense, byte[] criminalRecord, byte[] insurance, String delAccountName, String delBankname,
-			String delBankcode, String delBankaccount) {
-		super();
-		this.delID = delID;
-		this.delName = delName;
-		this.delAccount = delAccount;
-		this.delPassword = delPassword;
-		this.delTel = delTel;
-		this.delBirthday = delBirthday;
-		this.platenumber = platenumber;
-		this.status = status;
-		this.updateTime = updateTime;
-		this.delIDPhoto = delIDPhoto;
-		this.carLicense = carLicense;
-		this.driverLicense = driverLicense;
-		this.criminalRecord = criminalRecord;
-		this.insurance = insurance;
-		this.delAccountName = delAccountName;
-		this.delBankname = delBankname;
-		this.delBankcode = delBankcode;
-		this.delBankaccount = delBankaccount;
-	}
+//	public DelVO(Integer delID, String delName, String delAccount, String delPassword, String delTel, Date delBirthday,
+//			String platenumber, Integer status, Timestamp updateTime, byte[] delIDPhoto, byte[] carLicense,
+//			byte[] driverLicense, byte[] criminalRecord, byte[] insurance, String delAccountName, String delBankname,
+//			String delBankcode, String delBankaccount) {
+//		super();
+//		this.delID = delID;
+//		this.delName = delName;
+//		this.delAccount = delAccount;
+//		this.delPassword = delPassword;
+//		this.delTel = delTel;
+//		this.delBirthday = delBirthday;
+//		this.platenumber = platenumber;
+//		this.status = status;
+//		this.updateTime = updateTime;
+//		this.delIDPhoto = delIDPhoto;
+//		this.carLicense = carLicense;
+//		this.driverLicense = driverLicense;
+//		this.criminalRecord = criminalRecord;
+//		this.insurance = insurance;
+//		this.delAccountName = delAccountName;
+//		this.delBankname = delBankname;
+//		this.delBankcode = delBankcode;
+//		this.delBankaccount = delBankaccount;
+//	}
 
 	@Override
 	public String toString() {
