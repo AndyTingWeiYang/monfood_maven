@@ -2,6 +2,7 @@ package com.model.order.service.impl;
 
 import java.util.List;
 
+import com.model.monster.MonsterVO;
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
@@ -76,6 +77,32 @@ public class OrderServiceImpl implements OrderService {
 		promoteListVO = promoteListDAO.findByCode(promoteCode);
 		return promoteListVO;
 	}
+	
+	@Override
+	public MonsterVO monsCheck(Integer userId) {
+		Integer orderTimes = dao.getOrderTimes(userId);
+		
+		// 0-9
+		if (orderTimes / 10 < 1) {
+			
+		}else if (orderTimes / 10 == 1) {
+			
+		}else if (orderTimes / 10 == 2) {
+			
+		}else if (orderTimes / 10 == 3) {
+			
+		}else if (orderTimes / 10 == 4) {
+			
+		}else if (orderTimes / 10 >= 5) {
+			
+		}else {
+			
+		}
+
+		return new MonsterVO();
+	}
+	
+	
 	
 	
 }

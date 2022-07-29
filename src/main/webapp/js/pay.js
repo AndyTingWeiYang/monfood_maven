@@ -143,7 +143,30 @@ window.addEventListener('load', function(){
   $('#creditcard').on('click', function(){
       $('#creditcard').attr('checked', 'checked');
       $('#cash').removeAttr('checked');
-    })
+  })
+
+  // 小怪獸折扣
+  $.ajax({
+    url: 'MonsCheckServlet',
+    type: 'POST',
+    data: JSON.stringify({
+      userId : 1,
+    }),
+    dataType: 'json',
+    success: function(msg){
+
+    },
+    error: function(errMsg){
+      
+    }
+
+
+
+  })
+
+
+
+
 
   // 購物車假資料
   var data = {"cartList" : [{

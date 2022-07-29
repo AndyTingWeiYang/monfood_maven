@@ -13,15 +13,11 @@ import com.model.order.OrderVO;
 import com.model.order.service.OrderService;
 import com.model.order.service.impl.OrderServiceImpl;
 
-@WebServlet("/OrderServlet")
-public class OrderServlet extends HttpServlet {
+@WebServlet("/MonsCheckServlet")
+public class MonsCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
-		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
 		Integer result = null;
@@ -29,14 +25,8 @@ public class OrderServlet extends HttpServlet {
 			// get the json from ajax and send to OrderVO
 			OrderVO orderVO = gson.fromJson(request.getReader(), OrderVO.class);
 			OrderService service = new OrderServiceImpl();
-			
-			// validate result from ajax
-			if (orderVO == null) {
-				respObj.addProperty("errMsg", "新增訂單失敗");
-				response.getWriter().append(gson.toJson(respObj));
-				return;
-			}
-			result = service.createOrder(orderVO);
+			service.monsCheck(orderVO.getUserId());
+
 			
 			if (result == null) {
 				respObj.addProperty("errMsg", "新增訂單失敗");
@@ -52,9 +42,13 @@ public class OrderServlet extends HttpServlet {
 		// return data
 		respObj.addProperty("OrderId", result);
 		response.getWriter().append(gson.toJson(respObj));
+		
+	
+	
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
+
 }

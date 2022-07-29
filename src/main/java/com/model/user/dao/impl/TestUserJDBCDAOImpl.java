@@ -241,7 +241,7 @@ public class TestUserJDBCDAOImpl {
 		UserVO userVO = new UserVO();
 		userVO.setMonsLevel(monsLv);
 		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
-		dao.updateMonsLv(userId);
+//		dao.updateMonsLv(userId);
 		System.out.println("updateMonsLv successful");
 		
 		

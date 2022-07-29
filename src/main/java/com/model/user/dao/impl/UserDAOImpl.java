@@ -473,7 +473,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public String updateMonsLv(Integer userId) {
+	public String updateMonsLv(Integer monsLevel, Integer userId) {
 		// get connect
 
 		Connection con = null;
@@ -482,8 +482,7 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(UPDATEMONSLV);
-			UserVO userVO = new UserVO();
-			pstmt.setInt(1, userVO.getMonsLevel());
+			pstmt.setInt(1, monsLevel);
 			pstmt.setInt(2, userId);
 
 			int numOfSuccess = pstmt.executeUpdate();
