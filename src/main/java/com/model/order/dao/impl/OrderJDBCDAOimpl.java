@@ -33,6 +33,61 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	private static final String UPDATE = "update `ORDER` "
 			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?"
 			+ "where ORDER_ID = ?";
+	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
+	
+	@Override
+	public Integer getOrderTimes(Integer userId) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer orderTimes = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ORDER_TIMES);
+			
+			pstmt.setInt(1, userId);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				orderTimes = rs.getInt("ORDER_TIMES");
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return orderTimes;
+	}
+	
 	
 	@Override
 	public Integer insert(OrderVO orderVO) {
