@@ -11,7 +11,7 @@ public interface PromoteDetailService {
 	String AddPromoteDetail(PromoteDetailVO promoteDetailVO);
 	
 	//getone
-	PromoteDetailVO FindPromoteDetailOne(PromoteDetailVO promoteDetailVO);
+	Integer FindPromoteDetailOne(PromoteDetailVO promoteDetailVO);
 	
 	//getonebyCode
 	PromoteDetailVO findPromteDetailByCode(PromoteDetailVO promoteDetailVO);
