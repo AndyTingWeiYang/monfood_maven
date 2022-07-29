@@ -23,7 +23,8 @@ public class PromoteDetailOneServlet extends HttpServlet{
 	}
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
 		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
@@ -33,16 +34,16 @@ public class PromoteDetailOneServlet extends HttpServlet{
 			PromoteDetailVO promoteDetailVO = gson.fromJson(request.getReader(), PromoteDetailVO.class);
 			PromoteDetailService prmotDetailService = new PromoteDetailServiceImpl();
 			
-			final PromoteDetailVO result = prmotDetailService.FindPromoteDetailOne(promoteDetailVO);
+			final Integer result = prmotDetailService.FindPromoteDetailOne(promoteDetailVO);
 			
-			if (result == null) {
-				respObj.addProperty("errMsg", "無此筆明細");
+			if (result == 0) {
+				respObj.addProperty("msg", "優惠券未使用");
 				response.getWriter().append(gson.toJson(respObj));
 				return;
 			}
 			
 			// add the result into json format
-			respObj.add("PromoteDetails", gson.toJsonTree(result));
+			respObj.addProperty("msg", result);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

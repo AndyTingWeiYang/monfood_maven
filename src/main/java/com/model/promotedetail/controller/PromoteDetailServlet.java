@@ -21,24 +21,20 @@ import com.model.promotedetail.service.Impl.PromoteDetailServiceImpl;
 public class PromoteDetailServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
+		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
 		String result = null;
-		PrintWriter out = response.getWriter();
 		
 		try {
 			PromoteDetailVO promoteDetailVO = gson.fromJson(request.getReader(), PromoteDetailVO.class);
 			PromoteDetailService service = new PromoteDetailServiceImpl();
 			result = service.AddPromoteDetail(promoteDetailVO);
+			respObj.addProperty("msg", result);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,5 +43,9 @@ public class PromoteDetailServlet extends HttpServlet{
 		response.getWriter().append(gson.toJson(respObj));
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+	}
 
 }
