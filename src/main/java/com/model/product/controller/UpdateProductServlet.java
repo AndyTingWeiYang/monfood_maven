@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.model.product.ProductVO;
+import com.model.product.ProductVo;
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
 import com.model.product.util.IntTypeAdapter;
@@ -63,7 +63,7 @@ public class UpdateProductServlet extends HttpServlet {
 		// 將 Map 物件變成 JSON 字串做序列化
 		String dataJsonStr = gson.toJson(reqMap);
 		// 將字串轉為 VO
-		ProductVO productVO = gson.fromJson(dataJsonStr, ProductVO.class);
+		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
 
 		// 判斷資料是否傳遞
 		boolean result = productService.update(productVO);

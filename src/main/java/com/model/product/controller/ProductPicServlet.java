@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.product.ProductVO;
+import com.model.product.ProductVo;
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
 
@@ -31,7 +31,7 @@ public class ProductPicServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String productId = request.getParameter("productID");
-		ProductVO productVO = productListService.findPic(productId);
+		ProductVo productVO = productListService.findPic(productId);
 		// 取出圖片->讀圖片
 		byte[] pic = productVO.getProductPic();
 		OutputStream out = response.getOutputStream();
