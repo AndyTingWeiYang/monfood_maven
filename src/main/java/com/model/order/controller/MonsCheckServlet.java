@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.model.monster.MonsterVO;
 import com.model.order.OrderVO;
 import com.model.order.service.OrderService;
 import com.model.order.service.impl.OrderServiceImpl;
@@ -20,30 +21,31 @@ public class MonsCheckServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-		Integer result = null;
+		MonsterVO result = null;
+		Integer orderTimes = null;
 		try {
 			// get the json from ajax and send to OrderVO
 			OrderVO orderVO = gson.fromJson(request.getReader(), OrderVO.class);
 			OrderService service = new OrderServiceImpl();
-			service.monsCheck(orderVO.getUserId());
-
+			result = service.monsCheck(orderVO.getUserId());
+			orderTimes = service.orderTimes(orderVO.getUserId());
 			
 			if (result == null) {
-				respObj.addProperty("errMsg", "新增訂單失敗");
+				respObj.addProperty("errMsg", "小怪獸查詢失敗");
 				response.getWriter().append(gson.toJson(respObj));
 				return;
 			}
-			
+			respObj.add("monsterInfo", gson.toJsonTree(result));
+			respObj.addProperty("orderTimes", orderTimes);
 		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
+			response.getWriter().append(gson.toJson(respObj));
+			return;
 		}
 		
 		// return data
-		respObj.addProperty("OrderId", result);
 		response.getWriter().append(gson.toJson(respObj));
-		
-	
 	
 	}
 	
