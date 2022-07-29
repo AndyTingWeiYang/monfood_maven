@@ -228,6 +228,30 @@ public class TestUserJDBCDAOImpl {
 //
 //		
 //		System.out.println("isDuplicateAccount successful");
+	
+		
+//System.out.println(----------updateMonsLv----------);
+		System.out.println("請輸入要修改的會員編號(userId)");
+		Integer userId = sc.nextInt();
+		System.out.println("請輸入要修改的小怪獸等級(monsLv)");
+		Integer monsLv=sc.nextInt();
+		
+		sc.close();
+		
+		UserVO userVO = new UserVO();
+		userVO.setMonsLevel(monsLv);
+		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
+		dao.updateMonsLv(userId);
+		System.out.println("updateMonsLv successful");
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	

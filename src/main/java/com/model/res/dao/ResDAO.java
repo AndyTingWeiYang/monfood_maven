@@ -6,9 +6,13 @@ import com.model.res.ResVO;
 
 
 public interface ResDAO {
-	void insert(ResVO resVO);
+	int insert(ResVO resVO);
 	void update(ResVO resVO);
+	String updatePassword(ResVO resVO);
 	void delete(Integer resId);
 	public ResVO selectByResId(Integer resId);
+	public ResVO selectByResAccount(String resAccount);
 	List<ResVO> getAll();
+	List<ResVO> isDuplicateAccount(String resAccount);
+	
 }

@@ -32,111 +32,91 @@
           <!-- 表單區塊 -->
           <div class="jumbotron" style="padding-bottom: 50px;">
             <div class="form-group row">
+              <span class="pointspan"></span>
+              <label for="userAccount" class="col-sm-12 col-form-label">會員帳號</label>
+              <div class="col-sm-12">
+                <input type="text" placeholder="輸入查詢會員帳號" name="userAccount" class="form-control" id="userAccount">
+              </div>
               <label for="userName" class="col-sm-12 col-form-label">會員姓名</label>
               <div class="col-sm-12">
                 <input type="text" placeholder="輸入查詢會員姓名" name="userName" class="form-control" id="userName">
               </div>
-              <label for="userTel" class="col-sm-12 col-form-label">會員電話</label>
-              <div class="col-sm-12">
-                <input type="text" placeholder="輸入查詢會員電話" name="userTel" class="form-control" id="userTel">
-              </div>
               <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出查詢</button>
+                <button type="submit" class="btn btn-primary" id="enter" style="background: #3d424e; border: none;">送出查詢</button>
               </div>
 
             </div>
           </div>
 
+          <h3 class="card-title" style="color: black;">查詢結果</h3>
           <div class="row result">
             <div class="col-12">
               <div class="card">
                 <div class="card-header"style="background-color: #e9ecef;">
-                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                  <img src="images\0bca57b27bed8e50cf33ac9411a45482d61d807b.png" alt="我是圖片" width="100px" heigh="100px">
+                  <span style="font-size: 25px;"><strong class="thName">蔡方瑜</strong></span>
                 </div>
+          
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0" style="height: 300px;">
                   <table class="table table-head-fixed text-nowrap">
                     <thead>
                       <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Reason</th>
+                        <th class="thUserID">編號</th>
+                        <th class="thUserAccount">帳號</th>
+                        <th class="thUserTel">電話</th>
+                        <th class="thUserBirthday">生日</th>
+                        <th class="thUserAccountStatus">帳號狀態</th>
+                        <th class="thCalories">熱量</th>
+                        <th class="thBuget">每日預算</th>
+                        <th class="thMonsLevel">小怪獸等級</th>
+                        <th class="thUpdate">最後修改時間</th>
                       </tr>
+                      
                     </thead>
                     <tbody>
                       <tr>
-                        <td>183</td>
+                        <td class="thUserID">1</td>
+                        <td class="thUserAccount">John Doe</td>
+                        <td class="thUserTel">11-7-2014</td>
+                        <td class="thUserBirthday">123</td>
+                        <td class="thUserAccountStatus">Bacon </td>
+                        <td class="thCalories">John Doe</td>
+                        <td class="thBuget">11-7-2014</td>
+                        <td class="thMonsLevel">123</td>
+                        <td class="thUpdate">Bacon </td>
+                      </tr>
+                    </tbody>                    
+                  </table>
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                      訂單紀錄
+                      <tr>
+                        <th>編號</th>
+                        <th>帳號</th>
+                        <th>電話</th>
+                        <th>生日</th>
+                        <th>帳號狀態</th>
+                        <th>熱量</th>
+                        <th>每日預算</th>
+                        <th>小怪獸等級</th>
+                        <th>最後修改時間</th>
+                      </tr>
+                      
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
                         <td>John Doe</td>
                         <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>219</td>
-                        <td>Alexander Pierce</td>
+                        <td>123</td>
+                        <td>Bacon </td>
+                        <td>John Doe</td>
                         <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                        <td>123</td>
+                        <td>Bacon </td>
                       </tr>
-                      <tr>
-                        <td>657</td>
-                        <td>Bob Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>175</td>
-                        <td>Mike Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>134</td>
-                        <td>Jim Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>494</td>
-                        <td>Victoria Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-warning">Pending</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>832</td>
-                        <td>Michael Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-primary">Approved</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                      <tr>
-                        <td>982</td>
-                        <td>Rocky Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-danger">Denied</span></td>
-                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                      </tr>
-                    </tbody>
+                    </tbody>                    
                   </table>
                 </div>
                 <!-- /.card-body -->
@@ -157,6 +137,7 @@
       </div>
     </div>
   </div>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
   <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -170,6 +151,71 @@
           document.head.appendChild(scriptElement);
         }
       });
+
+      // 消除ajax發出後的錯誤提示
+      $("#userAccount , #userName").on("blur",function(){
+        if(inputUserAccount != "" || inputUserName != ""){
+          $(".pointspan").removeClass("noticespan").text('');
+        }
+      });
+
+      // 重設資料發出給伺服器
+      $("#enter").on("click",function(){
+        var inputUserAccount = $("#userAccount").val().trim();
+        var inputUserName = $("#userName").val().trim();
+
+        if(inputUserAccount=="" && inputUserName==""){
+          $(".pointspan").addClass("noticespan").text("請輸入查詢內容");
+        }
+        
+        if($("span").hasClass("noticespan")){
+          alert("查詢失敗");
+          return;
+        }
+       
+            $.ajax({
+              url: "=========",           
+              type: "POST",                  
+              data: JSON.stringify({ 
+                "resAccount": $("#resaccount").val().trim(),
+                "resPassword": $("#respassword").val().trim()
+              }),             
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(data){      // request 成功取得回應後執行
+                var mapData = JSON.parse()
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
+
+
+
+
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     });
   </script>
 </body>
