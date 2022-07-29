@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-public class ProductVO implements Serializable {
+public class ProductVo implements Serializable {
 
 	private Integer productID;
 	private Integer resID;
@@ -18,7 +18,7 @@ public class ProductVO implements Serializable {
 	private Integer maxPrice;
 	private byte[] productPic;
 
-	public ProductVO() {
+	public ProductVo() {
 
 	}
 

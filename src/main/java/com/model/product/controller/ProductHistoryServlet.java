@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.product.ProductVO;
+import com.model.product.ProductVo;
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
 
@@ -52,7 +52,7 @@ public class ProductHistoryServlet extends HttpServlet {
 
 		// 呼叫 Service 業務邏輯
 		ProductService productService = new ProductServiceImpl();
-		List<ProductVO> productList = productService.findAll(dataMap);
+		List<ProductVo> productList = productService.findAll(dataMap);
 
 		// 將資料帶回 jsp 頁面
 		// 利用 forward 將資料帶回頁面

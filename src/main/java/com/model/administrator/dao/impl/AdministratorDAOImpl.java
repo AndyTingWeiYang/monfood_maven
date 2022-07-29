@@ -36,14 +36,13 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		AdministratorVO admin = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(SELECT);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				admin = new AdministratorVO();
+				AdministratorVO admin = new AdministratorVO();
 				admin.setAdminID(rs.getInt(1));
 				admin.setAdminAccount(rs.getString(2));
 				admin.setAdminPassword(rs.getString(3));

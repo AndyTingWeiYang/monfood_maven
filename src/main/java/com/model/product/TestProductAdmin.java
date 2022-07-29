@@ -8,7 +8,7 @@ import java.util.List;
 import com.model.administrator.AdministratorVO;
 import com.model.administrator.dao.AdministratorDAO;
 import com.model.administrator.dao.impl.AdministratorDAOImpl;
-import com.model.product.dao.ProductDAO;
+import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
 
 public class TestProductAdmin {
@@ -52,7 +52,7 @@ public class TestProductAdmin {
 		byte[] buf = new byte[in.available()];
 		in.read(buf);
 
-		ProductVO product = new ProductVO();
+		ProductVo product = new ProductVo();
 //		product.setProductKcal(123);
 //		product.setProductName("latte");
 //		product.setProductPic(buf);
@@ -67,7 +67,7 @@ public class TestProductAdmin {
 		product.setProductStatus(1);
 		product.setResID(4);
 
-		ProductDAO productDAO = new ProductDAOImpl();
+		ProductDao productDAO = new ProductDAOImpl();
 		
 
 		in.close();
@@ -78,7 +78,7 @@ public class TestProductAdmin {
 		InputStream in = new FileInputStream("C:\\Users\\Tibame_T14\\Desktop\\test\\filet-fish.jpg");
 		byte[] buf = new byte[in.available()];
 		in.read(buf);
-		ProductVO product = new ProductVO();
+		ProductVo product = new ProductVo();
 
 		product.setProductKcal(198);
 		product.setProductName("filet-fish");
@@ -88,18 +88,18 @@ public class TestProductAdmin {
 		product.setResID(4);
 		product.setProductID(14);
 
-		ProductDAO productDAO = new ProductDAOImpl();
+		ProductDao productDAO = new ProductDAOImpl();
 //		productDAO.update(product);
 		System.out.println("success update");
 
 	}
 
 	private static void proccessFindAllProduct() {
-		ProductDAO productDAO = new ProductDAOImpl();
-		ProductVO productVO = null;
-		List<ProductVO> productList = productDAO.findAll(productVO);
+		ProductDao productDAO = new ProductDAOImpl();
+		ProductVo productVO = null;
+		List<ProductVo> productList = productDAO.findAll(productVO);
 
-		for (ProductVO product : productList) {
+		for (ProductVo product : productList) {
 
 			System.out.println(product.getProductID());
 			System.out.println(product.getProductKcal());

@@ -66,7 +66,7 @@
                     <form class="jumbotron" method="post" action="">
                         <div class="form-group row">
                             <div class="col-sm-6 ">
-                                <span class="resId " name="resId">
+                                <span class="resID " name="resID">
                                     會員編號 : MF123456
                                 </span>
                             </div>
