@@ -53,7 +53,7 @@ public class ResLoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("isResLogin", "true"); // true代表使用者已登入過，延續登入狀態只看這Attr
 				session.setAttribute("resID", loginResult.getResId());
-				session.setAttribute("ownerName", loginResult.getOwnerName());
+				session.setAttribute("resName", loginResult.getResName());
 				session.setAttribute("ownerTel", loginResult.getOwnerTel());
 				session.setAttribute("resAccount", loginResult.getResAccount());
 				
