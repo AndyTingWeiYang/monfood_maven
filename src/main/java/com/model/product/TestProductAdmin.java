@@ -89,7 +89,7 @@ public class TestProductAdmin {
 		product.setProductID(14);
 
 		ProductDAO productDAO = new ProductDAOImpl();
-		productDAO.update(product);
+//		productDAO.update(product);
 		System.out.println("success update");
 
 	}

@@ -52,8 +52,9 @@ public class NewProductServlet extends HttpServlet {
 		reqMap.put("resID", 4);
 		System.out.println(reqMap);
 		
-		boolean result = productService.insertResult(reqMap);
+		boolean result = productService.insert(reqMap);
 		if(result) {
+			
 			response.sendRedirect(request.getContextPath() + "/resprofile/resprofile-new-product.jsp");
 		
 		} else {
