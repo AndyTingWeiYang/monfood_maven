@@ -98,7 +98,7 @@
 	                                    <td>${product.productStatus}</td>
 	                                    <td>
 	                                        <div class="mf-btn-center">
-	                                        	<a class="btn btn-outline-secondary btn-sm mb-1" href="<%=request.getContextPath()%>/resprofile/UpdateProductServlet?productID=${product.productID}" id="manual-ajax">
+	                                        	<a class="btn btn-outline-secondary btn-sm mb-1" href="<%=request.getContextPath()%>/resprofile/PreviewProductServlet?productID=${product.productID}" id="manual-ajax">
 	                                            	修改
                                                 </a>
 	                                        </div>

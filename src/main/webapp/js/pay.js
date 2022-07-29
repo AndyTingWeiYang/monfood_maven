@@ -134,9 +134,20 @@ window.addEventListener('load', function(){
     })
   }
 
+  // radio標籤
+  $('#cash').on('click', function(){
+      $('#cash').attr('checked', 'checked');
+      $('#creditcard').removeAttr('checked');    
+      // console.log($('input[name=pay]:checked').val())
+  })
 
+  $('#creditcard').on('click', function(){
+      $('#creditcard').attr('checked', 'checked');
+      $('#cash').removeAttr('checked');
+      // console.log($('input[name=pay]:checked').val())
+    })
 
-
+  // 購物車假資料
   var data = {"cartList" : [{
       resId : 4,
       resName : '麥當勞-台北民生店',
@@ -160,10 +171,13 @@ window.addEventListener('load', function(){
   };
 
   sessionStorage.setItem('cartList', JSON.stringify(data));
+
+  // 從session 取得購物車假資料
   let cartData = JSON.parse(sessionStorage.getItem('cartList'));
   var itemTotal = 0;
   var kcalTotal = 0;
 
+  // 將購物車資料渲染至頁面
   $.each(cartData, function(){
     $.each(this, function(index, data){
       let cartLi = 
@@ -212,63 +226,163 @@ window.addEventListener('load', function(){
         $('.cartList').append(cartLi);
       })
     })
-    
+  // 小記
   $('.itemTotal').text(itemTotal);
-  $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('.promote').text()));
-
-  $('.submit').on('click', function(){
-
-    let cartList = JSON.parse(sessionStorage.getItem('cartList'));
-
+  
+  // 優惠代碼
+  var promoteId;
+  $('#promoteConfirm').on('click', function(){
+    $('#promoteMsg').text('');
+    let promoteCode = $('.promoteText').val();
     $.ajax({
-      url: 'OrderServlet',
+      url: 'PromoteCheckServlet',
       type: 'POST',
       data: JSON.stringify({
-        userId : 1,
-        resId : cartList.cartList[0].resId,
-        note : $('.note').val(),
-        userLocation : $('#finalAddress').text(),
-        productKcalTotal : kcalTotal,
-        total : $('#total').text(),
-        delCost : $('.delCost').text(),
-        useCash : true,
-        creditId : '',
-        discount : -20,
-        promoteId : 1
+        promoteCode : promoteCode,
         
       }),
       dataType: 'json',
       success: function(msg){
-        // console.log(msg)
-        $.each(cartList, function(){
-          $.each(this, function(index, detail){
-            // console.log(detail)
-            $.ajax({
-              url: 'OrderDetailServlet',
-              type: 'POST',
-              data: JSON.stringify({
-                orderId : msg.OrderId,
-                productId : detail.productID,
-                amount : detail.amount,
-                orderedPrice : detail.productPrice
-              }),
-              dataType: 'json',
-              success: function(msg){
-                console.log(msg)
-              },
-              error: function(errMsg){
-                // console.log(errMsg)
-              }
-            });
-          })
-        })
+
+        if(msg.errMsg == '無此優惠代碼' || msg.errMsg == '系統錯誤'){
+          let errMsg = `
+            <span id="errMsg" style="color: red; font-size:12px">*無此優惠代碼</span>
+          `
+          $('#promoteMsg').append(errMsg);
+          return;
+        }
+        promoteId = msg.promoteCode.promoteId;
+        let successMsg = 
+          `
+            <div>優惠代碼</div>
+            <div>$-<span id="promotePrice">${msg.promoteCode.promotePrice}</span></div>
+          `
+        $('#promoteMsg').append(successMsg)
+        $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('#promotePrice').text()));
+
+      
       },
       error: function(errMsg){
-        // console.log(errMsg)
+        console.log(errMsg)
       }
-    });
+    })
+  })
+
+  // 總金額
+  $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
+
+  // 送出訂單
+  $('.submit').on('click', function(){
+    let cartList = JSON.parse(sessionStorage.getItem('cartList'));
+
+    // 未使用優惠券
+    if($('#promotePrice').text() == ''){
+      $.ajax({
+        url: 'OrderServlet',
+        type: 'POST',
+        data: JSON.stringify({
+          
+          userId : 1,
+          resId : cartList.cartList[0].resId,
+          note : $('.note').val().trim(),
+          userLocation : $('#finalAddress').text(),
+          productKcalTotal : kcalTotal,
+          total : $('#total').text(),
+          delCost : $('.delCost').text(),
+          useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
+          creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : '1234567812345678'),
+          discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
+          
+        }),
+        dataType: 'json',
+        success: function(msg){
+          // console.log(msg)
+          $.each(cartList, function(){
+            $.each(this, function(index, detail){
+              // console.log(detail)
+              $.ajax({
+                url: 'OrderDetailServlet',
+                type: 'POST',
+                data: JSON.stringify({
+                  orderId : msg.OrderId,
+                  productId : detail.productID,
+                  amount : detail.amount,
+                  orderedPrice : detail.productPrice
+                }),
+                dataType: 'json',
+                success: function(msg){
+                  console.log(msg)
+                },
+                error: function(errMsg){
+                  // console.log(errMsg)
+                }
+              });
+            })
+          })
+        },
+        error: function(errMsg){
+          // console.log(errMsg)
+        }
+      });
+    }else{
+      
+      // 使用優惠券
+      $.ajax({
+        url: 'OrderServlet',
+        type: 'POST',
+        data: JSON.stringify({
+          
+          userId : 1,
+          resId : cartList.cartList[0].resId,
+          note : $('.note').val().trim(),
+          userLocation : $('#finalAddress').text(),
+          productKcalTotal : kcalTotal,
+          total : $('#total').text(),
+          delCost : $('.delCost').text(),
+          useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
+          creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : '1234567812345678'),
+          discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
+          promoteId : promoteId
+          
+        }),
+        dataType: 'json',
+        success: function(msg){
+          // console.log(msg)
+          $.each(cartList, function(){
+            $.each(this, function(index, detail){
+              // console.log(detail)
+              $.ajax({
+                url: 'OrderDetailServlet',
+                type: 'POST',
+                data: JSON.stringify({
+                  orderId : msg.OrderId,
+                  productId : detail.productID,
+                  amount : detail.amount,
+                  orderedPrice : detail.productPrice
+                }),
+                dataType: 'json',
+                success: function(msg){
+                  console.log(msg)
+                },
+                error: function(errMsg){
+                  // console.log(errMsg)
+                }
+              });
+            })
+          })
+        },
+        error: function(errMsg){
+          // console.log(errMsg)
+        }
+      });
+    }
+    
 
   })
+
+
+
+
 
   // select 標籤
   $('select').on('change', function(){

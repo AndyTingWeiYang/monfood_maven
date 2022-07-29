@@ -26,8 +26,8 @@ public class ProductDAOImpl implements ProductDAO {
 //	private static DataSource ds = null;
 
 	private static final String SELECT = "select * from MonFood.PRODUCT";
-	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME)values (?,  ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "update MonFood.PRODUCT set RES_ID =?, PRODUCT_PIC= ?, PRODUCT_STATUS= ?, PRODUCT_PRICE= ?, PRODUCT_KCAL=?, PRODUCT_NAME=? , UPDATE_TIME=? where PRODUCT_ID=?";
+	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID=?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
 
@@ -143,23 +143,86 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void update(ProductVO product) {
+	public boolean update(ProductVO product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, product.getResID());
-			pstmt.setBytes(2, product.getProductPic());
-			pstmt.setInt(3, product.getProductStatus());
-			pstmt.setInt(4, product.getProductPrice());
-			pstmt.setInt(5, product.getProductKcal());
-			pstmt.setString(6, product.getProductName());
-			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-			pstmt.setInt(8, product.getProductID());
+			// 將VO 設定好的資料->DB
+			pstmt.setBytes(1, product.getProductPic());
+			pstmt.setInt(2, product.getProductStatus());
+			pstmt.setInt(3, product.getProductPrice());
+			pstmt.setInt(4, product.getProductKcal());
+			pstmt.setString(5, product.getProductName());
+			pstmt.setInt(6, product.getStock());
+			pstmt.setInt(7, product.getProductID());
+			int count = pstmt.executeUpdate();
 
-			pstmt.executeUpdate();
+			if (count > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updateDynanicPic(ProductVO product) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			StringBuffer sbf = new StringBuffer();
+			sbf.append(
+					"update MonFood.PRODUCT set  PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? ");
+			if ((product.getProductPic().length) != 0) {
+				sbf.append(", PRODUCT_PIC = ?  where PRODUCT_ID = ? ");
+				pstmt = conn.prepareStatement(sbf.toString());
+				// 將VO 設定好的資料->DB
+				pstmt.setInt(1, product.getProductStatus());
+				pstmt.setInt(2, product.getProductPrice());
+				pstmt.setInt(3, product.getProductKcal());
+				pstmt.setString(4, product.getProductName());
+				pstmt.setInt(5, product.getStock());
+				pstmt.setBytes(6, product.getProductPic());
+				pstmt.setInt(7, product.getProductID());
+
+			} else {
+				sbf.append(" where PRODUCT_ID = ? ");
+				pstmt = conn.prepareStatement(sbf.toString());
+				// 將VO 設定好的資料->DB
+				pstmt.setInt(1, product.getProductStatus());
+				pstmt.setInt(2, product.getProductPrice());
+				pstmt.setInt(3, product.getProductKcal());
+				pstmt.setString(4, product.getProductName());
+				pstmt.setInt(5, product.getStock());
+				pstmt.setInt(6, product.getProductID());
+			}
+			
+			int count = pstmt.executeUpdate();
+
+			if (count > 0) {
+				return true;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -180,6 +243,7 @@ public class ProductDAOImpl implements ProductDAO {
 			}
 		}
 
+		return false;
 	}
 
 	@Override
@@ -266,14 +330,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean insertResult(ProductVO product) {
+	public boolean insert(ProductVO product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(INSERT);
-
+			// 從VO設定好的資料 ->放入DB內
 			pstmt.setInt(1, product.getResID());// FK
 			pstmt.setBytes(2, product.getProductPic());
 			pstmt.setInt(3, product.getProductStatus());
@@ -282,6 +346,7 @@ public class ProductDAOImpl implements ProductDAO {
 			pstmt.setString(6, product.getProductName());
 			// 時間轉換:抓當下時間
 			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+			pstmt.setInt(8, product.getStock());
 
 			int count = pstmt.executeUpdate();
 			if (count > 0) {
@@ -319,6 +384,7 @@ public class ProductDAOImpl implements ProductDAO {
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(SELECT_BY_ID);
+			// 接收從畫面來的參數
 			pstmt.setInt(1, Integer.parseInt(productID));
 			rs = pstmt.executeQuery();
 
@@ -333,7 +399,7 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setProductName(rs.getString("PRODUCT_NAME"));
 				product.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
 				product.setStock(rs.getInt("STOCK"));
-				
+
 			}
 
 		} catch (SQLException e) {
@@ -343,6 +409,7 @@ public class ProductDAOImpl implements ProductDAO {
 		return product;
 	}
 
+	// 將各類別轉型為字串
 	private <T> String castTypeToStr(T value) {
 		String data = null;
 		if (value != null) {

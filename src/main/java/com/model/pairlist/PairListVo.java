@@ -29,6 +29,13 @@ public class PairListVo {
 		this.pairedDate = pairedDate;
 	}
 
+	@Override
+	public String toString() {
+		return "PairListVo [pairId=" + pairId + ", useraId=" + useraId + ", userbId=" + userbId + ", useraAnswer="
+				+ useraAnswer + ", userbAnswer=" + userbAnswer + ", status=" + status + ", pairedDate=" + pairedDate
+				+ "]";
+	}
+
 	public Integer getPairId() {
 		return pairId;
 	}

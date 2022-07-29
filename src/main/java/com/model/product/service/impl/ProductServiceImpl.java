@@ -88,20 +88,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVO findPic(String productId) {
-		ProductVO pic = productDao.findPic(productId);
+	public ProductVO findPic(String productID) {
+		ProductVO pic = productDao.findPic(productID);
 		return pic;
 	}
 
 	@Override
-	public boolean insertResult(Map<String, Object> dataMap) {
+	public boolean insert(Map<String, Object> dataMap) {
 		// 將 Map 物件變成 JSON 字串做序列化
 		String dataJsonStr = gson.toJson(dataMap);
 
 		// 用 gson 將拿到的 JSON 字串轉 VO
 		ProductVO productVO = gson.fromJson(dataJsonStr, ProductVO.class);
 		System.out.println(productVO);
-		boolean result = productDao.insertResult(productVO);
+		// 將結果用 dao 回傳給 service
+		boolean result = productDao.insert(productVO);
 
 		return result;
 	}
@@ -110,5 +111,11 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO findByID(String productID) {
 		return productDao.findByID(productID);
 	}
-	
+
+	@Override
+	public boolean update(ProductVO product) {
+
+		return productDao.updateDynanicPic(product);
+	}
+
 }

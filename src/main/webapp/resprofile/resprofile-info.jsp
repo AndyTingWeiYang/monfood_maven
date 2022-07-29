@@ -91,13 +91,7 @@
                                         value="12345678">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <label for="resMail" class="col-sm-12 col-form-label">E-Mail</label>
-                                <div>
-                                    <input readonly class="col-sm-12 form-control " id="resMail" name="resMail"
-                                        value="abc123456@yahoo.com.tw">
-                                </div>
-                            </div>
+                       
                             <div class="col-sm-6">
                                 <label for="resName" class="col-sm-6 col-form-label">餐廳名稱</label>
                                 <input class="col-sm-12 form-control " id="resName" name="resName"
@@ -108,7 +102,7 @@
                                 <input class="col-sm-12 form-control " id="resPhone" name="resPhone"
                                     placeholder="請輸入餐廳電話"><span id="checkResPhoneSp"></span><i id="checkResPhoneI"></i>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label for="resCategory" class="col-sm-6 col-form-label">餐廳類型</label>
                                 <select id="resCategory" name="resCategory" class="form-select"
                                     aria-label="Default select example">

@@ -13,5 +13,8 @@ public interface ProductService {
 
 	public ProductVO findPic(String productID);
 
-	public boolean insertResult(Map<String, Object> dataMap);
+	public boolean insert(Map<String, Object> dataMap);
+	
+	public boolean update(ProductVO product);
+	
 }

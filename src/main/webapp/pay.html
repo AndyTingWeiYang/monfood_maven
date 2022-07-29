@@ -153,12 +153,11 @@
                     <div>$-<span class="discountVal">10</span></div>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <div>優惠代碼</div>
-                    <div>$-<span class="promote">20</span></div>
+                    <input type="text" class="promoteText" value="" placeholder="輸入優惠代碼">
+                    <button class="btn btn-primary disConfirm" id="promoteConfirm" type="submit">確認</button>
                   </div>
-                  <div class="d-flex justify-content-between">
-                    <input type="text" class="discountText" value="" placeholder="輸入優惠代碼">
-                    <button class="btn btn-primary disConfirm" type="submit">確認</button>
+                  <div id="promoteMsg" class="d-flex justify-content-between">
+                    
                   </div>
                   <div class="d-flex justify-content-between">
                     <input type="text" style="margin-top: 5px;" class="note" value="" placeholder="輸入訂單備註">
@@ -175,8 +174,8 @@
                   <div class="pay">
                     <h5>付款方式</h5>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                      <label class="form-check-label" for="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" name="pay" id="cash" value="cash" checked="checked">
+                      <label class="form-check-label" for="cash">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
                           <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
@@ -189,8 +188,8 @@
 
                     <div class="form-check d-flex justify-content-between">
                       <div>
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
+                        <input class="form-check-input" type="radio" name="pay" id="creditcard" value="creditcard">
+                        <label class="form-check-label" for="creditcard">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
                             <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>

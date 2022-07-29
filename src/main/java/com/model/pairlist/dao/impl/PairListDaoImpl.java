@@ -16,7 +16,7 @@ public class PairListDaoImpl implements PairListDao {
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
 	String URL = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String USER = "root";
-	String PASSWORD = "12345678";
+	String PASSWORD = "password";
 
 	// 將名單放進PairList
 	// INSERT INTO `MonFood`.`PAIR_LIST` ( `USER_A_ID`, `USER_B_ID`,`PAIRED_DATE` ) VALUES ( ?, ?, ?);
