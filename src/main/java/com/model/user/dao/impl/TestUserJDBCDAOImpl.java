@@ -111,6 +111,18 @@ public class TestUserJDBCDAOImpl {
 ////		
 ////		Integer userId = null;
 		
+//System.out.println(----------updateAccountStatus----------);
+//		System.out.println("請輸入要修改的會員帳號(userAccount)");
+//		String userAccount = sc.next();
+//		
+//		sc.close();
+//		
+//		UserVO userVO = new UserVO();
+//		userVO.setUserAccount(userAccount);
+//		UserDAO dao = new UserDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
+//		dao.updateAccountStatus(userAccount);
+//		System.out.println("updateAccountStatus successful");
+		
 		
 //System.out.println(----------delete----------);
 //		System.out.println("請輸入要刪除的會員編號(userId)");

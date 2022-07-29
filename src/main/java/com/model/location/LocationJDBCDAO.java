@@ -97,11 +97,11 @@ public class LocationJDBCDAO implements ILocationDAO{
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(UPDATE);//連線呼叫參數化查詢(修改)
 
-			pstmt.setInt(1, locationVO.getLocationId());//第一個欄位
-			pstmt.setInt(2, locationVO.getUserId());//第二個欄位
-			pstmt.setInt(3, locationVO.getZipCode());//第三個欄位
-			pstmt.setString(4, locationVO.getLocation());//第四個欄位
-			pstmt.setInt(5, locationVO.getDefaultStatus());//第五個欄位
+			pstmt.setInt(5, locationVO.getLocationId());//第五個 where ?
+			pstmt.setInt(1, locationVO.getUserId());//第一個 ?
+			pstmt.setInt(2, locationVO.getZipCode());//第二個 ?
+			pstmt.setString(3, locationVO.getLocation());//第三個 ?
+			pstmt.setInt(4, locationVO.getDefaultStatus());//第四個 ?
 			
 			pstmt.executeUpdate();//參數化查詢呼叫執行更新
 
@@ -320,13 +320,13 @@ public class LocationJDBCDAO implements ILocationDAO{
 //		dao.insert(locationVO1);
 //		System.out.println("新增成功");
 
-		// 修改  BUG待處理
+		// 修改OK
 //		LocationVO locationVO2 = new LocationVO();
-//		locationVO2.setLocationId(7);
-//		locationVO2.setUserId(5);
-//		locationVO2.setZipCode(100);
-//		locationVO2.setLocation("xxxooo");
-//		locationVO2.setDefaultStatus(1);
+//		locationVO2.setLocationId(7); //where ? = 要修改的LocationId
+//		locationVO2.setUserId(5); //只能選擇已在資料庫內的UserId
+//		locationVO2.setZipCode(100); //只能選擇已在資料庫內的ZipCode
+//		locationVO2.setLocation("1qaz2wsx3edc");
+//		locationVO2.setDefaultStatus(0);
 //		dao.update(locationVO2);
 //		System.out.println("修改成功");
 

@@ -166,22 +166,24 @@
 // edit
     $(".result").on("click", "button.edit", function(){
       
-      var delID =  $(".delID").val();
-      var delName = $("td.delName").val();
-      var delAccount = $("td.delAccount").val();
+      var delID =  $(".delID").text();
+      var delName = $("td.delName").text();
+      var delAccount = $("td.delAccount").text();
       var editPassword = $("input.editPassword").val();
       var editTel = $("input.editTel").val();
-      var delBirthday = $("td.delBirthday").val();
+      var delBirthday = $("td.delBirthday").text();
       var editPlatenumber = $("input.editPlatenumber").val();
       var editStatus = $("input.editStatus").val();
-      var updateTime = new Date().toDateString;
+      var updateTime = new Date();
       var editAccountname = $("input.editAccountname").val();
       var editBankname = $("input.editBankname").val();
       var editBankcode = $("input.editBankcode").val();
       var editBankaccount = $("input.editBankaccount").val();
       var delEdit = "delEdit";
 
-      console.log(delID);
+      console.log(delAccount);
+      console.log(delBirthday);
+      console.log(updateTime);
       console.log(editPassword);
 
       const url = "AdminDelEdit";
@@ -291,7 +293,7 @@
                   </tr>
                   <tr> 
                     <th>帳號</th>
-                    <td class="delAccounr">${delAccount}</td>
+                    <td class="delAccount">${delAccount}</td>
                   </tr>
                   <tr>   
                     <th>密碼</th>
@@ -410,7 +412,7 @@
                     <td>${delBankname}</td>
                     <td>${delBankcode}</td>
                     <td>${delBankaccount}</td>
-                    <td><button class="edit">修改</button></td>
+                 
                    
                 </tr>
                   `

@@ -7,14 +7,16 @@ public class PromoteDetailVO implements Serializable{
 	private Integer promoteId;
 	private Integer userId;
 	private Integer usedStatus;
+	private String promoteCode;
 	
 	public PromoteDetailVO() {
 	}
 
-	public PromoteDetailVO(Integer promoteId, Integer userId, Integer usedStatus) {
+	public PromoteDetailVO(Integer promoteId, Integer userId, Integer usedStatus, String promoteCode) {
 		this.promoteId = promoteId;
 		this.userId = userId;
 		this.usedStatus = usedStatus;
+		this.promoteCode = promoteCode;
 	}
 
 	public Integer getPromoteId() {
@@ -39,5 +41,13 @@ public class PromoteDetailVO implements Serializable{
 
 	public void setUsedStatus(Integer usedStatus) {
 		this.usedStatus = usedStatus;
+	}
+	
+	public String getPromoteCode() {
+		return promoteCode;
+	}
+	
+	public void setPromoteCode(String promoteCode) {
+		this.promoteCode = promoteCode;
 	}
 }

@@ -13,7 +13,8 @@ public class DelDAOImpl implements DelDAO{
 	private static final String FIND_BY_PK = "SELECT * FROM DEL WHERE DEL_ID = ?";
 	private static final String GET_ALL = "SELECT * FROM DEL"; 
 	private static final String DELETE = "DELETE FROM DEL WHERE DEL_ID = ?";
-	private static final String UPDATE = "UPDATE DEL SET del_ID = ?, del_Name = ?, del_Account = ?, del_Password = ?, del_Tel = ?, del_Birthday = ?, platenumber = ?, status = ?, update_Time = ?, del_ID_Photo = ?, car_License = ?, drive_License = ?, criminal_Record = ?, insurance = ?, del_Account_Name = ?, del_Bankname = ?, del_Bankcode = ?, del_bankaccount = ? where del_ID = ?";
+	private static final String UPDATE = 
+			"UPDATE DEL SET del_name=?, del_account=?, del_password = ?, del_Tel = ?, del_birthday=?, platenumber = ?, status = ?, update_time=?, del_Account_Name = ?, del_Bankname = ?, del_Bankcode = ?, del_bankaccount = ? del_id_photo=? where del_ID = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM DEL WHERE DEL_NAME = ?";
 		
 	
@@ -81,32 +82,28 @@ public class DelDAOImpl implements DelDAO{
 	}
 
 	@Override
-	public void update(DelVO delVO) {
+	public DelVO update(DelVO delVO) {
 		try (Connection connection = DriverManager.getConnection(MyData.URL, MyData.USER, MyData.PASSWORD);
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE)) {
-			pstmt.setInt(1, delVO.getDelID());
-			pstmt.setString(2, delVO.getDelName());
-			pstmt.setString(3, delVO.getDelAccount());
-			pstmt.setString(4, delVO.getDelPassword());
-			pstmt.setString(5, delVO.getDelTel());
-			pstmt.setDate(6, delVO.getDelBirthday());
-			pstmt.setString(7, delVO.getPlatenumber());
-			pstmt.setInt(8, delVO.getStatus());
-			pstmt.setTimestamp(9, delVO.getUpdateTime());
-			pstmt.setBytes(10, delVO.getDelIDPhoto());
-			pstmt.setBytes(11, delVO.getCarLicense());
-			pstmt.setBytes(12, delVO.getDriverLicense());
-			pstmt.setBytes(13, delVO.getCriminalRecord());
-			pstmt.setBytes(14, delVO.getInsurance());
-			pstmt.setString(15, delVO.getDelAccountName());
-			pstmt.setString(16, delVO.getDelBankname());
-			pstmt.setString(17, delVO.getDelBankcode());
-			pstmt.setString(18, delVO.getDelBankaccount());
-			pstmt.setInt(19, delVO.getDelID());
+			pstmt.setString(1, delVO.getDelName());
+			pstmt.setString(2, delVO.getDelAccount());
+			pstmt.setString(3, delVO.getDelPassword());
+			pstmt.setString(4, delVO.getDelTel());
+			pstmt.setDate(5, delVO.getDelBirthday());
+			pstmt.setString(6, delVO.getPlatenumber());
+			pstmt.setInt(7, delVO.getStatus());
+			pstmt.setTimestamp(8, delVO.getUpdateTime());
+			pstmt.setString(9, delVO.getDelAccountName());
+			pstmt.setString(10, delVO.getDelBankname());
+			pstmt.setString(11, delVO.getDelBankcode());
+			pstmt.setString(12, delVO.getDelBankaccount());
+			pstmt.setBytes(13, delVO.getDelIDPhoto());
+			pstmt.setInt(14, delVO.getDelID());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return delVO;
 	}
 
 	@Override

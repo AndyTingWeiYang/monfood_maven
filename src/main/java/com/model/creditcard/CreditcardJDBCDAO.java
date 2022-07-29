@@ -26,7 +26,7 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 	private static final String DELETE = 
 			"DELETE FROM MonFood.CREDITCARD where CREDITCARD_ID = ?";
 	private static final String UPDATE = 
-			"UPDATE MonFood.CREDITCARD set USER_ID, CARD_NUM=?, SECURITY_CODE=?, EX_DATE=?, DEFAULT_STATUS=? where CREDITCARD_ID = ?";
+			"UPDATE MonFood.CREDITCARD set USER_ID = ?, CARD_NUM=?, SECURITY_CODE=?, EX_DATE=?, DEFAULT_STATUS=? where CREDITCARD_ID = ?";
 
 	@Override
 	public void insert(CreditcardVO creditcardVO) throws SQLException {
@@ -98,12 +98,12 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(UPDATE);//連線呼叫參數化查詢(修改)
 
-			pstmt.setInt(1, creditcardVO.getCreditcardId());//第一個欄位
-			pstmt.setInt(2, creditcardVO.getUserId());//第二個欄位
-			pstmt.setString(3, creditcardVO.getCardNum());//第三個欄位
-			pstmt.setString(4, creditcardVO.getSecurityCode());//第四個欄位
-			pstmt.setDate(5, creditcardVO.getExDate());//第五個欄位
-			pstmt.setInt(6, creditcardVO.getDefaultStatus());//第六個欄位
+			pstmt.setInt(6, creditcardVO.getCreditcardId());//第六個 where ?
+			pstmt.setInt(1, creditcardVO.getUserId());//第一個 ?
+			pstmt.setString(2, creditcardVO.getCardNum());//第二個 ? 
+			pstmt.setString(3, creditcardVO.getSecurityCode());//第三個 ? 
+			pstmt.setDate(4, creditcardVO.getExDate());//第四個 ?
+			pstmt.setInt(5, creditcardVO.getDefaultStatus());//第五個 ?
 			
 			pstmt.executeUpdate();//參數化查詢呼叫執行更新
 
@@ -315,7 +315,7 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 		CreditcardJDBCDAO dao = new CreditcardJDBCDAO();
 		// 新增OK
 //		CreditcardVO creditcardVO1 = new CreditcardVO();
-//		creditcardVO1.setCreditcardId(7);
+//		creditcardVO1.setCreditcardId(6);
 //		creditcardVO1.setUserId(5); //只能選擇已在資料庫內的使用者
 //		creditcardVO1.setCardNum("33333333");
 //		creditcardVO1.setSecurityCode("5555555");
@@ -324,13 +324,13 @@ public class CreditcardJDBCDAO implements ICreditcardDAO{
 //		dao.insert(creditcardVO1);
 //		System.out.println("新增成功");
 
-		// 修改 BUG待處理
+		// 修改 OK
 //		CreditcardVO creditcardVO2 = new CreditcardVO();
-//		creditcardVO2.setCreditcardId(6);
-//		creditcardVO2.setUserId(6);
-//		creditcardVO2.setCardNum("5");
-//		creditcardVO2.setSecurityCode("5");
-//		creditcardVO2.setExDate(java.sql.Date.valueOf("2022-12-14"));
+//		creditcardVO2.setCreditcardId(6); //只能選擇已在資料庫內的CreditcardId
+//		creditcardVO2.setUserId(5); //只能選擇已在資料庫內的UserId
+//		creditcardVO2.setCardNum("0987654321");
+//		creditcardVO2.setSecurityCode("1qaz2wsx3ed");
+//		creditcardVO2.setExDate(java.sql.Date.valueOf("2022-11-11"));
 //		creditcardVO2.setDefaultStatus(1);
 //		dao.update(creditcardVO2);
 //		System.out.println("修改成功");

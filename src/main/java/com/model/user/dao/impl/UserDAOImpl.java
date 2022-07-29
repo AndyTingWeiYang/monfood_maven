@@ -20,8 +20,10 @@ public class UserDAOImpl implements UserDAO {
 // SQL指令
 	// 新增
 	private static final String INSERT_STMT = "INSERT INTO MonFood.USER(USER_NAME,USER_ACCOUNT,USER_PASSWORD,USER_TEL,BIRTHDAY,UPDATE_TIME) VALUES (?,?,?,?,?,?)";
-	// 使用會員帳號更新
+	// 使用會員帳號更新密碼(忘記密碼)
 	private static final String UPDATEPASSWORD = "UPDATE MonFood.USER SET USER_PASSWORD = ? WHERE USER_ACCOUNT = ?";
+	// 使用會員帳號更新帳號是否生效(更新帳號狀態)
+	private static final String UPDATEPACCOUNTSTATUS = "UPDATE MonFood.USER SET USER_ACCOUNT_STATUS = 1 WHERE USER_ACCOUNT = ?";
 	// 刪除
 	private static final String DELETE = "DELETE FROM MonFood.USER WHERE USER_ID = ?";
 	// 使用會員編號查詢一筆資料
@@ -33,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
 	// 查詢全部會員編號
 	private static final String DETALLUSERID = "SELECT USER_ID FROM MonFood.USER ORDER BY USER_ID";
 	// 查詢是否有此會員帳號
-	private static final String ISDUPLICATEACCOUNT = "SELECT USER_ACCOUNT FROM MonFood.USER WHERE USER_ACCOUNT = ? ";  
+	private static final String ISDUPLICATEACCOUNT = "SELECT USER_ACCOUNT FROM MonFood.USER WHERE USER_ACCOUNT = ? ";
 
 	static {
 		try {
@@ -88,11 +90,10 @@ public class UserDAOImpl implements UserDAO {
 		// get connect
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(UPDATEPASSWORD);
-
 
 			pstmt.setString(1, userVO.getUserPassword());
 			pstmt.setString(2, userVO.getUserAccount());
@@ -107,19 +108,18 @@ public class UserDAOImpl implements UserDAO {
 //			pstmt.setInt(9, userVO.getMonsLevel());
 //			pstmt.setString(10, userVO.getMonsName());
 //			pstmt.setTimestamp(11, userVO.getUpdateTime());
-			
 
 			int numOfSuccess = pstmt.executeUpdate();
-			System.out.println("我在UserDAOImpl的變數numOfSuccess"+numOfSuccess);
+			System.out.println("我在UserDAOImpl的變數numOfSuccess" + numOfSuccess);
 			if (numOfSuccess < 1) {
 				System.out.println("小於1的結果 代表失敗");
 				return "UpdateFailed";
-			}else {
+			} else {
 				System.out.println("大於1的結果 代表成功");
 				return "UpdateCompleted";
 			}
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured when you update. " + se.getMessage());
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -137,8 +137,50 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
-		
 
+	}
+
+	@Override
+	public String updateAccountStatus(String userAccount) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEPACCOUNTSTATUS);
+			
+			pstmt.setString(1, userAccount);
+			
+			int checkAccountStatus = pstmt.executeUpdate();
+			System.out.println("我在UserDAOImpl的變數checkAccountStatus：" + checkAccountStatus);
+			if (checkAccountStatus < 1) {
+				System.out.println("小於1的結果 代表失敗");
+				return "CheckFailed";
+			} else {
+				System.out.println("大於1的結果 代表成功");
+				return "CheckCompleted";
+			}
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updateAccountStatus. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -289,7 +331,6 @@ public class UserDAOImpl implements UserDAO {
 	public List<Integer> getAllUserId() {
 
 		List<Integer> listUserID = new ArrayList<Integer>();
-//		UserVO userVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -302,8 +343,6 @@ public class UserDAOImpl implements UserDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-//				userVO = new UserVO();  // 改數字
-//				userVO.setUserId(rs.getInt("USER_ID"));
 
 				listUserID.add(rs.getInt("USER_ID")); // Store the row in the list
 			}
@@ -333,27 +372,28 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserVO> isDuplicateAccount(String userAccount) {
 		List<UserVO> listUserVO = new ArrayList<UserVO>();
 		UserVO userVO = null;
-	
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(ISDUPLICATEACCOUNT);
-			
-			pstmt.setString(1,userAccount);
-			
+
+			pstmt.setString(1, userAccount);
+
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				userVO = new UserVO();
 				userVO.setUserAccount(rs.getString("USER_ACCOUNT"));
 				listUserVO.add(userVO);
 			}
-			
+
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured when you check isDuplicateAccount. " + se.getMessage());
+			throw new RuntimeException(
+					"A database error occured when you check isDuplicateAccount. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -370,7 +410,7 @@ public class UserDAOImpl implements UserDAO {
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
+		}
 		return listUserVO;
 	}
 
@@ -405,7 +445,7 @@ public class UserDAOImpl implements UserDAO {
 				userVO.setMonsName(rs.getString("MONS_NAME"));
 				userVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
 			}
-			
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
 			// Clean up JDBC resources
@@ -427,7 +467,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 		return userVO;
-	
+
 	}
 
 }

@@ -65,4 +65,24 @@ public class PromoteDetailServiceImpl implements PromoteDetailService{
 	
 	}
 
+
+	@Override
+	public PromoteDetailVO findPromteDetailByCode(PromoteDetailVO promoteDetailVO) {
+
+		final String promoteCode = promoteDetailVO.getPromoteCode();
+		
+		if(promoteCode == null) {
+			return null;
+		}
+		
+		promoteDetailVO = dao.findByCode(promoteCode);
+		// validate if the data exists in table
+		if(promoteDetailVO == null) {
+			return null;
+		}
+		
+		// data exists, return to controller
+		return promoteDetailVO;
+	}
+
 }

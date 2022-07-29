@@ -34,7 +34,8 @@ public class AdminDelEdit extends HttpServlet {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
 		JsonObject respObj = new JsonObject();
-
+		System.out.println("alive??");
+		
 		DelVO delVO = gson.fromJson(req.getReader(), DelVO.class);
 		System.out.println(delVO);
 		DelService service = new DelService();

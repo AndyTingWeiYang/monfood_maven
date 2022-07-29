@@ -31,9 +31,9 @@ public class PromoteDetailOneServlet extends HttpServlet{
 		try {
 			
 			PromoteDetailVO promoteDetailVO = gson.fromJson(request.getReader(), PromoteDetailVO.class);
-			PromoteDetailService promoteListservice = new PromoteDetailServiceImpl();
+			PromoteDetailService prmotDetailService = new PromoteDetailServiceImpl();
 			
-			final PromoteDetailVO result = promoteListservice.FindPromoteDetailOne(promoteDetailVO);
+			final PromoteDetailVO result = prmotDetailService.FindPromoteDetailOne(promoteDetailVO);
 			
 			if (result == null) {
 				respObj.addProperty("errMsg", "無此筆明細");

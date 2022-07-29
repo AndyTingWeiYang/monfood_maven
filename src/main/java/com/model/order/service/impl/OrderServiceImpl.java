@@ -6,6 +6,9 @@ import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
 import com.model.order.service.OrderService;
+import com.model.promotelist.PromoteListVO;
+import com.model.promotelist.dao.PromoteListDAO;
+import com.model.promotelist.dao.Impl.PromoteListJDBCDAO;
 
 public class OrderServiceImpl implements OrderService {
 	
@@ -36,9 +39,32 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 	
+	@Override
 	public List<OrderVO> adminFindOrderAll(){
 		List<OrderVO> list = dao.getAll();
 		return list;
+	}
+	
+	@Override
+	public Integer createOrder(OrderVO orderVO) {
+		Integer generatedKey = dao.insert(orderVO);
+		if(generatedKey == null) {
+			return null;
+		}
+		return generatedKey;
+	}
+	
+	@Override
+	public PromoteListVO promoteCheck(PromoteListVO promoteListVO) {
+		
+		PromoteListDAO promoteListDAO = new PromoteListJDBCDAO();
+		final String promoteCode = promoteListVO.getPromoteCode();
+		if (promoteCode == null || "".equals(promoteCode.trim())) {
+			return null;
+		}
+
+		promoteListVO = promoteListDAO.findByCode(promoteCode);
+		return promoteListVO;
 	}
 	
 	

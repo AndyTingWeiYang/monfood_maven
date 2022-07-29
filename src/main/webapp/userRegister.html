@@ -115,7 +115,8 @@
   
                 <div class="col-md-10 col-12">
                   <input type="email" class="form-control" id="useremail" placeholder="電子信箱(帳號)" required />
-                  <span class="noticespan emailspan"></span>
+                  <span class="noticespan emailspan1"></span>
+                  <span class="emailspan2"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
@@ -302,11 +303,13 @@
           $("#useremail").on("blur",function(){
             var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
             if($("#useremail").val().trim() == ""){
-              $(".emailspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
+              $(".emailspan2").text('');
+              $(".emailspan1").addClass("noticespan").text('*請輸入完整電子郵件帳號');
             }else if(!(pattern.test($("#useremail").val().trim()))){
-              $(".emailspan").addClass("noticespan").text('*請輸入正確格式');
+              $(".emailspan2").text('');
+              $(".emailspan1").addClass("noticespan").text('*請輸入正確格式');
             }else{
-              $(".emailspan").removeClass("noticespan").text('');
+              $(".emailspan1").removeClass("noticespan").text('');
             }
           });
           
@@ -392,29 +395,42 @@
           });
         });      
        
-        
         // 發ajax確認是否有帳號重複
         $("#useremail").on("focusout",function(){
           if($("#useremail").val().trim() != ""){
             $.ajax({
-            url: "UserAccountPassServlet",           
-            type: "POST",                  
-            data: JSON.stringify({             
-              "userAccount": $("#useremail").val().trim(),          
-            }),            
-            contentType : "application/json;charset=utf-8",
-            dataType: "json",             
-            success: function(data){      // request 成功取得回應後執行
-              $(".emailspan").addClass("passspan").text('此帳號可以使用'); 
-            },
-            error: function(xhr){         // request 發生錯誤的話執行
-              $(".emailspan").addClass("noticespan").text('此帳號已被使用');
-            },
+              url: "UserAccountPassServlet",           
+              type: "POST",                  
+              data: JSON.stringify({             
+                "userAccount": $("#useremail").val().trim(),          
+              }),            
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(data){      // request 成功取得回應後執行
+                console.log(data);
+                if(data.checkAccountSuccess == "Success" && !($(".emailspan1").hasClass("noticespan"))){
+                  $(".emailspan2").removeClass("noticespan");
+                  $(".emailspan2").addClass("passspan").text('此帳號可以使用'); 
+                }
+                if(data.checkAccountFailed == "Failed"){
+                  $(".emailspan2").removeClass("passspan");
+                  $(".emailspan2").addClass("noticespan").text('*此帳號已被使用'); 
+                }
+              },
+              error: function(xhr){         // request 發生錯誤的話執行
+                console.log(xhr);
+                // $(".emailspan2").addClass("noticespan").text('*此帳號已被使用');
+              }
 
-          });
+            });
           }
         });
-
+        // 消除ajax發出後的錯誤提示
+        $("#useremail").on("blur",function(){
+          if($("#useremail").val().trim() != ""){
+            $(".emailspan2").text('');
+          }
+        });
 
 
 
@@ -443,7 +459,7 @@
           });
         });
 
-
+      
 
       </script>
       

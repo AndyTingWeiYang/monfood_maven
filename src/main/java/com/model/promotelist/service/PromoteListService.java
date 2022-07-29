@@ -2,7 +2,8 @@ package com.model.promotelist.service;
 
 import java.util.List;
 
-import com.model.order.OrderVO;
+
+
 import com.model.promotelist.PromoteListVO;
 
 public interface PromoteListService {
@@ -14,10 +15,13 @@ public interface PromoteListService {
 	List<PromoteListVO> adminFindPromoteListAll();
 	
 	//update
-	String adminUpdatePromoteList(PromoteListVO promoteListVO);
-	
+	PromoteListVO adminUpdatePromoteList(PromoteListVO promoteListVO);
+
 	//getone
 	PromoteListVO adminFindpromoteListOne(PromoteListVO promoteListVO);
+	
+	//getbyCode
+	PromoteListVO adminFindListByCode(PromoteListVO promoteListVO);
 	
 
 }
