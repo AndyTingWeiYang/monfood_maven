@@ -154,10 +154,18 @@ window.addEventListener('load', function(){
     }),
     dataType: 'json',
     success: function(msg){
+      console.log(msg)
 
+      let discountVal = msg.monsterInfo.discount;
+      let monsLevel = msg.monsterInfo.monsLevel;
+      $('.discountVal').text(discountVal);
+      $('.discountValBottom').text(discountVal);
+      $('.monsLevelBottom').text(monsLevel);
+      // 總金額
+      $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
     },
     error: function(errMsg){
-      
+      console.log(errMsg)
     }
 
 
@@ -338,8 +346,7 @@ window.addEventListener('load', function(){
     })
   })
 
-  // 總金額
-  $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
+  
 
 ////////////////////////////////// 送出訂單 //////////////////////////////////////
   $('.submit').on('click', function(){
