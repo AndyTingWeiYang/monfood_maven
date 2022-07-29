@@ -14,10 +14,16 @@
         font-size: 10px;
       }
     </style>
+    <link
+      rel="stylesheet"
+      href="/assets/css/jquery.datetimepicker.forMandy.css"
+    />
   </head>
   <body>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="/assets/js/jquery.forMandy.js"></script>
+    <script src="assets/js/datetimepicker.full.forMandy.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
 
     <div class="container-scroller">
       <!-- ===== sidebar start ===== -->
@@ -88,33 +94,33 @@
                 </div>
 
                 <label
-                  for="promoteStart"
+                  for="start_date"
                   class="col-sm-12 col-form-label"
                   style="font-size: 18px; padding-left: 20px"
                   >開始日期</label
                 >
                 <div class="col-sm-12" style="width: 500px">
                   <input
-                    type="date"
-                    name="promoteStart"
+                    name="start_date"
+                    id="start_date"
                     class="form-control"
-                    id="promoteStart"
+                    type="text"
                     style="margin: 10px"
                   />
                 </div>
 
                 <label
-                  for="promoteEnd"
+                  for="end_date"
                   class="col-sm-12 col-form-label"
                   style="font-size: 18px; padding-left: 20px"
                   >結束日期</label
                 >
                 <div class="col-sm-12" style="width: 500px">
                   <input
-                    type="date"
-                    name="promoteEnd"
+                    name="end_date"
+                    id="end_date"
                     class="form-control"
-                    id="promoteEnd"
+                    type="text"
                     style="margin: 10px"
                   />
                 </div>
@@ -164,21 +170,22 @@
         </div>
       </div>
     </div>
+
     <script>
       var sDay;
       var eDay;
       document
-        .querySelector("input#promoteStart")
+        .querySelector("input#start_date")
         .addEventListener("change", function () {
-          $("input#promoteStart").attr("value", $(this).val());
+          $("input#start_date").attr("value", $(this).val());
           //赋值
           sDay = this.value;
         });
 
       document
-        .querySelector("input#promoteEnd")
+        .querySelector("input#end_date")
         .addEventListener("change", function () {
-          $("input#promoteEnd").attr("value", $(this).val());
+          $("input#end_date").attr("value", $(this).val());
           //赋值
           eDay = this.value;
         });
@@ -199,8 +206,8 @@
       });
       const promoteCode = document.querySelector("#promoteCode");
       const promotePrice = document.querySelector("#promotePrice");
-      const startDate = document.querySelector("#promoteStart");
-      const endDate = document.querySelector("#promoteEnd");
+      const startDate = document.querySelector("#start_date");
+      const endDate = document.querySelector("#end_date");
       const status = document.querySelector("#status");
 
       document.querySelector("button").addEventListener("click", () => {
@@ -276,6 +283,29 @@
         } else {
           $(".promotePricespan").removeClass("noticespan").text("");
         }
+      });
+
+      $.datetimepicker.setLocale("zh");
+      $(function () {
+        $("#start_date").datetimepicker({
+          format: "Y-m-d",
+          onShow: function () {
+            this.setOptions({
+              maxDate: $("#end_date").val() ? $("#end_date").val() : false,
+            });
+          },
+          timepicker: false,
+        });
+
+        $("#end_date").datetimepicker({
+          format: "Y-m-d",
+          onShow: function () {
+            this.setOptions({
+              minDate: $("#start_date").val() ? $("#start_date").val() : false,
+            });
+          },
+          timepicker: false,
+        });
       });
     </script>
   </body>
