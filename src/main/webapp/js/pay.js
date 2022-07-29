@@ -138,13 +138,11 @@ window.addEventListener('load', function(){
   $('#cash').on('click', function(){
       $('#cash').attr('checked', 'checked');
       $('#creditcard').removeAttr('checked');    
-      // console.log($('input[name=pay]:checked').val())
   })
 
   $('#creditcard').on('click', function(){
       $('#creditcard').attr('checked', 'checked');
       $('#cash').removeAttr('checked');
-      // console.log($('input[name=pay]:checked').val())
     })
 
   // 購物車假資料
@@ -170,6 +168,7 @@ window.addEventListener('load', function(){
     }]
   };
 
+  // 設定假資料到session
   sessionStorage.setItem('cartList', JSON.stringify(data));
 
   // 從session 取得購物車假資料
@@ -221,7 +220,9 @@ window.addEventListener('load', function(){
           <img src="images/20190813JEF004__20190813_L.jpg" alt="" style="height: 90px; width: 90px">
           </li>
         `
+        // 小記金額
         itemTotal += this.amount * this.productPrice;
+        // 總卡路里
         kcalTotal += this.productKcal * this.amount;
         $('.cartList').append(cartLi);
       })
@@ -229,38 +230,84 @@ window.addEventListener('load', function(){
   // 小記
   $('.itemTotal').text(itemTotal);
   
-  // 優惠代碼
+////////////////////////////////// 優惠代碼 //////////////////////////////////////
   var promoteId;
   $('#promoteConfirm').on('click', function(){
+    // 清空span標籤
     $('#promoteMsg').text('');
+    // 標籤格式驗證
+    if($('.promoteText').val().trim() == '' || $('.promoteText').val().trim() == null){
+      let errMsg = `
+            <span id="errMsg" style="color: red; font-size:12px">*請輸入正確代碼</span>
+          `
+      $('#promoteMsg').append(errMsg);
+      return;
+    }
+
+    // 取得input值
     let promoteCode = $('.promoteText').val();
+    // 優惠碼後端驗證
     $.ajax({
       url: 'PromoteCheckServlet',
       type: 'POST',
       data: JSON.stringify({
         promoteCode : promoteCode,
-        
       }),
       dataType: 'json',
       success: function(msg){
+        console.log(msg)
 
+        var promoteMsg = msg;
+        // 無此優惠, return
         if(msg.errMsg == '無此優惠代碼' || msg.errMsg == '系統錯誤'){
           let errMsg = `
             <span id="errMsg" style="color: red; font-size:12px">*無此優惠代碼</span>
           `
           $('#promoteMsg').append(errMsg);
           return;
-        }
-        promoteId = msg.promoteCode.promoteId;
-        let successMsg = 
-          `
-            <div>優惠代碼</div>
-            <div>$-<span id="promotePrice">${msg.promoteCode.promotePrice}</span></div>
-          `
-        $('#promoteMsg').append(successMsg)
-        $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('#promotePrice').text()));
 
-      
+        }else{
+          // 若優惠碼有效, 確認是否已被使用者使用
+          $.ajax({
+            url: 'PromoteDetailOneServlet',
+            type: 'POST',
+            data: JSON.stringify({
+              // 送出userId & promoteId 做雙pk查詢驗證使用狀況
+              userId : 1,
+              promoteId : msg.promoteCode.promoteId,
+              
+            }),
+            dataType: 'json',
+            success: function(msg){
+              console.log(msg)
+              // 返回0代表尚未使用, 1表示已使用
+              if(msg.msg == 1){
+                let errMsg = `
+                  <span id="errMsg" style="color: red; font-size:12px">*優惠已使用</span>
+                `
+                $('#promoteMsg').append(errMsg);
+                return;
+              }else{
+                // 優惠碼未使用, 加入優惠標籤與折扣金額
+
+                // 取得promoteId供送出訂單使用
+                promoteId = promoteMsg.promoteCode.promoteId;
+                let successMsg = 
+                  `
+                    <div>優惠代碼</div>
+                    <div>$-<span id="promotePrice">${promoteMsg.promoteCode.promotePrice}</span></div>
+                  `
+                $('#promoteMsg').append(successMsg);
+                $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('#promotePrice').text()));
+                $('.promoteText').attr('disabled', true);
+                $('#promoteConfirm').attr('disabled', true);
+              }
+            },
+            error: function(errMsg){
+              console.log(errMsg)
+            }
+          })
+        }
       },
       error: function(errMsg){
         console.log(errMsg)
@@ -271,7 +318,7 @@ window.addEventListener('load', function(){
   // 總金額
   $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
 
-  // 送出訂單
+////////////////////////////////// 送出訂單 //////////////////////////////////////
   $('.submit').on('click', function(){
     let cartList = JSON.parse(sessionStorage.getItem('cartList'));
 
@@ -296,10 +343,9 @@ window.addEventListener('load', function(){
         }),
         dataType: 'json',
         success: function(msg){
-          // console.log(msg)
+          // 訂單主檔建立成功, 新增訂單明細
           $.each(cartList, function(){
             $.each(this, function(index, detail){
-              // console.log(detail)
               $.ajax({
                 url: 'OrderDetailServlet',
                 type: 'POST',
@@ -325,7 +371,7 @@ window.addEventListener('load', function(){
         }
       });
     }else{
-      
+
       // 使用優惠券
       $.ajax({
         url: 'OrderServlet',
@@ -347,10 +393,9 @@ window.addEventListener('load', function(){
         }),
         dataType: 'json',
         success: function(msg){
-          // console.log(msg)
+          // 訂單主檔建立成功, 新增訂單明細
           $.each(cartList, function(){
             $.each(this, function(index, detail){
-              // console.log(detail)
               $.ajax({
                 url: 'OrderDetailServlet',
                 type: 'POST',
@@ -375,14 +420,32 @@ window.addEventListener('load', function(){
           // console.log(errMsg)
         }
       });
+
+      // 記錄優惠券使用
+      $.ajax({
+        url: 'PromoteDetailServlet',
+        type: 'POST',
+        data: JSON.stringify({
+          userId : 1,
+          promoteId : promoteId
+        }),
+        dataType: 'json',
+        success: function(msg){
+          console.log(msg)
+        },
+        error: function(errMsg){
+          console.log(errMsg)
+        }
+      })
+
+
+
+
+
+
     }
-    
 
   })
-
-
-
-
 
   // select 標籤
   $('select').on('change', function(){

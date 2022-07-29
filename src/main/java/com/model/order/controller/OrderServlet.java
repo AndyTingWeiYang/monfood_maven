@@ -35,7 +35,6 @@ public class OrderServlet extends HttpServlet {
 				response.getWriter().append(gson.toJson(respObj));
 				return;
 			}
-			
 			result = service.createOrder(orderVO);
 			
 			if (result == null) {

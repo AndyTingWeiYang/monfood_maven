@@ -19,6 +19,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	String passwd = "password";
 	
 	private static final String INSERT_STMT = 
+		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
+		+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_NO_PROMOTE = 
 		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT) "
 		+ "values(?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
@@ -42,6 +45,60 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);
+
+			pstmt.setInt(1, orderVO.getUserId());
+			pstmt.setInt(2, orderVO.getResId());
+			pstmt.setString(3, orderVO.getNote());
+			pstmt.setString(4, orderVO.getUserLocation());
+			pstmt.setInt(5, orderVO.getProductKcalTotal());
+			pstmt.setInt(6, orderVO.getTotal());
+			pstmt.setInt(7, orderVO.getDelCost());
+			pstmt.setBoolean(8, orderVO.getUseCash());
+			pstmt.setString(9, orderVO.getCreditId());
+			pstmt.setInt(10, orderVO.getDiscount());
+			pstmt.setInt(11, orderVO.getPromoteId());
+			pstmt.executeUpdate();
+			ResultSet rs=pstmt.getGeneratedKeys();
+			rs.next();
+			generatedKey = rs.getInt(1);
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return generatedKey;
+	}
+	
+	@Override
+	public Integer insertNoPromote(OrderVO orderVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		Integer generatedKey;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_NO_PROMOTE, Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setInt(1, orderVO.getUserId());
 			pstmt.setInt(2, orderVO.getResId());
@@ -346,6 +403,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		orderVOi.setUseCash(false);
 		orderVOi.setCreditId("1234444444");
 		orderVOi.setDiscount(10);
+		orderVOi.setPromoteId(1);
 		dao.insert(orderVOi);
 		
 		// select all

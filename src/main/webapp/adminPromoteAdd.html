@@ -6,6 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/jquery.datetimepicker.forMandy.css"
+    />
     <title>MonFood</title>
     <!-- w3c.js 引入共用畫面 -->
     <style>
@@ -16,8 +21,10 @@
     </style>
   </head>
   <body>
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jquery.forMandy.js"></script>
     <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="assets/js/datetimepicker.full.forMandy.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
 
     <div class="container-scroller">
       <!-- ===== sidebar start ===== -->
@@ -88,35 +95,45 @@
                 </div>
 
                 <label
-                  for="promoteStart"
+                  for="start_date"
                   class="col-sm-12 col-form-label"
                   style="font-size: 18px; padding-left: 20px"
                   >開始日期</label
                 >
                 <div class="col-sm-12" style="width: 500px">
                   <input
-                    type="date"
-                    name="promoteStart"
+                    name="start_date"
+                    id="start_date"
+                    placeholder="請選擇開始日期"
                     class="form-control"
-                    id="promoteStart"
+                    type="text"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan start_datespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
 
                 <label
-                  for="promoteEnd"
+                  for="end_date"
                   class="col-sm-12 col-form-label"
                   style="font-size: 18px; padding-left: 20px"
                   >結束日期</label
                 >
                 <div class="col-sm-12" style="width: 500px">
                   <input
-                    type="date"
-                    name="promoteEnd"
+                    name="end_date"
+                    id="end_date"
+                    placeholder="請選擇結束日期"
                     class="form-control"
-                    id="promoteEnd"
+                    type="text"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan end_datespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
                 <label
                   for="status"
@@ -164,21 +181,22 @@
         </div>
       </div>
     </div>
+
     <script>
       var sDay;
       var eDay;
       document
-        .querySelector("input#promoteStart")
+        .querySelector("input#start_date")
         .addEventListener("change", function () {
-          $("input#promoteStart").attr("value", $(this).val());
+          $("input#start_date").attr("value", $(this).val());
           //赋值
           sDay = this.value;
         });
 
       document
-        .querySelector("input#promoteEnd")
+        .querySelector("input#end_date")
         .addEventListener("change", function () {
-          $("input#promoteEnd").attr("value", $(this).val());
+          $("input#end_date").attr("value", $(this).val());
           //赋值
           eDay = this.value;
         });
@@ -199,32 +217,34 @@
       });
       const promoteCode = document.querySelector("#promoteCode");
       const promotePrice = document.querySelector("#promotePrice");
-      const startDate = document.querySelector("#promoteStart");
-      const endDate = document.querySelector("#promoteEnd");
+      const startDate = document.querySelector("#start_date");
+      const endDate = document.querySelector("#end_date");
       const status = document.querySelector("#status");
 
       document.querySelector("button").addEventListener("click", () => {
         if (
           !promoteCode.value ||
           !promotePrice.value ||
-          !sDay ||
-          !eDay ||
+          !startDate ||
+          !endDate ||
           !status
         ) {
           alert("資料請填寫完整");
           return;
         } else {
+          console.log(startDate);
           var url = "PromoteListServlet";
           fetch(url, {
             method: "POST",
+            scriptCharset: 'GBK',
             headers: {
               "content-Type": "application.json",
             },
             body: JSON.stringify({
               promoteCode: promoteCode.value,
               promotePrice: promotePrice.value,
-              startDate: sDay,
-              endDate: eDay,
+              startDate: startDate.value,
+              endDate: endDate.value,
               status: status.value,
             }),
           })
@@ -276,6 +296,55 @@
         } else {
           $(".promotePricespan").removeClass("noticespan").text("");
         }
+      });
+
+      //開始日期驗證
+      $("#start_date").on("blur", function () {
+        //空白驗證
+        if (
+          $("#start_date").val().trim() == null ||
+          $("#start_date").val().trim() == ""
+        ) {
+          $(".start_datespan").addClass("noticespan").text("*請選擇開始日期");
+        } else {
+          $(".start_datespan").removeClass("noticespan").text("");
+        }
+      });
+
+      //結束日期驗證
+      $("#end_date").on("blur", function () {
+        //空白驗證
+        if (
+          $("#end_date").val().trim() == null ||
+          $("#end_date").val().trim() == ""
+        ) {
+          $(".end_datespan").addClass("noticespan").text("*請選擇結束日期");
+        } else {
+          $(".end_datespan").removeClass("noticespan").text("");
+        }
+      });
+
+      $.datetimepicker.setLocale("zh");
+      $(function () {
+        $("#start_date").datetimepicker({
+          format: "Y-m-d",
+          onShow: function () {
+            this.setOptions({
+              maxDate: $("#end_date").val() ? $("#end_date").val() : false,
+            });
+          },
+          timepicker: false,
+        });
+
+        $("#end_date").datetimepicker({
+          format: "Y-m-d",
+          onShow: function () {
+            this.setOptions({
+              minDate: $("#start_date").val() ? $("#start_date").val() : false,
+            });
+          },
+          timepicker: false,
+        });
       });
     </script>
   </body>

@@ -20,48 +20,41 @@ public class PromoteDetailServiceImpl implements PromoteDetailService{
 	public String AddPromoteDetail(PromoteDetailVO promoteDetailVO) {
 		
 		final Integer promoteId = promoteDetailVO.getPromoteId();
-		if(promoteId == null) {
-			return "優惠券編號請勿空白";
-		}
-		
 		final Integer userId = promoteDetailVO.getUserId();
-		if(userId == null) {
-			return "使用者編號請勿空白";
+		
+		if(promoteId == null || userId == null) {
+			return "ID為空值";
 		}
 		
-		final Integer usedStatus = promoteDetailVO.getUsedStatus();
-		if(usedStatus == null) {
-			return "請輸入狀態";
-		}
-	
 		final Integer result = dao.insert(promoteDetailVO);
+		
 		if(result < 1) {
 			return "系統錯誤";
 			
 		}
 		
-		return null;
+		return "新增成功";
 	
 	}
 
 	@Override
-	public PromoteDetailVO FindPromoteDetailOne(PromoteDetailVO promoteDetailVO) {
+	public Integer FindPromoteDetailOne(PromoteDetailVO promoteDetailVO) {
 		
 		final Integer promoteId = promoteDetailVO.getPromoteId();
+		final Integer userId = promoteDetailVO.getUserId();
 		
-		if(promoteId == null) {
+		if(promoteId == null || userId == null) {
 			return null;
 		}
 		
-		promoteDetailVO = dao.findByID(promoteId);
+		promoteDetailVO = dao.findByID(promoteId, userId);
 		// validate if the data exists in table
 		if(promoteDetailVO == null) {
-			return null;
+			return 0;
 		}
 		
 		// data exists, return to controller
-		return promoteDetailVO;
-		
+		return promoteDetailVO.getUsedStatus();
 	
 	}
 

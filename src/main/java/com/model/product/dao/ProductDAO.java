@@ -10,9 +10,11 @@ public interface ProductDAO {
 	// 查詢多筆資料
 	public List<ProductVO> findAll(ProductVO productVO);
 
-	public boolean insertResult(ProductVO product);
+	public boolean insert(ProductVO product);
 
-	public void update(ProductVO product);
+	public boolean  update(ProductVO product);
+	
+	public boolean updateDynanicPic(ProductVO product);
 
 	public void delete(ProductVO productID);
 

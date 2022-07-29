@@ -47,7 +47,17 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public Integer createOrder(OrderVO orderVO) {
-		Integer generatedKey = dao.insert(orderVO);
+		Integer generatedKey = null;
+		
+		if (orderVO.getPromoteId() == null) {
+			generatedKey = dao.insertNoPromote(orderVO);
+			if(generatedKey == null) {
+				return null;
+			}
+			return generatedKey;
+		}
+		
+		generatedKey = dao.insert(orderVO);
 		if(generatedKey == null) {
 			return null;
 		}

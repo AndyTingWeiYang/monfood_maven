@@ -12,14 +12,14 @@ public class CartVO implements Serializable{
 	private Integer amount;
 	private Integer productPrice;
 	private Integer productKcal;
-	private byte[] productPhoto;
+	private byte[] productPic;
 	
 	public CartVO() {
 		super();
 	}
 
 	public CartVO(Integer resId, String resName, Integer productId, String productName, Integer amount,
-			Integer productPrice, Integer productKcal, byte[] productPhoto) {
+			Integer productPrice, Integer productKcal, byte[] productPic) {
 		super();
 		this.resId = resId;
 		this.resName = resName;
@@ -28,7 +28,7 @@ public class CartVO implements Serializable{
 		this.amount = amount;
 		this.productPrice = productPrice;
 		this.productKcal = productKcal;
-		this.productPhoto = productPhoto;
+		this.productPic = productPic;
 	}
 
 	public Integer getResId() {
@@ -87,18 +87,18 @@ public class CartVO implements Serializable{
 		this.productKcal = productKcal;
 	}
 
-	public byte[] getProductPhoto() {
-		return productPhoto;
+	public byte[] getProductPic() {
+		return productPic;
 	}
 
-	public void setProductPhoto(byte[] productPhoto) {
-		this.productPhoto = productPhoto;
+	public void setProductPic(byte[] productPhoto) {
+		this.productPic = productPic;
 	}
 
 	@Override
 	public String toString() {
 		return "CartVO [resId=" + resId + ", resName=" + resName + ", productId=" + productId + ", productName="
 				+ productName + ", amount=" + amount + ", productPrice=" + productPrice + ", productKcal=" + productKcal
-				+ ", productPhoto=" + Arrays.toString(productPhoto) + "]";
+				+ ", productPic=" + Arrays.toString(productPic) + "]";
 	}
 }
