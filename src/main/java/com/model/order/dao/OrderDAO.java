@@ -18,4 +18,6 @@ public interface OrderDAO {
 
 	Integer insertNoPromote(OrderVO orderVO);
 
+	Integer getOrderTimes(Integer userId);
+
 }
