@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>MonFood | userLogin</title>
+      <title>MonFood | resLogin</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
       <link rel="stylesheet" href="./css/index.css">
 
@@ -12,6 +12,11 @@
      
       .container{
         width: 75%;
+      }
+
+      button.btn.btn-primary{
+        background-color: #946c51;
+        border: #946c51;
       }
       .form-group{
         height:calc(100vh - 56px);
@@ -87,9 +92,9 @@
       
       <!-- navbar -->
       <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: #FF7F3F">
+        <nav class="navbar navbar-expand-lg" style="background-color: #946c51">
           <div class="container">
-            <a class="navbar-brand d-inline-flex" href="index.html">
+            <a class="navbar-brand d-inline-flex" href="#">
               <span class="logo">Mon</span>
               <span class="logo2" style="color: white;">Food</span>
             </a>
@@ -103,18 +108,18 @@
       <div class="container">
         <div class="form-group row mx-auto col-sm-12 col-md-10 col-lg-8 col-xl-8">
           <div class="row">
-            <h3 class="headline mb-4">您的電子信箱為何？</h3>
+            <h3 class="headline mb-4">您的統一編號為何？</h3>
             <span class="pointspan span"></span>
             <div class="mb-3">
-              <input type="text" class="form-control" id="useremail" placeholder="請輸入您的電子信箱">
-              <span class="noticespan emailspan"></span>                  
+              <input type="text" class="form-control" id="resaccount" placeholder="請輸入您的統一編號，共8位數字" maxlength="8">
+              <span class="noticespan accountspan"></span>                  
             </div>
             <div class="mb-3">
-              <input type="password" class="form-control" id="userpassword" placeholder="請輸入您的密碼">
+              <input type="password" class="form-control" id="respassword" placeholder="請輸入您的密碼">
               <span class="noticespan passwordspan"></span>
             </div>
             <div class="bottom-btn">
-              <button class="userRegister btn btn-primary mb-3">
+              <button class="resRegister btn btn-primary mb-3">
                 註冊會員
               </button>
               <button type="button" class="enter btn btn-primary mb-3">
@@ -139,23 +144,26 @@
         $(function(){
 
           // 網頁轉向
-          $(".userRegister").on("click",function(){
-            location.href="./userRegister.html";
+          $(".resRegister").on("click",function(){
+            location.href="./resRegister.html";  
           });
 
           $(".forget-password").on("click",function(){
-            location.href="./resetPassword.html";
+            location.href="./resResetPassword.html"; 
           });
 
+
+
+
           // email驗證
-          $("#useremail").on("blur",function(){
-            var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-            if($("#useremail").val().trim() == ""){
-              $(".emailspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
-            }else if(!(pattern.test($("#useremail").val().trim()))){
-              $(".emailspan").addClass("noticespan").text('*請輸入正確格式');
+          $("#resaccount").on("blur",function(){
+            var pattern = /^\d{8}$/;
+            if($("#resaccount").val().trim() == ""){
+              $(".accountspan").addClass("noticespan").text('*請輸入統一編號');
+            }else if(!(pattern.test($("#resaccount").val().trim()))){
+              $(".accountspan").addClass("noticespan").text('*請輸入正確格式');
             }else{
-              $(".emailspan").removeClass("noticespan").text('');
+              $(".accountspan").removeClass("noticespan").text('');
             }
           });
           
@@ -166,11 +174,11 @@
           // - 小寫字母 [a-z]
           // - 大寫字母 [A-Z]
           // - 數字 \d
-          $("#userpassword").on("blur",function(){
+          $("#respassword").on("blur",function(){
             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if($("#userpassword").val().trim() == ""){
+            if($("#respassword").val().trim() == ""){
               $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
-            }else if(!(pattern.test($("#userpassword").val().trim()))){
+            }else if(!(pattern.test($("#respassword").val().trim()))){
               $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
             }else{
               $(".passwordspan").removeClass("noticespan").text('');
@@ -178,8 +186,8 @@
           });
 
           // 消除ajax發出後的錯誤提示
-          $("#useremail , #userpassword").on("blur",function(){
-            if($("#useremail").val().trim() != "" && $("#userpassword").val().trim() != ""){
+          $("#resaccount , #respassword").on("blur",function(){
+            if($("#resaccount").val().trim() != "" && $("#respassword").val().trim() != ""){
               $(".pointspan").removeClass("noticespan").text('');
             }
           });
@@ -192,18 +200,18 @@
               return;
             }
             $.ajax({
-              url: "UserLoginServlet",           
+              url: "ResLoginServlet",           
               type: "POST",                  
               data: JSON.stringify({
-                "userAccount": $("#useremail").val().trim(),
-                "userPassword": $("#userpassword").val().trim()
+                "resAccount": $("#resaccount").val().trim(),
+                "resPassword": $("#respassword").val().trim()
               }),             
               contentType : "application/json;charset=utf-8",
               dataType: "json",             
               success: function(data){      // request 成功取得回應後執行
                 console.log(data);
                 if(data.LoginSuceesfully == "登入成功"){
-                  location.href="./del/monFoodIndex.html";
+                  location.href="./resprofile/resprofile-info.jsp";  
                 }else if(data.None == "查無帳號"){;
                   $(".pointspan").addClass("noticespan").text("查無帳號");
                 }else if (data.ErrorPassword == "密碼有誤，請重新輸入"){

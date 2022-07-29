@@ -1,8 +1,6 @@
-package com.model.user.controller;
+package com.model.res.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.model.user.UserVO;
-import com.model.user.service.UserService;
-import com.model.user.serviceImpl.UserServiceImpl;
+import com.model.res.ResVO;
+import com.model.res.service.ResService;
+import com.model.res.service.impl.ResServiceImpl;
 
-import mailservice.MailService;
-
-@WebServlet("/UserAccountPassServlet")
-public class UserAccountPassServlet extends HttpServlet {
+@WebServlet("/ResAccountPassServlet")
+public class ResAccountPassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -29,16 +24,14 @@ public class UserAccountPassServlet extends HttpServlet {
 		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-		
-
-		
+	
 		try {
-			UserVO userVO = gson.fromJson(request.getReader(), UserVO.class);
+			ResVO resVO = gson.fromJson(request.getReader(), ResVO.class);
+			System.out.println("我在ResAccountPassServlet我是resVO = "+ resVO);
+			ResService service = new ResServiceImpl();
 
-			UserService service = new UserServiceImpl();
-
-			final String checkAccount = service.isDuplicateAccount(userVO);
-			System.out.println("in UserAccountPassServlet - checkAccount：" + checkAccount);
+			final String checkAccount = service.isDuplicateAccount(resVO);
+			System.out.println("in ResAccountPassServlet - checkAccount：" + checkAccount);
 			if (checkAccount == "pass") {
 				respObj.addProperty("checkAccountSuccess", "Success");
 				response.getWriter().append(gson.toJson(respObj));	
@@ -51,10 +44,12 @@ public class UserAccountPassServlet extends HttpServlet {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
+	
+	
+	
+	
 	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
