@@ -1,5 +1,8 @@
 package com.model.monster;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.model.product.ProductVO;
 
 public class MonsterJDBCDAO implements IMonsterDAO {
 	
@@ -94,9 +99,9 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 			con = DriverManager.getConnection(url, userid, password);
 			pstmt = con.prepareStatement(UPDATE);//連線呼叫參數化查詢(修改)
 
-			pstmt.setInt(1, monsterVO.getMonsLevel());//第一個欄位
-			pstmt.setInt(2, monsterVO.getDiscount());//第二個欄位
-			pstmt.setBytes(3, monsterVO.getMonsPic());//第三個欄位圖片byte[]用Bytes
+			pstmt.setInt(3, monsterVO.getMonsLevel());//第三個 where ? 
+			pstmt.setInt(1, monsterVO.getDiscount());//第一個 ? 
+			pstmt.setBytes(2, monsterVO.getMonsPic());//第二個 ? ,圖片byte[]用Bytes
 			
 			pstmt.executeUpdate();//參數化查詢呼叫執行更新
 
@@ -298,25 +303,28 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 	}
 
 	//測試
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		
 		MonsterJDBCDAO dao = new MonsterJDBCDAO();
-
+		
+		//存入圖片用的方法
+		InputStream in = new FileInputStream("C:\\Users\\Tibame\\Desktop\\111.jpg");//圖片的檔案路徑
+		byte[] buf = new byte[in.available()];
+		in.read(buf);
+		
 		// 新增OK
 //		MonsterVO monsterVO1 = new MonsterVO();
-//		monsterVO1.setMonsLevel(7);
-//		monsterVO1.setDiscount(55);
-//		monsterVO1.setMonsPic(null);
+//		monsterVO1.setMonsLevel(10);
+//		monsterVO1.setDiscount(66);
+//		monsterVO1.setMonsPic(buf);//原始圖片的檔案位置
 //		dao.insert(monsterVO1);
+//		System.out.println("新增成功");
 
-		// 修改  BUG待處理
+		// 修改OK
 //		MonsterVO monsterVO2 = new MonsterVO();
-//		monsterVO2.setMonsLevel(1);
-//		System.out.println("有");
-//		monsterVO2.setDiscount(2);
-//		System.out.println("有");
-//		monsterVO2.setMonsPic(null);
-//		System.out.println("有");
+//		monsterVO2.setMonsLevel(6); //where ? = 要修改的MonsLevel
+//		monsterVO2.setDiscount(300);
+//		monsterVO2.setMonsPic(buf);//原始圖片的檔案位置
 //		dao.update(monsterVO2);
 //		System.out.println("修改成功");
 
@@ -324,7 +332,7 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 //		dao.delete(6);
 
 		// 查詢OK
-//		MonsterVO monsterVO3 = dao.findByPrimaryKey(3);
+//		MonsterVO monsterVO3 = dao.findByPrimaryKey(6);
 //		System.out.println(monsterVO3.getMonsLevel() + ",");
 //		System.out.println(monsterVO3.getDiscount() + ",");
 //		System.out.println(monsterVO3.getMonsPic() + ",");
@@ -336,6 +344,7 @@ public class MonsterJDBCDAO implements IMonsterDAO {
 //			System.out.println(monsterVO4.getMonsLevel());
 //			System.out.println(monsterVO4.getDiscount());
 //			System.out.println(monsterVO4.getMonsPic());
+//			System.out.println("---------------------");
 //		}
 	}
 	
