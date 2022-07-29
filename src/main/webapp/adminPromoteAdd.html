@@ -6,6 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/jquery.datetimepicker.forMandy.css"
+    />
     <title>MonFood</title>
     <!-- w3c.js 引入共用畫面 -->
     <style>
@@ -14,14 +19,10 @@
         font-size: 10px;
       }
     </style>
-    <link
-      rel="stylesheet"
-      href="/assets/css/jquery.datetimepicker.forMandy.css"
-    />
   </head>
   <body>
+    <script src="assets/js/jquery.forMandy.js"></script>
     <script src="assets/js/jQuery-3.6.0.js"></script>
-    <script src="/assets/js/jquery.forMandy.js"></script>
     <script src="assets/js/datetimepicker.full.forMandy.js"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
 
@@ -103,10 +104,15 @@
                   <input
                     name="start_date"
                     id="start_date"
+                    placeholder="請選擇開始日期"
                     class="form-control"
                     type="text"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan start_datespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
 
                 <label
@@ -119,10 +125,15 @@
                   <input
                     name="end_date"
                     id="end_date"
+                    placeholder="請選擇結束日期"
                     class="form-control"
                     type="text"
                     style="margin: 10px"
                   />
+                  <span
+                    class="noticespan end_datespan"
+                    style="margin-left: 12px"
+                  ></span>
                 </div>
                 <label
                   for="status"
@@ -214,24 +225,26 @@
         if (
           !promoteCode.value ||
           !promotePrice.value ||
-          !sDay ||
-          !eDay ||
+          !startDate ||
+          !endDate ||
           !status
         ) {
           alert("資料請填寫完整");
           return;
         } else {
+          console.log(startDate);
           var url = "PromoteListServlet";
           fetch(url, {
             method: "POST",
+            scriptCharset: 'GBK',
             headers: {
               "content-Type": "application.json",
             },
             body: JSON.stringify({
               promoteCode: promoteCode.value,
               promotePrice: promotePrice.value,
-              startDate: sDay,
-              endDate: eDay,
+              startDate: startDate.value,
+              endDate: endDate.value,
               status: status.value,
             }),
           })
@@ -282,6 +295,32 @@
             .text("*優惠金額請輸入數字");
         } else {
           $(".promotePricespan").removeClass("noticespan").text("");
+        }
+      });
+
+      //開始日期驗證
+      $("#start_date").on("blur", function () {
+        //空白驗證
+        if (
+          $("#start_date").val().trim() == null ||
+          $("#start_date").val().trim() == ""
+        ) {
+          $(".start_datespan").addClass("noticespan").text("*請選擇開始日期");
+        } else {
+          $(".start_datespan").removeClass("noticespan").text("");
+        }
+      });
+
+      //結束日期驗證
+      $("#end_date").on("blur", function () {
+        //空白驗證
+        if (
+          $("#end_date").val().trim() == null ||
+          $("#end_date").val().trim() == ""
+        ) {
+          $(".end_datespan").addClass("noticespan").text("*請選擇結束日期");
+        } else {
+          $(".end_datespan").removeClass("noticespan").text("");
         }
       });
 
