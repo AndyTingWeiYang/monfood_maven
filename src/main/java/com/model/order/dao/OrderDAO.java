@@ -16,4 +16,8 @@ public interface OrderDAO {
 
 	void update(OrderVO orderVO);
 
+	Integer insertNoPromote(OrderVO orderVO);
+
+	Integer getOrderTimes(Integer userId);
+
 }

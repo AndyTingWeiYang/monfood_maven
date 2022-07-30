@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.map.HashedMap;
 
-import com.model.product.ProductVO;
+import com.model.product.ProductVo;
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
 
@@ -23,10 +23,10 @@ import com.model.product.service.impl.ProductServiceImpl;
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private ProductService productListService;
+	private ProductService productService;
 	
 	public ProductListServlet() {
-		this.productListService = new ProductServiceImpl();
+		this.productService = new ProductServiceImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +45,7 @@ public class ProductListServlet extends HttpServlet {
 
 		Map<String, Object> dataMap = requestToMap(request);
 		
-		List<ProductVO> productList = productListService.findAll(dataMap);
+		List<ProductVo> productList = productService.findAll(dataMap);
 
 		
 		request.setAttribute("productList", productList);

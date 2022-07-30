@@ -19,7 +19,8 @@ public class OrderServlet extends HttpServlet {
        
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=utf-8");
 		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
@@ -35,7 +36,6 @@ public class OrderServlet extends HttpServlet {
 				response.getWriter().append(gson.toJson(respObj));
 				return;
 			}
-			
 			result = service.createOrder(orderVO);
 			
 			if (result == null) {

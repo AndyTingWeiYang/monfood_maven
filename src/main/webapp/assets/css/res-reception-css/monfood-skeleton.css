@@ -1,0 +1,495 @@
+/** global */
+a,
+a:hover,
+a:visited,
+a:link,
+a:active {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+.form-group label {
+    /* font-size: 0.875rem;
+    height: 20px;
+    vertical-align: top; */
+}
+
+.form-group label{
+    margin: auto;
+    padding: 0;
+    height: 30px;
+}
+/** header */
+.mf-navbar {
+    background: #946c51;
+    /* height: 70px; */
+}
+
+.mf-navbar .navbar-brand-wrapper {
+    background: #FF7F3F;
+}
+
+.mf-dropdown-menu {
+    background: #FF7F3F;
+}
+
+.mf-dropdown-menu .dropdown-item:hover,
+.dropdown-item:focus {
+    background: #ffffff;
+    color: #FF7F3F !important;
+}
+
+span.logo {
+    color: black;
+    font-size: 40px;
+}
+
+span.logo2 {
+    color: white;
+    font-size: 40px;
+
+}
+
+/** sidebar */
+.sidebar.mf-sidebar {
+    min-height: 100%;
+    background: #dee2e6;
+    /* padding-top: 70px; */
+    margin: auto;
+    
+}
+
+.sidebar .mf-sidebar {
+    background: #FF7F3F;
+}
+
+.sidebar.mf-sidebar .nav:not(.sub-menu)>.nav-item:hover:not(.nav-category):not(.account-dropdown)>.nav-link {
+    background: #946c51;
+    color: #ffffff;
+}
+
+.sidebar.mf-sidebar .nav.sub-menu .nav-item .nav-link:hover {
+    color: #FF7F3F;
+}
+
+.mf-border-left {
+    border-left: 1px solid rgb(255, 254, 254);
+}
+
+.mf-dropdown-divider {
+    border-left: 1px solid rgb(255, 254, 254);
+}
+
+.mf-username {
+    color: #6c7293;
+}
+
+.sidebar .nav .nav-item.profile {
+    padding-right: 0px;
+    margin: 20px;
+}
+
+
+/* 連結用按鈕設定 */
+.sidebar .nav .nav-item .nav-link {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0.8rem 10px 0.8rem 1.188rem;
+    color: #6c7293;
+    -webkit-transition-duration: 0.45s;
+    -moz-transition-duration: 0.45s;
+    -o-transition-duration: 0.45s;
+    transition-duration: 0.45s;
+    transition-property: color;
+    -webkit-transition-property: color;
+    height: 100px;
+    border-radius: 0px 100px 100px 0px;
+}
+
+.thisPage{
+    background: #FF7F3F;
+    color: #ffffff;
+}
+/* 連結用按鈕文字設定 */
+.sidebar .nav .nav-item .nav-link .menu-title {
+    color: inherit;
+    display: inline-block;
+    font-size: 40px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/** content */
+.mf-content-wrapper {
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    background: #e4eaec;
+    color: black;
+}
+
+/* 訂單用css */
+
+.accordion{
+    height: 500px;
+    /* border: 2px solid blue; */
+    overflow-y :auto; /* 當有東西超過區塊內畫面,畫面做隱藏 */
+}
+
+/* 訂單狀態 */
+.mf-order-model{
+    /* border: 1px solid red; */
+    width: 130px;
+    height: 30px;
+    background-color: #dee2e6;
+    text-align: center;
+    display: none;
+}
+
+.mf-order-model-1{
+    width: 130px;
+    height: 30px;
+    background-color: #dee2e6;
+    text-align: center;
+    /* display: none; */
+}
+
+.mf-order-order-test{
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-around;
+}
+.accordion-body div{
+    /* outline: 1px solid red; */
+    
+}
+
+.mf-order-test1{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;;
+
+}
+
+.mf-order-test1-1{
+    display: flex;
+    align-items: flex-start;
+}
+
+.mf-order-test1-2{
+    margin: 0 0 100px 0;
+}
+
+.mf-order-test1-3{
+    margin: 0 0 150px 0;
+}
+
+.mf-order-test2{
+    border: 1px solid darkgreen;
+}
+
+.mf-order-test2-1{
+    /* border: 1px solid; */
+    display: flex;
+    justify-content: space-around;
+    margin: 0 0 100px 0;
+    /* display: none; */
+}
+.mf-order-test2-1 p{
+    margin: auto;
+}
+
+.mf-order-test2-2{
+    display: none;
+}
+
+.mf-order-delay{
+    display: none;
+}
+
+ul,ol{
+    list-style: none;
+}
+
+.mf-order-test1-1-1{
+    /* margin: auto;
+    padding: 0; */
+}
+
+.mf-order-notes{
+    /* border: 1px solid black; */
+    margin-top: 30px;
+    background-color: rgba(225,255,204,0.2);
+}
+
+.mf-order-notes-1{
+    margin-top: 30px;
+}
+
+.mf-order-noies-2{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 120px;
+    display: none;
+}
+
+.list-group-horizontal > .list-group-item:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-left-radius: 0;
+    display: none;
+}
+
+.mf-order-noies-2  button{
+    display: none;
+}
+
+
+/** footer */
+.mf-footer {
+    margin-left: -260px;
+    background: #946c51;
+    color: white !important;
+}
+
+@media (max-width: 991px) {
+    .mf-footer {
+        margin-left: 0;
+    }
+}
+
+/* 設定頁的css */
+.timeSet{
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px 0 0 0;
+    align-items: center;
+}
+.timeSet h6{
+    text-align: center;
+    line-height: 2;
+}
+.inp-mf{
+    /* background-color: white; */
+    /* width: auto; */
+    width: 280px;
+}
+/* 星期設定 */
+/* .btn-outline-primary {
+     color: white;
+    border-color: #198754;
+    margin: 5px;
+    
+} */
+
+
+.weekSet{
+    /* width: 800px; */
+    display: flex;
+    justify-content: space-between;
+    align-content: stretch;
+    align-items: center;
+}
+
+.cooktimeSet{
+    /* width: 800px; */
+    display: flex;
+    /* justify-content: space-between;
+    align-content: center;
+    align-items: flex-start; */
+}
+
+.g-col-6{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+/* input[type=time] {
+    border: none;
+    outline: none;
+    color: #2a2c2d;
+    font-family: helvetica;
+    width: 250px;
+
+  }
+  
+  /* Wrapper around the hour, minute, second, and am/pm fields as well as 
+  the up and down buttons and the 'X' button */
+  /* input[type=time]::-webkit-datetime-edit-fields-wrapper {
+    display: flex;
+    font-size: 24px;
+    
+  } */
+  
+  /* The space between the fields - between hour and minute, the minute and 
+  second, second and am/pm */
+  /* input[type=time]::-webkit-datetime-edit-text {
+    padding: 10px;
+  } */
+  
+  /* The naming convention for the hour, minute, second, and am/pm field is
+  `-webkit-datetime-edit-{field}-field` */
+  
+  /* Hour */
+  /* input[type=time]::-webkit-datetime-edit-hour-field {
+    background-color: #f2f4f5;
+    border-radius: 15%;
+    width: 50px;
+    height: 50px;
+    padding-top: 12px;
+    text-align: center;
+
+  } */
+  
+  /* Minute */
+  /* input[type=time]::-webkit-datetime-edit-minute-field {
+    background-color: #f2f4f5;
+    border-radius: 15%;
+    width: 50px;
+    height: 50px;padding-top: 12px;
+    text-align: center;
+    
+  } */
+  
+  /* AM/PM */
+  /* input[type=time]::-webkit-datetime-edit-ampm-field {
+    background-color: #7155d3;
+    border-radius: 15%;
+    color: #fff;
+    width: 50px; 
+    height: 50px;padding-top: 12px;
+    text-align: center;
+    
+  } */
+  
+  /* 'X' button for resetting/clearing time */
+  /* input[type=time]::-webkit-clear-button {
+    display: none;
+  } */
+  
+  /* Up/Down arrows for incrementing/decrementing the value */
+  /* input[type=time]::-webkit-inner-spin-button {
+      display: none;
+    } */
+
+
+
+
+
+
+
+
+
+
+
+/* ================================================================================= */
+/* 開關 網路找的 */
+
+
+/* 這裡是開關大小 */
+.switch_demo {
+    position: relative;
+    width: 150px;
+    margin: auto;
+    padding-top: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    }
+    .switch_demo-checkbox {
+    display: none;
+    }
+    .switch_demo-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    }
+    /* 開關背景滑動設定 */
+    .switch_demo-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+    }
+    .switch_demo-inner:before,
+    .switch_demo-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 50px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+    }
+    /* 開關文字設定 */
+    .switch_demo-inner:before {
+    content: "營業中";
+    padding-left: 0;
+    background-color: #6c757d;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 30px;
+    line-height: 50px;
+    }
+    /* 開關文字設定 */
+    .switch_demo-inner:after {
+    content: "未營業";
+    padding-right: 20px;
+    background-color: #c50505;
+    color: #f9f9f9;
+    text-align: right;
+    font-size: 30px;
+    line-height: 50px;
+    }
+    /* 白色開關鈕設定 */
+    .switch_demo-switch {
+        display: block;
+        width: 15px;
+        margin: 6px;
+        height: 40px;
+        background: #FFFFFF;
+        position: absolute;
+        top: 30px;
+        bottom: 0;
+        right: 116px;
+        border: 2px solid #999999;
+        border-radius: 20px;
+        transition: all 0.3s ease-in 0s;
+    }
+    .switch_demo-checkbox:checked + .switch_demo-label .switch_demo-inner {
+    margin-left: 0;
+    }
+    .switch_demo-checkbox:checked + .switch_demo-label .switch_demo-switch {
+    right: 0px;
+    }
+    /* 開關結束 */
+
+
+    /* test */
+    .focusS{
+        background-color: #946c51 !important;
+        color: #ffffff !important;
+    }
+    .flex-balance{
+        flex-basis: 100%;
+        /* width: 150px;
+        height: 50px;
+        font-size: 20px; */
+        /* min-width: 0;
+        min-height:0;
+        overflow: hidden; */
+    }

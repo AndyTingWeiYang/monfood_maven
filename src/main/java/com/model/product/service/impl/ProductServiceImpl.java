@@ -8,15 +8,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.model.product.ProductVO;
-import com.model.product.dao.ProductDAO;
+import com.model.product.ProductVo;
+import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
 import com.model.product.service.ProductService;
 import com.model.product.util.IntTypeAdapter;
 
 public class ProductServiceImpl implements ProductService {
 
-	private ProductDAO productDao;
+	private ProductDao productDao;
 	private Gson gson;
 
 	public ProductServiceImpl() {
@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVO> findAll(Map<String, Object> dataMap) {
+	public List<ProductVo> findAll(Map<String, Object> dataMap) {
 		// TODO: 檢核錯誤目前回傳 null 後續改成 throw ErrorInputException
 		String productId = MapUtils.getString(dataMap, "productId");
 		if (proccessCheckMsg(productId)) {
@@ -63,9 +63,9 @@ public class ProductServiceImpl implements ProductService {
 		String dataJsonStr = gson.toJson(dataMap);
 
 		// 用 gson 將拿到的 JSON 字串轉 VO
-		ProductVO productVO = gson.fromJson(dataJsonStr, ProductVO.class);
+		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
 
-		List<ProductVO> productList = productDao.findAll(productVO);
+		List<ProductVo> productList = productDao.findAll(productVO);
 
 		return productList;
 	}
@@ -88,8 +88,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVO findPic(String productID) {
-		ProductVO pic = productDao.findPic(productID);
+	public ProductVo findPic(String productID) {
+		ProductVo pic = productDao.findPic(productID);
 		return pic;
 	}
 
@@ -99,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
 		String dataJsonStr = gson.toJson(dataMap);
 
 		// 用 gson 將拿到的 JSON 字串轉 VO
-		ProductVO productVO = gson.fromJson(dataJsonStr, ProductVO.class);
+		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
 		System.out.println(productVO);
 		// 將結果用 dao 回傳給 service
 		boolean result = productDao.insert(productVO);
@@ -108,12 +108,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVO findByID(String productID) {
+	public ProductVo findByID(String productID) {
 		return productDao.findByID(productID);
 	}
 
 	@Override
-	public boolean update(ProductVO product) {
+	public boolean update(ProductVo product) {
 
 		return productDao.updateDynanicPic(product);
 	}

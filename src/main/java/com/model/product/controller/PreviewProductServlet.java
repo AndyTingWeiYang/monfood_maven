@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.model.product.ProductVO;
+import com.model.product.ProductVo;
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
 
@@ -41,7 +41,7 @@ public class PreviewProductServlet extends HttpServlet {
 		// 接取前端畫面的參數
 		String productID = request.getParameter("productID");
 		// 藉由參數去抓取一筆的所有資料 (DAO內入資料)
-		ProductVO product = productService.findByID(productID);
+		ProductVo product = productService.findByID(productID);
 		// 設定參數，DB 抓取到的資料暫存到下一頁
 		request.setAttribute("product", product);
 		// 將請求及回應回傳到畫面上

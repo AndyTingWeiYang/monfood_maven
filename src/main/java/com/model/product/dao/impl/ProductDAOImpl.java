@@ -14,10 +14,10 @@ import java.util.Map;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 
-import com.model.product.ProductVO;
-import com.model.product.dao.ProductDAO;
+import com.model.product.ProductVo;
+import com.model.product.dao.ProductDao;
 
-public class ProductDAOImpl implements ProductDAO {
+public class ProductDAOImpl implements ProductDao {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	public static final String USER = "root";
@@ -25,7 +25,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 //	private static DataSource ds = null;
 
-	private static final String SELECT = "select * from MonFood.PRODUCT";
+	private static final String SELECT = "select * from MonFood.PRODUCT where 1 = 1 ";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID=?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
@@ -42,8 +42,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> findAll(ProductVO product) {
-		List<ProductVO> productList = new ArrayList<>();
+	public List<ProductVo> findAll(ProductVo product) {
+		List<ProductVo> productList = new ArrayList<>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -54,7 +54,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 			// 動態 sql 指令
 			StringBuffer sbf = new StringBuffer();
-			sbf.append("select * from MonFood.PRODUCT where 1 = 1 ");
+			sbf.append(SELECT);
 
 			// 取得產品 ID
 			// 將Integer->String判斷是否為空
@@ -98,7 +98,8 @@ public class ProductDAOImpl implements ProductDAO {
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				ProductVO productVO = new ProductVO();
+				// 叫出DB的資料
+				ProductVo productVO = new ProductVo();
 				productVO.setProductID(rs.getInt("PRODUCT_ID"));
 				productVO.setResID(rs.getInt("RES_ID"));
 				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
@@ -143,7 +144,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean update(ProductVO product) {
+	public boolean update(ProductVo product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -186,7 +187,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean updateDynanicPic(ProductVO product) {
+	public boolean updateDynanicPic(ProductVo product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -247,7 +248,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void delete(ProductVO product) {
+	public void delete(ProductVo product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -277,8 +278,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ProductVO findPic(String productId) {
-		ProductVO productVO = new ProductVO();
+	public ProductVo findPic(String productId) {
+		ProductVo productVO = new ProductVo();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -330,7 +331,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public boolean insert(ProductVO product) {
+	public boolean insert(ProductVo product) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -376,11 +377,11 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ProductVO findByID(String productID) {
+	public ProductVo findByID(String productID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVO product = null;
+		ProductVo product = null;
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(SELECT_BY_ID);
@@ -389,7 +390,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				product = new ProductVO();
+				product = new ProductVo();
 				product.setProductID(rs.getInt("PRODUCT_ID"));
 				product.setResID(rs.getInt("RES_ID"));
 				product.setProductPic(rs.getBytes("PRODUCT_PIC"));

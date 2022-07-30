@@ -36,6 +36,8 @@ public class UserDAOImpl implements UserDAO {
 	private static final String DETALLUSERID = "SELECT USER_ID FROM MonFood.USER ORDER BY USER_ID";
 	// 查詢是否有此會員帳號
 	private static final String ISDUPLICATEACCOUNT = "SELECT USER_ACCOUNT FROM MonFood.USER WHERE USER_ACCOUNT = ? ";
+	// 更新小怪獸的等級
+	private static final String UPDATEMONSLV = "UPDATE MonFood.USER SET MONS_LEVEL = ? WHERE USER_ID = ?";
 
 	static {
 		try {
@@ -149,9 +151,9 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(UPDATEPACCOUNTSTATUS);
-			
+
 			pstmt.setString(1, userAccount);
-			
+
 			int checkAccountStatus = pstmt.executeUpdate();
 			System.out.println("我在UserDAOImpl的變數checkAccountStatus：" + checkAccountStatus);
 			if (checkAccountStatus < 1) {
@@ -161,7 +163,7 @@ public class UserDAOImpl implements UserDAO {
 				System.out.println("大於1的結果 代表成功");
 				return "CheckCompleted";
 			}
-			
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured when you updateAccountStatus. " + se.getMessage());
 			// Clean up JDBC resources
@@ -468,6 +470,49 @@ public class UserDAOImpl implements UserDAO {
 
 		return userVO;
 
+	}
+
+	@Override
+	public String updateMonsLv(Integer monsLevel, Integer userId) {
+		// get connect
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEMONSLV);
+			pstmt.setInt(1, monsLevel);
+			pstmt.setInt(2, userId);
+
+			int numOfSuccess = pstmt.executeUpdate();
+			System.out.println("我在UserDAOImpl的變數numOfSuccess" + numOfSuccess);
+			if (numOfSuccess < 1) {
+				System.out.println("小於1的結果 代表失敗");
+				return "UpdateMonsLvFailed";
+			} else {
+				System.out.println("大於1的結果 代表成功");
+				return "UpdateMonsLvCompleted";
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }

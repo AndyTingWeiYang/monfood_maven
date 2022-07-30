@@ -1,7 +1,11 @@
 package com.model.order.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import com.model.monster.IMonsterDAO;
+import com.model.monster.MonsterJDBCDAO;
+import com.model.monster.MonsterVO;
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
@@ -9,6 +13,8 @@ import com.model.order.service.OrderService;
 import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.dao.PromoteListDAO;
 import com.model.promotelist.dao.Impl.PromoteListJDBCDAO;
+import com.model.user.dao.UserDAO;
+import com.model.user.dao.impl.UserDAOImpl;
 
 public class OrderServiceImpl implements OrderService {
 	
@@ -47,7 +53,17 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public Integer createOrder(OrderVO orderVO) {
-		Integer generatedKey = dao.insert(orderVO);
+		Integer generatedKey = null;
+		
+		if (orderVO.getPromoteId() == null) {
+			generatedKey = dao.insertNoPromote(orderVO);
+			if(generatedKey == null) {
+				return null;
+			}
+			return generatedKey;
+		}
+		
+		generatedKey = dao.insert(orderVO);
 		if(generatedKey == null) {
 			return null;
 		}
@@ -66,6 +82,52 @@ public class OrderServiceImpl implements OrderService {
 		promoteListVO = promoteListDAO.findByCode(promoteCode);
 		return promoteListVO;
 	}
+	
+	@Override
+	public MonsterVO monsCheck(Integer userId) throws SQLException {
+		Integer orderTimes = dao.getOrderTimes(userId);
+		UserDAO userDAO = new UserDAOImpl();
+		IMonsterDAO monsterDAO = new MonsterJDBCDAO();
+		MonsterVO monsterVO = new MonsterVO();
+		
+		System.out.println(orderTimes);
+		if (orderTimes / 10 < 1) {
+			userDAO.updateMonsLv(1, userId);
+			monsterVO = monsterDAO.findByPrimaryKey(1);
+			return monsterVO;
+			
+		}else if (orderTimes / 10 == 1) {
+			userDAO.updateMonsLv(2, userId);
+			monsterVO = monsterDAO.findByPrimaryKey(2);
+			return monsterVO;
+			
+		}else if (orderTimes / 10 == 2) {
+			userDAO.updateMonsLv(3, userId);
+			monsterVO = monsterDAO.findByPrimaryKey(3);
+			return monsterVO;
+			
+		}else if (orderTimes / 10 == 3) {
+			userDAO.updateMonsLv(4, userId);
+			monsterVO = monsterDAO.findByPrimaryKey(4);
+			return monsterVO;
+			
+		}else if (orderTimes / 10 >= 4) {
+			userDAO.updateMonsLv(5, userId);
+			monsterVO = monsterDAO.findByPrimaryKey(5);
+			return monsterVO;
+			
+		}else {
+			return null;
+		}
+	}
+	
+	@Override
+	public Integer orderTimes(Integer userId) {
+		Integer orderTimes = dao.getOrderTimes(userId);
+		return orderTimes;
+	}
+	
+	
 	
 	
 }

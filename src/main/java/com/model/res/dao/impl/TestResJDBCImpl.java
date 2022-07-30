@@ -19,109 +19,78 @@ public class TestResJDBCImpl {
 	public static void main(String[] args) throws ParseException, IOException {
 		Scanner sc = new Scanner(System.in);
 
-//System.out.println(----------insert----------);		
+//System.out.println(----------insert----------);	
+
 //		System.out.println("餐廳類別");
 //		Integer resCategory = sc.nextInt();
-//		
+//
 //		System.out.println("帳號");
 //		String resAccount = sc.next();
-//		
-//		System.out.println("銀行戶名");
-//		String accountName = sc.next();
-//		
-//		System.out.println("銀行代碼");
-//		String bankCode = sc.next();
-//		
-//		System.out.println("銀行帳號");
-//		String bankAccount = sc.next();
-//		
-//		System.out.println("銀行名稱");
-//		String bankName = sc.next();
-//		
+//
 //		System.out.println("更新時間系統加入");
-//		
+//
 //		System.out.println("商家名稱");
 //		String resName = sc.next();
-//		
+//
 //		System.out.println("密碼");
 //		String resPassword = sc.next();
-//		
+//
 //		System.out.println("電話");
 //		String resTel = sc.next();
-//		
-//		System.out.println("電子郵件");
-//		String resMail = sc.next();
-//		
-//		System.out.println("營業證");
-//		byte[] bzLicence = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
-//		
+//
 //		System.out.println("照片");
 //		byte[] resPic = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
 //
 //		System.out.println("負責人姓名");
 //		String ownerName = sc.next();
-//		
+//
 //		System.out.println("負責人手機");
 //		String ownerTel = sc.next();
-//		
-//		System.out.println("負責人身分證");
-//		byte[] ownerId = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
 //
 //		System.out.println("營業地址");
 //		String bzLocation = sc.next();
-//		
+//
 //		System.out.println("郵遞區號");
 //		Integer zipCode = sc.nextInt();
-//		
+//
 //		System.out.println("營業開始時間");
 //		String BOH = sc.next();
 //		LocalTime O = LocalTime.parse(BOH);
 //		Time bzOpenHours = Time.valueOf(O);
 //		System.out.println(bzOpenHours);
-//		
+//
 //		System.out.println("營業結束時間");
 //		String BCH = sc.next();
 //		LocalTime C = LocalTime.parse(BCH);
 //		Time bzCloseHours = Time.valueOf(C);
-//		
+//
 //		System.out.println("周間營業時間");
 //		Integer bzWeekTime = sc.nextInt();
-//		
-//		System.out.println("商家狀態");
-//		Integer resStatus = sc.nextInt();
-//			
+//
 //		sc.close();
-//		
+//
 //		ResVO resVO = new ResVO();
 ////		resVO.setResId(resId);
 //		resVO.setResCategory(resCategory);
 //		resVO.setResAccount(resAccount);
-//		resVO.setAccountName(accountName);
-//		resVO.setBankCode(bankCode);
-//		resVO.setBankAccount(bankAccount);
-//		resVO.setBankName(bankName);
 //		long now = System.currentTimeMillis();
-//	    Timestamp sqlTimestamp = new Timestamp(now);
-//	    resVO.setUpdateTime(sqlTimestamp);
+//		Timestamp sqlTimestamp = new Timestamp(now);
+//		resVO.setUpdateTime(sqlTimestamp);
 //		resVO.setResName(resName);
 //		resVO.setResPassword(resPassword);
 //		resVO.setResTel(resTel);
-//		resVO.setResMail(resMail);
-//		resVO.setBzLicence(bzLicence);
 //		resVO.setResPic(resPic);
 //		resVO.setOwnerName(ownerName);
 //		resVO.setOwnerTel(ownerTel);
-//		resVO.setOwnerId(ownerId);
 //		resVO.setBzLocation(bzLocation);
 //		resVO.setZipCode(zipCode);
-//	    resVO.setBzOpenHours(bzOpenHours);
+//		resVO.setBzOpenHours(bzOpenHours);
 //		resVO.setBzCloseHours(bzCloseHours);
 //		resVO.setBzWeekTime(bzWeekTime);
-//		resVO.setResStatus(resStatus);
-//		
+//
 //		ResDAO dao = new ResDAOImpl();
 //		dao.insert(resVO);
-//		
+//
 //		System.out.println("insert successful");
 
 //System.out.println(----------update----------);	
@@ -133,18 +102,6 @@ public class TestResJDBCImpl {
 //
 //		System.out.println("帳號");
 //		String resAccount = sc.next();
-//
-//		System.out.println("銀行戶名");
-//		String accountName = sc.next();
-//
-//		System.out.println("銀行代碼");
-//		String bankCode = sc.next();
-//
-//		System.out.println("銀行帳號");
-//		String bankAccount = sc.next();
-//
-//		System.out.println("銀行名稱");
-//		String bankName = sc.next();
 //
 //		System.out.println("更新時間系統加入");
 //		long now = System.currentTimeMillis();
@@ -159,12 +116,6 @@ public class TestResJDBCImpl {
 //		System.out.println("電話");
 //		String resTel = sc.next();
 //
-//		System.out.println("電子郵件");
-//		String resMail = sc.next();
-//
-//		System.out.println("營業證");
-//		byte[] bzLicence = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
-//
 //		System.out.println("照片");
 //		byte[] resPic = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
 //
@@ -173,9 +124,6 @@ public class TestResJDBCImpl {
 //
 //		System.out.println("負責人手機");
 //		String ownerTel = sc.next();
-//
-//		System.out.println("負責人身分證");
-//		byte[] ownerId = getPicByteArray("C:/JavaFramework/eclipse-workspace/MonFood_Pic/userPic_02.jpg");
 //
 //		System.out.println("營業地址");
 //		String bzLocation = sc.next();
@@ -197,14 +145,10 @@ public class TestResJDBCImpl {
 //		System.out.println("周間營業時間");
 //		Integer bzWeekTime = sc.nextInt();
 //
-//		System.out.println("商家狀態");
-//		Integer resStatus = sc.nextInt();
-//
 //		sc.close();
 //
-//		ResVO resVo = new ResVO(resId, resCategory, resAccount, accountName, bankCode, bankAccount, bankName,
-//				updateTime, resName, resPassword, resTel, resMail, bzLicence, resPic, ownerName, ownerTel, ownerId,
-//				bzLocation, zipCode, bzOpenHours, bzCloseHours, bzWeekTime, resStatus);
+//		ResVO resVo = new ResVO(resId, resCategory, resAccount, updateTime, resName, resPassword, resTel, resPic,
+//				ownerName, ownerTel, bzLocation, zipCode, bzOpenHours, bzCloseHours, bzWeekTime);
 //		ResDAO dao = new ResDAOImpl();
 //		dao.update(resVo);
 //		System.out.println("update successful");
@@ -232,26 +176,18 @@ public class TestResJDBCImpl {
 //		System.out.println("ResId = " + resVO.getResId());
 //		System.out.println("ResCategory = " + resVO.getResCategory());
 //		System.out.println("ResAccount = " + resVO.getResAccount());
-//		System.out.println("AccountName = " + resVO.getAccountName());
-//		System.out.println("BankCode = " + resVO.getBankCode());
-//		System.out.println("BankAccount = " + resVO.getBankAccount());
-//		System.out.println("BankName = " + resVO.getBankName());
 //		System.out.println("UpdateTime = " + resVO.getUpdateTime());
 //		System.out.println("ResName = " + resVO.getResName());
 //		System.out.println("ResPassword = " + resVO.getResPassword());
 //		System.out.println("ResTel = " + resVO.getResTel());
-//		System.out.println("ResMail = " + resVO.getResMail());
-//		System.out.println("BzLicence = " + resVO.getBzLicence());
 //		System.out.println("getResPic = " + resVO.getResPic());
 //		System.out.println("OwnerName = " + resVO.getOwnerName());
 //		System.out.println("OwnerTel = " + resVO.getOwnerTel());
-//		System.out.println("OwnerId = " + resVO.getOwnerId());
 //		System.out.println("BzLocation = " + resVO.getBzLocation());
 //		System.out.println("ZipCode = " + resVO.getZipCode());
 //		System.out.println("BzOpenHours = " + resVO.getBzOpenHours());
 //		System.out.println("BzCloseHours = " + resVO.getBzCloseHours());
 //		System.out.println("BzWeekTime = " + resVO.getBzWeekTime());
-//		System.out.println("ResStatus = " + resVO.getResStatus());
 //		
 //		System.out.println("selectByResId successful");
 
@@ -268,9 +204,12 @@ public class TestResJDBCImpl {
 //		
 //		System.out.println("查詢完畢，"+"共"+count++ +"筆資料");		
 //		
-
+//
 	}
-
+		
+		
+		
+	
 	// Pic IO method
 	public static byte[] getPicByteArray(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);

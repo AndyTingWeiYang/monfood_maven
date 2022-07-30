@@ -125,7 +125,7 @@
 						<!-- 預覽圖片 -->
 						<div class="row">
 							<div class="col-sm-6">
-								<span>預覽圖片</span> <img width="100%"
+								<span>原產品圖片</span> <img width="100%"
 									src="ProductPicServlet?productID=${product.productID}" />
 							</div>
 							<!-- 更新圖片區塊 -->
