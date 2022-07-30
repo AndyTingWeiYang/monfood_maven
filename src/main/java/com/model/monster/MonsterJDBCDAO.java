@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.model.product.ProductVO;
-
 public class MonsterJDBCDAO implements IMonsterDAO {
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
