@@ -158,11 +158,26 @@ window.addEventListener('load', function(){
 
       let discountVal = msg.monsterInfo.discount;
       let monsLevel = msg.monsterInfo.monsLevel;
+      let orderTimes = msg.orderTimes;
+      let picBase64 = msg.monsPic;
       $('.discountVal').text(discountVal);
       $('.discountValBottom').text(discountVal);
       $('.monsLevelBottom').text(monsLevel);
+      $('#monsPic').attr('src', 'data:image/jpg;base64,' + picBase64)
       // 總金額
       $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
+      
+      // 小怪獸EXP
+      let levelEXP = (orderTimes % 10)+1;
+      if(orderTimes >= 40){
+        $('#levelEXP').css('width', `100%`).text('100%');
+      }else if(orderTimes >= 10 && levelEXP == 0){
+        $('#levelEXP').css('width', `100%`).text('100%');
+      }else{
+        $('#levelEXP').css('width', `${levelEXP}0%`).text(`${levelEXP}0%`)
+      }
+
+
     },
     error: function(errMsg){
       console.log(errMsg)
@@ -256,6 +271,9 @@ window.addEventListener('load', function(){
         // 總卡路里
         kcalTotal += this.productKcal * this.amount;
         $('.cartList').append(cartLi);
+        
+        // 卡路里EXP
+
       })
     })
   // 小記
@@ -346,7 +364,7 @@ window.addEventListener('load', function(){
     })
   })
 
-  
+  // 記帳EXP
 
 ////////////////////////////////// 送出訂單 //////////////////////////////////////
   $('.submit').on('click', function(){
