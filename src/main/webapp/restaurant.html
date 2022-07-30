@@ -97,7 +97,7 @@
                   </div>
 
                   <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
-                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
                 </div>
               </a>
             </div>
@@ -194,7 +194,7 @@
                   </div>
 
                   <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
-                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
                 </div>
               </a>
             </div>
@@ -213,9 +213,14 @@
         >
           前往結帳
         </button>
+        <button
+          class="clear_btn"
+          style="border: none; border-radius: 5px; font-size: 20px"
+        >
+          清空購物車
+        </button>
       </div>
     </div>
-
     <!-- offcanvas -->
     <header>
       <!-- navbar -->
@@ -463,125 +468,6 @@
         <!-- product div -->
         <div class="container">
           <div class="row">
-            <div class="col-xl-3 col-6 col d-flex justify-content-center">
-              <div>
-                <div
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <div
-                    id="product_img"
-                    style="height: 196px; width: 240px; overflow: hidden"
-                  >
-                    <img
-                      id="showPopup"
-                      src="images/20190813JEF004__20190813_L.jpg"
-                      alt=""
-                      height="196px"
-                      width="240px"
-                    />
-                  </div>
-                  <p>麥香雞堡套餐</p>
-                  <p>$ 117</p>
-                </div>
-
-                <!-- Modal -->
-
-                <div
-                  class="modal fade"
-                  id="exampleModal"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          麥香雞堡套餐
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <div
-                          id="modal-img"
-                          style="width: 380px; overflow: hidden; margin: auto"
-                        >
-                          <img
-                            src="images/20190813JEF004__20190813_L.jpg"
-                            alt=""
-                            style="display: block; width: 100%"
-                          />
-                        </div>
-                        <div style="padding: 20px">
-                          <h4 style="font-weight: bold">麥香雞堡套餐</h4>
-                          <h6>419 Kcal</h6>
-                          <h6>$139</h6>
-                        </div>
-                        <!--  -->
-                        <div class="Qcontainer">
-                          <div
-                            class="quantity-control"
-                            data-quantity=""
-                            style="margin-top: 0px"
-                          >
-                            <button class="quantity-btn" data-quantity-minus="">
-                              <svg viewBox="0 0 409.6 409.6">
-                                <g>
-                                  <g>
-                                    <path
-                                      d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"
-                                    />
-                                  </g>
-                                </g>
-                              </svg>
-                            </button>
-                            <input
-                              type="number"
-                              class="quantity-input"
-                              data-quantity-target=""
-                              value="1"
-                              step="1"
-                              min="1"
-                              max=""
-                              name="quantity"
-                            />
-                            <button class="quantity-btn" data-quantity-plus="">
-                              <svg viewBox="0 0 426.66667 426.66667">
-                                <path
-                                  d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-
-                          <!--  -->
-                        </div>
-                      </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: center"
-                      >
-                        <button
-                          type="button"
-                          class="add_to_cart"
-                          style="width: 400px; background-color: #ff7f3f"
-                        >
-                          加入購物車
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             <!--  -->
             <div class="col-xl-3 col-6 col d-flex justify-content-center">
               <div>
@@ -681,129 +567,9 @@
                               </svg>
                             </button>
                           </div>
-
-                          <!--  -->
                         </div>
-                      </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: center"
-                      >
-                        <button
-                          type="button"
-                          class="add_to_cart"
-                          style="width: 400px; background-color: #ff7f3f"
-                        >
-                          加入購物車
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--  -->
-            <div class="col-xl-3 col-6 col d-flex justify-content-center">
-              <div>
-                <div
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <div
-                    id="product_img"
-                    style="height: 196px; width: 240px; overflow: hidden"
-                  >
-                    <img
-                      id="showPopup"
-                      src="images/20190813JEF004__20190813_L.jpg"
-                      alt=""
-                      height="196px"
-                      width="240px"
-                    />
-                  </div>
-                  <p>麥香雞堡套餐</p>
-                  <p>$ 117</p>
-                </div>
 
-                <!-- Modal -->
-
-                <div
-                  class="modal fade"
-                  id="exampleModal"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          麥香雞堡套餐
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <div
-                          id="modal-img"
-                          style="width: 380px; overflow: hidden; margin: auto"
-                        >
-                          <img
-                            src="images/20190813JEF004__20190813_L.jpg"
-                            alt=""
-                            style="display: block; width: 100%"
-                          />
-                        </div>
-                        <div style="padding: 20px">
-                          <h4 style="font-weight: bold">麥香雞堡套餐</h4>
-                          <h6>419 Kcal</h6>
-                          <h6>$139</h6>
-                        </div>
                         <!--  -->
-                        <div class="Qcontainer">
-                          <div
-                            class="quantity-control"
-                            data-quantity=""
-                            style="margin-top: 0px"
-                          >
-                            <button class="quantity-btn" data-quantity-minus="">
-                              <svg viewBox="0 0 409.6 409.6">
-                                <g>
-                                  <g>
-                                    <path
-                                      d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"
-                                    />
-                                  </g>
-                                </g>
-                              </svg>
-                            </button>
-                            <input
-                              type="number"
-                              class="quantity-input"
-                              data-quantity-target=""
-                              value="1"
-                              step="1"
-                              min="1"
-                              max=""
-                              name="quantity"
-                            />
-                            <button class="quantity-btn" data-quantity-plus="">
-                              <svg viewBox="0 0 426.66667 426.66667">
-                                <path
-                                  d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-
-                          <!--  -->
-                        </div>
                       </div>
                       <div
                         class="modal-footer"
@@ -822,127 +588,6 @@
                 </div>
               </div>
             </div>
-            <!--  -->
-            <div class="col-xl-3 col-6 col d-flex justify-content-center">
-              <div>
-                <div
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <div
-                    id="product_img"
-                    style="height: 196px; width: 240px; overflow: hidden"
-                  >
-                    <img
-                      id="showPopup"
-                      src="images/20190813JEF004__20190813_L.jpg"
-                      alt=""
-                      height="196px"
-                      width="240px"
-                    />
-                  </div>
-                  <p>麥香雞堡套餐</p>
-                  <p>$ 117</p>
-                </div>
-
-                <!-- Modal -->
-
-                <div
-                  class="modal fade"
-                  id="exampleModal"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          麥香雞堡套餐
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <div
-                          id="modal-img"
-                          style="width: 380px; overflow: hidden; margin: auto"
-                        >
-                          <img
-                            src="images/20190813JEF004__20190813_L.jpg"
-                            alt=""
-                            style="display: block; width: 100%"
-                          />
-                        </div>
-                        <div style="padding: 20px">
-                          <h4 style="font-weight: bold">麥香雞堡套餐</h4>
-                          <h6>419 Kcal</h6>
-                          <h6>$139</h6>
-                        </div>
-                        <!--  -->
-                        <div class="Qcontainer">
-                          <div
-                            class="quantity-control"
-                            data-quantity=""
-                            style="margin-top: 0px"
-                          >
-                            <button class="quantity-btn" data-quantity-minus="">
-                              <svg viewBox="0 0 409.6 409.6">
-                                <g>
-                                  <g>
-                                    <path
-                                      d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"
-                                    />
-                                  </g>
-                                </g>
-                              </svg>
-                            </button>
-                            <input
-                              type="number"
-                              class="quantity-input"
-                              data-quantity-target=""
-                              value="1"
-                              step="1"
-                              min="1"
-                              max=""
-                              name="quantity"
-                            />
-                            <button class="quantity-btn" data-quantity-plus="">
-                              <svg viewBox="0 0 426.66667 426.66667">
-                                <path
-                                  d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-
-                          <!--  -->
-                        </div>
-                      </div>
-                      <div
-                        class="modal-footer"
-                        style="display: flex; justify-content: center"
-                      >
-                        <button
-                          type="button"
-                          class="add_to_cart"
-                          style="width: 400px; background-color: #ff7f3f"
-                        >
-                          加入購物車
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 以下新的row -->
           </div>
         </div>
         <br />
@@ -992,7 +637,7 @@
       </div>
     </div>
     <!-- Footer -->
-    <script src="jquery/jquery.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
     <script src="js/restaurant.js"></script>
   </body>
 </html>

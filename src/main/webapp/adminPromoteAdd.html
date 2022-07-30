@@ -236,7 +236,7 @@
           var url = "PromoteListServlet";
           fetch(url, {
             method: "POST",
-            scriptCharset: 'GBK',
+            // scriptCharset: 'GBK',
             headers: {
               "content-Type": "application.json",
             },
@@ -258,6 +258,7 @@
 
       //優惠代碼驗證
       $("#promoteCode").on("blur", function () {
+        // $("#promoteCode").html("");
         var numCheck = /^[0-9]*$/;
         //空白驗證
         if (

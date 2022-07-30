@@ -93,11 +93,11 @@
                     <table class="table table-head-fixed text-nowrap">
                       <thead>
                         <tr>
-                          <th>優惠券編號</th>
-                          <th>優惠券代碼</th>
-                          <th>優惠折抵</th>
-                          <th>開始日期</th>
-                          <th>結束日期</th>
+                          <th style="width: 130px">優惠券編號</th>
+                          <th style="width: 150px">優惠券代碼</th>
+                          <th style="width: 130px">優惠折抵</th>
+                          <th style="width: 150px">開始日期</th>
+                          <th style="width: 150px">結束日期</th>
                           <th>狀態</th>
                         </tr>
                       </thead>
@@ -148,6 +148,45 @@
           }
         });
 
+        //update
+        $("#content").on("click", "button.edit", function () {
+          var promoteId = $("td.promoteId").text();
+          var promoteCode = $("td.promoteCode").text();
+          var promotePrice = $("td.promotePrice").text();
+          var startDate = $("td.startDate").text();
+          var endDate = $("td.endDate").text();
+          var status = $("input.editStatus").val();
+
+          var updateServlet = "updateServlet";
+
+          const url = "PromoteListUpdateServlet";
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "content-Type": "application.json",
+            },
+            body: JSON.stringify({
+              // action: Edit,
+              promoteId: promoteId,
+              promoteCode: promoteCode,
+              promotePrice: promotePrice,
+              startDate: startDate,
+              endDate: endDate,
+              status: editStatus,
+            }),
+          })
+            .then(function (response) {
+              if (response.ok) {
+                console.log("修改成功收到回應");
+                return response.json();
+              }
+              throw new Error(response.statusText);
+            })
+            .then(function (data) {
+              console.log(data);
+            });
+        });
+
         // selectOne
         $("#selectOne").on("click", function () {
           let errMsg;
@@ -187,6 +226,7 @@
                     <td>${res["PromoteLists"].status}</td>
                     </tr>
                     `;
+
               $("#content").html(table_html);
             },
           });
@@ -219,6 +259,7 @@
                     <td>${data.startDate}</td>
                     <td>${data.endDate}</td>
                     <td>${data.status}</td>
+                  
                     </tr>
                     `;
                   $("#content").append(table_html);

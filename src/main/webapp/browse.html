@@ -216,6 +216,12 @@
         >
           前往結帳
         </button>
+        <button
+          class="clear_btn"
+          style="border: none; border-radius: 5px; font-size: 20px"
+        >
+          清空購物車
+        </button>
       </div>
     </div>
 
@@ -444,7 +450,7 @@
         </div>
         <div class="panel">
           <!--  -->
-          <div>
+          <!-- <div>
             分類
 
             <input
@@ -455,9 +461,9 @@
             />
             <label class="form-check-label" for="flexRadioDefault1"
               >專屬推薦</label
-            >
+            > -->
 
-            <input
+          <!-- <input
               class="form-check-input"
               type="radio"
               name="flexRadioDefault"
@@ -486,9 +492,9 @@
             <label class="form-check-label" for="flexRadioDefault4"
               >價格(低→高)</label
             >
-          </div>
+          </div> -->
 
-          <div>
+          <!-- <div>
             價格範圍
             <span class="price_range">
               <input type="text" class="range" style="width: 130px" />
@@ -496,11 +502,11 @@
               <input type="text" class="range" style="width: 130px" />
               元
             </span>
-          </div>
+          </div> -->
 
           <!-- 外送費 -->
 
-          <div class="delfee">
+          <!-- <div class="delfee">
             外送費
 
             <input
@@ -542,15 +548,16 @@
             <label class="form-check-label" for="flexRadioDefault4">
               $60+
             </label>
-          </div>
+          </div> -->
 
           <div>
-            飲食限制
+            餐廳分類
             <span class="button">
-              <button class="restriction">蔬食料理</button>
-              <button class="restriction">純素食料理</button>
-              <button class="restriction">無麩質料理</button>
-              <button class="restriction">過敏者可食用</button>
+              <button class="restriction">美式料理</button>
+              <button class="restriction">日式料理</button>
+              <button class="restriction">中式料理</button>
+              <button class="restriction">韓式料理</button>
+              <button class="restriction">泰式料理</button>
             </span>
           </div>
         </div>
@@ -604,7 +611,7 @@
       <!-- product today head -->
 
       <div class="todaypromote_head">
-        <span class="s1"> 本日優惠 </span>
+        <span class="s1"> 所有餐廳 </span>
       </div>
 
       <!-- product today head end -->
@@ -628,10 +635,11 @@
                   "
                 >
                   <div
-                    id="product_img"
+                    id="resPic"
                     style="height: 170px; width: 270px; overflow: hidden"
                   >
                     <img
+                      id="resPic"
                       src="images/111.jpg"
                       alt=""
                       class="mt-1"
@@ -641,6 +649,7 @@
                   </div>
                   <div class="row justify-content-between" style="margin: 0">
                     <div
+                      id="resName"
                       class="col-md-6 d-flex"
                       style="
                         text-align: left;
@@ -792,7 +801,7 @@
         <!-- 以下可新增新的row -->
       </div>
 
-      <div class="popular_head">
+      <!-- <div class="popular_head">
         <span class="s3"> 熱門餐廳 </span>
       </div>
 
@@ -849,7 +858,7 @@
             </a>
           </div>
 
-          <!--  -->
+         
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
@@ -901,7 +910,7 @@
             </a>
           </div>
 
-          <!--  -->
+        
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
@@ -953,9 +962,8 @@
             </a>
           </div>
 
-          <!--  -->
         </div>
-        <!-- row結束 -->
+       
         <div class="row" style="justify-content: space-around">
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
@@ -1008,7 +1016,7 @@
             </a>
           </div>
 
-          <!--  -->
+      
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
@@ -1060,7 +1068,7 @@
             </a>
           </div>
 
-          <!--  -->
+       
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
@@ -1112,9 +1120,9 @@
             </a>
           </div>
 
-          <!--  -->
+         
         </div>
-      </div>
+      </div> -->
 
       <!-- product end -->
       <li class="d-flex justify-content-center">
@@ -1167,7 +1175,7 @@
     </div>
     <!-- Footer -->
 
-    <script src="/assets/js/jquery.forMandy.js"></script>
+    <script src="assets/js/jquery.forMandy.js"></script>
     <script src="js\browse.js"></script>
   </body>
 </html>
