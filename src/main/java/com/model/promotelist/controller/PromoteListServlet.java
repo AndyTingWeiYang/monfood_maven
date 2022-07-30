@@ -28,7 +28,9 @@ public class PromoteListServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+//		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=utf-8;");
+		request.setCharacterEncoding("UTF-8");
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
 		JsonObject respObj = new JsonObject();
