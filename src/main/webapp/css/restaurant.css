@@ -130,16 +130,14 @@ body {
   font-family: "Inter", sans-serif;
 }
 .Qcontainer {
-  
   width: 45%;
   margin: 0 auto;
 }
-.container h1 {
+.Qcontainer h1 {
   font-weight: bold;
 }
 
 .quantity-control {
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
