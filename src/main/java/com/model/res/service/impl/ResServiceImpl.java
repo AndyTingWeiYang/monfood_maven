@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
 import com.model.res.dao.impl.ResDAOImpl;
@@ -129,6 +130,12 @@ public class ResServiceImpl implements ResService {
 		
 		
 		
+	}
+
+	@Override
+	public List<ResVO> adminFindResAll() {
+		List<ResVO> list = dao.getAll();
+		return list;
 	}
 
 }
