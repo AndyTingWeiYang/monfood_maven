@@ -1,8 +1,14 @@
 package com.model.res.dao.impl;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
 
@@ -31,7 +37,7 @@ public class ResDAOImpl implements ResDAO {
 	private static final String ISDUPLICATEACCOUNT = "SELECT RES_ACCOUNT FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
 	// 使用餐廳分類查詢一筆多筆資料
 	private static final String SELECTBYCATEGORY = "SELECT * FROM RES WHERE RES_CATEGORY = ? ";
-	
+
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -427,7 +433,7 @@ public class ResDAOImpl implements ResDAO {
 	@Override
 	public List<ResVO> selectByCategory(Integer resCategory) {
 		List<ResVO> list = new ArrayList<>();
-		ResVO resVO =null;
+		ResVO resVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -482,8 +488,52 @@ public class ResDAOImpl implements ResDAO {
 
 		return list;
 	}
+
+	@Override
+	public boolean updateResInfo(ResDto resDto) {
+		String updateResInfo = "UPDATE MonFood.RES SET RES_CATEGORY = ?,RES_TEL = ?,RES_PIC = ? ,OWNER_NAME = ? ,BZ_LOCATION = ? ,ZIP_CODE = ?  WHERE RES_ID = ?";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(updateResInfo);
+
+			pstmt.setInt(1, resDto.getResCategory());
+			pstmt.setString(2, resDto.getResPhone());
+			pstmt.setBytes(3, resDto.getResFile());
+			pstmt.setString(4, resDto.getOwnerName());
+			pstmt.setString(5, resDto.getCountry() + resDto.getDistrict() + resDto.getBzAdd());
+			pstmt.setInt(6, resDto.getZipcode());
+			pstmt.setInt(7, resDto.getResID());
+
+			int result = pstmt.executeUpdate();
+
+			if (result > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return false;
+	}
 }
-
-	
-
-

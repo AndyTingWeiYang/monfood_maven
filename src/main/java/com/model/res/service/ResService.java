@@ -2,6 +2,7 @@ package com.model.res.service;
 
 import java.util.List;
 
+import com.model.res.ResDto;
 import com.model.res.ResVO;
 
 public interface ResService {
@@ -13,4 +14,6 @@ public interface ResService {
 	String isDuplicateAccount(ResVO resVO);
 	List<ResVO> adminFindResAll();
 	List<ResVO> adminFindByCategory(Integer resCategory);
+	boolean updateResInfo(ResDto resDto);
+	ResVO selectByResId(Integer resId);
 }
