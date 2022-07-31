@@ -171,6 +171,29 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public UserVO getOneByUserAccount(String userAccount) {
+		UserVO getUserVO = dao.selectByUserAccount(userAccount);
+
+		return getUserVO;
+		
+	}
+
+	@Override
+	public List<UserVO> getOneByUserName(String userName) {
+		List<UserVO> listUserVO = dao.selectByUserName(userName);
+
+		return listUserVO;
+			
+	}
+
+	@Override
+	public List<UserVO> getAll() {
+		List<UserVO> listUserVO = dao.getAll();
+		
+		return listUserVO;
+	}
+
 }
 
 //int userId = loginUserVO.getUserId();	

@@ -11,6 +11,7 @@ public interface UserDAO {
 	void delete(Integer userId);
 	public UserVO selectByUserId(Integer userId);
 	public UserVO selectByUserAccount(String userAccount);
+	List<UserVO> selectByUserName(String userName);
 //	public UserVO updateByUserAccount(String userAccount);
 	List<UserVO> getAll();
 	List<Integer> getAllUserId(); 

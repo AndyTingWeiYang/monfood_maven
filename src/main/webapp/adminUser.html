@@ -5,7 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>MonFood</title>
+
   <!-- w3c.js 引入共用畫面 -->
+  <style>
+    
+    .noticespan{
+      color: red;
+      font-size: 18px;
+    }
+
+    .searchResult{
+      width: 100%;
+    }
+
+  </style>
 
 </head>
 
@@ -47,83 +60,10 @@
 
             </div>
           </div>
+          <div class="searchResult">
 
-          <h3 class="card-title" style="color: black;">查詢結果</h3>
-          <div class="row result">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header"style="background-color: #e9ecef;">
-                  <img src="images\0bca57b27bed8e50cf33ac9411a45482d61d807b.png" alt="我是圖片" width="100px" heigh="100px">
-                  <span style="font-size: 25px;"><strong class="thName">蔡方瑜</strong></span>
-                </div>
-          
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                      <tr>
-                        <th class="thUserID">編號</th>
-                        <th class="thUserAccount">帳號</th>
-                        <th class="thUserTel">電話</th>
-                        <th class="thUserBirthday">生日</th>
-                        <th class="thUserAccountStatus">帳號狀態</th>
-                        <th class="thCalories">熱量</th>
-                        <th class="thBuget">每日預算</th>
-                        <th class="thMonsLevel">小怪獸等級</th>
-                        <th class="thUpdate">最後修改時間</th>
-                      </tr>
-                      
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="thUserID">1</td>
-                        <td class="thUserAccount">John Doe</td>
-                        <td class="thUserTel">11-7-2014</td>
-                        <td class="thUserBirthday">123</td>
-                        <td class="thUserAccountStatus">Bacon </td>
-                        <td class="thCalories">John Doe</td>
-                        <td class="thBuget">11-7-2014</td>
-                        <td class="thMonsLevel">123</td>
-                        <td class="thUpdate">Bacon </td>
-                      </tr>
-                    </tbody>                    
-                  </table>
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                      訂單紀錄
-                      <tr>
-                        <th>編號</th>
-                        <th>帳號</th>
-                        <th>電話</th>
-                        <th>生日</th>
-                        <th>帳號狀態</th>
-                        <th>熱量</th>
-                        <th>每日預算</th>
-                        <th>小怪獸等級</th>
-                        <th>最後修改時間</th>
-                      </tr>
-                      
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td>123</td>
-                        <td>Bacon </td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td>123</td>
-                        <td>Bacon </td>
-                      </tr>
-                    </tbody>                    
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
           </div>
+           
 
 
         </div>
@@ -137,7 +77,7 @@
       </div>
     </div>
   </div>
-  <script src="assets/js/jQuery-3.6.0.js"></script>
+  <script src="assets/js/jQuery-3.6.0.js"></script> 
   <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -151,72 +91,317 @@
           document.head.appendChild(scriptElement);
         }
       });
+      
 
-      // 消除ajax發出後的錯誤提示
-      $("#userAccount , #userName").on("blur",function(){
-        if(inputUserAccount != "" || inputUserName != ""){
-          $(".pointspan").removeClass("noticespan").text('');
-        }
-      });
+    // 帳號格式驗證
+    $("#userAccount").on("blur",function(){
+      var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+      if(!(pattern.test($("#userAccount").val().trim()))){
+        $(".pointspan").addClass("noticespan").text('*請輸入正確格式');
+      }else{
+        $(".pointspan").removeClass("noticespan").text('');
+      }
+    });
 
-      // 重設資料發出給伺服器
+    $("#userName").on("focus",function(){
+      $(".pointspan").removeClass("noticespan").text('');
+      $("#userAccount").val("");
+    
+    });
+
+    $("#userAccount").on("focus",function(){
+      $(".pointspan").removeClass("noticespan").text('');
+      $("#userName").val("");
+    });
+
+
+
+
+      var userAccount = $("#userAccount");
+      var userName = $("#userName");
+     
       $("#enter").on("click",function(){
-        var inputUserAccount = $("#userAccount").val().trim();
-        var inputUserName = $("#userName").val().trim();
-
-        if(inputUserAccount=="" && inputUserName==""){
-          $(".pointspan").addClass("noticespan").text("請輸入查詢內容");
-        }
-        
+        $(".searchResult").children().remove();
         if($("span").hasClass("noticespan")){
           alert("查詢失敗");
           return;
         }
-       
-            $.ajax({
-              url: "AdminUserGetOne",           
+
+        if(userAccount.val().trim()!="" && userName.val().trim()==""){
+          // 用使用者帳號查使用者資料
+          $.ajax({
+              url: "AdminUserGetOneByAccount",           
               type: "POST",                  
-              data: JSON.stringify({ 
-                "resAccount": $("#resaccount").val().trim(),
-                "resPassword": $("#respassword").val().trim()
-              }),             
+              data: JSON.stringify({ userAccount: userAccount.val().trim()}),             
               contentType : "application/json;charset=utf-8",
               dataType: "json",             
-              success: function(data){      // request 成功取得回應後執行
-                var mapData = JSON.parse()
+              success: function(res){      // request 成功取得回應後執行
+                // console.log(res);           
+                if(res.errMsg=="無此會員"){
+                  $(".pointspan").addClass("noticespan").text("無此會員");
+                }else{
+                  var accountStatus = null;
+                  if(res["userVO"].userAccountStatus==0){
+                    var accountStatus="未生效";
+                  }else{
+                    var accountStatus="已驗證";
+                  }
+           
+                  
+                  let html = `
+                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                  <div class="result">
+                    
+                      <div class="card">
+                        <div class="card-header"style="background-color: #e9ecef;">
+                          <img src="data:image/png;base64 , ${res.profilePic}" alt="會員大頭貼" width="100px" heigh="100px">
+                          <span style="font-size: 25px;"><strong class="thName">${res["userVO"].userName}</strong></span>
+                        </div>
+                          
+                        <div class="card-body table-responsive p-0"  >
+                          <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                              <tr>
+                                <th class="thUserID">編號</th>
+                                <th class="thUserAccount">帳號</th>
+                                <th class="thUserTel">電話</th>
+                                <th class="thUserBirthday">生日</th>
+                                <th class="thUserAccountStatus">帳號狀態</th>
+                                <th class="thCalories">熱量</th>
+                                <th class="thBuget">每日預算</th>
+                                <th class="thMonsLevel">小怪獸等級</th>
+                                <th class="thUpdate">最後修改時間</th>
+                              </tr>
+                                
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>${res["userVO"].userId}</td>
+                                <td>${res["userVO"].userAccount}</td>
+                                <td>${res["userVO"].userTel}</td>
+                                <td>${res["userVO"].birthday}</td>
+                                <td>${accountStatus}</td>
+                                <td>${res["userVO"].calories}</td>
+                                <td>${res["userVO"].budget}</td>
+                                <td>${res["userVO"].monsLevel}</td>
+                                <td>${res["userVO"].updateTime}</td>               
+                              </tr>  
+                            </tbody>  
+                          </table>              
+                        
+                        </div>
+                      
+                      </div>
+            
+                    
+                  </div>              
+                `;
+                $(".searchResult").prepend(html);
+                }
+
               },error: function(errMsg){         // request 發生錯誤的話執行
                   console.log(errMsg);  
               }
             });
 
+        }else if(userAccount.val().trim()=="" && userName.val().trim()!=""){
+          // 用使用者姓名查使用者資料
+          $.ajax({
+              url: "AdminUserGetOneByName",           
+              type: "POST",                  
+              data: JSON.stringify({ userName: userName.val().trim()}),             
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(res){      // request 成功取得回應後執行
+                console.log(res);
+                if(res.errMsg=="無此會員"){
+                  $(".pointspan").addClass("noticespan").text("無此會員");
+                }else{
 
+                  let html = `
+                    <div class="result">
+                      
+                        <div class="card">
+                          <div class="card-header"style="background-color: #e9ecef;">
+                            <h3 class="card-title" style="color: black;">查詢結果</h3>                         
+                          </div>
+                            
+                          <div class="card-body table-responsive p-0"  >
+                            <table class="table table-head-fixed text-nowrap">
+                              <thead>
+                                <tr>
+                                  <th class="thUserID">編號</th>
+                                  <th class="thUserName">姓名</th>
+                                  <th class="thUserAccount">帳號</th>
+                                  <th class="thUserTel">電話</th>
+                                  <th class="thUserBirthday">生日</th>
+                                  <th class="thUserAccountStatus">帳號狀態</th>
+                                  <th class="thCalories">熱量</th>
+                                  <th class="thBuget">每日預算</th>
+                                  <th class="thMonsLevel">小怪獸等級</th>
+                                  <th class="thUpdate">最後修改時間</th>
+                                </tr>
+                                  
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>  
+                            </table>              
+                          
+                          </div>
+                        
+                        </div>
+              
+                      
+                    </div>              
+                  `;
+                    $(".searchResult").prepend(html);
 
+                  (res.userVO).forEach(function(res,index){
+                    var accountStatus = null;
+                    if(res.userAccountStatus==0){
+                      var accountStatus="未生效";
+                    }else{
+                      var accountStatus="已驗證";
+                    }
+                    
+                    let tds = `
+                      <tr>
+                        <td>${res.userId}</td>
+                        <td>${res.userName}</td>
+                        <td>${res.userAccount}</td>
+                        <td>${res.userTel}</td>
+                        <td>${res.birthday}</td>
+                        <td>${accountStatus}</td>
+                        <td>${res.calories}</td>
+                        <td>${res.budget}</td>
+                        <td>${res.monsLevel}</td>
+                        <td>${res.updateTime}</td>               
+                      </tr>                               
+                    `;
+                    $("tbody").after(tds);
+                  })
+                }
 
-          });
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
+        }else if (userAccount.val().trim()=="" && userName.val().trim()==""){
+          // 查全部使用者資料
+          $.ajax({
+              url: "AdminUserGetAll",           
+              type: "POST",                  
+              // data: JSON.stringify({ userName: userName.val().trim()}),             
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(res){     
+                // console.log(res);
+                if(res.errMsg=="系統錯誤"){
+                  $(".pointspan").addClass("noticespan").text("系統錯誤");
+                }else{
+                  let html = `
+                    <div class="result">
+                      
+                        <div class="card">
+                          <div class="card-header"style="background-color: #e9ecef;">
+                            <h3 class="card-title" style="color: black;">查詢結果</h3>                         
+                          </div>
+                            
+                          <div class="card-body table-responsive p-0"  >
+                            <table class="table table-head-fixed text-nowrap">
+                              <thead>
+                                <tr>
+                                  <th class="thUserID">編號</th>
+                                  <th class="thUserName">姓名</th>
+                                  <th class="thUserAccount">帳號</th>
+                                  <th class="thUserTel">電話</th>
+                                  <th class="thUserBirthday">生日</th>
+                                  <th class="thUserAccountStatus">帳號狀態</th>
+                                  <th class="thCalories">熱量</th>
+                                  <th class="thBuget">每日預算</th>
+                                  <th class="thMonsLevel">小怪獸等級</th>
+                                  <th class="thUpdate">最後修改時間</th>
+                                </tr>
+                                  
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>  
+                            </table>              
+                          
+                          </div>
+                        
+                        </div>
+              
+                      
+                    </div>              
+                  `;
+                    $(".searchResult").prepend(html);
 
+                  (res.userList).forEach(function(res,index){
+                    var accountStatus = null;
+                    if(res.userAccountStatus==0){
+                      var accountStatus="未生效";
+                    }else{
+                      var accountStatus="已驗證";
+                    }
+                    
+                    let tds = `
+                      <tr>
+                        <td>${res.userId}</td>
+                        <td>${res.userName}</td>
+                        <td>${res.userAccount}</td>
+                        <td>${res.userTel}</td>
+                        <td>${res.birthday}</td>
+                        <td>${accountStatus}</td>
+                        <td>${res.calories}</td>
+                        <td>${res.budget}</td>
+                        <td>${res.monsLevel}</td>
+                        <td>${res.updateTime}</td>               
+                      </tr>                               
+                    `;
+                    $("tbody").after(tds);
+                  })    
+                  
+                  
+                }
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }else if (userAccount.val().trim()!="" && userName.val().trim()!=""){
+          $(".pointspan").addClass("noticespan").text("請擇一輸入查詢內容");
+        }
+        
+       
+        // 消除ajax發出後的錯誤提示
+        $("#userAccount , #userName").on("blur",function(){
+          if(userAccount != "" || userName != ""){
+            $(".pointspan").removeClass("noticespan").text('');
+          }
+        });
+      });
     });
+
+    // 有空再轉時間格式
+    // function formatDate(date) {
+    //   var d = new Date(date),
+    //       month = '' + (d.getMonth() + 1),
+    //       day = '' + d.getDate(),
+    //       year = d.getFullYear();
+
+    //   if (month.length < 2) 
+    //       month = '0' + month;
+    //   if (day.length < 2) 
+    //       day = '0' + day;
+    //       console.log("format Date")
+    //   console.log( [year, month, day].join('-'));
+    //   return [year, month, day].join('-');
+    // }
+
+
   </script>
 </body>
 

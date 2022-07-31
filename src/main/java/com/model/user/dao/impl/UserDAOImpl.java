@@ -30,8 +30,10 @@ public class UserDAOImpl implements UserDAO {
 	private static final String SELECTBYUSERID = "SELECT * FROM MonFood.USER WHERE USER_ID = ? ";
 	// 使用會員帳號查詢一筆資料
 	private static final String SELECTBYUSERACCOUNT = "SELECT * FROM MonFood.USER WHERE USER_ACCOUNT = ? ";
+	// 使用會員姓名查詢資料
+	private static final String SELECTBYUSERNAME = "SELECT * FROM MonFood.USER WHERE USER_NAME = ? ORDER BY USER_ID DESC";
 	// 查詢全部
-	private static final String GETALL = "SELECT * FROM MonFood.USER ORDER BY USER_ID";
+	private static final String GETALL = "SELECT * FROM MonFood.USER ORDER BY USER_ID DESC";
 	// 查詢全部會員編號
 	private static final String DETALLUSERID = "SELECT USER_ID FROM MonFood.USER ORDER BY USER_ID";
 	// 查詢是否有此會員帳號
@@ -300,10 +302,11 @@ public class UserDAOImpl implements UserDAO {
 				userVO.setBirthday(rs.getDate("BIRTHDAY"));
 				userVO.setCalories(rs.getInt("CALORIES"));
 				userVO.setBudget(rs.getInt("BUDGET"));
-//				userVO.setProfilePic(rs.getBytes("PROFILE_PIC"));  //圖片位元資料太大 如果印出來會超出位元輸出上限 所以先註解
+				userVO.setProfilePic(rs.getBytes("PROFILE_PIC"));  //圖片位元資料太大 測試時如果印出來會超出位元輸出上限 所以先註解
 				userVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
 				userVO.setMonsName(rs.getString("MONS_NAME"));
 				userVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				userVO.setUserAccountStatus(rs.getInt("USER_ACCOUNT_STATUS"));
 
 				listUserVO.add(userVO); // Store the row in the list
 			}
@@ -446,6 +449,7 @@ public class UserDAOImpl implements UserDAO {
 				userVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
 				userVO.setMonsName(rs.getString("MONS_NAME"));
 				userVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				userVO.setUserAccountStatus(rs.getInt("USER_ACCOUNT_STATUS"));
 			}
 
 		} catch (SQLException se) {
@@ -513,6 +517,65 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<UserVO> selectByUserName(String userName) {
+		List<UserVO> listUserVO = new ArrayList<UserVO>();
+		UserVO userVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(SELECTBYUSERNAME);
+
+			pstmt.setString(1, userName);
+
+			rs = pstmt.executeQuery(); // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
+
+			while (rs.next()) {
+				userVO = new UserVO();
+				userVO.setUserId(rs.getInt("USER_ID"));
+				userVO.setUserName(rs.getString("USER_NAME"));
+				userVO.setUserAccount(rs.getString("USER_ACCOUNT"));
+				userVO.setUserPassword(rs.getString("USER_PASSWORD"));
+				userVO.setUserTel(rs.getString("USER_TEL"));
+				userVO.setUserProfile(rs.getString("USER_PROFILE"));
+				userVO.setBirthday(rs.getDate("BIRTHDAY"));
+				userVO.setCalories(rs.getInt("CALORIES"));
+				userVO.setBudget(rs.getInt("BUDGET"));
+				userVO.setProfilePic(rs.getBytes("PROFILE_PIC"));
+				userVO.setMonsLevel(rs.getInt("MONS_LEVEL"));
+				userVO.setMonsName(rs.getString("MONS_NAME"));
+				userVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				userVO.setUserAccountStatus(rs.getInt("USER_ACCOUNT_STATUS"));
+				
+				listUserVO.add(userVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return listUserVO;
 	}
 
 }
