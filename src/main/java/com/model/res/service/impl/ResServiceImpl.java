@@ -122,19 +122,18 @@ public class ResServiceImpl implements ResService {
 
 		System.out.println("im in ResServiceImpl isDuplicateAccount ： Account Pass");
 		return "pass";
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 
 	@Override
 	public List<ResVO> adminFindResAll() {
 		List<ResVO> list = dao.getAll();
+		return list;
+	}
+
+	@Override
+	public List<ResVO> adminFindByCategory(Integer resCategory) {
+		List<ResVO> list = dao.selectByCategory(resCategory);
 		return list;
 	}
 

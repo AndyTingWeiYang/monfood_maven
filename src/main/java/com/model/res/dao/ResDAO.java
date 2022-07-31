@@ -14,5 +14,7 @@ public interface ResDAO {
 	public ResVO selectByResAccount(String resAccount);
 	List<ResVO> getAll();
 	List<ResVO> isDuplicateAccount(String resAccount);
-	
+
+	List<ResVO> selectByCategory(Integer resCategory);
+
 }

@@ -29,6 +29,8 @@ public class ResDAOImpl implements ResDAO {
 	private static final String GETALL = "SELECT * FROM MonFood.RES ORDER BY RES_ID";
 	// 查詢是否有此會員帳號
 	private static final String ISDUPLICATEACCOUNT = "SELECT RES_ACCOUNT FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
+	// 使用餐廳分類查詢一筆多筆資料
+	private static final String SELECTBYCATEGORY = "SELECT * FROM RES WHERE RES_CATEGORY = ? ";
 	
 	static {
 		try {
@@ -422,6 +424,66 @@ public class ResDAOImpl implements ResDAO {
 		}
 	}
 
+	@Override
+	public List<ResVO> selectByCategory(Integer resCategory) {
+		List<ResVO> list = new ArrayList<>();
+		ResVO resVO =null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(SELECTBYCATEGORY);
+
+			pstmt.setInt(1, resCategory);
+
+			rs = pstmt.executeQuery(); // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
+
+			while (rs.next()) {
+				resVO = new ResVO();
+				resVO.setResId(rs.getInt("RES_ID"));
+				resVO.setResCategory(rs.getInt("RES_CATEGORY"));
+				resVO.setResAccount(rs.getString("RES_ACCOUNT"));
+				resVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				resVO.setResName(rs.getString("RES_NAME"));
+				resVO.setResPassword(rs.getString("RES_PASSWORD"));
+				resVO.setResTel(rs.getString("RES_TEL"));
+				resVO.setResPic(rs.getBytes("RES_PIC"));
+				resVO.setOwnerName(rs.getString("OWNER_NAME"));
+				resVO.setOwnerTel(rs.getString("OWNER_TEL"));
+				resVO.setBzLocation(rs.getString("BZ_LOCATION"));
+				resVO.setZipCode(rs.getInt("ZIP_CODE"));
+				resVO.setBzOpenHours(rs.getTime("BZ_OPEN_HOURS"));
+				resVO.setBzCloseHours(rs.getTime("BZ_CLOSE_HOURS"));
+				resVO.setBzWeekTime(rs.getInt("BZ_WEEK_TIME"));
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
+}
+
 	
 
-}
+

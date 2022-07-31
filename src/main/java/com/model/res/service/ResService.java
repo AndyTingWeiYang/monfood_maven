@@ -12,4 +12,5 @@ public interface ResService {
 	String resetPassword(ResVO resVO);
 	String isDuplicateAccount(ResVO resVO);
 	List<ResVO> adminFindResAll();
+	List<ResVO> adminFindByCategory(Integer resCategory);
 }
