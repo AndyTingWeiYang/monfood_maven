@@ -553,11 +553,11 @@
           <div>
             餐廳分類
             <span class="button">
-              <button class="restriction">美式料理</button>
-              <button class="restriction">日式料理</button>
-              <button class="restriction">中式料理</button>
-              <button class="restriction">韓式料理</button>
-              <button class="restriction">泰式料理</button>
+              <button id="american" class="restriction">美式料理</button>
+              <button id="japanese" class="restriction">日式料理</button>
+              <button id="chinese" class="restriction">中式料理</button>
+              <button id="korean" class="restriction">韓式料理</button>
+              <button id="thai" class="restriction">泰式料理</button>
             </span>
           </div>
         </div>
@@ -622,7 +622,7 @@
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
-            <a href="restaurant.html">
+            <a id="resPage" href="restaurant.html">
               <div>
                 <div
                   class="btn btn-primary"
@@ -661,6 +661,7 @@
                     </div>
 
                     <div
+                      id="rating"
                       class="col-md-6"
                       style="
                         font-size: 12px;
@@ -680,14 +681,13 @@
                     <div
                       class="col-md-6 d-flex"
                       style="font-size: 12px; padding-left: 0"
-                    >
-                      45TWD費用
-                    </div>
+                    ></div>
                     <div
+                      id="resCategory"
                       class="col-md-6"
                       style="font-size: 12px; padding-right: 0; text-align: end"
                     >
-                      5-20分鐘
+                      美式
                     </div>
                   </div>
                 </div>
@@ -695,10 +695,11 @@
             </a>
           </div>
           <!--  -->
+
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
-            <a href="restaurant.html">
+            <a id="resPage" href="restaurant.html">
               <div>
                 <div
                   class="btn btn-primary"
@@ -711,34 +712,59 @@
                   "
                 >
                   <div
-                    id="product_img"
+                    id="resPic"
                     style="height: 170px; width: 270px; overflow: hidden"
                   >
                     <img
-                      src="images/curry.jpeg"
+                      id="resPic"
+                      src="images/111.jpg"
                       alt=""
                       class="mt-1"
                       height="170px"
                       width="270px"
                     />
                   </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
                   <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      id="resName"
+                      class="col-md-6 d-flex"
+                      style="
+                        text-align: left;
+                        margin-top: 15px;
+                        padding-left: 0;
+                      "
+                    >
+                      麥當勞(三重店)
+                    </div>
+
+                    <div
+                      id="rating"
+                      class="col-md-6"
+                      style="
+                        font-size: 12px;
+                        padding-right: 0;
+                        text-align: end;
+                        margin-top: 15px;
+                      "
+                    >
+                      4.0
+                    </div>
+                  </div>
+
+                  <div
+                    class="row justify-content-between"
+                    style="margin: 0; margin-top: 15px"
+                  >
                     <div
                       class="col-md-6 d-flex"
                       style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
+                    ></div>
                     <div
+                      id="resCategory"
                       class="col-md-6"
                       style="font-size: 12px; padding-right: 0; text-align: end"
                     >
-                      20-35分鐘
+                      美式
                     </div>
                   </div>
                 </div>
@@ -746,10 +772,11 @@
             </a>
           </div>
           <!--  -->
+
           <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
-            <a href="restaurant.html">
+            <a id="resPage" href="restaurant.html">
               <div>
                 <div
                   class="btn btn-primary"
@@ -762,43 +789,66 @@
                   "
                 >
                   <div
-                    id="product_img"
+                    id="resPic"
                     style="height: 170px; width: 270px; overflow: hidden"
                   >
                     <img
-                      src="images/dumpling.jpeg"
+                      id="resPic"
+                      src="images/111.jpg"
                       alt=""
                       class="mt-1"
                       height="170px"
                       width="270px"
                     />
                   </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    有煎餃子館(忠杭店)
-                  </p>
-
                   <div class="row justify-content-between" style="margin: 0">
+                    <div
+                      id="resName"
+                      class="col-md-6 d-flex"
+                      style="
+                        text-align: left;
+                        margin-top: 15px;
+                        padding-left: 0;
+                      "
+                    >
+                      麥當勞(三重店)
+                    </div>
+
+                    <div
+                      id="rating"
+                      class="col-md-6"
+                      style="
+                        font-size: 12px;
+                        padding-right: 0;
+                        text-align: end;
+                        margin-top: 15px;
+                      "
+                    >
+                      4.0
+                    </div>
+                  </div>
+
+                  <div
+                    class="row justify-content-between"
+                    style="margin: 0; margin-top: 15px"
+                  >
                     <div
                       class="col-md-6 d-flex"
                       style="font-size: 12px; padding-left: 0"
-                    >
-                      30TWD費用
-                    </div>
+                    ></div>
                     <div
+                      id="resCategory"
                       class="col-md-6"
                       style="font-size: 12px; padding-right: 0; text-align: end"
                     >
-                      10-25分鐘
+                      美式
                     </div>
                   </div>
                 </div>
               </div>
             </a>
           </div>
-          <!--  -->
         </div>
-        <!-- 以下可新增新的row -->
       </div>
 
       <!-- <div class="popular_head">

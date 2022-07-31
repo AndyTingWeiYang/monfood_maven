@@ -177,7 +177,36 @@ $('select').on('change', function(){
     $(this).closest('li').remove();
   }
 })
-  
-
 
 })
+
+//餐廳
+$(document).ready(function() {
+  $("#btn").click(function() { //ID 為 submitExample 的按鈕被點擊時
+      $.ajax({
+          type: "POST", //傳送方式
+          url: "AdminResAllServlet", //傳送目的地
+          dataType: "json", //資料格式
+          data: { //傳送資料
+              ID: $("#ID").val(),
+              Codename: $("#Codename").val(),
+              Name: $("#Name").val()
+          },
+          success: function(data) {
+              if (data.ID != null) { //如果後端回傳 json 資料有 ID
+                  $("#demo")[0].reset(); 
+                  $("#result").html(data.ID +data.Codename + data.Name);
+              } else { //否則讀取後端回傳 json 資料 errorMsg 顯示錯誤訊息
+                  $("#demo")[0].reset(); 
+                  $("#result").html('<font color="#ff0000">' + data.errorMsg + '</font>'+ '錯誤!!');
+              }
+          },
+          error: function(jqXHR) {
+              $("#demo")[0].reset();
+              $("#result").html('<font color="#ff0000">發生錯誤：' + jqXHR.status + '</font>'+ '爆了直接error');
+          }
+          
+      })
+  })        
+});
+
