@@ -17,7 +17,8 @@
 <body>
     <script src="https://kit.fontawesome.com/01c71c9232.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    
+    <script src="js/venders/jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/searching.js"></script>
     <!-- navbar -->
     <header>
       <nav class="navbar navbar-expand-lg" style="background-color: #FF7F3F">
@@ -60,12 +61,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center" style="margin-top: 60px;"><h5>訂單準備中...<i class="fa-solid fa-burger fa-flip" style="--fa-animation-duration: 3s;"></i></h5></div>
-                <div class="col-12 d-flex justify-content-center">訂單編號: <span>MF1234515</span> </div>
+                <div class="col-12 d-flex justify-content-center">訂單編號: <span id="orderId"></span> </div>
                 <div class="col-12 d-flex justify-content-center" >
-                    <img id="profile_pic" src="images/0bca57b27bed8e50cf33ac9411a45482d61d807b.png" alt="">
+                    <img id="monsPic" src="" alt="">
                 </div>
-                <div class="col-12 d-flex justify-content-center">預計於 <span>11:30</span>送至</div>
-                <div class="col-12 d-flex justify-content-center" style="margin-bottom: 60px;">台北市中正區濟南路一段321號</div>
+                <div class="col-12 d-flex justify-content-center">預計於 <span id="duration"></span>送至</div>
+                <div id="address" class="col-12 d-flex justify-content-center" style="margin-bottom: 60px;"></div>
             </div>
         </div>
       </section>
