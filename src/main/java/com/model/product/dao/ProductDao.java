@@ -22,5 +22,7 @@ public interface ProductDao {
 	
 	public List<ProductVo> findAll();
 	
+	List<ProductVo> getAll();
+	
 
 }
