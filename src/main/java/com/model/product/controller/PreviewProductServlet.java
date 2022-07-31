@@ -37,7 +37,7 @@ public class PreviewProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;chart=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		// 接取前端畫面的參數
 		String productID = request.getParameter("productID");
 		// 藉由參數去抓取一筆的所有資料 (DAO內入資料)

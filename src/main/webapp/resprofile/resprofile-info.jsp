@@ -33,36 +33,67 @@
 
 </head>
 <script>
-    $(document).ready(function () {
-   
-            function init() {
-                const twzipcode = new TWzipcode("#twzipcode");
-                $('#ownerName').on('blur', checkInputOwnerName);
-                $('#resPhone').on('blur', checkInputResPhone);
-                $('#bzAdd').on('blur', checkInputBzAdd);
-            }
+ $(document).ready(function () {
+ 	let twzipcode;
+    function init() {
+        twzipcode = new TWzipcode("#twzipcode");
+        
+        $('#ownerName').on('blur', checkInputOwnerName);
+        $('#resPhone').on('blur', checkInputResPhone);
+        $('#bzAdd').on('blur', checkInputBzAdd);
+    }
 
-            function fileUpload() {
-                $('#inp-theme-fa6-1').fileinput({
-                    theme: "fa6",
-                    language: "zh-TW",
-                    uploadUrl: ''
-                });
-            }
+    function fileUpload() {
+        $('#resFile').fileinput({
+            theme: "fa6",
+            language: "zh-TW"
+        });
+    }
 
-            init();
-            fileUpload();
-            
-            let files = []; 
-           	$('#inp-theme-fa6-1').change(function(e) {
-           		files = Array.from(e.target.files);
-           	});
-           	
-            $('#btnCheck').click(function() {
-            	console.log(files);
-            	debugger
-            });
-    }); 
+    init();
+    fileUpload();
+    
+    let files = []; 
+   	$('#resFile').change(function(e) {
+   		files = Array.from(e.target.files);
+   	});
+        	
+   $('#btnCheck').click(function() { 
+	   	let formData = new FormData();
+	   	formData.append('ownerName', $('#ownerName').val());
+	   	formData.append('resPhone', $('#resPhone').val());
+	   	formData.append('resCategory', $('#resCategory').val());
+	   	formData.append('country', twzipcode.get('county'));
+	   	formData.append('district', twzipcode.get('district'));
+	   	formData.append('zipcode',twzipcode.get('zipcode'));
+	   	formData.append('bzAdd', $('#bzAdd').val());
+	   	formData.append('resFile', files[0]);
+	   	
+	   	$.ajax({
+	   		url: 'ResInfoUpdateServlet',
+	   		method: 'POST',
+	   		data: formData,
+	   		contentType: false,
+	   		processData: false,
+	   		dataType: 'JSON',
+	   		success: function(data){
+	   			console.log(data);
+	   			// 清空商家 src 圖片
+	   			$('#resPhoto').attr('src','');
+	   			// 更新商家 src 連結
+   				$('#resPhoto').attr('src','/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+	   		}
+	   		
+	   		
+	   	});
+     	
+     
+   });
+         
+         
+         
+         
+ }); 
 </script>
 
 <body>
@@ -131,19 +162,19 @@
                                 <div id="twzipcode" class="d-flex " style="justify-content: space-between;">
                                     <div data-role="zipcode" data-css="form-control">
                                     </div>
-                                    <div data-role="county" data-css="form-control">
+                                    <div  id="country" data-role="county" data-css="form-control">
                                     </div>
-                                    <div class="ml-1 mr-1" data-role="district" data-css="form-control">
+                                    <div id="district" class="ml-1 mr-1" data-role="district" data-css="form-control">
                                     </div>
                                     <div class="col-sm-9" style="padding: 0;">
-                                        <input type="text" class="form-control " id="bzAdd" name="bzAdd"
+                                        <input id="bzAdd" type="text" class="form-control " name="bzAdd"
                                             placeholder="請輸入詳細地址"><span id="checkBzAddSp"></span><i
                                             id="checkBzAddI"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="file-loading">
-                                <input id="inp-theme-fa6-1" name="inp-theme-fa6-1" type="file" multiple accept="image">
+                                <input id="resFile" name="resFile" type="file" multiple accept="image">
                             </div>
                             <div class="col-sm-12 d-flex mt-3" style="justify-content: end;">
                             </div>
