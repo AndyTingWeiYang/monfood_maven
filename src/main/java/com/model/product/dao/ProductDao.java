@@ -2,6 +2,7 @@ package com.model.product.dao;
 
 import java.util.List;
 
+
 import com.model.product.ProductVo;
 
 public interface ProductDao {
@@ -19,5 +20,7 @@ public interface ProductDao {
 	public void delete(ProductVo productID);
 
 	public ProductVo findPic(String productId);
+	
+	List<ProductVo> getAll();
 
 }

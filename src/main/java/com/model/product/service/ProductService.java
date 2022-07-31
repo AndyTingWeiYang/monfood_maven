@@ -17,4 +17,6 @@ public interface ProductService {
 	
 	public boolean update(ProductVo product);
 	
+	List<ProductVo> adminFindProductVoAll();
+	
 }
