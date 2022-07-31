@@ -180,7 +180,13 @@ $('select').on('change', function(){
 
 })
 
-//餐廳
+//以上勿動//
+
+//餐廳篩選
+
+
+
+//餐廳顯示
 $(document).ready(function() {
   $("#btn").click(function() { //ID 為 submitExample 的按鈕被點擊時
       $.ajax({
@@ -188,9 +194,9 @@ $(document).ready(function() {
           url: "AdminResAllServlet", //傳送目的地
           dataType: "json", //資料格式
           data: { //傳送資料
-              ID: $("#ID").val(),
-              Codename: $("#Codename").val(),
-              Name: $("#Name").val()
+              resName: $("#resName").val(),
+              resCategory: $("#resCategory").val(),
+              rating: $("#rating").val()
           },
           success: function(data) {
               if (data.ID != null) { //如果後端回傳 json 資料有 ID
