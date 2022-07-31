@@ -20,4 +20,6 @@ public interface OrderDAO {
 
 	Integer getOrderTimes(Integer userId);
 
+	Double getRating(Integer resId);
+
 }
