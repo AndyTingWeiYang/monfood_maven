@@ -1,18 +1,18 @@
-function checkInputResName() {
-    $('#checkResNameSp').html('');
-    let resName = $('#resName').val().trim();
+function checkInputOwnerName() {
+    $('#checkOwnerNameSp').html('');
+    let ownerName = $('#ownerName').val().trim();
     let symbol = ['!', '@', '#', ';', '$', '%', '^', '&'];
     let flag = false;
 
-    if (resName == '') {
-        $('#checkResNameSp')
+    if (ownerName == '') {
+        $('#checkOwnerNameSp')
             .append($('<i>').addClass('fa-solid fa-circle-exclamation').addClass('mr-2'))
             .append('輸入內容不得為空!');
         return;
     } else {
         // 不是空值，檢核有沒有特殊字元
         for (let j = 0; j < symbol.length; j++) {
-            if (resName.indexOf(symbol[j]) != -1) { // 輸入值有特殊字元
+            if (ownerName.indexOf(symbol[j]) != -1) { // 輸入值有特殊字元
                 flag = true;
                 break;
             }
@@ -20,9 +20,9 @@ function checkInputResName() {
     }
 
     if (flag) {
-        $('#checkResNameSp').append($('<i>').addClass('fa-solid fa-circle-exclamation').addClass('mr-2')).append('不得輸入特殊符號!');
+        $('#checkOwnerNameSp').append($('<i>').addClass('fa-solid fa-circle-exclamation').addClass('mr-2')).append('不得輸入特殊符號!');
     } else {
-        $('#checkResNameSp').append($('<i>').addClass('fa-solid fa-circle-check').addClass('mr-2'))
+        $('#checkOwnerNameSp').append($('<i>').addClass('fa-solid fa-circle-check').addClass('mr-2'))
             .append('輸入正確');
     }
 

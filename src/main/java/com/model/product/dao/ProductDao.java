@@ -19,5 +19,8 @@ public interface ProductDao {
 	public void delete(ProductVo productID);
 
 	public ProductVo findPic(String productId);
+	
+	public List<ProductVo> findAll();
+	
 
 }
