@@ -18,8 +18,10 @@
             <li class="nav-item nav-category">
                 <a href="#">
                     <span class="nav-link">
-                        <img width="16px" height="16px" src="<c:url value='/assets/images/arrow-left-solid.svg' />">
-                        <span class="ml-3">返回前台</span>
+                    	<a href="<c:url value='/admin-res-reception/resReception-new-order.jsp' />">
+                        	<img width="16px" height="16px" src="<c:url value='/assets/images/arrow-left-solid.svg' />">
+                        	<span class="ml-3">返回前台</span>
+                      	</a>
                     </span>
                 </a>
             </li>
@@ -31,7 +33,7 @@
                             <span class="count bg-success"></span>
                         </div>
                         <div class="profile-name">
-                            <h5 class="mb-0 font-weight-normal mf-username">麥當勞</h5>
+                            <h5 class="mb-0 font-weight-normal mf-username">${sessionScope.resName}</h5>
                         </div>
                     </div>
 

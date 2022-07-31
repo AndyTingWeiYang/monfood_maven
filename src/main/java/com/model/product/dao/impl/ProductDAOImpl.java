@@ -42,6 +42,65 @@ public class ProductDAOImpl implements ProductDao {
 	}
 
 	@Override
+	public List<ProductVo> findAll() {
+		List<ProductVo> productList = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+			pstmt = conn.prepareStatement(SELECT);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// 叫出DB的資料
+				ProductVo productVO = new ProductVo();
+				productVO.setProductID(rs.getInt("PRODUCT_ID"));
+				productVO.setResID(rs.getInt("RES_ID"));
+				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+				productVO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				productVO.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				productVO.setProductName(rs.getString("PRODUCT_NAME"));
+				productVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				productVO.setStock(rs.getInt("STOCK"));
+
+				productList.add(productVO);
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return productList;
+
+	}
+
+	@Override
 	public List<ProductVo> findAll(ProductVo product) {
 		List<ProductVo> productList = new ArrayList<>();
 
@@ -218,7 +277,7 @@ public class ProductDAOImpl implements ProductDao {
 				pstmt.setInt(5, product.getStock());
 				pstmt.setInt(6, product.getProductID());
 			}
-			
+
 			int count = pstmt.executeUpdate();
 
 			if (count > 0) {

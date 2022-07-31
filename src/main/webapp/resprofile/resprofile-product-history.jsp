@@ -94,6 +94,7 @@
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach var="product" items="${productList}" begin="0" step="1" varStatus="i">  
 								<tr>
 									<td>123</td>
 									<td>勁辣雞腿堡</td>
@@ -103,118 +104,7 @@
 									<td>照片</td>
 									<td>已完成</td>
 								</tr>
-								<tr>
-									<td>124</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>125</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>126</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>127</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>128</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>129</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>130</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>131</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-								</tr>
-								<tr>
-									<td>132</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-
-								</tr>
-								<tr>
-									<td>133</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-
-								</tr>
-								<tr>
-									<td>134</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-
-								</tr>
-								<tr>
-									<td>135</td>
-									<td>勁辣雞腿堡</td>
-									<td>美式</td>
-									<td>75</td>
-									<td>99</td>
-									<td>照片</td>
-									<td>上架中</td>
-
-								</tr>
+								</c:forEach>
 							</tbody>
 							<tfoot>
 								<tr>

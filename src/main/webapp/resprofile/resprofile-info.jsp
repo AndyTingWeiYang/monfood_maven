@@ -37,7 +37,7 @@
    
             function init() {
                 const twzipcode = new TWzipcode("#twzipcode");
-                $('#resName').on('blur', checkInputResName);
+                $('#ownerName').on('blur', checkInputOwnerName);
                 $('#resPhone').on('blur', checkInputResPhone);
                 $('#bzAdd').on('blur', checkInputBzAdd);
             }
@@ -45,12 +45,23 @@
             function fileUpload() {
                 $('#inp-theme-fa6-1').fileinput({
                     theme: "fa6",
-                    language: "zh-TW"
+                    language: "zh-TW",
+                    uploadUrl: ''
                 });
             }
 
             init();
             fileUpload();
+            
+            let files = []; 
+           	$('#inp-theme-fa6-1').change(function(e) {
+           		files = Array.from(e.target.files);
+           	});
+           	
+            $('#btnCheck').click(function() {
+            	console.log(files);
+            	debugger
+            });
     }); 
 </script>
 
@@ -67,35 +78,35 @@
                         <div class="form-group row">
                             <div class="col-sm-6 ">
                                 <span class="resID " name="resID">
-                                    會員編號 : MF123456
+                                    會員編號 : ${sessionScope.resID}
                                 </span>
                             </div>
                             <div class="col-sm-6 d-flex" style="justify-content: end;">
                             </div>
                             <div class="col-sm-6">
-                                <label for="ownerName" class="col-sm-6 col-form-label">聯絡人姓名</label>
-                                <input readonly class="col-sm-12 form-control " id="ownerName" name="ownerName"
-                                    value="王曉明">
+                                <label for="resName" class="col-sm-6 col-form-label">餐廳名稱</label>
+                                <input  class="col-sm-12 form-control " id="resName" name="resName"
+                                    value="${sessionScope.resName}" readonly>
                             </div>
                             <div class="col-sm-6">
                                 <label for="ownerTel" class="col-sm-12 col-form-label">連絡電話</label>
                                 <div>
                                     <input readonly class="col-sm-12 form-control " id="ownerTel" name="ownerTel"
-                                        value="0912345678">
+                                        value="${sessionScope.ownerTel}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="uniFormNum" class="col-sm-12 col-form-label">統一編號</label>
                                 <div>
                                     <input readonly class="col-sm-12 form-control " id="uniFormNum" name="uniFormNum"
-                                        value="12345678">
+                                        value="${sessionScope.resAccount}">
                                 </div>
                             </div>
                        
                             <div class="col-sm-6">
-                                <label for="resName" class="col-sm-6 col-form-label">餐廳名稱</label>
-                                <input class="col-sm-12 form-control " id="resName" name="resName"
-                                    placeholder="請輸入餐廳名稱"><span id="checkResNameSp"></span>
+                                <label for="ownerName" class="col-sm-6 col-form-label">聯絡人姓名</label>
+                                <input class="col-sm-12 form-control " id="ownerName" name="ownerName"
+                                    placeholder="請輸入聯絡人姓名"><span id="checkOwnerNameSp"></span>
                             </div>
                             <div class="col-sm-6">
                                 <label for="resPhone" class="col-sm-6 col-form-label">餐廳電話</label>
