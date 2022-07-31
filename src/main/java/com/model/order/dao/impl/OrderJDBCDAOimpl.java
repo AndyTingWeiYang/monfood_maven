@@ -34,6 +34,62 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?"
 			+ "where ORDER_ID = ?";
 	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
+	private static final String GET_RATING = "SELECT AVG(RES_RATE) FROM `ORDER` where RES_ID = ?";
+	
+	@Override
+	public Double getRating(Integer resId) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Double rating = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_RATING);
+			
+			pstmt.setInt(1, resId);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				rating = rs.getDouble("AVG(RES_RATE)");
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return rating;
+	}
+	
 	
 	@Override
 	public Integer getOrderTimes(Integer userId) {
