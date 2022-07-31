@@ -30,7 +30,7 @@ public class ProductDAOImpl implements ProductDao {
 	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID=?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
-
+	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
 	static {
 //			Context context = new InitialContext();
 //			ds = (DataSource) context.lookup("java:comp/env/jdbc/MonFood"); // JNDI 還沒取名，待修改
@@ -478,5 +478,70 @@ public class ProductDAOImpl implements ProductDao {
 
 		return data;
 	}
+
+	@Override
+	public List<ProductVo> getAll() {
+		
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		ProductVo productVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(GET_ALL);
+			rs = pstmt.executeQuery();
+		
+			while (rs.next()) {
+				ProductVo productVO = new ProductVo();
+				productVO.setProductID(rs.getInt("PRODUCT_ID"));
+				productVO.setResID(rs.getInt("RES_ID"));
+				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
+				productVO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
+				productVO.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				productVO.setProductName(rs.getString("PRODUCT_NAME"));
+				productVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				productVO.setStock(rs.getInt("STOCK"));
+
+				list.add(productVO);
+				
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 
 }

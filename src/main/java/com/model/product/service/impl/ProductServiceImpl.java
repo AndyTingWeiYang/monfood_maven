@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.model.order.OrderVO;
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
@@ -116,6 +117,12 @@ public class ProductServiceImpl implements ProductService {
 	public boolean update(ProductVo product) {
 
 		return productDao.updateDynanicPic(product);
+	}
+
+	@Override
+	public List<ProductVo> adminFindProductVoAll() {
+		List<ProductVo> list = productDao.getAll();
+		return list;
 	}
 
 }

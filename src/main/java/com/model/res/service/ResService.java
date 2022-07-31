@@ -1,5 +1,7 @@
 package com.model.res.service;
 
+import java.util.List;
+
 import com.model.res.ResVO;
 
 public interface ResService {
@@ -9,4 +11,5 @@ public interface ResService {
 	String resModify(ResVO resVO);
 	String resetPassword(ResVO resVO);
 	String isDuplicateAccount(ResVO resVO);
+	List<ResVO> adminFindResAll();
 }
