@@ -12,6 +12,11 @@
       display: flex;
       justify-content: center; /* 水平對齊 */
     }
+
+    .noticespan{
+      color: red;
+      font-size: 18px;
+    }
   </style>
   
 </head>
@@ -24,86 +29,40 @@
 
     <!-- ===== sidebar start ===== -->
     <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
-    <div w3-include-html="adminSidebar.html"></div>
+    <div w3-include-html="adminSidebar.html" ></div>
     <!-- ===== sidebar end ===== -->
 
-    <div class="container-fluid page-body-wrapper">
+    <div class="container-fluid page-body-wrapper" >
       <!-- ===== header start ===== -->
       <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
       <div w3-include-html="adminHeader.html"></div>
       <!-- ===== header end ===== -->
 
-      <div class="main-panel">
+      <!--  -->
+      <div class="main-panel" style="width: calc(100vw - 250px); padding-right: 30px;">
         <!-- ===== 內容客製化區塊 start ===== -->
         <div class="mf-content-wrapper mt-5">
           <!-- 表單區塊 -->
           <div class="jumbotron">
             <div class="form-group row">
-              <label for="resId" class="col-sm-12 col-form-label">商家編號</label>
+              <span class="pointspan"></span>
+              <label for="resAccount" class="col-sm-12 col-form-label">商家統編(帳號)</label>
               <div class="col-sm-12">
-                <input type="text" placeholder="輸入查詢商家編號" name="resId" class="form-control" id="resId">
+                <input type="text" placeholder="輸入查詢商家統編(帳號)" name="resAccount" class="form-control" id="resAccount">
               </div>
               <label for="resName" class="col-sm-12 col-form-label">商家名稱</label>
               <div class="col-sm-12">
                 <input type="text" placeholder="輸入查詢商家名稱" name="resName" class="form-control" id="resName">
               </div>
               <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">送出查詢</button>
+                <button type="submit" class="btn btn-primary" id="enter" style="background: #3d424e; border: none;">送出查詢</button>
               </div>
 
             </div>
           </div>
-          <div class="result">
-           
-              <div class="card">
-                <div class="card-header"style="background-color: #e9ecef;">
-                  <h3 class="card-title" style="color: black;">查詢結果</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0" >
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Reason</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>183</td>
-                        <td>John Doe</td>
-                        <td>11-7-2014</td>
-                        <td><span class="tag tag-success">Approved</span></td>
-                        <td>Bacon</td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <nav id="page" aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <!-- /.card -->
-            </div>
+          <div class="searchResult">
+             <!-- 查詢結果 -->
+          </div>
           
 
         </div>
@@ -117,6 +76,7 @@
       </div>
     </div>
   </div>
+  <script src="assets/js/jQuery-3.6.0.js"></script> 
   <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -131,6 +91,367 @@
         }
       });
     });
+
+
+    window.addEventListener('load', function(){
+      $("#resName").on("focus",function(){
+        $(".pointspan").removeClass("noticespan").text('');
+        $("#resAccount").val("");
+      });
+
+      $("#resAccount").on("focus",function(){
+        $(".pointspan").removeClass("noticespan").text('');
+        $("#resName").val("");
+      });
+
+      // 統編驗證
+      $("#resAccount").on("blur",function(){
+            var pattern = /^\d{8}$/;
+            if(!(pattern.test($("#resAccount").val().trim()))){             
+              $(".pointspan").addClass("noticespan").text('*請輸入正確格式');
+            }else{
+              $(".pointspan").removeClass("noticespan").text('');
+            }
+          });
+
+
+
+      //送出查詢
+      var resAccount = $("#resAccount");
+      var resName = $("#resName"); 
+
+      $("#enter").on("click",function(){
+        $(".searchResult").children().remove();
+        if($("span").hasClass("noticespan")){
+          alert("查詢失敗");
+          return;
+        };
+
+        if(resAccount.val().trim()!="" && resName.val().trim()==""){
+          // 用商家帳號查商家資料
+          $.ajax({
+              url: "AdminResGetOneByAccount",           
+              type: "POST",                  
+              data: JSON.stringify({ resAccount: resAccount.val().trim()}),             
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(res){      // request 成功取得回應後執行
+                // console.log(res);           
+                if(res.errMsg=="無此會員"){
+                  $(".pointspan").addClass("noticespan").text("無此會員");
+                }else{    
+                  // 判斷餐廳類別
+   
+                  var resType = res["resVO"].resCategory;
+          
+                    switch(resType){
+                        case 1:                         
+                          resType = "台式";
+                          break;
+                        case 2:                         
+                          resType = "日式";
+                          break;
+                        case 3:                         
+                          resType = "泰式";
+                          break;
+                        case 4:                         
+                          resType = "美式";                       
+                          break;
+                        case 5:                         
+                          resType = "韓式";
+                          break;                     
+                        default:
+                          resType = "未設定";
+                          break                      
+                      }
+                  
+                  let html = `
+                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                  <div class="result">
+                    
+                      <div class="card">
+                        <div class="card-header"style="background-color: #e9ecef;">
+                          <img src="data:image/png;base64 , ${res.resPic}" alt="會員大頭貼" width="100px" heigh="100px">
+                          <span style="font-size: 25px;"><strong class="thName">${res["resVO"].resName}</strong></span>
+                        </div>
+                          
+                        <div class="card-body table-responsive p-0"  >
+                          <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                              <tr>
+                                <th>編號</th>
+                                <th>餐廳類別</th>                    
+                                <th>商家帳號</th>
+                                <th>商家電話</th>
+                                <th>負責人姓名</th>
+                                <th>負責人電話</th>
+                                <th>營業時間</th>
+                                <th>周間營業日</th>
+                                <th>商家地址</th>
+                                <th>最後修改時間</th>
+                              </tr>
+                                
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>${res["resVO"].resId}</td>
+                                <td>${resType ?? ''}</td>
+                                <td>${res["resVO"].resAccount}</td>
+                                <td>${res["resVO"].resTel ?? ''}</td>
+                                <td>${res["resVO"].ownerName ?? ''}</td>
+                                <td>${res["resVO"].ownerTel ?? ''}</td>
+                                <td>${res["resVO"].bzOpenHours ?? ''}~${res["resVO"].bzCloseHours ?? ''}</td>
+                                <td>${res["resVO"].bzWeekTime ?? ''}</td>
+                                <td>${res["resVO"].bzLocation ?? ''}</td>
+                                <td>${res["resVO"].updateTime ?? ''}</td>                 
+                              </tr>  
+                            </tbody>  
+                          </table>              
+                        
+                        </div>
+                      
+                      </div>
+            
+                    
+                  </div>              
+                `;
+                $(".searchResult").prepend(html);
+                }
+
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
+
+        }else if(resAccount.val().trim()=="" && resName.val().trim()!=""){
+          // 用商家名稱查商家資料
+          $.ajax({
+              url: "AdminResGetByName",           
+              type: "POST",                  
+              data: JSON.stringify({ resName: resName.val().trim()}),             
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(res){      // request 成功取得回應後執行
+                console.log(res);
+                if(res.errMsg=="無此會員"){
+                  $(".pointspan").addClass("noticespan").text("無此會員");
+                }else{
+
+                  let html = `
+                    <div class="result">
+                      
+                        <div class="card">
+                          <div class="card-header"style="background-color: #e9ecef;">
+                            <h3 class="card-title" style="color: black;">查詢結果</h3>                         
+                          </div>
+                            
+                          <div class="card-body table-responsive p-0"  >
+                            <table class="table table-head-fixed text-nowrap">
+                              <thead>
+                                <tr>
+                                  <th>編號</th>
+                                  <th>餐廳類別</th>
+                                  <th>商家名稱</th>
+                                  <th>商家帳號</th>
+                                  <th>商家電話</th>
+                                  <th>負責人姓名</th>
+                                  <th>負責人電話</th>
+                                  <th>營業時間</th>
+                                  <th>周間營業日</th>
+                                  <th>商家地址</th>
+                                  <th>最後修改時間</th>
+                                </tr>
+                                  
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>  
+                            </table>              
+                          
+                          </div>
+                        
+                        </div>
+              
+                      
+                    </div>              
+                  `;
+                    $(".searchResult").prepend(html);
+
+                  (res.resVO).forEach(function(res,index){
+                    
+                    // 判斷餐廳類別
+                    var resType = res.resCategory;
+                    switch(resType){
+                        case 1:                         
+                          resType = "台式";
+                          break;
+                        case 2:                         
+                          resType = "日式";
+                          break;
+                        case 3:                         
+                          resType = "泰式";
+                          break;
+                        case 4:                         
+                          resType = "美式";                       
+                          break;
+                        case 5:                         
+                          resType = "韓式";
+                          break;                     
+                        default:
+                          resType = "未設定";
+                          break                      
+                      }
+
+                   
+                    let tds = `
+                      <tr>
+                        <td>${res.resId}</td>
+                        <td>${resType ?? ''}</td>
+                        <td>${res.resName}</td>
+                        <td>${res.resAccount ?? ''}</td>
+                        <td>${res.resTel ?? ''}</td>
+                        <td>${res.ownerName ?? ''}</td>
+                        <td>${res.ownerTel ?? ''}</td>
+                        <td>${res.bzOpenHours ?? ''}~${res.bzCloseHours ?? ''}</td>
+                        <td>${res.bzWeekTime ?? ''}</td>
+                        <td>${res.bzLocation ?? ''}</td>
+                        <td>${res.updateTime ?? ''}</td>               
+                      </tr>                               
+                    `;
+                    $("tbody").append(tds);
+                  })
+                }
+
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
+        }else if (resAccount.val().trim()=="" && resName.val().trim()==""){
+          // 查全部商家資料
+          $.ajax({
+              url: "AdminResAllServlet",           
+              type: "POST",                  
+              contentType : "application/json;charset=utf-8",
+              dataType: "json",             
+              success: function(res){     
+                // console.log(res);
+                if(res.errMsg=="系統錯誤"){
+                  $(".pointspan").addClass("noticespan").text("系統錯誤");
+                }else{
+                  let html = `
+                    <div class="result">
+                      
+                        <div class="card">
+                          <div class="card-header"style="background-color: #e9ecef;">
+                            <h3 class="card-title" style="color: black;">查詢結果</h3>                         
+                          </div>
+                            
+                          <div class="card-body table-responsive p-0"  >
+                            <table class="table table-head-fixed text-nowrap">
+                              <thead>
+                                <tr>
+                                  <th>編號</th>
+                                  <th>餐廳類別</th>
+                                  <th>商家名稱</th>
+                                  <th>商家帳號</th>
+                                  <th>商家電話</th>
+                                  <th>負責人姓名</th>
+                                  <th>負責人電話</th>
+                                  <th>營業時間</th>
+                                  <th>周間營業日</th>
+                                  <th>商家地址</th>
+                                  <th>最後修改時間</th>
+                                </tr>
+                                  
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>  
+                            </table>              
+                          
+                          </div>
+                        
+                        </div>
+              
+                      
+                    </div>              
+                  `;
+                    $(".searchResult").prepend(html);
+
+                  (res.listResVO).forEach(function(res,index){
+                    // 判斷餐廳類別
+                    var resType = res.resCategory;
+                    switch(resType){
+                        case 1:                         
+                          resType = "台式";
+                          break;
+                        case 2:                         
+                          resType = "日式";
+                          break;
+                        case 3:                         
+                          resType = "泰式";
+                          break;
+                        case 4:                         
+                          resType = "美式";                       
+                          break;
+                        case 5:                         
+                          resType = "韓式";
+                          break;                     
+                        default:
+                          resType = "未設定";
+                          break                      
+                      }
+                    let tds = `
+                      <tr>
+                        <td>${res.resId}</td>
+                        <td>${resType ?? ''}</td>
+                        <td>${res.resName}</td>
+                        <td>${res.resAccount ?? ''}</td>
+                        <td>${res.resTel ?? ''}</td>
+                        <td>${res.ownerName ?? ''}</td>
+                        <td>${res.ownerTel ?? ''}</td>
+                        <td>${res.bzOpenHours ?? ''}~${res.bzCloseHours ?? ''}</td>
+                        <td>${res.bzWeekTime ?? ''}</td>
+                        <td>${res.bzLocation ?? ''}</td>
+                        <td>${res.updateTime ?? ''}</td>               
+                      </tr>                                
+                    `;
+                    $("tbody").append(tds);
+                  })    
+                                    
+                }
+              },error: function(errMsg){         // request 發生錯誤的話執行
+                  console.log(errMsg);  
+              }
+            });
+
+        }else if (resAccount.val().trim()!="" && resName.val().trim()!=""){
+          $(".pointspan").addClass("noticespan").text("請擇一輸入查詢內容");
+        }
+
+        // 消除ajax發出後的錯誤提示
+        $("#resAccount , #resName").on("blur",function(){
+          if(resAccount != "" || resName != ""){
+            $(".pointspan").removeClass("noticespan").text('');
+          }
+        });
+
+
+        
+
+
+
+
+
+
+
+      });  
+      
+
+
+    });
+    
+
 
     
 

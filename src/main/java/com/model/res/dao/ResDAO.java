@@ -17,6 +17,8 @@ public interface ResDAO {
 	public ResVO selectByResId(Integer resId);
 
 	public ResVO selectByResAccount(String resAccount);
+	
+	List<ResVO> selectByResName(String resName);
 
 	List<ResVO> getAll();
 

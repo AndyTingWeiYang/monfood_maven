@@ -147,4 +147,16 @@ public class ResServiceImpl implements ResService {
 		return dao.selectByResId(resId);
 	}
 
+	@Override
+	public List<ResVO> getByResName(String resName) {
+		List<ResVO> listResVO = dao.selectByResName(resName);
+		return listResVO;
+	}
+
+	@Override
+	public ResVO getOneByResAccount(String resAccount) {
+		ResVO resVO = dao.selectByResAccount(resAccount);
+		return resVO;
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.model.user.controller;
+package com.model.res.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,32 +9,33 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.model.res.ResVO;
+import com.model.res.service.ResService;
+import com.model.res.service.impl.ResServiceImpl;
 import com.model.user.UserVO;
 import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
-@WebServlet("/AdminUserGetOneByAccount")
-public class AdminUserGetOneByAccount extends HttpServlet {
+@WebServlet("/AdminResGetOneByAccount")
+public class AdminResGetOneByAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-
+	
 		try {
 
-			UserVO userVO = gson.fromJson(request.getReader(), UserVO.class);
-			UserService service = new UserServiceImpl();
-			final UserVO result = service.getOneByUserAccount(userVO.getUserAccount());
-			System.out.println("我在adminUserGetOne的userVO = " + userVO);
-			System.out.println("我在adminUserGetOne的result = " + result);
+			ResVO resVO = gson.fromJson(request.getReader(), ResVO.class);
+			ResService service = new ResServiceImpl();
+			final ResVO result = service.getOneByResAccount(resVO.getResAccount());
+			System.out.println("我在AdminResGetOneByAccount的resVO = " + resVO);
+			System.out.println("我在AdminResGetOneByAccount的result = " + result);
 
 			if (result == null) {
 				respObj.addProperty("errMsg", "無此會員");
@@ -42,23 +43,33 @@ public class AdminUserGetOneByAccount extends HttpServlet {
 				return;
 			}
 
-			respObj.add("userVO", gson.toJsonTree(result));
+			respObj.add("resVO", gson.toJsonTree(result));
 			// 將DB圖片編碼成base64
-			byte[] pic = result.getProfilePic();
+			byte[] pic = result.getResPic();
 			String picBase64 = DatatypeConverter.printBase64Binary(pic);
 			// 回傳給前端
-			respObj.addProperty("profilePic", picBase64);
+			respObj.addProperty("resPic", picBase64);
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
 
 		response.getWriter().append(gson.toJson(respObj));
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 }

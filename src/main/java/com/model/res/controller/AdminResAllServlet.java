@@ -16,7 +16,7 @@ import com.model.res.service.ResService;
 import com.model.res.service.impl.ResServiceImpl;
 
 @WebServlet("/AdminResAllServlet")
-public class AdminResAllServlet {
+public class AdminResAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +30,7 @@ public class AdminResAllServlet {
 			List<ResVO> list = service.adminFindResAll();
 
 			// add the list into json format
-			respObj.add("Orders", gson.toJsonTree(list));
+			respObj.add("listResVO", gson.toJsonTree(list));
 		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
