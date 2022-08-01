@@ -15,6 +15,52 @@
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/browse.css" />
+    <style>
+      .monfood-resBlock{
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid lightgray !important;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+      .monfood-respic {
+        height: 170px;
+        width: 270px;
+      }
+      .monfood-respicdiv{
+        height: 170px; 
+        width: 270px; 
+        overflow: hidden;
+      }
+      .monfood-resPic {
+        text-align: left;
+        margin-top: 15px;
+        padding-left: 0;
+      }
+      .monfood-resNameandRatingdiv{
+        margin: 0;
+      }
+      .monfood-resName{
+        text-align: left;
+        margin-top: 15px;
+        padding-left: 0;
+      }
+      .monfood-rating {
+        font-size: 12px;
+        padding-right: 0;
+        text-align: end;
+        margin-top: 15px;
+      }
+      .monfood-resCategorydiv{
+        margin: 0; 
+        margin-top: 15px;
+      }
+      .monfood-resCategory {
+        font-size: 12px;
+        padding-right: 0;
+        text-align: end;
+      }
+    </style>
   </head>
   <body>
     <script
@@ -449,107 +495,6 @@
           <span class="1" style="font-size: 20px">選擇篩選條件</span>
         </div>
         <div class="panel">
-          <!--  -->
-          <!-- <div>
-            分類
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-            />
-            <label class="form-check-label" for="flexRadioDefault1"
-              >專屬推薦</label
-            > -->
-
-          <!-- <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-            />
-            <label class="form-check-label" for="flexRadioDefault2"
-              >熱門餐點</label
-            >
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault3"
-            />
-            <label class="form-check-label" for="flexRadioDefault3"
-              >價格(低→高)</label
-            >
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault4"
-            />
-            <label class="form-check-label" for="flexRadioDefault4"
-              >價格(低→高)</label
-            >
-          </div> -->
-
-          <!-- <div>
-            價格範圍
-            <span class="price_range">
-              <input type="text" class="range" style="width: 130px" />
-              到
-              <input type="text" class="range" style="width: 130px" />
-              元
-            </span>
-          </div> -->
-
-          <!-- 外送費 -->
-
-          <!-- <div class="delfee">
-            外送費
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-            />
-            <label class="form-check-label" for="flexRadioDefault1">
-              $25
-            </label>
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-            />
-            <label class="form-check-label" for="flexRadioDefault2">
-              $40
-            </label>
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault3"
-            />
-            <label class="form-check-label" for="flexRadioDefault3">
-              $60
-            </label>
-
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault4"
-            />
-            <label class="form-check-label" for="flexRadioDefault4">
-              $60+
-            </label>
-          </div> -->
-
           <div>
             餐廳分類
             <span class="button">
@@ -618,82 +563,26 @@
 
       <!-- 測試new -->
       <div class="container">
-        <div class="row" style="justify-content: space-around">
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a id="resPage" href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="resPic"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      id="resPic"
-                      src="images/111.jpg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      id="resName"
-                      class="col-md-6 d-flex"
-                      style="
-                        text-align: left;
-                        margin-top: 15px;
-                        padding-left: 0;
-                      "
-                    >
-                      麥當勞(三重店)
-                    </div>
+        <!-- TODO: 餐廳區塊 -->
+        <div id="resPageBlock" class="row" style="justify-content: space-around">
+          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
+            <div>
+              <div class="btn btn-primary monfood-resBlock">
+                <div class="monfood-resPicdiv" >
+                  <img id="resPic" src="images/111.jpg" class="monfood-respic"/>
+                </div>
+                <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                  <div id="resName" class="col-md-6 d-flex resName">麥當勞(三重店)</div>
+                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
+                </div>
 
-                    <div
-                      id="rating"
-                      class="col-md-6"
-                      style="
-                        font-size: 12px;
-                        padding-right: 0;
-                        text-align: end;
-                        margin-top: 15px;
-                      "
-                    >
-                      4.0
-                    </div>
-                  </div>
-
-                  <div
-                    class="row justify-content-between"
-                    style="margin: 0; margin-top: 15px"
-                  >
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    ></div>
-                    <div
-                      id="resCategory"
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      美式
-                    </div>
-                  </div>
+                <div class="row justify-content-between monfood-resCategorydiv">
+                  <div class="col-md-6 d-flex"></div>
+                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
                 </div>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
           <!--  -->
 
           <div
@@ -770,10 +659,10 @@
                 </div>
               </div>
             </a>
-          </div>
-          <!--  -->
+          </div> 
+         
 
-          <div
+          <!-- <div
             class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
           >
             <a id="resPage" href="restaurant.html">
@@ -847,7 +736,7 @@
                 </div>
               </div>
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -1226,6 +1115,6 @@
     <!-- Footer -->
 
     <script src="assets/js/jquery.forMandy.js"></script>
-    <script src="js\browse.js"></script>
+    <script src="js/browse.js"></script>
   </body>
 </html>
