@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>商品歷史訂單</title>
+<title>商家歷史訂單查詢</title>
 <link rel="stylesheet"
 	href="/monfood_maven/assets/css/jquery.dataTables.min.css">
 <link rel="stylesheet"
@@ -29,7 +29,7 @@
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		function init() {
-			$('#prductList').DataTable();
+			$('#orderList').DataTable();
 			
 			$('#manual-ajax').click(function(event) {
 				event.preventDefault();
@@ -80,41 +80,45 @@
 					</form>
 					<!-- DataTable -->
 					<div class="container">
-						<table id="prductList" class="display" style="width: 100%">
+						<table id="orderList" class="display" style="width: 100%">
 							<thead>
 								<tr>
+									<th>會員編號</th>
 									<th>訂單編號</th>
 									<th>商品名稱</th>
 									<th>數量</th>
-									<th>商品單價</th>
+									<th>訂單總金額</th>
 									<th>訂單完成時間</th>
 									<th>訂單備註</th>
-									<th>狀態</th>
+									<th>訂單狀態</th>
 
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="product" items="${productList}" begin="0" step="1" varStatus="i">  
+							<c:forEach var="order" items="${orderList}" begin="0" step="1" varStatus="i">  
 								<tr>
+									<td>123</td>
 									<td>123</td>
 									<td>勁辣雞腿堡</td>
 									<td>33</td>
 									<td>75</td>
 									<td>2022-07-05</td>
-									<td>照片</td>
+									<td>很好吃</td>
 									<td>已完成</td>
 								</tr>
 								</c:forEach>
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>商品ID</th>
+									<th>會員編號</th>
+									<th>訂單編號</th>
 									<th>商品名稱</th>
-									<th>餐廳類別</th>
 									<th>商品單價</th>
 									<th>數量</th>
-									<th>商品照片</th>
-									<th>狀態</th>
+									<th>訂單完成時間</th>
+									<th>訂單備註</th>
+									<th>訂單狀態</th>
+
 								</tr>
 							</tfoot>
 						</table>
