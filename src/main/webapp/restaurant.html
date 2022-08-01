@@ -21,6 +21,47 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
+    <style>
+      .monfood-resPic{
+        width: 100%;
+      }
+      .monfood-resHeader-sec{
+        padding: 10px 30px 10px 30px
+      }
+      .monfood-detail{
+        float: right;
+        box-shadow: none;
+        background-color: #c3c3c3;
+        border: none;
+        border-radius: 5px;
+        height: 37px;
+        margin-top: 10px;
+      }
+      .monfood-modalResName{
+        font-size: 27px;
+      }
+      .monfood-closeModal{
+        width: 10px; 
+        height: 10px; 
+        margin-right: 2px;
+      }
+      .monfood-resType{
+        font-size: 15px; 
+        margin-left: 5px;
+      }
+      .monfood-resAddr{
+        font-size: 15px; 
+        margin-left: 5px;
+      }
+      .monfood-openedTime{
+        font-size: 15px;
+      }
+      .monfood-openedTime{
+        margin-left: 10px; 
+        list-style: none;
+        font-size: 15px;
+      }
+    </style>
   </head>
 
   <body>
@@ -293,109 +334,45 @@
       <!-- navbar -->
     </header>
     <main>
-      <section>
-        <!-- Res img -->
-        <div class="res_img">
+  
+        <div class="monfood-resPicdiv">
           <img
+            class="monfood-resPic"
             src="images/ambitious-creative-co-rick-barrett-4u1ZT2r2c5I-unsplash.jpg"
-            alt=""
-            width="100%"
+           
           />
         </div>
-      </section>
-
-      <section style="padding: 10px 30px 10px 30px">
-        <div>
-          <div class="res_name">
-            麥當勞 S006台北光復 McDonald's Guang Fu, Taipei
-            <!--  -->
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModalDetail"
-              style="
-                float: right;
-                box-shadow: none;
-                background-color: #c3c3c3;
-                border: none;
-                border-radius: 5px;
-                height: 37px;
-                margin-top: 10px;
-              "
-            >
+   
+      <section class="monfood-resHeader-sec" >
+        <div class="monfood-resHeader">
+          <div class="res_name">麥當勞 S006台北光復</div>
+            <!-- button trigger modal -->
+            <button type="button" class="btn btn-primary monfood-detail" data-bs-toggle="modal" data-bs-target="#exampleModalDetail">
               詳細資訊
             </button>
-
             <!-- Modal -->
             <div
-              class="modal fade detail-modal"
-              id="exampleModalDetail"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
+              class="modal fade detail-modal" id="exampleModalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5
-                      class="modal-title"
-                      id="exampleModalLabel"
-                      style="font-size: 27px"
-                    >
-                      麥當勞 S006台北光復
-                    </h5>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                      style="width: 10px; height: 10px; margin-right: 2px"
-                    ></button>
+                    <h5 class="modal-title monfood-modalResName" id="exampleModalLabel">麥當勞 S006台北光復</h5>
+                    <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
                     <br />
                   </div>
                   <div style="margin: 10px">
                     <div class="modal-body">
-                      <div
-                        class="res_type"
-                        style="font-size: 15px; margin-left: 5px"
-                      >
-                        美式料理
-                      </div>
+                      <div class="monfood-resType">美式料理</div>
                       <hr />
-                      <div
-                        class="res_add"
-                        style="font-size: 15px; margin-left: 5px"
-                      >
-                        台北市大安區光復南路286號
-                      </div>
+                      <div class="monfood-resAddr">台北市大安區光復南路286號</div>
                       <hr />
-                      <!-- <div
-                        class="rating"
-                        style="font-size: 15px; margin-left: 5px"
-                      >
-                        4.9 (447 筆評分)
-                      </div> -->
+                      <div class="monfood-openedTimediv">營業時間
+                          <li class="monfood-openedTime">
+                             上午07:00 - 下午11:30
+                          </li>
+                      </div>
                       <!--  -->
-                      <div class="opened_time" style="font-size: 15px">
-                        營業時間
-
-                        <div class="" id="">
-                          <div class="">
-                            <ul style="list-style: none; font-size: 15px">
-                              <li style="margin-left: 10px">
-                                上午07:00 - 下午11:30
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--  -->
-
                       <hr />
-
                       <div class="ratings" style="font-size: 15px">
                         <button
                           class="ratings"

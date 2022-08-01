@@ -23,19 +23,14 @@
         overflow: hidden;
         border-radius: 10px;
       }
-      .monfood-respic {
-        height: 170px;
-        width: 270px;
-      }
       .monfood-respicdiv{
         height: 170px; 
         width: 270px; 
         overflow: hidden;
       }
-      .monfood-resPic {
-        text-align: left;
-        margin-top: 15px;
-        padding-left: 0;
+      .monfood-respic {
+        height: 170px;
+        width: 270px;
       }
       .monfood-resNameandRatingdiv{
         margin: 0;
@@ -60,6 +55,24 @@
         padding-right: 0;
         text-align: end;
       }
+      /* .monfood-notification{
+        text-align: center;
+        height: 150px;
+        display: flex;
+        background-color: #F6D14B;
+        justify-content: space-around;
+        align-content: center;
+        flex-wrap: wrap;
+        color: black;
+        font-size: 30px;
+      }
+      .resCategory-panel{
+        margin:0px;
+        padding:5px;
+        text-align:center;
+        border:solid 1px #c3c3c3;
+        display:none;
+      } */
     </style>
   </head>
   <body>
@@ -423,16 +436,7 @@
 
     <main>
       <!--  -->
-      <div
-        class="notification"
-        style="
-          justify-content: space-around;
-          align-content: center;
-          flex-wrap: wrap;
-          color: black;
-          font-size: 30px;
-        "
-      >
+      <div class="monfood-notification">
         輸入【生鮮七五】，最高折抵 $100 ! 生鮮雜貨 75 折！<br />日常補貨每日三省，省錢、省事、又省力！！！
       </div>
       <!--  -->
@@ -494,7 +498,7 @@
         <div class="flip">
           <span class="1" style="font-size: 20px">選擇篩選條件</span>
         </div>
-        <div class="panel">
+        <div class="resCategory-panel">
           <div>
             餐廳分類
             <span class="button">
@@ -508,8 +512,7 @@
         </div>
       </div>
 
-      <!-- check_box end-->
-      <!-- test slide -->
+      <!--slide -->
       <div
         id="carouselExampleSlidesOnly"
         class="carousel slide"
@@ -529,7 +532,6 @@
             <img
               src="images/healthy.png"
               class="d-block w-100"
-              alt="..."
               style="overflow: hidden"
             />
           </div>
@@ -537,7 +539,6 @@
             <img
               src="images/head.webp"
               class="d-block w-100"
-              alt="..."
               style="overflow: hidden"
             />
           </div>
@@ -545,23 +546,17 @@
             <img
               src="images/header-home-precon-food.jpg"
               class="d-block w-100"
-              alt="..."
               style="overflow: hidden; display: block"
             />
           </div>
         </div>
       </div>
-      <!-- test slide -->
+      <!--slide -->
 
-      <!-- product today head -->
-
-      <div class="todaypromote_head">
+      <div class="resAll">
         <span class="s1"> 所有餐廳 </span>
       </div>
 
-      <!-- product today head end -->
-
-      <!-- 測試new -->
       <div class="container">
         <!-- TODO: 餐廳區塊 -->
         <div id="resPageBlock" class="row" style="justify-content: space-around">
@@ -569,10 +564,10 @@
             <div>
               <div class="btn btn-primary monfood-resBlock">
                 <div class="monfood-resPicdiv" >
-                  <img id="resPic" src="images/111.jpg" class="monfood-respic"/>
+                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
                 </div>
                 <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                  <div id="resName" class="col-md-6 d-flex resName">麥當勞(三重店)</div>
+                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
                   <div id="rating" class="col-md-6 monfood-rating">4.0</div>
                 </div>
 
@@ -584,486 +579,47 @@
             </div>
           </a>
           <!--  -->
+          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
+            <div>
+              <div class="btn btn-primary monfood-resBlock">
+                <div class="monfood-resPicdiv" >
+                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
+                </div>
+                <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
+                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
+                </div>
 
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a id="resPage" href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="resPic"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      id="resPic"
-                      src="images/111.jpg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      id="resName"
-                      class="col-md-6 d-flex"
-                      style="
-                        text-align: left;
-                        margin-top: 15px;
-                        padding-left: 0;
-                      "
-                    >
-                      麥當勞(三重店)
-                    </div>
-
-                    <div
-                      id="rating"
-                      class="col-md-6"
-                      style="
-                        font-size: 12px;
-                        padding-right: 0;
-                        text-align: end;
-                        margin-top: 15px;
-                      "
-                    >
-                      4.0
-                    </div>
-                  </div>
-
-                  <div
-                    class="row justify-content-between"
-                    style="margin: 0; margin-top: 15px"
-                  >
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    ></div>
-                    <div
-                      id="resCategory"
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      美式
-                    </div>
-                  </div>
+                <div class="row justify-content-between monfood-resCategorydiv">
+                  <div class="col-md-6 d-flex"></div>
+                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
                 </div>
               </div>
-            </a>
-          </div> 
-         
+            </div>
+          </a>
+         <!--  -->
+          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
+            <div>
+              <div class="btn btn-primary monfood-resBlock">
+                <div class="monfood-resPicdiv" >
+                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
+                </div>
+                <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
+                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
+                </div>
 
-          <!-- <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a id="resPage" href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="resPic"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      id="resPic"
-                      src="images/111.jpg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      id="resName"
-                      class="col-md-6 d-flex"
-                      style="
-                        text-align: left;
-                        margin-top: 15px;
-                        padding-left: 0;
-                      "
-                    >
-                      麥當勞(三重店)
-                    </div>
-
-                    <div
-                      id="rating"
-                      class="col-md-6"
-                      style="
-                        font-size: 12px;
-                        padding-right: 0;
-                        text-align: end;
-                        margin-top: 15px;
-                      "
-                    >
-                      4.0
-                    </div>
-                  </div>
-
-                  <div
-                    class="row justify-content-between"
-                    style="margin: 0; margin-top: 15px"
-                  >
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    ></div>
-                    <div
-                      id="resCategory"
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      美式
-                    </div>
-                  </div>
+                <div class="row justify-content-between monfood-resCategorydiv">
+                  <div class="col-md-6 d-flex"></div>
+                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
                 </div>
               </div>
-            </a>
-          </div> -->
-        </div>
+            </div>
+          </a>
+          <!--  -->
+        </div> 
       </div>
 
-      <!-- <div class="popular_head">
-        <span class="s3"> 熱門餐廳 </span>
-      </div>
-
-      <div class="container">
-        <div class="row" style="justify-content: space-around">
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-         
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        </div>
-       
-        <div class="row" style="justify-content: space-around">
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-      
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-       
-          <div
-            class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center"
-          >
-            <a href="restaurant.html">
-              <div>
-                <div
-                  class="btn btn-primary"
-                  style="
-                    background-color: white;
-                    color: black;
-                    border: 1px solid lightgray;
-                    overflow: hidden;
-                    border-radius: 10px;
-                  "
-                >
-                  <div
-                    id="product_img"
-                    style="height: 170px; width: 270px; overflow: hidden"
-                  >
-                    <img
-                      src="images/curry.jpeg"
-                      alt=""
-                      class="mt-1"
-                      height="170px"
-                      width="270px"
-                    />
-                  </div>
-
-                  <p style="text-align: left; margin-top: 15px">
-                    無名咖哩(台大店)
-                  </p>
-
-                  <div class="row justify-content-between" style="margin: 0">
-                    <div
-                      class="col-md-6 d-flex"
-                      style="font-size: 12px; padding-left: 0"
-                    >
-                      55TWD費用
-                    </div>
-                    <div
-                      class="col-md-6"
-                      style="font-size: 12px; padding-right: 0; text-align: end"
-                    >
-                      20-35分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-         
-        </div>
-      </div> -->
-
-      <!-- product end -->
       <li class="d-flex justify-content-center">
         <div class="show_more">
           <button class="show_more">顯示更多</button>

@@ -1,6 +1,6 @@
 $(function () {
   $(".flip").click(function () {
-    $(".panel").slideToggle("slow");
+    $(".resCategory-panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
   });
@@ -207,7 +207,7 @@ $(document).ready(function() {
       let resPageContentHtml = `
         <div class="btn btn-primary monfood-resBlock">
           <div class="monfood-resPicdiv" >
-            <img id="resPic" src="images/111.jpg" class="monfood-respic"/>
+            <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
           </div>
           <div class="row justify-content-between monfood-resNameandRatingdiv" >
             <div id="resName" class="col-md-6 d-flex resName">${resList.RES_NAME}</div>
