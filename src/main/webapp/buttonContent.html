@@ -85,6 +85,7 @@
                     type="button"
                     class="btn btn-secondary"
                     id="acceptPairBtn"
+                    value="1"
                     data-bs-toggle="modal"
                     data-bs-target="#waitPairModal"
                   >
@@ -96,14 +97,9 @@
                 <!-- 自我介紹區塊 -->
                 <div id="intro">
                   <div class="modal-body">
-                    <img
-                      id="headshot"
-                      src="images/istockphoto-1007179332-612x612.jpg"
-                    />
-                    <h5 class="name">David</h5>
-                    <p>
-                      自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹自我介紹
-                    </p>
+                    <img id="headshot" src="" />
+                    <h5 class="name"></h5>
+                    <prep id="selfIntro"></prep>
                   </div>
                 </div>
               </div>
@@ -114,6 +110,7 @@
                     type="button"
                     class="btn btn-secondary"
                     id="refusePairBtn"
+                    value="0"
                     data-bs-toggle="modal"
                     data-bs-target="#waitNightPairModal"
                   >
@@ -212,12 +209,8 @@
           </div>
           <h4 id="pairTitle">等待下次配對</h4>
           <div id="waitNightPairInfo" class="col align-self-center">
-            <img
-              id="waitNightPairImg"
-              src="images/day-and-night.png"
-              alt=""
-            />
-            <p id="nightPair">您已拒絕與David成為好友</p>
+            <img id="waitNightPairImg" src="images/day-and-night.png" alt="" />
+            <p id="nightPair">您已拒絕與<span id="name1"></span>成為好友</p>
             <p id="nightPair">等待午夜降臨</p>
             <p id="nightPair">等待12點一到，即可進行下次配對</p>
           </div>
@@ -425,77 +418,7 @@
         </div>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-      // 聊天室
-      (function () {
-        var Message;
-        Message = function (arg) {
-          (this.text = arg.text), (this.message_side = arg.message_side);
-          this.draw = (function (_this) {
-            return function () {
-              var $message;
-              $message = $($(".message_template").clone().html());
-              $message
-                .addClass(_this.message_side)
-                .find(".text")
-                .html(_this.text);
-              $(".messages").append($message);
-              return setTimeout(function () {
-                return $message.addClass("appeared");
-              }, 0);
-            };
-          })(this);
-          return this;
-        };
-        $(function () {
-          var getMessageText, message_side, sendMessage;
-          message_side = "right";
-          getMessageText = function () {
-            var $message_input;
-            $message_input = $(".message_input");
-            return $message_input.val();
-          };
-          sendMessage = function (text) {
-            var $messages, message;
-            if (text.trim() === "") {
-              return;
-            }
-            $(".message_input").val("");
-            $messages = $(".messages");
-            message_side = message_side === "left" ? "right" : "left";
-            message = new Message({
-              text: text,
-              message_side: message_side,
-            });
-            message.draw();
-            return $messages.animate(
-              { scrollTop: $messages.prop("scrollHeight") },
-              300
-            );
-          };
-          $(".send_message").click(function (e) {
-            return sendMessage(getMessageText());
-          });
-          $(".message_input").keyup(function (e) {
-            if (e.which === 13) {
-              return sendMessage(getMessageText());
-            }
-          });
-        });
-      }.call(this));
-
-      //配對local storage
-
-      //to be asked
-      $("#acceptPair").click(function () {
-        localStorage.setItem("acceptPage", 10);
-        if (localStorage.getItem("acceptPage") == 10) {
-          $("#todayPairModal").hide();
-        } else {
-          $("#todayPairModal").show();
-        }
-      });
-    </script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="js/buttonContent.js"></script>
   </body>
 </html>
