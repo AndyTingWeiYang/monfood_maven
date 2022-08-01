@@ -1,8 +1,14 @@
 package com.model.res.dao.impl;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
 
@@ -24,14 +30,16 @@ public class ResDAOImpl implements ResDAO {
 	// 查詢一筆
 	private static final String SELECTBYRESID = "SELECT * FROM MonFood.RES WHERE RES_ID = ? ";
 	// 使用商家帳號查詢一筆資料 for Login
-	private static final String SELECTBYUSERACCOUNT = "SELECT * FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
+	private static final String SELECTBYRESACCOUNT = "SELECT * FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
+	// 使用商家名稱查詢資料
+	private static final String SELECTBYRESNAME = "SELECT * FROM MonFood.RES WHERE RES_NAME = ? ";
 	// 查詢全部
 	private static final String GETALL = "SELECT * FROM MonFood.RES ORDER BY RES_ID";
 	// 查詢是否有此會員帳號
 	private static final String ISDUPLICATEACCOUNT = "SELECT RES_ACCOUNT FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
 	// 使用餐廳分類查詢一筆多筆資料
 	private static final String SELECTBYCATEGORY = "SELECT * FROM RES WHERE RES_CATEGORY = ? ";
-	
+
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -242,11 +250,9 @@ public class ResDAOImpl implements ResDAO {
 				resVO.setResName(rs.getString("RES_NAME"));
 				resVO.setResPassword(rs.getString("RES_PASSWORD"));
 				resVO.setResTel(rs.getString("RES_TEL"));
-//				resVO.setBzLicence(rs.getBytes("BZ_LICENCE"));
-//				resVO.setResPic(rs.getBytes("RES_PIC"));
+				resVO.setResPic(rs.getBytes("RES_PIC"));
 				resVO.setOwnerName(rs.getString("OWNER_NAME"));
 				resVO.setOwnerTel(rs.getString("OWNER_TEL"));
-//				resVO.setOwnerId(rs.getBytes("OWNER_ID"));
 				resVO.setBzLocation(rs.getString("BZ_LOCATION"));
 				resVO.setZipCode(rs.getInt("ZIP_CODE"));
 				resVO.setBzOpenHours(rs.getTime("BZ_OPEN_HOURS"));
@@ -287,7 +293,7 @@ public class ResDAOImpl implements ResDAO {
 
 		try {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
-			pstmt = con.prepareStatement(SELECTBYUSERACCOUNT);
+			pstmt = con.prepareStatement(SELECTBYRESACCOUNT);
 
 			pstmt.setString(1, resAccount);
 
@@ -427,7 +433,7 @@ public class ResDAOImpl implements ResDAO {
 	@Override
 	public List<ResVO> selectByCategory(Integer resCategory) {
 		List<ResVO> list = new ArrayList<>();
-		ResVO resVO =null;
+		ResVO resVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -482,8 +488,110 @@ public class ResDAOImpl implements ResDAO {
 
 		return list;
 	}
+
+	@Override
+	public boolean updateResInfo(ResDto resDto) {
+		String updateResInfo = "UPDATE MonFood.RES SET RES_CATEGORY = ?,RES_TEL = ?,RES_PIC = ? ,OWNER_NAME = ? ,BZ_LOCATION = ? ,ZIP_CODE = ?  WHERE RES_ID = ?";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(updateResInfo);
+
+			pstmt.setInt(1, resDto.getResCategory());
+			pstmt.setString(2, resDto.getResPhone());
+			pstmt.setBytes(3, resDto.getResFile());
+			pstmt.setString(4, resDto.getOwnerName());
+			pstmt.setString(5, resDto.getCountry() + resDto.getDistrict() + resDto.getBzAdd());
+			pstmt.setInt(6, resDto.getZipcode());
+			pstmt.setInt(7, resDto.getResID());
+
+			int result = pstmt.executeUpdate();
+
+			if (result > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return false;
+	}
+	@Override
+	public List<ResVO> selectByResName(String resName) {
+		List<ResVO> listResVO = new ArrayList<ResVO>();
+		ResVO resVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(SELECTBYRESNAME);
+			System.out.println("daoImpl = " + resName);
+			pstmt.setString(1, resName);
+			rs = pstmt.executeQuery(); // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
+
+			while (rs.next()) {
+				resVO = new ResVO();
+				resVO.setResId(rs.getInt("RES_ID"));
+				resVO.setResCategory(rs.getInt("RES_CATEGORY"));
+				resVO.setResAccount(rs.getString("RES_ACCOUNT"));
+				resVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
+				resVO.setResName(rs.getString("RES_NAME"));
+				resVO.setResPassword(rs.getString("RES_PASSWORD"));
+				resVO.setResTel(rs.getString("RES_TEL"));
+				resVO.setResPic(rs.getBytes("RES_PIC"));
+				resVO.setOwnerName(rs.getString("OWNER_NAME"));
+				resVO.setOwnerTel(rs.getString("OWNER_TEL"));
+				resVO.setBzLocation(rs.getString("BZ_LOCATION"));
+				resVO.setZipCode(rs.getInt("ZIP_CODE"));
+				resVO.setBzOpenHours(rs.getTime("BZ_OPEN_HOURS"));
+				resVO.setBzCloseHours(rs.getTime("BZ_CLOSE_HOURS"));
+				resVO.setBzWeekTime(rs.getInt("BZ_WEEK_TIME"));
+				listResVO.add(resVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return listResVO;
+	}
 }
-
-	
-
-

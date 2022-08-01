@@ -32,7 +32,7 @@ public class UpdateAnswerServlet extends HttpServlet {
 		java.util.Date date = new java.util.Date();
 		java.sql.Date today = new java.sql.Date(date.getTime());
 		pairListVo.setPairedDate(today);
-		int useraId = 10; //先寫死 [to be revised]
+		int useraId = 2; //先寫死 [to be revised]
 		pairListVo.setUseraId(useraId);
 		pairListVo.setUserbId(useraId);
 		PairListService service = new PairListServiceImpl();

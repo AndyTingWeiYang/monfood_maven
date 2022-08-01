@@ -1,0 +1,32 @@
+#header{
+    background-color: #FF7F3F;
+}
+
+span.logo{
+    color: black;
+    font-size: 20px;
+}
+
+span.logo2{
+    color: white;
+    font-size: 20px;
+
+}
+
+.navbar-profile{
+    border-radius: 12px;
+
+    /* background-color: black; */
+    color: black;
+    border: none;
+}
+
+.menu-title{
+    font-size: 12px;
+}
+
+.nav-link{
+    margin: 1px, 1px;
+}
+
+

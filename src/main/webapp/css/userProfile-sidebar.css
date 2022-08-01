@@ -1,0 +1,11 @@
+#profilePic{
+    height: 100px;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+a.nav-link:hover{
+    background-color: #FF7F3F !important;
+}
+
+

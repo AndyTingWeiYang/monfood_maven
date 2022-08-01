@@ -86,12 +86,19 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public MonsterVO monsCheck(Integer userId) throws SQLException {
 		Integer orderTimes = dao.getOrderTimes(userId);
+		if (orderTimes == null) {
+			orderTimes = 0;
+		}
+		
 		UserDAO userDAO = new UserDAOImpl();
 		IMonsterDAO monsterDAO = new MonsterJDBCDAO();
 		MonsterVO monsterVO = new MonsterVO();
-		
+		System.out.println(userId);
 		System.out.println(orderTimes);
-		if (orderTimes / 10 < 1) {
+		
+		if (orderTimes / 10 < 1 || orderTimes == 0) {
+			System.out.println(orderTimes);
+
 			userDAO.updateMonsLv(1, userId);
 			monsterVO = monsterDAO.findByPrimaryKey(1);
 			return monsterVO;
@@ -124,6 +131,9 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Integer orderTimes(Integer userId) {
 		Integer orderTimes = dao.getOrderTimes(userId);
+		if (orderTimes == null) {
+			orderTimes = 0;
+		}
 		return orderTimes;
 	}
 	

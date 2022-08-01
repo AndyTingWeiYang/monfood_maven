@@ -205,6 +205,32 @@ public class TestResJDBCImpl {
 //		System.out.println("查詢完畢，"+"共"+count++ +"筆資料");		
 //		
 //
+/////System.out.println(----------selectByResName----------);			
+//		System.out.println("請輸入查詢的商家名稱(resName)");
+//		String resName = sc.next();
+//		sc.close();
+//		ResDAO dao = new ResDAOImpl();//產生會員註冊的dao物件,準備對會員表註冊表格進行操作
+//		List<ResVO> listResVO = dao.selectByResName(resName);
+//		ResVO resVO = new ResVO();
+//		
+//		// 取得DB資料
+//		System.out.println("ResId = " + resVO.getResId());
+//		System.out.println("ResCategory = " + resVO.getResCategory());
+//		System.out.println("ResAccount = " + resVO.getResAccount());
+//		System.out.println("UpdateTime = " + resVO.getUpdateTime());
+//		System.out.println("ResName = " + resVO.getResName());
+//		System.out.println("ResPassword = " + resVO.getResPassword());
+//		System.out.println("ResTel = " + resVO.getResTel());
+//		System.out.println("getResPic = " + resVO.getResPic());
+//		System.out.println("OwnerName = " + resVO.getOwnerName());
+//		System.out.println("OwnerTel = " + resVO.getOwnerTel());
+//		System.out.println("BzLocation = " + resVO.getBzLocation());
+//		System.out.println("ZipCode = " + resVO.getZipCode());
+//		System.out.println("BzOpenHours = " + resVO.getBzOpenHours());
+//		System.out.println("BzCloseHours = " + resVO.getBzCloseHours());
+//		System.out.println("BzWeekTime = " + resVO.getBzWeekTime());
+//		
+//		System.out.println("selectByResName successful");	
 	}
 		
 		

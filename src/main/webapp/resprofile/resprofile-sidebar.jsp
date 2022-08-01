@@ -29,8 +29,7 @@
                 <div class="profile-desc">
                     <div class="profile-pic">
                         <div class="count-indicator">
-                            <img class="img-xs rounded-circle" src="<c:url value='/assets/images/faces/face3.jpg' />" alt="">
-                            <span class="count bg-success"></span>
+                            <img id="resPhoto" width="80px" height="50px" class="rounded-circle" src="<c:url value='/resprofile/ResPhotoPreviewServlet?resID=${sessionScope.resID}' />" alt="">
                         </div>
                         <div class="profile-name">
                             <h5 class="mb-0 font-weight-normal mf-username">${sessionScope.resName}</h5>

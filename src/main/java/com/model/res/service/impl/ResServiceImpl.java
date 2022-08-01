@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-
+import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
 import com.model.res.dao.impl.ResDAOImpl;
@@ -135,6 +135,28 @@ public class ResServiceImpl implements ResService {
 	public List<ResVO> adminFindByCategory(Integer resCategory) {
 		List<ResVO> list = dao.selectByCategory(resCategory);
 		return list;
+	}
+	
+	@Override
+	public boolean updateResInfo(ResDto resDto) {
+		return dao.updateResInfo(resDto);
+	}
+
+	@Override
+	public ResVO selectByResId(Integer resId) {
+		return dao.selectByResId(resId);
+	}
+
+	@Override
+	public List<ResVO> getByResName(String resName) {
+		List<ResVO> listResVO = dao.selectByResName(resName);
+		return listResVO;
+	}
+
+	@Override
+	public ResVO getOneByResAccount(String resAccount) {
+		ResVO resVO = dao.selectByResAccount(resAccount);
+		return resVO;
 	}
 
 }

@@ -81,8 +81,6 @@
           // url = window.URL.createObjectURL(blob);
           // console.log(url);
           var base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic)));
-          var img = new Image();
-          console.log(base64String);
           $("#headshot").attr('src', `data:image/png;base64,${base64String}`);
           $(".name").append(data[0].userName);
           $("#selfIntro").append(data[0].userProfile);

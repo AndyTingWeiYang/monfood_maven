@@ -154,7 +154,7 @@ window.addEventListener('load', function(){
     }),
     dataType: 'json',
     success: function(msg){
-      console.log(msg)
+      // console.log(msg)
 
       let discountVal = msg.monsterInfo.discount;
       let monsLevel = msg.monsterInfo.monsLevel;
@@ -222,6 +222,9 @@ window.addEventListener('load', function(){
   var itemTotal = 0;
   var kcalTotal = 0;
 
+  // 店名
+  $('.resName').text(cartData.cartList[0].resName);
+
   // 將購物車資料渲染至頁面
   $.each(cartData, function(){
     $.each(this, function(index, data){
@@ -266,6 +269,7 @@ window.addEventListener('load', function(){
           <img src="images/20190813JEF004__20190813_L.jpg" alt="" style="height: 90px; width: 90px">
           </li>
         `
+        
         // 小記金額
         itemTotal += this.amount * this.productPrice;
         // 總卡路里
@@ -405,14 +409,26 @@ window.addEventListener('load', function(){
                 }),
                 dataType: 'json',
                 success: function(msg){
-                  console.log(msg)
+   
                 },
                 error: function(errMsg){
-                  // console.log(errMsg)
+
                 }
               });
             })
           })
+
+          // 將部分訂單資訊存入session供後頁面使用
+          let orderList = {
+            orderId : msg.OrderId,
+            delTime: $('#duration').text(),
+            address: $('#finalAddress').text(),
+            total: $('#total').text(),
+            payBy: ($('input[name=pay]:checked').val() == 'cash'? '現金' : '信用卡'),
+            monsPic: $('#monsPic').attr('src')
+          };
+          sessionStorage.setItem('orderList', JSON.stringify(orderList));
+          location.href="searching.html"
         },
         error: function(errMsg){
           // console.log(errMsg)
@@ -455,14 +471,28 @@ window.addEventListener('load', function(){
                 }),
                 dataType: 'json',
                 success: function(msg){
-                  console.log(msg)
+
                 },
                 error: function(errMsg){
-                  // console.log(errMsg)
+
                 }
               });
             })
           })
+        
+          // 將部分訂單資訊存入session供後頁面使用
+          let orderList = {
+            orderId : msg.OrderId,
+            delTime: $('#duration').text(),
+            address: $('#finalAddress').text(),
+            total: $('#total').text(),
+            payBy: ($('input[name=pay]:checked').val() == 'cash'? '現金' : '信用卡'),
+            monsPic: $('#monsPic').attr('src')
+          };
+          sessionStorage.setItem('orderList', JSON.stringify(orderList));
+          location.href="searching.html"
+        
+        
         },
         error: function(errMsg){
           // console.log(errMsg)
