@@ -36,7 +36,7 @@
           </li>
 
           <li class="nav-item menu-items">
-              <a style="background-color: #FF7F3F; color: rgb(30, 29, 29);" class="nav-link" data-toggle="collapse" href="adminUser.html" aria-expanded="false"
+              <a style="background-color: white; color: rgb(30, 29, 29);" class="nav-link" data-toggle="collapse" href="userprofile.html" aria-expanded="false"
                   aria-controls="ui-basic">
                   <span class="menu-icon">
                     <svg style="color: rgb(30, 29, 29); height:60%; width:60%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
           </li>
           
           <li class="nav-item menu-items">
-              <a class="nav-link" href="adminRes.html">
+              <a style="background-color: white; color: rgb(30, 29, 29);" class="nav-link" href="userOrders.html">
                   <span class="menu-icon">
                     <svg style="color: rgb(30, 29, 29); height:60%; width:60% " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data-fill" viewBox="0 0 16 16">
                       <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z"/>
@@ -61,7 +61,7 @@
           </li>
 
           <li class="nav-item menu-items">
-              <a class="nav-link" href="adminDel.html">
+              <a style="background-color: white; color: rgb(30, 29, 29);" class="nav-link" href="userMonster.html">
                   <span class="menu-icon">
                     <svg style="color: rgb(30, 29, 29); height:60%; width:60% " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-robot" viewBox="0 0 16 16">
                       <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a24.767 24.767 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25.286 25.286 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135Z"/>
@@ -72,7 +72,7 @@
               </a>
           </li>
           <li class="nav-item menu-items">
-              <a class="nav-link" href="adminOrder.html">
+              <a style="background-color: #FF7F3F; color: rgb(30, 29, 29);" class="nav-link" href="userFriends.html">
                   <span class="menu-icon">
                     <svg  style="color: rgb(30, 29, 29); height:60%; width:60%;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-heart" viewBox="0 0 16 16">
                       <path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z"/>
@@ -128,103 +128,99 @@
           <!-- 表單區塊 -->
           <div class="jumbotron">
             <div class="form-group row">
-              <label for="orderId" class="col-sm-12 col-form-label">查詢單筆訂單</label>
-              <div class="col-sm-12">
-                <input type="text" placeholder="輸入訂單編號" name="orderId" class="form-control" id="orderId">
+              <div class="col-sm-12 d-flex justify-content-around">
+                <div style="margin: 10px">
+                  <span>會員編號</span>
+                  <input style="width: 420px;" type="text" name="userId" class="form-control" id="userId">
+                </div>
+                <div style="margin: 10px">
+                  <span>姓名</span>
+                  <input style="width: 420px;" type="text" name="userName" class="form-control" id="userName">
+                </div>
               </div>
-              <span id="errMsg" style="color: red; font-size:12px"></span>
-              <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button id="selectAll" type="submit" class="btn btn-primary" style="background: #3d424e; border: none;">查詢所有歷史訂單</button>
-                <button id="selectOne" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">送出單筆查詢</button>
+              <div class="col-sm-12 d-flex justify-content-around">
+                <div style="margin: 10px">
+                  <span>電話</span>
+                  <input style="width: 420px;" type="text" name="userTel" class="form-control" id="userTel">
+                </div>
+                <div style="margin: 10px">
+                  <span>電子郵件</span>
+                  <input style="width: 420px;" type="text" name="userEmail" class="form-control" id="userEmail">
+                </div>
+              </div>
+              <div class="col-sm-12 d-flex justify-content-around">
+                <div style="margin: 10px">
+                  <span>消費金額上限(每月)</span>
+                  <div class="d-flex">
+                    <input style="width: 350px;" type="text" name="budget" class="form-control" id="budget">
+                    <button id="budgetsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                  </div>
+                </div>
+                <div style="margin: 10px">
+                  <span>熱量攝取上限(每日)</span>
+                  <div class="d-flex">
+                    <input style="width: 350px;" type="text" name="kcal" class="form-control" id="kcal">
+                    <button id="kcalsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 d-flex justify-content-around">
+                <div style="margin: 10px">
+                  <span>自我介紹</span>
+                  <div class="d-flex">
+                    <input style="width: 500px;" type="text" name="comment" class="form-control" id="comment">
+                    <button id="commentsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="row result">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header"style="background-color: #e9ecef;">
-                  <h3 class="card-title" style="color: black;">查詢結果</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                      <tr>
-                        <th>訂單編號</th>
-                        <th>會員編號</th>
-                        <th>商家編號</th>
-                        <th>外送員編號</th>
-                        <th>訂單狀態</th>
-                        <th>訂單備註</th>
-                        <th>送餐地址</th>
-                        <th>訂單成立時間</th>
-                        <th>訂單完成時間</th>
-                        <th>熱量總計</th>
-                        <th>餐點總額</th>
-                        <th>外送費</th>
-                        <th>是否使用現金</th>
-                        <th>信用卡</th>
-                        <th>紅利折抵</th>
-                        <th>是否已統計過評分</th>
-                        <th>商家評分</th>
-                        <th>外送員評分</th>
-                        <th>商家評論</th>
-                        <th>外送員評論</th>
-                        <th>優惠券編號</th>
-                      </tr>
-                    </thead>
-                    <tbody id="content">                      
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-          </div>
+
         </div>
         <!-- ===== 內容客製化區塊 ===== -->
 
 
-        <!-- ===== footer start ===== -->
-        <div style="background-color: #FF7F3F">
-          <div class="container pb-0 mb-0 text-light " style="background-color: #FF7F3F">
-            <footer>
-              <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
-                <div class="col-12">
-    
-                  <div class="row justify-content-between ">
-                    <div class="col-6 align-self-center">
-                      <a class="navbar-brand d-inline-flex" href="index.html">
-                        <span class="logo">Mon</span>
-                        <span class="logo2">Food</span>
-                      </a>
-                    </div>
-    
-                    <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
-                      <ul class="list-unstyled justify-content-center">
-                        <li class="mt-3 mb-1">
-                          <a href="resLogin.html" class="transparent">新增您的餐廳</a>
-                        </li>
-                        <li class="mb-1 transparent">
-                          <a href="delLogin.html">註冊成為外送夥伴</a>
-                        </li>
-                        <li class="mb-1 transparent">
-                          <a href="aboutUs.html">關於MonFood</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>  
-    
-                </div>
-              </div>
-            </footer>
-          </div>
-        </div>
-        <!-- ===== footer end ===== -->
       </div>
     </div>
   </div>
+
+  <!-- ===== footer start ===== -->
+  <div style="background-color: #FF7F3F">
+    <div class="container pb-0 mb-0 text-light " style="background-color: #FF7F3F">
+      <footer>
+        <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
+          <div class="col-12">
+
+            <div class="row justify-content-between ">
+              <div class="col-6 align-self-center">
+                <a class="navbar-brand d-inline-flex" href="index.html">
+                  <span class="logo">Mon</span>
+                  <span class="logo2">Food</span>
+                </a>
+              </div>
+
+              <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
+                <ul class="list-unstyled justify-content-center">
+                  <li class="mt-3 mb-1">
+                    <a href="resLogin.html" class="transparent">新增您的餐廳</a>
+                  </li>
+                  <li class="mb-1 transparent">
+                    <a href="delLogin.html">註冊成為外送夥伴</a>
+                  </li>
+                  <li class="mb-1 transparent">
+                    <a href="aboutUs.html">關於MonFood</a>
+                  </li>
+                </ul>
+              </div>
+            </div>  
+
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- ===== footer end ===== -->
+
   <script src="../assets/js/jQuery-3.6.0.js"></script>
   <script src="../assets/js/bootstrap.js"></script>
   <script src="../assets/js/off-canvas.js"></script>
