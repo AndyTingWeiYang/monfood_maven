@@ -1,9 +1,11 @@
-package com.model.location;
+package com.model.location.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ILocationDAO {
+import com.model.location.LocationVO;
+
+public interface LocationDAO {
 
 	//取得連線,拋出SQL例外
 	//public void getConnection() throws SQLException;
