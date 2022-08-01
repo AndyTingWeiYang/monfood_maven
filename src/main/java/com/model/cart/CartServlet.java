@@ -53,13 +53,14 @@ public class CartServlet extends HttpServlet {
 		}
 
 		String resId = req.getParameter("resId");
+		String resLocation = req.getParameter("resLocation");
 		String resName = req.getParameter("resName");
 		String productId = req.getParameter("Integer");
 		String productName = req.getParameter("productName");
 		String amountStr = req.getParameter("amount");
 		String productPriceStr = req.getParameter("productPrice");
 		String productLKcal = req.getParameter("productLKcal");
-		Part productPic = req.getPart("productPic");
+		Part productPic = req.getPart("productPic"); //先用????????????
 
 		int amount = 0;
 		try {
@@ -75,7 +76,7 @@ public class CartServlet extends HttpServlet {
 		}
 
 		if ("goToCart".equals(action)) {
-			cartList = addToCart(cartList, resId, resName, productId, productName, amount, productPrice, productLKcal,
+			cartList = addToCart(cartList, resId, resLocation, resName, productId, productName, amount, productPrice, productLKcal,
 					productPic);
 
 			session.setAttribute(SESSION_CART_KEY, cartList);
@@ -87,7 +88,7 @@ public class CartServlet extends HttpServlet {
 
 		if ("addToCart".equals(action)) {
 			try {
-				cartList = addToCart(cartList, resId, resName, productId, productName, amount, productPrice,
+				cartList = addToCart(cartList, resId, resLocation, resName, productId, productName, amount, productPrice,
 						productLKcal, productPic);
 
 				session.setAttribute(SESSION_CART_KEY, cartList);
@@ -214,7 +215,7 @@ public class CartServlet extends HttpServlet {
 //	}
 	}
 
-	private List<CartVO> addToCart(List<CartVO> cartList, String resId, String resName, String productId,
+	private List<CartVO> addToCart(List<CartVO> cartList, String resId, String resLocation, String resName, String productId,
 			String productName, int amount, Integer productPrice, String productLKcal, Part productPic) throws IOException {
 		boolean match = false;
 
@@ -236,11 +237,13 @@ public class CartServlet extends HttpServlet {
 			CartVO vo = new CartVO();
 			vo.setResId(Integer.parseInt(resId));
 			vo.setResName(resName);
+			vo.setResLocation(resLocation);
 			vo.setProductId(Integer.parseInt(productId));
 			vo.setProductName(productName);
 			vo.setAmount(amount);
 			vo.setProductPrice(productPrice);
 			vo.setProductKcal(Integer.parseInt(productLKcal));
+			
 			InputStream is=productPic.getInputStream();
 			byte[] buffer=new byte[is.available()];
 			is.read(buffer);
@@ -270,7 +273,4 @@ public class CartServlet extends HttpServlet {
 	}
 }
 
-//	private List<CartVO> addToCart(List<CartVO> cartList, Integer resId, String resName, Integer productId,
-//			String productName, Integer amount, Integer productPrice, Integer productKcal, byte[] productPic) {
-//		
-//}
+
