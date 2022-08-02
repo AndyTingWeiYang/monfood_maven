@@ -1,6 +1,6 @@
 $(function () {
   $(".flip").click(function () {
-    $(".panel").slideToggle("slow");
+    $(".resCategory-panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
   });
@@ -76,7 +76,7 @@ window.addEventListener('load', function(){
       var time = new Date();
       time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
       var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-      document.getElementById("duration").innerText = arrival;
+      // document.getElementById("duration").innerText = arrival;
       
     } else {
       // console.log(status);
@@ -124,7 +124,7 @@ window.addEventListener('load', function(){
         var time = new Date();
         time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
         var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-        document.getElementById("duration").innerText = arrival;
+        // document.getElementById("duration").innerText = arrival;
         
       } else {
         // console.log(status);
@@ -186,8 +186,54 @@ $('select').on('change', function(){
 
 
 
-//餐廳顯示
+// TODO: 餐廳顯示
 $(document).ready(function() {
+  $.ajax({
+    url: 'AdminResAllServlet',
+    type: 'POST',
+    dataType: 'json',
+    success: function(data) {
+      console.log(data);
+      const resList = data.resList;
+      
+      for(let i = 0; i < resList.length; i++) {
+        let resPageHtml = `
+        <a id="resPage" 
+          class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" 
+          href="restaurant.html">
+        </a>
+      `;
+
+      let resPageContentHtml = `
+        <div class="btn btn-primary monfood-resBlock">
+          <div class="monfood-resPicdiv" >
+            <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
+          </div>
+          <div class="row justify-content-between monfood-resNameandRatingdiv" >
+            <div id="resName" class="col-md-6 d-flex resName">${resList.RES_NAME}</div>
+            <div id="rating" class="col-md-6 monfood-rating">4.0</div>
+          </div>
+          <div class="row justify-content-between monfood-resCategorydiv">
+            <div class="col-md-6 d-flex"></div>
+            <div id="resCategory" class="col-md-6 monfood-resCategory">${resList.RES_CATEGORY}</div>
+          </div>
+        </div>
+      `;
+
+      $('#resPageBlock').append($(resPageHtml))
+                        .append('<div>')
+                        .append(resPageContentHtml);
+      }
+      
+
+      debugger
+
+
+    }
+  });
+
+
+
   $("#btn").click(function() { //ID 為 submitExample 的按鈕被點擊時
       $.ajax({
           type: "POST", //傳送方式

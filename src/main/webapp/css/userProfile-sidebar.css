@@ -5,14 +5,7 @@
 }
 
 a.nav-link:hover{
-    background-color: #FF7F3F;
+    background-color: #FF7F3F !important;
 }
 
 
-a:hover
-{
-    background-color: #FF7F3F;
-    color: black;
-    text-decoration: none;
-    outline: none;
-}

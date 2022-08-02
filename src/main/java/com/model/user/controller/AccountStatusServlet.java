@@ -28,24 +28,18 @@ public class AccountStatusServlet extends HttpServlet {
 		JsonObject respObj = new JsonObject();
 
 		try {
-			// 取得網址中的使用者帳號
-			String URL = request.getRequestURI().toString();
-
-			String[] params = URL.split("/");
-			String userAccount = null;
-
-			for (int i = 0; i < 1; i++) {
-				userAccount = params[3];
-				System.err.println(userAccount);
-			}
+			// 取得網址中的account
+			String account = request.getParameter("email");
+//			String token = request.getParameter("token");
 
 			// 呼叫service生效帳號
 			UserService service = new UserServiceImpl();
-			final String resetResult = service.resetAccountStatus(userAccount);
+			final String resetResult = service.resetAccountStatus(account);
 
 			if (resetResult == "ResetSuccessfully") {
-				respObj.addProperty("Success", "updateSuccess");
-				response.getWriter().append(gson.toJson(respObj));
+				response.getWriter().append("帳號已生效，點此開始享受外送服務：http://localhost:8080/monfood_maven/del/monFoodIndex.html");
+//				respObj.addProperty("Success", "updateSuccess");
+//				response.getWriter().append(gson.toJson(respObj));
 			} else if (resetResult == "ResetFailed") {
 				respObj.addProperty("Failed", "updateFailed");
 				response.getWriter().append(gson.toJson(respObj));

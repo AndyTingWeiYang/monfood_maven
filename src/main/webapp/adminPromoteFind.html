@@ -8,6 +8,16 @@
     />
     <title>MonFood</title>
     <!-- w3c.js 引入共用畫面 -->
+    <style>
+      .monfood-select {
+        padding-left: 8px;
+        border-color: #ced4da;
+        border-radius: 4px;
+        font-size: 14px;
+        height: 33px;
+        margin: 10px;
+      }
+    </style>
   </head>
 
   <body>
@@ -99,6 +109,7 @@
                           <th style="width: 150px">開始日期</th>
                           <th style="width: 150px">結束日期</th>
                           <th>狀態</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody id="content"></tbody>
@@ -155,7 +166,9 @@
           var promotePrice = $("td.promotePrice").text();
           var startDate = $("td.startDate").text();
           var endDate = $("td.endDate").text();
-          var status = $("input.editStatus").val();
+          var status = $("select.status").val();
+          status.append($("<option>").append("1"));
+          let statusIn = $("input.statusIn").addClass("hidden");
 
           var updateServlet = "updateServlet";
 
@@ -172,7 +185,7 @@
               promotePrice: promotePrice,
               startDate: startDate,
               endDate: endDate,
-              status: editStatus,
+              status: status,
             }),
           })
             .then(function (response) {
@@ -216,6 +229,15 @@
               // console.log(res.promoteId);
               // console.log(res[0].promoteId);
               console.log(res["PromoteLists"].promoteId);
+
+              let selectHtml = `
+                <select id="status" class="monfood-select" name="status">
+                  <option value="0">過期</option>
+                  <option value="1">使用中</option>
+                  <option value="2">未生效</option>
+                </select>
+              `;
+
               let table_html = `
                   <tr>
                     <td>${res["PromoteLists"].promoteId}</td>
@@ -223,11 +245,12 @@
                     <td>${res["PromoteLists"].promotePrice}</td>
                     <td>${res["PromoteLists"].startDate}</td>
                     <td>${res["PromoteLists"].endDate}</td>
-                    <td>${res["PromoteLists"].status}</td>
+                    <td>${selectHtml}</td>
                     </tr>
                     `;
 
               $("#content").html(table_html);
+              $("#status").val(res.PromoteLists.status);
             },
           });
         });
@@ -243,6 +266,7 @@
             dataType: "json",
 
             success: function (data) {
+              $("#content").html("");
               console.log(data);
 
               $.each(data, function () {

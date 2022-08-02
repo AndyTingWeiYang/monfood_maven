@@ -2,10 +2,12 @@ package com.model.cart;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Base64;
 
 public class CartVO implements Serializable{
 	
 	private Integer resId;
+	private String resLocation;
 	private String resName;
 	private Integer productId;
 	private String productName;
@@ -18,10 +20,11 @@ public class CartVO implements Serializable{
 		super();
 	}
 
-	public CartVO(Integer resId, String resName, Integer productId, String productName, Integer amount,
-			Integer productPrice, Integer productKcal, byte[] productPic) {
+	public CartVO(Integer resId, String resLocation, String resName, Integer productId, String productName,
+			Integer amount, Integer productPrice, Integer productKcal, byte[] productPic) {
 		super();
 		this.resId = resId;
+		this.resLocation = resLocation;
 		this.resName = resName;
 		this.productId = productId;
 		this.productName = productName;
@@ -37,6 +40,14 @@ public class CartVO implements Serializable{
 
 	public void setResId(Integer resId) {
 		this.resId = resId;
+	}
+
+	public String getResLocation() {
+		return resLocation;
+	}
+
+	public void setResLocation(String resLocation) {
+		this.resLocation = resLocation;
 	}
 
 	public String getResName() {
@@ -91,14 +102,16 @@ public class CartVO implements Serializable{
 		return productPic;
 	}
 
-	public void setProductPic(byte[] productPhoto) {
+	public void setProductPic(byte[] productPic) {
 		this.productPic = productPic;
 	}
 
 	@Override
 	public String toString() {
-		return "CartVO [resId=" + resId + ", resName=" + resName + ", productId=" + productId + ", productName="
-				+ productName + ", amount=" + amount + ", productPrice=" + productPrice + ", productKcal=" + productKcal
-				+ ", productPic=" + Arrays.toString(productPic) + "]";
+		return "CartVO [resId=" + resId + ", resLocation=" + resLocation + ", resName=" + resName + ", productId="
+				+ productId + ", productName=" + productName + ", amount=" + amount + ", productPrice=" + productPrice
+				+ ", productKcal=" + productKcal + ", productPic=" + productPic + "]";
 	}
+
+	
 }

@@ -7,6 +7,7 @@ import com.model.res.ResDto;
 import com.model.res.ResVO;
 
 public interface ResService {
+	// 前台登入註冊 
 	String resRegister(ResVO resVO);
 
 	// 登入
@@ -18,6 +19,10 @@ public interface ResService {
 
 	String isDuplicateAccount(ResVO resVO);
 
+	// 後臺查詢
+	List<ResVO> getByResName(String resName);
+	ResVO getOneByResAccount(String resAccount);
+
 	List<ResVO> adminFindResAll();
 
 	List<ResVO> adminFindByCategory(Integer resCategory);
@@ -27,4 +32,5 @@ public interface ResService {
 	ResVO selectByResId(Integer resId);
 
 	List<Map<String, Object>> resFindOrderService(Integer orderId);
+
 }
