@@ -75,7 +75,7 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="resprofile-product-history.jsp">
+                <a class="nav-link" href="resprofile-order-history.jsp">
                     <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                     </span>

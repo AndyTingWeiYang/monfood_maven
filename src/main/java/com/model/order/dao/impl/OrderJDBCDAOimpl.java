@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
@@ -17,28 +19,22 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	String url = "jdbc:mysql://localhost:3306/MonFood?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
-	
-	private static final String INSERT_STMT = 
-		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
-		+ "values(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String INSERT_NO_PROMOTE = 
-		"insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT) "
-		+ "values(?,?,?,?,?,?,?,?,?,?)";
-	private static final String GET_ALL_STMT = 
-		"select * from `ORDER` order by ORDER_ID";
-	private static final String GET_ONE_STMT = 
-		"select * from `ORDER` where ORDER_ID = ?";
-	private static final String DELETE = 
-		"delete from `ORDER` where ORDER_ID = ?";
+
+	private static final String INSERT_STMT = "insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT, PROMOTE_ID) "
+			+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_NO_PROMOTE = "insert into MonFood.ORDER(USER_ID, RES_ID, NOTE, USER_LOCATION, PRODUCT_KCAL_TOTAL, TOTAL, DEL_COST, USE_CASH, CREDIT_ID, DISCOUNT) "
+			+ "values(?,?,?,?,?,?,?,?,?,?)";
+	private static final String GET_ALL_STMT = "select * from `ORDER` order by ORDER_ID";
+	private static final String GET_ONE_STMT = "select * from `ORDER` where ORDER_ID = ?";
+	private static final String DELETE = "delete from `ORDER` where ORDER_ID = ?";
 	private static final String UPDATE = "update `ORDER` "
-			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?"
-			+ "where ORDER_ID = ?";
+			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?" + "where ORDER_ID = ?";
 	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
 	private static final String GET_RATING = "SELECT AVG(RES_RATE) FROM `ORDER` where RES_ID = ?";
-	
+
 	@Override
 	public Double getRating(Integer resId) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -48,9 +44,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_RATING);
-			
+
 			pstmt.setInt(1, resId);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -58,11 +54,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			}
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -86,14 +80,13 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				}
 			}
 		}
-		
+
 		return rating;
 	}
-	
-	
+
 	@Override
 	public Integer getOrderTimes(Integer userId) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -103,9 +96,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ORDER_TIMES);
-			
+
 			pstmt.setInt(1, userId);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -113,11 +106,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			}
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -143,8 +134,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 		return orderTimes;
 	}
-	
-	
+
 	@Override
 	public Integer insert(OrderVO orderVO) {
 
@@ -169,16 +159,14 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			pstmt.setInt(10, orderVO.getDiscount());
 			pstmt.setInt(11, orderVO.getPromoteId());
 			pstmt.executeUpdate();
-			ResultSet rs=pstmt.getGeneratedKeys();
+			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.next();
 			generatedKey = rs.getInt(1);
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -195,10 +183,10 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				}
 			}
 		}
-		
+
 		return generatedKey;
 	}
-	
+
 	@Override
 	public Integer insertNoPromote(OrderVO orderVO) {
 
@@ -222,16 +210,14 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			pstmt.setString(9, orderVO.getCreditId());
 			pstmt.setInt(10, orderVO.getDiscount());
 			pstmt.executeUpdate();
-			ResultSet rs=pstmt.getGeneratedKeys();
+			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.next();
 			generatedKey = rs.getInt(1);
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -248,25 +234,25 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				}
 			}
 		}
-		
+
 		return generatedKey;
 	}
-	
+
 	@Override
 	public List<OrderVO> getAll() {
-		
+
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		OrderVO orderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				orderVO = new OrderVO();
 				orderVO.setOrderId(rs.getInt("ORDER_ID"));
@@ -290,18 +276,16 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				orderVO.setResComment(rs.getString("RES_COMMENT"));
 				orderVO.setDelComment(rs.getString("DEL_COMMENT"));
 				orderVO.setPromoteId(rs.getInt("PROMOTE_ID"));
-				
+
 				list.add(orderVO);
-				
+
 			}
-			
+
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -328,10 +312,10 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public OrderVO findByPrimaryKey(Integer orderId) {
-		
+
 		OrderVO orderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -342,13 +326,13 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-			
+
 			pstmt.setInt(1, orderId);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				
+
 				orderVO = new OrderVO();
 				orderVO.setOrderId(rs.getInt("ORDER_ID"));
 				orderVO.setUserId(rs.getInt("USER_ID"));
@@ -375,11 +359,9 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			}
 
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -405,7 +387,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 		return orderVO;
 	}
-	
+
 	@Override
 	public void delete(Integer orderId) {
 
@@ -424,12 +406,10 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -454,7 +434,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	public void update(OrderVO orderVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 
 			Class.forName(driver);
@@ -467,17 +447,15 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			pstmt.setString(4, orderVO.getResComment());
 			pstmt.setString(5, orderVO.getDelComment());
 			pstmt.setInt(6, orderVO.getOrderId());
-			
+
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -497,11 +475,11 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		OrderDAO dao = new OrderJDBCDAOimpl();
-		
+
 		// insert
 		OrderVO orderVOi = new OrderVO();
 		orderVOi.setUserId(1);
@@ -516,10 +494,10 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		orderVOi.setDiscount(10);
 		orderVOi.setPromoteId(1);
 		dao.insert(orderVOi);
-		
+
 		// select all
 		List<OrderVO> list = dao.getAll();
-		for(OrderVO alist: list) {
+		for (OrderVO alist : list) {
 			System.out.print(alist.getOrderId() + ",");
 			System.out.print(alist.getUserId() + ",");
 			System.out.print(alist.getResId() + ",");
@@ -543,7 +521,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			System.out.print(alist.getPromoteId());
 			System.out.println();
 		}
-		
+
 		// select one
 		OrderVO orderVO = dao.findByPrimaryKey(1);
 		System.out.print(orderVO.getOrderId() + ",");
@@ -567,7 +545,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		System.out.print(orderVO.getResComment() + ",");
 		System.out.print(orderVO.getDelComment() + ",");
 		System.out.print(orderVO.getPromoteId());
-		
+
 		// update
 		OrderVO orderVOu = new OrderVO();
 		orderVOu.setRating(true);
@@ -577,8 +555,71 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		orderVOu.setDelComment("速度快");
 		orderVOu.setOrderId(6);
 		dao.update(orderVOu);
-		
+
 		// delete
 		dao.delete(6);
+	}
+
+	@Override
+	public List<Map<String, Object>> resFindOrderService(Integer orderId) {
+		String resFindOrder = "select * from MonFood.ORDER ORD"
+				+ " inner join ORDER_DETAIL ORDT on ORD.ORDER_ID = ORDT.ORDER_ID"
+				+ "	inner join PRODUCT PD on ORDT.PRODUCT_ID = PD.PRODUCT_ID" 
+				+ " where ORD.ORDER_ID = ? ";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, Object> dataMap = null;
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(resFindOrder);
+			pstmt.setInt(1, orderId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				dataMap = new HashMap<>();
+				dataMap.put("userId", rs.getInt("USER_ID"));
+				dataMap.put("orderId", rs.getInt("ORDER_ID"));
+				dataMap.put("productName", rs.getString("PRODUCT_NAME"));
+				dataMap.put("amount", rs.getInt("AMOUNT"));
+				dataMap.put("total", rs.getInt("TOTAL"));
+				dataMap.put("orderDone", rs.getTimestamp("ORDER_DONE"));
+				dataMap.put("note", rs.getString("NOTE"));
+				dataMap.put("resComment", rs.getString("RES_COMMENT"));
+				dataMap.put("orderStatus", rs.getInt("ORDER_STATUS"));
+				mapList.add(dataMap);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return mapList;
 	}
 }

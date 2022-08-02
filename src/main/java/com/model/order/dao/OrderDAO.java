@@ -1,6 +1,7 @@
 package com.model.order.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.model.order.OrderVO;
 
@@ -21,5 +22,7 @@ public interface OrderDAO {
 	Integer getOrderTimes(Integer userId);
 
 	Double getRating(Integer resId);
+	
+	List<Map<String, Object>>  resFindOrderService(Integer orderId);
 
 }
