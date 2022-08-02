@@ -1,17 +1,17 @@
 package com.model.user.controller;
 
 import java.io.IOException;
+import java.util.Base64;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.model.user.UserVO;
 import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
@@ -29,7 +29,14 @@ public class UserProfileUpdatePicServlet extends HttpServlet {
 		try {
 
 			respObj = gson.fromJson(request.getReader(), JsonObject.class);
-			System.out.println(respObj.get("pic").toString());
+			String pic = respObj.get("pic").toString();
+			System.out.println(pic);
+			pic.substring(0, 23);
+			pic.substring(pic.length()-1);
+			byte[] picb = pic.getBytes();
+			System.out.println(picb);
+			byte[] decode = Base64.getDecoder().decode(picb);
+			System.out.println(decode);
 			UserService service = new UserServiceImpl();
 			
 			
