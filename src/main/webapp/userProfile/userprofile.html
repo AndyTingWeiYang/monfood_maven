@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../assets/css/monfood-skeleton.css">
   <link rel="stylesheet" href="../css/userProfile-header.css">
   <link rel="stylesheet" href="../css/userProfile-sidebar.css">
+  <link rel="stylesheet" href="../css/userProfile.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   </style>
@@ -34,7 +35,7 @@
           <li class="nav-item profile d-flex justify-content-center">
             <input type="file" id="upload-file" style="display: none;">
             <label for="upload-file">
-              <img id="profilePic" class="img-xs rounded-circle" src="../assets/images/faces/face3.jpg" alt="">
+              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
             </label>
           </li>
 
@@ -156,24 +157,27 @@
                   <span>消費金額上限(每月)</span>
                   <div class="d-flex">
                     <input style="width: 350px;" type="text" name="budget" class="form-control" id="budget">
-                    <button id="budgetsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                    <button id="budgetsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
                   </div>
+                  <span id="budgeterrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
                 <div style="margin: 10px">
                   <span>熱量攝取上限(每日)</span>
                   <div class="d-flex">
                     <input style="width: 350px;" type="text" name="kcal" class="form-control" id="kcal">
-                    <button id="kcalsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                    <button id="kcalsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
                   </div>
+                  <span id="kcalerrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
               </div>
               <div class="col-sm-12 d-flex justify-content-around">
                 <div style="margin: 10px">
                   <span>自我介紹</span>
                   <div class="d-flex">
-                    <input style="width: 500px;" type="text" name="comment" class="form-control" id="comment">
-                    <button id="commentsubmit" type="submit" class="btn btn-primary" style="background: #3d424e; border: none; margin-left: 10px">確認</button>
+                    <input style="width: 500px;" type="text" name="introduction" class="form-control" id="introduction">
+                    <button id="introductionsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
                   </div>
+                  <span id="introductionerrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
               </div>
             </div>

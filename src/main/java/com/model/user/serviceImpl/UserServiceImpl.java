@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
+
 import com.model.user.UserVO;
 import com.model.user.dao.UserDAO;
 import com.model.user.dao.impl.UserDAOImpl;
@@ -193,6 +195,64 @@ public class UserServiceImpl implements UserService {
 		
 		return listUserVO;
 	}
+	
+	@Override
+	public UserVO getOneByUserId(UserVO userVO) {
+		
+		final Integer userId = userVO.getUserId();
+		
+		if (userId == null) {
+			return null;
+		}
+		
+		userVO = dao.selectByUserId(userId);
+		
+		if (userVO == null) {
+			return null;
+		}
+		
+		return userVO;
+	}
+	
+	@Override
+	public String updateProfile(Integer userId, String data, String msg) {
+		String updateMsg;
+		if (userId == null) {
+			return "會員編號不存在, 無法更新";
+		}
+		
+		if ("\"budget\"".equals(msg)) {
+			Integer budget = Integer.parseInt(data);
+			updateMsg = dao.updateBudget(budget, userId);
+			if ("UpdateFailed".equals(updateMsg)) {
+				return "updateFailed";
+			}
+		}
+		if ("\"kcal\"".equals(msg)) {
+			Integer kcal = Integer.parseInt(data);
+			updateMsg = dao.updateKcal(kcal, userId);
+			if ("UpdateFailed".equals(updateMsg)) {
+				return "updateFailed";
+			}
+		}
+		if ("\"introduction\"".equals(msg)) {
+			String profile = data.substring(1, data.length()-1);
+			updateMsg = dao.updateProfile(profile, userId);
+			if ("UpdateFailed".equals(updateMsg)) {
+				return "updateFailed";
+			}
+		}
+		return "updateSucess";
+	}
+	
+	@Override
+	public String updateProfilePic(byte[] pic, Integer userId) {
+		
+		
+		return "updateSucess";
+	}
+	
+	
 
 }
 

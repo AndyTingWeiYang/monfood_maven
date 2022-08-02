@@ -14,4 +14,7 @@ public interface UserService {
 	public UserVO getOneByUserAccount(String userAccount);
 	List<UserVO> getOneByUserName(String userName);
 	List<UserVO> getAll();
+	UserVO getOneByUserId(UserVO userVO);
+	String updateProfile(Integer userId, String data, String msg);
+	String updateProfilePic(byte[] pic, Integer userId);
 }
