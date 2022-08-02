@@ -61,6 +61,41 @@
         list-style: none;
         font-size: 15px;
       }
+      .monfood-ratingul{
+        list-style: none; 
+        font-size: 15px;
+      }
+      .monfood-ratingbtn{
+        font-size: 15px !important; 
+        border: none !important;
+        background-color: transparent !important;
+        margin-top: none !important;
+        margin-left: 0 !important;
+      }
+      .monfood-productAll{
+        margin-left: 35px;
+      }
+      .monfood-pdtImgdiv{
+        height: 196px; 
+        width: 240px; 
+        overflow: hidden;
+      }
+      .monfood-pdtImg{
+        height: 196px;
+        width: 240px;
+      }
+      .monfood-pdtPicModaldiv{
+        width: 380px; 
+        overflow: hidden; 
+        margin: auto;
+      }
+      .monfood-pdtPicModal{
+        display: block; 
+        width: 100%;
+      }
+      .monfood-pdtinfoModeldiv{
+        padding: 20px;
+      }
     </style>
   </head>
 
@@ -373,34 +408,18 @@
                       </div>
                       <!--  -->
                       <hr />
-                      <div class="ratings" style="font-size: 15px">
-                        <button
-                          class="ratings"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseExample"
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
-                          style="
-                            font-size: 15px;
-                            border: none;
-                            background-color: transparent;
-                            margin-top: none;
-                            margin-left: 0;
-                          "
-                        >
-                          4.9 (447 筆評分)
+                      <div class="ratingsdiv" style="font-size: 15px">
+                        <button class="monfood-ratingbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          共 2 筆評分
                         </button>
 
                         <div class="collapse" id="collapseExample">
                           <div class="card card-body">
-                            <ul style="list-style: none; font-size: 15px">
-                              <span>2則評論</span>
-                              <hr />
-                              <li>
-                                <p>小吳</p>
-                                <p>2022/05/02</p>
-                                <p>有夠難吃</p>
+                            <ul class="monfood-ratingul">
+                              <li class="monfood-ratingli">
+                                <p class="monfood-user">小吳</p>
+                                <p class="monfood-ratingDate">2022/05/02</p>
+                                <p class="monfood-comment">有夠難吃</p>
                               </li>
                               <hr />
                               <li>
@@ -435,8 +454,8 @@
 
       <section>
         <!-- 分格線 -->
-        <div>
-          <h5 style="margin-left: 35px">所有餐點</h5>
+        <div class="monfood-productAlldiv">
+          <h5 class="monfood-productAll">所有餐點</h5>
         </div>
         <hr />
         <br />
@@ -448,63 +467,27 @@
             <!--  -->
             <div class="col-xl-3 col-6 col d-flex justify-content-center">
               <div>
-                <div
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <div
-                    id="product_img"
-                    style="height: 196px; width: 240px; overflow: hidden"
-                  >
-                    <img
-                      id="showPopup"
-                      src="images/20190813JEF004__20190813_L.jpg"
-                      alt=""
-                      height="196px"
-                      width="240px"
-                    />
+                <div type="button monfood-pdtModalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <div id="product_img monfood-pdtImgdiv">
+                    <img id="showPopup" class="monfood-pdtImg" src="images/20190813JEF004__20190813_L.jpg"/>
                   </div>
-                  <p>麥香雞堡套餐</p>
-                  <p>$ 117</p>
+                  <p class="monfood-pdtName">麥香雞堡套餐</p>
+                  <p class="monfood-pdtPrice">$ 117</p>
                 </div>
-
                 <!-- Modal -->
-
-                <div
-                  class="modal fade"
-                  id="exampleModal"
-                  tabindex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                          麥香雞堡套餐
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
+                        <h5 class="modal-title monfood-pdtNameModdal" id="exampleModalLabel">麥香雞堡套餐</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <div
-                          id="modal-img"
-                          style="width: 380px; overflow: hidden; margin: auto"
-                        >
-                          <img
-                            src="images/20190813JEF004__20190813_L.jpg"
-                            alt=""
-                            style="display: block; width: 100%"
-                          />
+                        <div id="modal-img monfood-pdtPicModaldiv" class="mon">
+                          <img class="monfood-pdtPicModal" src="images/20190813JEF004__20190813_L.jpg"/>
                         </div>
-                        <div style="padding: 20px">
-                          <h4 style="font-weight: bold">麥香雞堡套餐</h4>
+                        <div class="monfood-pdtinfoModeldiv">
+                          <h4  cla style="font-weight: bold">麥香雞堡套餐</h4>
                           <h6>419 Kcal</h6>
                           <h6>$139</h6>
                         </div>
@@ -554,7 +537,7 @@
                       >
                         <button
                           type="button"
-                          class="add_to_cart"
+                          class="monfood-addToCart"
                           style="width: 400px; background-color: #ff7f3f"
                         >
                           加入購物車

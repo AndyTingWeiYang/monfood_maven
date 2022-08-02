@@ -53,3 +53,22 @@ $(function () {
   $.fn.Guantity = jQueryPlugin("Guantity", Guantity);
   $("[data-quantity]").Guantity();
 })();
+
+//TODO: 商品顯示
+$(document).ready(function(){
+  $.ajax({
+    url: 'AdminProductAllServlet',
+    type: 'POST',
+    dataType: 'JSON',
+    success: function(data){
+      const pdtList = data.pdtList;
+      const productVO = pdtList[i];
+
+      
+
+
+
+    }
+  
+});
+});
