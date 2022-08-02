@@ -40,6 +40,14 @@ public class UserDAOImpl implements UserDAO {
 	private static final String ISDUPLICATEACCOUNT = "SELECT USER_ACCOUNT FROM MonFood.USER WHERE USER_ACCOUNT = ? ";
 	// 更新小怪獸的等級
 	private static final String UPDATEMONSLV = "UPDATE MonFood.USER SET MONS_LEVEL = ? WHERE USER_ID = ?";
+	// 更新消費金額上限
+	private static final String UPDATEBUDGET = "UPDATE MonFood.USER SET BUDGET = ? WHERE USER_ID = ?";
+	// 更新熱量攝取上限
+	private static final String UPDATEKCAL= "UPDATE MonFood.USER SET CALORIES = ? WHERE USER_ID = ?";
+	// 更新自我介紹
+	private static final String UPDATEPROFILE = "UPDATE MonFood.USER SET USER_PROFILE = ? WHERE USER_ID = ?";
+	// 更新照片
+	private static final String UPDATEPROFILEPIC = "UPDATE MonFood.USER SET PROFILE_PIC = ? WHERE USER_ID = ?";
 
 	static {
 		try {
@@ -577,5 +585,165 @@ public class UserDAOImpl implements UserDAO {
 
 		return listUserVO;
 	}
+	
+	@Override
+	public String updateBudget(Integer budget, Integer userId) {
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEBUDGET);
+			pstmt.setInt(1, budget);
+			pstmt.setInt(2, userId);
+
+			int numOfSuccess = pstmt.executeUpdate();
+			if (numOfSuccess < 1) {
+				return "UpdateFailed";
+			} else {
+				System.out.println("大於1的結果 代表成功");
+				return "UpdateCompleted";
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public String updateKcal(Integer kcal, Integer userId) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEKCAL);
+			pstmt.setInt(1, kcal);
+			pstmt.setInt(2, userId);
+
+			int numOfSuccess = pstmt.executeUpdate();
+			if (numOfSuccess < 1) {
+//				System.out.println("小於1的結果 代表失敗");
+				return "UpdateFailed";
+			} else {
+//				System.out.println("大於1的結果 代表成功");
+				return "UpdateCompleted";
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public String updateProfile(String profile, Integer userId) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEPROFILE);
+			pstmt.setString(1, profile);
+			pstmt.setInt(2, userId);
+
+			int numOfSuccess = pstmt.executeUpdate();
+			if (numOfSuccess < 1) {
+				System.out.println("小於1的結果 代表失敗");
+				return "UpdateFailed";
+			} else {
+				System.out.println("大於1的結果 代表成功");
+				return "UpdateCompleted";
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public String updateProfilePic(byte[] pic, Integer userId) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(UPDATEPROFILEPIC);
+			pstmt.setBytes(1, pic);
+			pstmt.setInt(2, userId);
+
+			int numOfSuccess = pstmt.executeUpdate();
+			if (numOfSuccess < 1) {
+				return "UpdateFailed";
+			} else {
+				return "UpdateCompleted";
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you updatePassword. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 }

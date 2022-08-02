@@ -17,5 +17,9 @@ public interface UserDAO {
 	List<Integer> getAllUserId(); 
 	List<UserVO> isDuplicateAccount(String userAccount);
 	String updateMonsLv(Integer monsLevel, Integer userId);
+	String updateBudget(Integer budget, Integer userId);
+	String updateKcal(Integer kcal, Integer userId);
+	String updateProfile(String profile, Integer userId);
+	String updateProfilePic(byte[] pic, Integer userId);
 	
 }
