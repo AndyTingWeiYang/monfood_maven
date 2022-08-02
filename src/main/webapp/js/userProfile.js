@@ -21,12 +21,15 @@ window.addEventListener('load', function(){
         reader.readAsDataURL(this.files[0]);
         reader.addEventListener('load', function(){
             profilePic.attr('src', reader.result)
+            const base64 = new String(profilePic.attr('src'));
+            const picBase64 = base64.substring(23, base64.length)
+            // console.log(picBase64)
             $.ajax({
                 url: '/monfood_maven/UserProfileUpdatePicServlet',
                 type: 'POST',
                 data: JSON.stringify({
                     userId : 6,
-                    pic : profilePic.attr('src')
+                    pic : picBase64
                 }),
                 dataType: 'json',
                 success: function(msg){
@@ -64,7 +67,7 @@ window.addEventListener('load', function(){
             userEmail.val(userProfile.userAccount).attr('disabled', 'disabled');
             budget.val(userProfile.budget);
             kcal.val(userProfile.calories);
-
+            profilePic.attr('src', 'data:image/jpg;base64,' + msg.profilePic)
             if(userProfile.userProfile == undefined){
                 introduction.val('');
                 return;
