@@ -82,7 +82,7 @@
       
       <!-- navbar -->
       <header>
-        <nav class="navbar navbar-expand-lg" style="background-color: #FF7F3F">
+        <nav class="navbar navbar-expand-lg" style="background-color: #1A4D2E">
           <div class="container">
             <a class="navbar-brand d-inline-flex" href="index.html">
               <span class="logo">Mon</span>
@@ -105,34 +105,59 @@
                
                
                 <div class="col-md-10 col-12">
-                  <input type="text" class="form-control" id="name" placeholder="姓名" required />
+                  <input type="text" class="form-control" id="delName" placeholder="姓名" required />
                   <span class="noticespan namespan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="email" class="form-control" id="email" placeholder="電子信箱(帳號)" required />
+                  <input type="text" class="form-control" id="delAccount" placeholder="電子信箱(帳號)" required />
                   <span class="noticespan emailspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="password" class="form-control" id="password" placeholder="會員密碼" required />
+                  <input type="password" class="form-control" id="delPassword" placeholder="會員密碼" required />
                   <span class="noticespan passwordspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="password" class="form-control" id="password-check" placeholder="確認密碼" required />
+                  <input type="password" class="form-control" id="delPassword-check" placeholder="確認密碼" required />
                   <span class="noticespan passwordcheckspan"></span>
 
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="tel" class="form-control" id="phone-num" placeholder="手機號碼" maxlength="10" required />
+                  <input type="tel" class="form-control" id="delTel" placeholder="手機號碼" maxlength="10" required />
                   <span class="noticespan phonenumspan"></span>
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="text" class="form-control" id="birthday" placeholder="出生日期  範例：1990-01-01" />
+                  <input type="text" class="form-control" id="delBirthday" placeholder="出生日期  範例：1990-01-01" />
                   <span class="noticespan birthdayspan"></span>
+                </div>
+
+                <div class="col-md-10 col-12">
+                  <input type="text" class="form-control" id="platenumber" placeholder="車牌號碼" />
+                  <span class="noticespan platenumberspan"></span>
+                </div>
+
+                <div class="col-md-10 col-12">
+                  <input type="text" class="form-control" id="delAccountName" placeholder="帳戶人姓名" />
+                  <span class="noticespan delAccountNamespan"></span>
+                </div>
+
+                <div class="col-md-10 col-12">
+                  <input type="text" class="form-control" id="delBankname" placeholder="銀行名稱" />
+                  <span class="noticespan delBanknamespan"></span>
+                </div>
+
+                <div class="col-md-10 col-12">
+                  <input type="text" class="form-control" id="delBankcode" placeholder="銀行代碼" />
+                  <span class="noticespan delBankcodespan"></span>
+                </div>
+
+                <div class="col-md-10 col-12">
+                  <input type="text" class="form-control" id="delBankaccount" placeholder="銀行帳號"/>
+                  <span class="noticespan delBankaccountspan"></span>
                 </div>
   
                 <div class="col-md-8 check">
@@ -269,7 +294,7 @@
 
 
                 <div class="col-12 col-md-2 d-flex justify-content-center">
-                  <button type="button" class="enter btn btn-primary">送出</button>
+                  <button type="button" class="enter btn btn-primary" style="background-color: #1A4D2E">送出</button>
                 </div>
               </form>
         </div>
@@ -286,8 +311,8 @@
         
         $(function(){
           // 姓名驗證
-          $("#name").on("blur",function(){
-            if($("#name").val().trim() == ""){
+          $("#delName").on("blur",function(){
+            if($("#delName").val().trim() == ""){
               $(".namespan").text('*請輸入完整姓名');               
             }else{
               $(".namespan").text('');              
@@ -295,8 +320,8 @@
           });
           
           // email驗證
-          $("#email").on("blur",function(){
-            if($("#email").val().trim() == ""){
+          $("#delAccount").on("blur",function(){
+            if($("#delAccount").val().trim() == ""){
               $(".emailspan").text('*請輸入完整電子郵件帳號');  
             }else{
               $(".emailspan").text('');
@@ -310,11 +335,11 @@
           // - 小寫字母 [a-z]
           // - 大寫字母 [A-Z]
           // - 數字 \d
-          $("#password").on("blur",function(){
+          $("#delPassword").on("blur",function(){
             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if($("#password").val().trim() == ""){
+            if($("#delPassword").val().trim() == ""){
               $(".passwordspan").text('*請輸入密碼');  
-            }else if(!(pattern.test($("#password").val().trim()))){
+            }else if(!(pattern.test($("#delPassword").val().trim()))){
               $(".passwordspan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
             }else{
               $(".passwordspan").text('');
@@ -322,10 +347,10 @@
           });
          
           // 確認密碼驗證
-          $("#password-check").on("blur",function(){
-            if($("#password-check").val().trim() == ""){
+          $("#delPassword-check").on("blur",function(){
+            if($("#delPassword-check").val().trim() == ""){
               $(".passwordcheckspan").text('*請再次輸入密碼');            
-            }else if($("#password-check").val() != $("#password").val()){
+            }else if($("#delPassword-check").val() != $("#delPassword").val()){
               $(".passwordcheckspan").text('*請與密碼輸入一致');  
             }else{
               $(".passwordcheckspan").text('');             
@@ -333,15 +358,15 @@
           });
           
           // 手機號碼驗證
-          $("#phone-num").on("blur",function(){
+          $("#delTel").on("blur",function(){
             var pattern = /[0-9]/;
-            if($("#phone-num").val().trim() == ""){
+            if($("#delTel").val().trim() == ""){
               $(".phonenumspan").text('*請輸入手機號碼');  
-            }else if(!(pattern.test($("#phone-num").val().trim()))){
+            }else if(!(pattern.test($("#delTel").val().trim()))){
               $(".phonenumspan").text('*請輸入數字');               
-            }else if($("#phone-num").val().trim().length<10){
+            }else if($("#delTel").val().trim().length<10){
               $(".phonenumspan").text('*手機號碼格式錯誤'); 
-            }else if(!(/^09/.test($("#phone-num").val()))){
+            }else if(!(/^09/.test($("#delTel").val()))){
               $(".phonenumspan").text('*手機號碼開頭為09'); 
             }else{
               $(".phonenumspan").text('');
@@ -362,7 +387,7 @@
           $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
           // 使用datepicker disable並驗證格式
           var currentDate = new Date();
-          $("#birthday").datepicker({
+          $("#delBirthday").datepicker({
             dateFormat: "yy-mm-dd",        
             autoclose:true,
             endDate: "currentDate",
@@ -371,11 +396,11 @@
             changeYear: true
             }).on("change", function (e) {
               // $(this).datepicker('hide');        
-              if(!(/^\d{4}\-\d{2}\-\d{2}$/.test($("#birthday").val()))){
+              if(!(/^\d{4}\-\d{2}\-\d{2}$/.test($("#delBirthday").val()))){
                 $(".birthdayspan").text('*輸入格式為年-月-日 範例：1990-01-01'); 
               }else{
                 $(".birthdayspan").text('');
-                console.log($("#birthday").val());
+                console.log($("#delBirthday").val());
               }
             });
         
@@ -391,20 +416,26 @@
 
         
         $(".enter").on("click",function(){
+        	var regi = "DelRegisterServlet"
           $.ajax({
-            url: "XXX",           // 資料請求的網址
+            url: regi,           // 資料請求的網址
             type: "POST",                  // GET | POST | PUT | DELETE | PATCH
             data: JSON.stringify({
-              "userName": $("#name").val(),
-              "delEmail": $("#email").val(),
-              "delPassword": $("#password-check").val(),
-              "delPhone": $("#phone-num").val(),
-              "delBirthday": $("#birthday").val()
+              delName: $("#delName").val(),
+              delAccount: $("#delAccount").val(),
+              delPassword: $("#delPassword-check").val(),
+              delTel: $("#delTel").val(),
+              delBirthday: $("#delBirthday").val(),
+              platenumber: $("#platenumber").val(),
+              status: 1,
+              delAccountName: $("#delAccountName").val(),
+              delBankname: $("#delBankname").val(),
+              delBankcode: $("#delBankcode").val(),
+              delBankaccount: $("#delBankaccount").val()
             }),             // 將物件資料(不用雙引號) 傳送到指定的 url
             dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
             success: function(data){      // request 成功取得回應後執行
               console.log(data);
-              alert("!!!");
             }
           });
         });

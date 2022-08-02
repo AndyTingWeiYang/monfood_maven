@@ -1,21 +1,28 @@
 package com.model.del;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import com.model.order.OrderVO;
+
 public interface DelDAO {
-	// 對Del表格的相關操作方法
 	void add(DelVO delVO);
 
 	DelVO update(DelVO delVO);
+	DelVO updateWithoutPic(DelVO delVO);
 
-	// 刪除會搭配條件進行 所以這邊用id作為條件進行刪除
-	void delete(Integer delID);
+//Orderrecord
+	String getCost(Timestamp startDate, Timestamp endDate, Integer delID);
+	String getRideTimes(Timestamp startDate, Timestamp endDate, Integer delID);
+	List<String> getComment(Timestamp startDate, Timestamp endDate, Integer delID);
+	
+	DelVO login(String delTel, String delPassword);
 
-	// 查詢單筆資料所以用pk ID作為條件搜尋會傳回一筆資料
+	DelVO findByaccount(String delAccount);
 	DelVO findByDelID(Integer delID);
 	DelVO findByDelName(String delName);
-	
-
-	// select all 不用條件所以沒有參數 但是會回傳很多物件所以用有順序的list搭配delvo泛型做承接
+//ForAdmin	
 	List<DelVO> getAll();
+
+	void delete(Integer delID);
 }
