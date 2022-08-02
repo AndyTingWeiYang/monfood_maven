@@ -94,6 +94,17 @@
 
 
     window.addEventListener('load', function(){
+      $("#resName").on("keyup",function(e){
+        if(e.which==13){
+          $("#enter").click();
+        };
+      });
+      $("#resAccount").on("keyup",function(e){
+        if(e.which==13){
+          $("#enter").click();
+        };
+      });
+
       $("#resName").on("focus",function(){
         $(".pointspan").removeClass("noticespan").text('');
         $("#resAccount").val("");

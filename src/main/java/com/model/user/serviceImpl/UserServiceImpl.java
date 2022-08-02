@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 			String ch_name = userName;
 			// http://localhost:8080/monfood_maven/userAccount/UUID
 			String messageText = "Hello! " + ch_name + " 請點選連結啟用帳號: " + "\n" + "http://localhost:8080/monfood_maven/"
-					+ "AccountStatusServlet/" + userAccount + "/" + uuidConstructor;
+					+ "AccountStatusServlet?email=" + userAccount + "&token=" + uuidConstructor;
 			MailService mailService = new MailService();
 			mailService.sendMail(userAccount, subject, messageText);
 
