@@ -56,6 +56,11 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderVO> list = dao.getAllById(userId);
 		return list;
 	}
+	@Override
+	public List<OrderVO> getAllProductUser(Integer userId) {
+		List<OrderVO> productList = dao.getAllProductById(userId);
+		return productList;
+	}
 	
 	@Override
 	public Integer createOrder(OrderVO orderVO) {

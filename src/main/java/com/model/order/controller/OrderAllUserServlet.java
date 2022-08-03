@@ -33,9 +33,12 @@ public class OrderAllUserServlet extends HttpServlet {
 			
 			OrderService service = new OrderServiceImpl();
 			List<OrderVO> list = service.getAllForUser(orderVO.getUserId());
+			List<OrderVO> productList = service.getAllProductUser(orderVO.getUserId());
 			
 			// add the list into json format
 			respObj.add("userOrders", gson.toJsonTree(list));
+			respObj.add("orderDetail", gson.toJsonTree(productList));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");

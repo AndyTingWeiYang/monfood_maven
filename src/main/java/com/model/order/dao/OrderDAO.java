@@ -27,4 +27,6 @@ public interface OrderDAO {
 
 	List<OrderVO> getAllById(Integer userId);
 
+	List<OrderVO> getAllProductById(Integer userId);
+
 }
