@@ -2,6 +2,7 @@ package com.model.res.service.impl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.model.res.ResDto;
@@ -132,8 +133,8 @@ public class ResServiceImpl implements ResService {
 	}
 
 	@Override
-	public List<ResVO> adminFindByCategory(Integer resCategory) {
-		List<ResVO> list = dao.selectByCategory(resCategory);
+	public List<Map<String, Object>> adminFindByCategory(Integer resCategory) {
+		List<Map<String, Object>> list = dao.selectByCategory(resCategory);
 		return list;
 	}
 	
@@ -157,6 +158,18 @@ public class ResServiceImpl implements ResService {
 	public ResVO getOneByResAccount(String resAccount) {
 		ResVO resVO = dao.selectByResAccount(resAccount);
 		return resVO;
+	}
+
+	@Override
+	public List<Map<String, Object>> getRate() {
+		List<Map<String, Object>> list = dao.getRate();
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> searchProduct(String searchPdt) {
+		List<Map<String, Object>> list = dao.searchProduct(searchPdt);
+		return list;
 	}
 
 }
