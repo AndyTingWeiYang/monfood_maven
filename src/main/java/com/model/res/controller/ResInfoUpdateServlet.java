@@ -61,8 +61,8 @@ public class ResInfoUpdateServlet extends HttpServlet {
 		// 取得 session 物件中的會員編號
 		HttpSession session = request.getSession(false);
 		Integer resID = (Integer) session.getAttribute("resID");
+	
 		dataMap.put("resID", resID);
-
 		System.out.println(dataMap);
 		String dataMapStr = gson.toJson(dataMap);
 		ResDto resDto = gson.fromJson(dataMapStr, ResDto.class);

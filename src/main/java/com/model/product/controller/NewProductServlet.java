@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.model.product.service.ProductService;
@@ -48,8 +49,10 @@ public class NewProductServlet extends HttpServlet {
 		is.read(buffer);
 		reqMap.put("productPic", buffer);
 		
-		// TODO: 暫時假資料
-		reqMap.put("resID", 4);
+		// 取得會員 ID
+		HttpSession session = request.getSession(false);
+		Integer resID=(Integer) session.getAttribute("resID");
+		reqMap.put("resID", resID);
 		System.out.println(reqMap);
 		
 		boolean result = productService.insert(reqMap);

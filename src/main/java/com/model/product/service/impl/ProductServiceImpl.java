@@ -14,6 +14,7 @@ import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
 import com.model.product.service.ProductService;
 import com.model.product.util.IntTypeAdapter;
+import com.model.res.ResVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -123,6 +124,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVo> adminFindProductVoAll() {
 		List<ProductVo> list = productDao.getAll();
 		return list;
+	}
+
+	@Override
+	public Map<String, Object> findResInfo(Integer resID) {
+
+		return productDao.findResInfo(resID);
 	}
 
 }
