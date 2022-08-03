@@ -89,6 +89,12 @@ public class ProductServiceImpl implements ProductService {
 		return false;
 	}
 
+	public void checkResp() {
+		// 檢核手機號碼
+		String checkPhone ="";
+		
+	}
+
 	@Override
 	public ProductVo findPic(String productID) {
 		ProductVo pic = productDao.findPic(productID);

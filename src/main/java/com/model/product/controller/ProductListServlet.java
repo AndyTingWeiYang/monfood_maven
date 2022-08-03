@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
 
@@ -27,6 +28,7 @@ public class ProductListServlet extends HttpServlet {
 	
 	public ProductListServlet() {
 		this.productService = new ProductServiceImpl();
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,12 +44,14 @@ public class ProductListServlet extends HttpServlet {
 	private void processListFindAll(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charcet=UTF-8");
-
-		Map<String, Object> dataMap = requestToMap(request);
 		
+		HttpSession session =request.getSession(false);
+		Integer resID=(Integer) session.getAttribute("resID");
+		
+		Map<String, Object> dataMap = requestToMap(request);
+		dataMap.put("resID", resID);
 		List<ProductVo> productList = productService.findAll(dataMap);
 
-		
 		request.setAttribute("productList", productList);
 		RequestDispatcher rd = request.getRequestDispatcher("resprofile-product-list.jsp");
 		rd.forward(request, response);

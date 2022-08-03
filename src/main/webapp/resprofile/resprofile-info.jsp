@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商家資訊</title>
-    <link rel="stylesheet" href="<c:url value='/assets/vendors/file-input/css/bootstrap-icons.min.css' />" crossorigin="anonymous">
+    <link rel="stylesheet" href="<c:url value='/assets/vendors/file-input/css/bootstrap-icons.min.css' />"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="<c:url value='/assets/vendors/file-input/css/fileinput.min.css' />" media="all" rel="stylesheet" type="text/css" />
+    <link href="<c:url value='/assets/vendors/file-input/css/fileinput.min.css' />" media="all" rel="stylesheet"
+        type="text/css" />
 
-    
+
     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <script src="<c:url value='/assets/js/resprofile-js/twzipcode.js' />"></script>
     <script src="<c:url value='/assets/vendors/file-input/buffer.min.js' />" type="text/javascript"></script>
@@ -33,72 +34,76 @@
 
 </head>
 <script>
- $(document).ready(function () {
- 	let twzipcode;
-    function init() {
-        twzipcode = new TWzipcode("#twzipcode");
-        
-        $('#ownerName').on('blur', checkInputOwnerName);
-        $('#resPhone').on('blur', checkInputResPhone);
-        $('#bzAdd').on('blur', checkInputBzAdd);
-    }
+    $(document).ready(function () {
+        let twzipcode;
+        // 取得地方區域
+        function init() {
+            twzipcode = new TWzipcode("#twzipcode");
 
-    function fileUpload() {
-        $('#resFile').fileinput({
-            theme: "fa6",
-            language: "zh-TW"
+            $('#ownerName').on('blur', checkInputOwnerName);
+            $('#resPhone').on('blur', checkInputResPhone);
+            $('#resPhone').on('blur', respPhone);
+            $('#bzAdd').on('blur', checkInputBzAdd);
+
+        }
+        // 上傳圖片
+        function fileUpload() {
+            $('#resFile').fileinput({
+                theme: "fa6",
+                language: "zh-TW"
+            });
+        }
+        init();
+        fileUpload();
+
+        let files = [];
+        $('#resFile').change(function (e) {
+            files = Array.from(e.target.files);
         });
-    }
 
-    init();
-    fileUpload();
-    
-    let files = []; 
-   	$('#resFile').change(function(e) {
-   		files = Array.from(e.target.files);
-   	});
-        	
-   $('#btnCheck').click(function() { 
-	   	let formData = new FormData();
-	   	formData.append('ownerName', $('#ownerName').val());
-	   	formData.append('resPhone', $('#resPhone').val());
-	   	formData.append('resCategory', $('#resCategory').val());
-	   	formData.append('country', twzipcode.get('county'));
-	   	formData.append('district', twzipcode.get('district'));
-	   	formData.append('zipcode',twzipcode.get('zipcode'));
-	   	formData.append('bzAdd', $('#bzAdd').val());
-	   	formData.append('resFile', files[0]);
-	   	
-	   	$.ajax({
-	   		url: 'ResInfoUpdateServlet',
-	   		method: 'POST',
-	   		data: formData,
-	   		contentType: false,
-	   		processData: false,
-	   		dataType: 'JSON',
-	   		success: function(data){
-	   			console.log(data);
-	   			// 清空商家 src 圖片
-	   			$('#resPhoto').attr('src','');
-	   			// 更新商家 src 連結
-   				$('#resPhoto').attr('src','/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
-	   		}
-	   	});
-     	
-     
-   });
-         
-         
-         
-         
- }); 
+        $('#btnCheck').click(function () {
+            let formData = new FormData();
+            formData.append('ownerName', $('#ownerName').val());
+            formData.append('resPhone', $('#resPhone').val());
+            formData.append('resCategory', $('#resCategory').val());
+            formData.append('country', twzipcode.get('county'));
+            formData.append('district', twzipcode.get('district'));
+            formData.append('zipcode', twzipcode.get('zipcode'));
+            formData.append('bzAdd', $('#bzAdd').val());
+            formData.append('resFile', files[0]);
+
+            $.ajax({
+                url: 'ResInfoUpdateServlet',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    // 清空商家 src 圖片
+                    $('#resPhoto').attr('src', '');
+                    // 更新商家 src 連結
+                    $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                }
+            });
+
+
+        });
+
+
+
+
+    }); 
 </script>
 
 <body>
     <div class="container-scroller">
-    	<div><jsp:include page="resprofile-sidebar.jsp" /> </div>
+        <div>
+            <jsp:include page="resprofile-sidebar.jsp" />
+        </div>
         <div class="container-fluid page-body-wrapper">
-        	<jsp:include page="resprofile-header.jsp" />
+            <jsp:include page="resprofile-header.jsp" />
             <div class="main-panel">
                 <div class="mf-content-wrapper">
 
@@ -114,24 +119,24 @@
                             </div>
                             <div class="col-sm-6">
                                 <label for="resName" class="col-sm-6 col-form-label">餐廳名稱</label>
-                                <input  class="col-sm-12 form-control " id="resName" name="resName"
+                                <input class="col-sm-12 form-control " id="resName" name="resName"
                                     value="${sessionScope.resName}" readonly>
                             </div>
                             <div class="col-sm-6">
                                 <label for="ownerTel" class="col-sm-12 col-form-label">連絡電話</label>
                                 <div>
-                                    <input readonly class="col-sm-12 form-control " id="ownerTel" name="ownerTel"
-                                        value="${sessionScope.ownerTel}">
+                                    <input readonly class="col-sm-12 form-control " id="ownerTel"
+                                        name="ownerTel" value="${sessionScope.ownerTel}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="uniFormNum" class="col-sm-12 col-form-label">統一編號</label>
                                 <div>
-                                    <input readonly class="col-sm-12 form-control " id="uniFormNum" name="uniFormNum"
-                                        value="${sessionScope.resAccount}">
+                                    <input readonly class="col-sm-12 form-control " id="uniFormNum"
+                                        name="uniFormNum" value="${sessionScope.resAccount}">
                                 </div>
                             </div>
-                       
+
                             <div class="col-sm-6">
                                 <label for="ownerName" class="col-sm-6 col-form-label">聯絡人姓名</label>
                                 <input class="col-sm-12 form-control " id="ownerName" name="ownerName"
@@ -140,7 +145,8 @@
                             <div class="col-sm-6">
                                 <label for="resPhone" class="col-sm-6 col-form-label">餐廳電話</label>
                                 <input class="col-sm-12 form-control " id="resPhone" name="resPhone"
-                                    placeholder="請輸入餐廳電話"><span id="checkResPhoneSp"></span><i id="checkResPhoneI"></i>
+                                    placeholder="請輸入餐廳電話"><span id="checkResPhoneSp"></span><i
+                                    id="checkResPhoneI"></i>
                             </div>
                             <div class="col-sm-6">
                                 <label for="resCategory" class="col-sm-6 col-form-label">餐廳類型</label>
@@ -160,9 +166,10 @@
                                 <div id="twzipcode" class="d-flex " style="justify-content: space-between;">
                                     <div data-role="zipcode" data-css="form-control">
                                     </div>
-                                    <div  id="country" data-role="county" data-css="form-control">
+                                    <div id="country" data-role="county" data-css="form-control">
                                     </div>
-                                    <div id="district" class="ml-1 mr-1" data-role="district" data-css="form-control">
+                                    <div id="district" class="ml-1 mr-1" data-role="district"
+                                        data-css="form-control">
                                     </div>
                                     <div class="col-sm-9" style="padding: 0;">
                                         <input id="bzAdd" type="text" class="form-control " name="bzAdd"
@@ -185,7 +192,7 @@
                     </div>
 
                 </div>
-                <jsp:include page="resprofile-footer.jsp"/>
+                <jsp:include page="resprofile-footer.jsp" />
             </div>
         </div>
     </div>

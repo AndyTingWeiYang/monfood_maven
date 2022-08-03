@@ -29,7 +29,7 @@ public class ProductDAOImpl implements ProductDao {
 
 	private static final String SELECT = "select * from MonFood.PRODUCT where 1 = 1 ";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID=?";
+	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID= ?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
 	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
@@ -120,9 +120,12 @@ public class ProductDAOImpl implements ProductDao {
 			sbf.append(SELECT);
 
 			// 取得產品 ID
-			// 將Integer->String判斷是否為空
 			String productIdStr = castTypeToStr(product.getProductID());
 			Map<String, Object> fieldMap = new HashedMap<>();
+			sbf.append(" and RES_ID = ? ");
+			fieldMap.put("resID", product.getResID());
+//			
+			// 將Integer->String判斷是否為空
 			if (StringUtils.isNotBlank(productIdStr)) {
 				sbf.append(" and PRODUCT_ID = ? ");
 				fieldMap.put("productId", productIdStr);
@@ -144,7 +147,8 @@ public class ProductDAOImpl implements ProductDao {
 				fieldMap.put("minPrice", product.getMinPrice());
 				fieldMap.put("maxPrice", product.getMaxPrice());
 			}
-
+		
+			
 			// 將組好的 sql 指令放進 pstmt
 			pstmt = conn.prepareStatement(sbf.toString());
 
