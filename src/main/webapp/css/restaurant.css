@@ -74,16 +74,23 @@
   opacity: 1;
   transform: scale(1.2);
 }
+.monfood-modalFooter{
+  display: flex; 
+  justify-content: center;
+}
 
-.add_to_cart{
-  background-color: lightgray;
+.monfood-ModalPdtName{
+  font-weight: bold;
+}
+.monfood-addToCart{
   color: white;
   border: none;
   border-radius: 5px;
   height: 37px;
+  width: 400px; 
+  background-color: #ff7f3f;
 }
-.add_to_cart:hover{
-  background-color: lightgray;
+.monfood-addToCart:hover{
   color: black;
   border: none;
   border-radius: 5px;

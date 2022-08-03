@@ -72,3 +72,6 @@ $(document).ready(function(){
   
 });
 });
+
+//談窗內容
+//詳細資訊
