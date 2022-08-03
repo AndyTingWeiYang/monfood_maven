@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資訊</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="font-awesome" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- change alert style -->
+    <!-- wait to find another CDN for showing title in alert-box -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+
+      body{
+          margin-top:20px;
+          background: #f5f5f5;
+      }
+
+      .ui-w-100 {
+          width: 100px !important;
+          height: auto;
+      }
+
+      .card {
+        background-clip: padding-box;
+        box-shadow: 0 1px 4px rgba(24,28,33,0.012);
+      }
+
+      .user-view-table td:first-child {
+        width: 9rem;
+      }
+      .user-view-table td {
+        padding: 0 0;
+        border: 2px solid blue;
+        /* width: 40%; */
+      }
+
+      .text-light {
+          color: #babbbc !important;
+      }
+
+      .card .row-bordered>[class*=" col-"]::after {
+          border-color: rgba(24,28,33,0.075);
+      }    
+
+      .text-xlarge {
+          font-size: 170% !important;
+      }
+
+      div.content-wrapper{
+          background-color: white;
+      }
+
+      ul{
+        list-style: none;
+        padding: 5px;
+        /* border: 2px solid blue; */
+      }
+
+      input.info_input{
+        width: 80%;
+      }
+
+      input.info_input.-none{
+        width: 80%;
+        display: none;
+      }
+
+      li.info.-none{
+        display: none;
+      }
+
+      input.input_photo{
+        opacity: 50;
+      }
+
+      div.card-body{
+        /* border: 2px solid black; */
+        width: 100%;
+      }
+
+      div.card{
+        /* border: 2px solid #1A4D2E; */
+        background-color: #e9ecef;
+        width: 80%;
+      }
+
+
+      
+    </style>
+</head>
+
+<script>
+  // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      w3.includeHTML(function () {
+          var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+          for (var i = 0; i < scriptObj.length; i++) {
+              var scriptElement = document.createElement('script');
+              scriptElement.src = scriptObj[i].getAttribute('src');
+
+              document.head.appendChild(scriptElement);
+          }
+      });
+  });
+</script>
+
+<body>
+
+  <div class="container-scroller">
+    <div w3-include-html="del_sidebar.html"></div>
+
+    <div class="container-fluid page-body-wrapper">
+        <div w3-include-html="del_header.html"></div>
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+
+              <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+              <div class="container bootdey flex-grow-1 container-p-y">
+
+                  <div class="media align-items-center py-3 mb-3">
+                    <div>
+                      <div class="div_photo">
+                        <img src="assets/images/faces/face1.png" alt="" class="d-block ui-w-100 rounded-circle" id="img_photo">
+                      </div>
+                      <!-- <input class="input_photo -none" type="file"> -->
+                    </div>
+                    <div class="media-body ml-4">
+                      <h4 class="font-weight-bold mb-0 loginName"></h4>
+                      <div class="text-muted mb-2 loginDelID" >#ID:<span class="loginDelID"></span></div>
+                    </div>
+                  </div>
+
+                  <div class="card mb-4">    
+                    <div class="card-body">
+                      <h3 class="mt-3 mb-3" style="display: flex; justify-content: center">使用者資訊</h3>
+
+
+
+                          <ul class="info">
+                            <h6>姓名:</h6>
+                            <li class="delName"></li>
+                            <hr>
+                            <h6>帳號:</h6>
+                            <li class="info delAccount "></li>
+                            <input type="text" class="info_input info_input_account -none">
+                            <hr>
+                            <h6>生日:</h6>
+                            <li class="delBirthday"></li>
+                            <hr>
+                            <h6>手機:</h6>
+                            <li class="info info_phone delTel"></li>
+                            <input type="text" class="info_input info_input_phone -none" placeholder="請輸入您的手機號" oninput = "value=value.replace(/[^\d]/g,'')" maxlength="11">
+                            <hr>
+                           
+                            <h6>帳戶狀態:</h6>
+                            <li class="status"> </li>
+                            <hr>
+                            <div style="float: right">
+    
+                              <button type="button" class="btn btn_edit btn-outline-dark mf-bdr-15">修改</button>
+
+                            </div>
+                          </ul>
+       
+
+                    </div>
+                  </div>
+
+          
+              </div>
+
+            </div>
+            <div w3-include-html="del_footer.html"></div>
+        </div>
+
+
+
+
+    </div>
+
+  </div>
+
+
+  
+
+  
+
+<script>
+  $(function(){
+//DOM 載入後基本資料載入
+    var getOneUrl = "../DelGetOneByID";
+
+    fetch((getOneUrl),{
+          method: "POST",
+          headers: {
+            "content-Type": "application.json"
+          },
+          body: JSON.stringify({
+          })
+    })
+      .then(function (response) {
+        if (response.ok) {	// 接收到回傳的物件
+          console.log("成功載入登入資料");		// 如果正確取得資料，沒有發生錯誤
+          return response.json(); // 將取得的資料，再使用 .json() 解析資料
+        }
+      })
+      .then(function(data){
+        $("span.loginDelID").text(data.delID);
+        $("h4.loginName").text(data.delName);
+        $("li.delName").text(data.delName);
+        $("li.delAccount").text(data.delAccount);
+        $("li.delBirthday").text(data.delBirthday);
+        $("li.delTel").text(data.delTel);
+        if(data.status == "1"){
+          $("li.status").html(`<span class="fa fa-check text-primary">使用中</span>`);
+        } else if(data.status == "2"){
+          $("li.status").html(`<span class="fa fa-times">暫停使用請聯絡客服</span>`);
+        }
+
+      });
+	});
+
+   
+//修改info資料(只是呼叫出輸入框尚未傳入DB)    
+    $("button.btn_edit").on("click", function(){
+        if($("ul.info").attr("data-edit") == undefined){ // 進入編輯狀態
+              $("ul.info").attr("data-edit", true);
+              $("li.info").toggleClass("-none");
+              $("input.info_input").toggleClass("-none");
+              $("button.btn_edit").html("確認");
+        }else{
+              var update_info_phone = ($("input.info_input_phone").val()).trim();
+              var update_info_account = ($("input.info_input_account").val()).trim();
+              if(update_info_phone == "" || update_info_account == ""){
+                      alert("請輸入待辦事項");
+              }else{
+                      // alert("修改成功");
+                      $("li.info_phone").html(update_info_phone).toggleClass("-none");
+                      $("input.info_input_phone").val(update_info_phone).toggleClass("-none");
+                      $("li.delAccount").html(update_info_account).toggleClass("-none");
+                      $("input.info_input_account").val(update_info_account).toggleClass("-none");
+                      $("ul.info").removeAttr("data-edit");
+                      $("button.btn_edit").html("修改");
+                      btn_confirm();
+             //ajax傳出修改資料
+                      const url = "../DelEditInfo";
+                      fetch(url, {
+                        method: "POST",
+                        headers: {
+                          "content-Type": "application.json",
+                        },
+                        body: JSON.stringify({
+                          delAccount: update_info_account,
+                          delTel: update_info_phone
+                        }),
+                      })
+                        .then(function (response) {
+                          	// 接收到回傳的物件
+                          	if (response.ok) {
+                            // 如果正確取得資料，沒有發生錯誤
+                            console.log("成功送出修改資料");
+                            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                          	}
+                        })
+                        
+                        
+              }
+        }
+    });
+    
+
+    function btn_confirm() {
+                Swal.fire('修改成功', '更新完成', 'success')
+    }
+
+    function img_change() {
+                Swal.fire('上傳照片', '請選擇照片', 'success')
+    }
+
+
+    function isPoneAvailable($poneInput) {  
+      var myreg=/^[0][9][0-9]{8}$/;  
+      if (!myreg.test($("input.info_input_phone").val())) {  
+         return false;  
+      } else {  
+         return true;  
+      }  
+    } 
+
+
+
+</script>  
+    
+</body>
+</html>

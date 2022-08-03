@@ -128,11 +128,11 @@ public class TestDelDAO {
 		
 		
 // search All 
-//		DelDAO dao = new DelDAOImpl();
-//		List<DelVO> beans = dao.getAll();
-//		for(DelVO delVO : beans) {
-//			System.out.println(delVO.toString());
-//		}
+		DelDAO dao = new DelDAOImpl();
+		List<DelVO> beans = dao.getAll();
+		for(DelVO delVO : beans) {
+			System.out.println(delVO.toString());
+		}
 		
 // delete by id
 //		DelDAO daoDelete = new DelDAOImpl();

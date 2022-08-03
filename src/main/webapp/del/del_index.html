@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonFood-Demo</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <!-- change alert style -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        
+    <style>
+        div.content-wrapper{
+            background-color: white;
+        }
+    </style>
+     <script src="https://kit.fontawesome.com/0291f08ffe.js" crossorigin="anonymous"></script> <!-- FontAwesome icon -->
+</head>
+<script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        w3.includeHTML(function () {
+            var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+            for (var i = 0; i < scriptObj.length; i++) {
+                var scriptElement = document.createElement('script');
+                scriptElement.src = scriptObj[i].getAttribute('src');
+
+                document.head.appendChild(scriptElement);
+            }
+        });
+    });
+</script>
+
+<body>
+    
+    <div class="container-scroller">
+        <div w3-include-html="del_sidebar.html"></div>
+
+        <div class="container-fluid page-body-wrapper">
+            <div w3-include-html="del_header.html"></div>
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    welcome
+                </div>
+            </div>
+            
+            
+            
+            
+        </div>
+        
+    </div>
+    <div w3-include-html="del_footer.html"></div>
+</body>
+
+</html>

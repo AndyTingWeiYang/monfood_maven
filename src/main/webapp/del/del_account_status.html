@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>會員資訊</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="font-awesome"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.4285714286;
+        color: #212529;
+        text-align: left;
+        background-color: #f9f9fa;
+      }
+
+      #page-content {
+        margin-top: 100px;
+      }
+
+      a {
+        color: #448bff;
+        text-decoration: none;
+        background-color: transparent;
+      }
+
+      a:hover {
+        color: #005ef7;
+        text-decoration: underline;
+      }
+
+      a:not([href]):not([tabindex]) {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:not([href]):not([tabindex]):focus,
+      a:not([href]):not([tabindex]):hover {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:not([href]):not([tabindex]):focus {
+        outline: 0;
+      }
+
+      div.content-wrapper {
+        background-color: white;
+      }
+
+      /*Mark Down*/
+
+      @media (min-width: 576px) {
+        .col-sm {
+          flex-basis: 0;
+          flex-grow: 1;
+          max-width: 100%;
+        }
+        .col-sm-auto {
+          flex: 0 0 auto;
+          width: auto;
+          max-width: 100%;
+        }
+        .col-sm-1 {
+          flex: 0 0 8.3333333333%;
+          max-width: 8.3333333333%;
+        }
+        .col-sm-2 {
+          flex: 0 0 16.6666666667%;
+          max-width: 16.6666666667%;
+        }
+        .col-sm-3 {
+          flex: 0 0 25%;
+          max-width: 25%;
+        }
+        .col-sm-4 {
+          flex: 0 0 33.3333333333%;
+          max-width: 33.3333333333%;
+        }
+        .col-sm-5 {
+          flex: 0 0 41.6666666667%;
+          max-width: 41.6666666667%;
+        }
+        .col-sm-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+        .col-sm-7 {
+          flex: 0 0 58.3333333333%;
+          max-width: 58.3333333333%;
+        }
+        .col-sm-8 {
+          flex: 0 0 66.6666666667%;
+          max-width: 66.6666666667%;
+        }
+        .col-sm-9 {
+          flex: 0 0 75%;
+          max-width: 75%;
+        }
+        .col-sm-10 {
+          flex: 0 0 83.3333333333%;
+          max-width: 83.3333333333%;
+        }
+        .col-sm-11 {
+          flex: 0 0 91.6666666667%;
+          max-width: 91.6666666667%;
+        }
+        .col-sm-12 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+        .order-sm-first {
+          order: -1;
+        }
+        .order-sm-last {
+          order: 13;
+        }
+        .order-sm-0 {
+          order: 0;
+        }
+        .order-sm-1 {
+          order: 1;
+        }
+        .order-sm-2 {
+          order: 2;
+        }
+        .order-sm-3 {
+          order: 3;
+        }
+        .order-sm-4 {
+          order: 4;
+        }
+        .order-sm-5 {
+          order: 5;
+        }
+        .order-sm-6 {
+          order: 6;
+        }
+        .order-sm-7 {
+          order: 7;
+        }
+        .order-sm-8 {
+          order: 8;
+        }
+        .order-sm-9 {
+          order: 9;
+        }
+        .order-sm-10 {
+          order: 10;
+        }
+        .order-sm-11 {
+          order: 11;
+        }
+        .order-sm-12 {
+          order: 12;
+        }
+        .offset-sm-0 {
+          margin-left: 0;
+        }
+        .offset-sm-1 {
+          margin-left: 8.3333333333%;
+        }
+        .offset-sm-2 {
+          margin-left: 16.6666666667%;
+        }
+        .offset-sm-3 {
+          margin-left: 25%;
+        }
+        .offset-sm-4 {
+          margin-left: 33.3333333333%;
+        }
+        .offset-sm-5 {
+          margin-left: 41.6666666667%;
+        }
+        .offset-sm-6 {
+          margin-left: 50%;
+        }
+        .offset-sm-7 {
+          margin-left: 58.3333333333%;
+        }
+        .offset-sm-8 {
+          margin-left: 66.6666666667%;
+        }
+        .offset-sm-9 {
+          margin-left: 75%;
+        }
+        .offset-sm-10 {
+          margin-left: 83.3333333333%;
+        }
+        .offset-sm-11 {
+          margin-left: 91.6666666667%;
+        }
+      }
+
+      .text-muted {
+        color: #99a0ac !important;
+      }
+
+      .block,
+      .card {
+        background: #fff;
+        border-width: 0;
+        border-radius: 0.25rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+        /* display: flex; */
+      }
+
+      .avatar {
+        position: relative;
+        line-height: 1;
+        border-radius: 500px;
+        white-space: nowrap;
+        font-weight: 700;
+        border-radius: 100%;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        border-radius: 500px;
+        box-shadow: 0 5px 10px 0 rgba(50, 50, 50, 0.15);
+      }
+
+      .avatar img {
+        border-radius: inherit;
+        width: 100%;
+      }
+
+      .gd-primary {
+        color: #fff;
+        border: none;
+        background: #448bff linear-gradient(45deg, #448bff, #44e9ff);
+      }
+
+      .gd-success {
+        color: #fff;
+        border: none;
+        background: #31c971 linear-gradient(45deg, #31c971, #3dc931);
+      }
+
+      .gd-info {
+        color: #fff;
+        border: none;
+        background: #14bae4 linear-gradient(45deg, #14bae4, #14e4a6);
+      }
+
+      .gd-warning {
+        color: #fff;
+        border: none;
+        background: #f4c414 linear-gradient(45deg, #f4c414, #f45414);
+      }
+
+      @media (min-width: 992px) {
+        .page-container {
+          max-width: 1140px;
+          margin: 0 auto;
+        }
+        .page-sidenav {
+          display: block !important;
+        }
+      }
+
+      .list {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .list-item {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+      }
+
+      .list-row .list-item {
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0.75rem 0.625rem;
+      }
+
+      .list-row .list-item > * {
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+      }
+
+      .no-wrap {
+        white-space: nowrap;
+      }
+
+      .text-color {
+        color: #5e676f;
+      }
+
+      .text-gd {
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+        text-fill-color: transparent;
+      }
+
+      .text-sm {
+        font-size: 0.825rem;
+      }
+
+      .h-1x {
+        height: 1.25rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      .w-48 {
+        width: 48px !important;
+        height: 48px !important;
+      }
+
+      a:link {
+        text-decoration: none;
+      }
+
+      /* input.input_id.-none{
+    display: none;
+} */
+
+      div.card-body {
+        /* border: 2px solid #1A4D2E; */
+        background-color: #e9ecef;
+        width: 80%;
+      }
+    </style>
+  </head>
+
+  <script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      w3.includeHTML(function () {
+        var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+        for (var i = 0; i < scriptObj.length; i++) {
+          var scriptElement = document.createElement("script");
+          scriptElement.src = scriptObj[i].getAttribute("src");
+
+          document.head.appendChild(scriptElement);
+        }
+      });
+    });
+  </script>
+
+  <body>
+    <div class="container-scroller">
+      <div w3-include-html="del_sidebar.html"></div>
+
+      <div class="container-fluid page-body-wrapper">
+        <div w3-include-html="del_header.html"></div>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="card-body">
+              <div class="container mt-5 mb-5">
+                <div class="page-content page-container" id="page-content">
+                  <div class="padding">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="list list-row block">
+                          <div class="list-item" data-id="19">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-success"
+                                  >v</span
+                                ></a
+                              >
+                            </div>
+                            <div class="flex div_id">
+                              <a href="#" class="item-author text-color" data-abc="true">身分證</a>
+                              <input type="file" class="input_id" />
+                              <img
+                                style="width: 20%"
+                                id="delIDPhoto"
+                                src=""
+                                alt=""
+                              />
+                              <div class="item-except text-muted text-sm h-1x">
+                                已核准
+                              </div>
+                            </div>
+
+                            <!-- <div id="preview"><span class="text" id="preview_text">預覽圖</span></div> -->
+                          </div>
+                          <hr />
+                          <div class="list-item" data-id="17">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-warning"
+                                  >P</span
+                                ></a
+                              >
+                            </div>
+                            <div class="flex">
+                              <a
+                                href="#"
+                                class="item-author text-color"
+                                data-abc="true"
+                                >機車行照</a>
+                                <input type="file" class="input_car" />
+                                <img
+                                  style="width: 20%"
+                                  id="carLicense"
+                                  src=""
+                                  alt=""
+                                />
+                              <div class="item-except text-muted text-sm h-1x">
+                                審核中
+                              </div>
+                            </div>
+                            <div class="no-wrap">
+                              <div
+                                class="item-date text-muted text-sm d-none d-md-block"
+                              >
+                                13/3/19
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="list-item" data-id="16">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-warning"
+                                  >P</span
+                                ></a
+                              >
+                            </div>
+                            <div class="flex">
+                              <a
+                                href="#"
+                                class="item-author text-color"
+                                data-abc="true"
+                                >機車駕照</a>
+                                <input type="file" class="input_drive" />
+                              <img
+                                style="width: 20%"
+                                id="driveLicense"
+                                src=""
+                                alt=""
+                              />
+                              <div class="item-except text-muted text-sm h-1x">
+                                審核中
+                              </div>
+                            </div>
+                            <div class="no-wrap">
+                              <div
+                                class="item-date text-muted text-sm d-none d-md-block"
+                              >
+                                03/1/19
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="list-item" data-id="4">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-warning"
+                                  >P</span
+                                ></a
+                              >
+                            </div>
+                            <div class="flex">
+                              <a
+                                href="#"
+                                class="item-author text-color"
+                                data-abc="true"
+                                >機車強制險</a>
+                                <input type="file" class="input_insurance" />
+                              <img
+                                style="width: 20%"
+                                id="insurance"
+                                src=""
+                                alt=""
+                              />
+                              <div class="item-except text-muted text-sm h-1x">
+                                審核中
+                              </div>
+                            </div>
+                            <div class="no-wrap">
+                              <div
+                                class="item-date text-muted text-sm d-none d-md-block"
+                              >
+                                2 hours ago
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="list-item" data-id="4">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-success"
+                                  >v</span
+                                ></a
+                              >
+                            </div>
+                            <div class="flex">
+                              <a
+                                href="#"
+                                class="item-author text-color"
+                                data-abc="true"
+                                >良民證</a>
+                                <input type="file" class="input_criminal" />
+                              <img
+                                style="width: 20%"
+                                id="criminalRecord"
+                                src=""
+                                alt=""
+                              />
+                              <div class="item-except text-muted text-sm h-1x">
+                                已核准
+                              </div>
+                            </div>
+                            <div class="no-wrap">
+                              <div
+                                class="item-date text-muted text-sm d-none d-md-block"
+                              >
+                                2 hours ago
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+
+                          <div class="list-item" data-id="4">
+                            <div>
+                              <a href="#" data-abc="true"
+                                ><span class="w-48 avatar gd-success"
+                                  >v</span
+                                ></a
+                              >
+                            </div>
+
+                             <div class="flex">
+                              <a
+                                href="#"
+                                class="item-author text-color"
+                                data-abc="true"
+                                >法律協議</a
+                              >
+                              <div class="item-except text-muted text-sm h-1x">
+                                已核准
+                              </div>
+                            </div>
+                             <div class="no-wrap">
+                              <div
+                                class="item-date text-muted text-sm d-none d-md-block"
+                              >
+                                2 hours ago
+                              </div>
+                            </div> 
+                          </div>
+                        </div>
+                      </div>
+                      <button class="info">click</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div w3-include-html="del_footer.html"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        var uploadID;
+        var uploadcar;
+        var uploaddrive;
+        var uploadcriminal;
+        var uploadinsurance;
+//頁面載入後載入登入資料      
+        $(function(){
+            var getOneUrl = "../DelGetPic";
+    fetch((getOneUrl),{
+          method: "POST",
+          headers: {
+            "content-Type": "application.json"
+          },
+          body: JSON.stringify({
+          })
+    })
+      .then(function (response) {
+        if (response.ok) {
+          console.log("載入登入資料完成");
+          return response.json(); // 將取得的資料，再使用 .json() 解析資料
+        }
+      })
+      .then(function(data){
+
+        $("#delIDPhoto").attr("src", "data:img/jpg;base64," + data[0]);   
+        $("#carLicense").attr("src", "data:img/jpg;base64," + data[1]); 
+        $("#driveLicense").attr("src", "data:img/jpg;base64," + data[2]); 
+        $("#criminalRecord").attr("src", "data:img/jpg;base64," + data[3]);
+        $("#insurance").attr("src", "data:img/jpg;base64," + data[4]);
+        
+        uploadID = $("#delIDPhoto").attr("src");
+        uploadcar = $("#carLicense").attr("src");
+        uploaddrive = $("#driveLicense").attr("src");
+        uploadcriminal = $("#criminalRecord").attr("src");
+        uploadinsurance = $("#insurance").attr("src");
+        
+        
+      });
+
+});
+
+
+
+//更新圖片
+      $("button.info").on("click", function () {
+        var editUrl = "../DelEditPic";
+
+        $.ajax({
+            url: editUrl,
+            type: "POST",
+            data: JSON.stringify({
+              delIDPhoto: uploadID,
+              carLicense: uploadcar,
+              driveLicense: uploaddrive,
+              criminalRecord: uploadcriminal,
+              insurance: uploadinsurance,
+            }),
+            dataType: "JSON",
+            success: function () {
+              console.log("成功傳出編輯資訊");
+            },
+          });
+      });
+
+
+
+//選擇圖片後轉成base64並產生預覽
+      $("input.input_id").on("change", function () {
+        var input_id = $(".input_id");
+
+        run(this, function (data) {
+            uploadID = data;
+          $("#delIDPhoto").attr("src", data);        
+        });
+
+        $("input.input_car").on("change", function () {
+            var input_id = $(".input_car");
+
+            run(this, function (data) {
+                uploadcar = data;
+                $("#carLicense").attr("src", data);        
+             });
+         });
+
+         $("input.input_drive").on("change", function () {
+            var input_id = $(".input_drive");
+
+            run(this, function (data) {
+                uploaddrive = data;
+                $("#driveLicense").attr("src", data);        
+             });
+         });
+
+         $("input.input_criminal").on("change", function () {
+            var input_id = $(".input_criminal");
+
+            run(this, function (data) {
+                uploadcriminal = data;
+                $("#criminalRecord").attr("src", data);        
+             });
+         });
+
+         $("input.input_insurance").on("change", function () {
+            var input_id = $(".input_insurance");
+
+            run(this, function (data) {
+                uploadinsurance = data;
+                $("#insurance").attr("src", data);        
+             });
+         });
+
+        
+
+
+        function run(input_id, get_data) {
+          /*input_file:檔案按鈕物件*/
+          /*get_data: 轉換成功後執行的方法*/
+          if (typeof FileReader === "undefined") {
+            alert(
+              "抱歉,你的瀏覽器不支援 FileReader,不能將圖片轉換為Base64,請使用現代瀏覽器操作!"
+            );
+          } else {
+            try {
+              /*圖片轉Base64 核心程式碼*/
+              var file = input_id.files[0];
+              // //這裡我們判斷下型別如果不是圖片就返回 去掉就可以上傳任意檔案
+              // if (!/image\/\w+/.test(file.type)) {
+              //   alert("請確保檔案為影象型別");
+              //   return false;
+              // }
+              var reader = new FileReader();
+              reader.onload = function () {
+                //檔案讀完之後傳this.result進入get_data這個方法這個方法寫在上面也太酷了
+                //還有這種寫法先定義a(1, 2)方法傳入參數1然後要執行方法2
+                // 等到呼叫a方法後再把方法2寫出來
+                get_data(this.result);
+              };
+              //讀file讀完後寫入reader的result屬性
+              reader.readAsDataURL(file);
+            } catch (e) {
+              alert("圖片轉Base64出錯啦!" + e.toString());
+            }
+          }
+        }
+      });
+
+
+       
+
+  
+    </script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <title>sidebar</title>
+    <style>
+        /* span#1_1:focus{
+            color: white;
+        } */
+    </style>
+</head>
+
+<body>
+    <nav class="sidebar sidebar-offcanvas mf-sidebar" id="sidebar" style="width: 100%">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center fixed-top mf-sidebar">
+            <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button> -->
+        </div>
+        <ul class="nav">
+            <li class="nav-item nav-category">
+                <span class="nav-link">
+                    <a href="外送員待機畫面">
+                        <img width="16px" height="16px" src="./assets/images/arrow-left-solid.svg">
+                    </a>
+                </span>
+            </li>
+
+            <li class="nav-item profile">
+                <div class="profile-desc">
+                    <div class="profile-pic">
+
+                        <div class="count-indicator">
+                            <img class="img-xs rounded-circle " style="height: 35px;width:35px ;" src="assets/images/faces/face1.png" alt="idPhoto">
+                            <span class="count bg-success"></span>
+                        </div>
+                        <div class="profile-name">
+                            <span class="sidebar_id"></span>
+                            <h5 class="mb-0 font-weight-normal mf-username">Hi, <span class="sidebar_delname"></span></h5>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item nav-category">
+                <span class="nav-link">會員中心</span>
+            </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-toggle="collapse" href="del_msg.html" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-message-text-outline"></i>
+                    </span>
+                    <span id="1_1" class="menu-title">收件匣</span>
+                </a>
+            </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-toggle="collapse" href="del_information.html" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-account"></i>
+                    </span>
+                    <span id="1_1" class="menu-title">基本資料</span>
+                </a>
+            </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="del_account_status.html">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-file-document"></i>
+                    </span>
+                    <span id="1_2" class="menu-title1">帳戶狀態</span>
+                </a>
+            </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="del_bankaccount.html">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-bank"></i>
+                    </span>
+                    <span id="1_3" class="menu-title">銀行帳戶</span>
+                </a>
+            </li>
+
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="del_order_record.html">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-chart-bar"></i>
+                    </span>
+                    <span id="1_4" class="menu-title">歷史訂單</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+</body>
+
+
+<script>
+      $(function(){
+    var getOneUrl = "../DelGetOneByID";
+
+    fetch((getOneUrl),{
+          method: "POST",
+          headers: {
+            "content-Type": "application.json"
+          },
+          body: JSON.stringify({})
+    })
+      .then(function (response) {
+        if (response.ok) {
+          return response.json(); 
+        }
+      })
+      .then(function(data){
+        $("span.sidebar_id").text(data.delID);  
+        $("span.sidebar_delname").text(data.delName);
+      });
+});
+</script>
+
+</html>
