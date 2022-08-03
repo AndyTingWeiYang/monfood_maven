@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
@@ -57,8 +58,9 @@ public class UpdateProductServlet extends HttpServlet {
 		byte[] buffer = new byte[is.available()];
 		is.read(buffer);
 		reqMap.put("productPic", buffer);
-		// TODO: 暫時假資料
-		reqMap.put("resID", 4);
+		HttpSession session = request.getSession(false);
+		Integer resID = (Integer) session.getAttribute("resID");
+		reqMap.put("resID", resID);
 
 		// 將 Map 物件變成 JSON 字串做序列化
 		String dataJsonStr = gson.toJson(reqMap);
@@ -67,7 +69,7 @@ public class UpdateProductServlet extends HttpServlet {
 
 		// 判斷資料是否傳遞
 		boolean result = productService.update(productVO);
-	
+
 		if (result) {
 			// 如果有資料就傳資料到 update 頁面
 			response.sendRedirect(request.getContextPath() + "/resprofile/resprofile-product-list.jsp");
