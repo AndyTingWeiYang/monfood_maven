@@ -26,6 +26,7 @@ public class DelDAOImpl implements DelDAO{
 	private static final String GETCOMMENT = "SELECT DEL_COMMENT FROM MonFood.ORDER WHERE ORDER_CREATE between ? and ? and del_id = ?";
 	private static final String GETTIMES = "SELECT COUNT(*) FROM MonFood.ORDER WHERE ORDER_CREATE between ? and ? and del_id = ?";
 	private static final String FIND_BY_ACCT = "SELECT * FROM MonFood.DEL WHERE DEL_ACCOUNT = ?";	
+	private static final String FIND_BY_TEL = "SELECT * FROM MonFood.DEL WHERE DEL_TEL = ?";	
 	
 	
 	// 貼在static區域裡面程式一載入就會執行一次載好因為驅動也只要載一次就好
@@ -580,6 +581,70 @@ public class DelDAOImpl implements DelDAO{
 			con = DriverManager.getConnection(MyData.URL, MyData.USER, MyData.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_ACCT);
 			pstmt.setString(1, delAccount);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				delVO.setDelID(rs.getInt("del_ID"));
+				delVO.setDelName(rs.getString("del_Name"));
+				delVO.setDelAccount(rs.getString("del_Account"));
+				delVO.setDelPassword(rs.getString("del_Password"));
+				delVO.setDelTel(rs.getString("del_Tel"));
+				delVO.setDelBirthday(rs.getDate("del_Birthday"));
+				delVO.setPlatenumber(rs.getString("platenumber"));
+				delVO.setStatus(rs.getInt("status"));
+				delVO.setUpdateTime(rs.getTimestamp("update_Time"));
+				delVO.setDelIDPhoto(rs.getBytes("del_id_Photo"));
+				delVO.setCarLicense(rs.getBytes("car_License"));
+				delVO.setDriverLicense(rs.getBytes("drive_License"));
+				delVO.setCriminalRecord(rs.getBytes("criminal_Record"));
+				delVO.setInsurance(rs.getBytes("insurance"));
+				delVO.setDelAccountName(rs.getString("del_Account_Name"));
+				delVO.setDelBankname(rs.getString("del_Bankname"));
+				delVO.setDelBankcode(rs.getString("del_Bankcode"));
+				delVO.setDelBankaccount(rs.getString("del_Bankaccount"));
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return delVO;
+	}
+
+	@Override
+	public DelVO findByTel(String delTel) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		//先宣告一個變數用來接回傳的資料
+		DelVO delVO = new DelVO();
+		try {
+			con = DriverManager.getConnection(MyData.URL, MyData.USER, MyData.PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_TEL);
+			pstmt.setString(1, delTel);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				delVO.setDelID(rs.getInt("del_ID"));

@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,8 +20,8 @@ import com.model.del.DelVO;
 /**
  * Servlet implementation class AdminDelGetAll
  */
-@WebServlet("/AdminDelGetOne")
-public class AdminDelGetOne extends HttpServlet {
+@WebServlet("/AdminDelGetOneByID")
+public class AdminDelGetOneByID extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -34,14 +33,20 @@ public class AdminDelGetOne extends HttpServlet {
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		JsonObject respObj = new JsonObject();
 		DelVO bean = null;
 
+		System.out.println("before bean");
 		DelVO delVO = gson.fromJson(req.getReader(), DelVO.class);
+		System.out.println("after bean");
+		System.out.println(delVO.getDelID());
 		DelService service = new DelService();
-		bean = service.getOnebyName(delVO.getDelName());
+		bean = service.getOneDel(delVO.getDelID());
 		
+		System.out.println(bean);
+		
+	
 		resp.getWriter().append(gson.toJson(bean));
 		
 //		

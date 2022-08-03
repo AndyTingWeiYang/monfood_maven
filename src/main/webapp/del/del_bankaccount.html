@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>會員資訊</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="font-awesome"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- change alert style -->
+    <!-- wait to find another CDN for showing title in alert-box -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.4285714286;
+        color: #212529;
+        text-align: left;
+        background-color: #f9f9fa;
+      }
+
+      #page-content {
+        margin-top: 100px;
+      }
+
+      a {
+        color: #448bff;
+        text-decoration: none;
+        background-color: transparent;
+      }
+
+      a:hover {
+        color: #005ef7;
+        text-decoration: underline;
+      }
+
+      a:not([href]):not([tabindex]) {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:not([href]):not([tabindex]):focus,
+      a:not([href]):not([tabindex]):hover {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:not([href]):not([tabindex]):focus {
+        outline: 0;
+      }
+
+      /*Mark Down*/
+
+      @media (min-width: 576px) {
+        .col-sm {
+          flex-basis: 0;
+          flex-grow: 1;
+          max-width: 100%;
+        }
+        .col-sm-auto {
+          flex: 0 0 auto;
+          width: auto;
+          max-width: 100%;
+        }
+        .col-sm-1 {
+          flex: 0 0 8.3333333333%;
+          max-width: 8.3333333333%;
+        }
+        .col-sm-2 {
+          flex: 0 0 16.6666666667%;
+          max-width: 16.6666666667%;
+        }
+        .col-sm-3 {
+          flex: 0 0 25%;
+          max-width: 25%;
+        }
+        .col-sm-4 {
+          flex: 0 0 33.3333333333%;
+          max-width: 33.3333333333%;
+        }
+        .col-sm-5 {
+          flex: 0 0 41.6666666667%;
+          max-width: 41.6666666667%;
+        }
+        .col-sm-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+        .col-sm-7 {
+          flex: 0 0 58.3333333333%;
+          max-width: 58.3333333333%;
+        }
+        .col-sm-8 {
+          flex: 0 0 66.6666666667%;
+          max-width: 66.6666666667%;
+        }
+        .col-sm-9 {
+          flex: 0 0 75%;
+          max-width: 75%;
+        }
+        .col-sm-10 {
+          flex: 0 0 83.3333333333%;
+          max-width: 83.3333333333%;
+        }
+        .col-sm-11 {
+          flex: 0 0 91.6666666667%;
+          max-width: 91.6666666667%;
+        }
+        .col-sm-12 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+        .order-sm-first {
+          order: -1;
+        }
+        .order-sm-last {
+          order: 13;
+        }
+        .order-sm-0 {
+          order: 0;
+        }
+        .order-sm-1 {
+          order: 1;
+        }
+        .order-sm-2 {
+          order: 2;
+        }
+        .order-sm-3 {
+          order: 3;
+        }
+        .order-sm-4 {
+          order: 4;
+        }
+        .order-sm-5 {
+          order: 5;
+        }
+        .order-sm-6 {
+          order: 6;
+        }
+        .order-sm-7 {
+          order: 7;
+        }
+        .order-sm-8 {
+          order: 8;
+        }
+        .order-sm-9 {
+          order: 9;
+        }
+        .order-sm-10 {
+          order: 10;
+        }
+        .order-sm-11 {
+          order: 11;
+        }
+        .order-sm-12 {
+          order: 12;
+        }
+        .offset-sm-0 {
+          margin-left: 0;
+        }
+        .offset-sm-1 {
+          margin-left: 8.3333333333%;
+        }
+        .offset-sm-2 {
+          margin-left: 16.6666666667%;
+        }
+        .offset-sm-3 {
+          margin-left: 25%;
+        }
+        .offset-sm-4 {
+          margin-left: 33.3333333333%;
+        }
+        .offset-sm-5 {
+          margin-left: 41.6666666667%;
+        }
+        .offset-sm-6 {
+          margin-left: 50%;
+        }
+        .offset-sm-7 {
+          margin-left: 58.3333333333%;
+        }
+        .offset-sm-8 {
+          margin-left: 66.6666666667%;
+        }
+        .offset-sm-9 {
+          margin-left: 75%;
+        }
+        .offset-sm-10 {
+          margin-left: 83.3333333333%;
+        }
+        .offset-sm-11 {
+          margin-left: 91.6666666667%;
+        }
+      }
+
+      .text-muted {
+        color: #99a0ac !important;
+      }
+
+      .block,
+      .card {
+        background: #fff;
+        border-width: 0;
+        border-radius: 0.25rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.5rem;
+        /* display: flex; */
+      }
+
+      .avatar {
+        position: relative;
+        line-height: 1;
+        border-radius: 500px;
+        white-space: nowrap;
+        font-weight: 700;
+        border-radius: 100%;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        border-radius: 500px;
+        box-shadow: 0 5px 10px 0 rgba(50, 50, 50, 0.15);
+      }
+
+      .avatar img {
+        border-radius: inherit;
+        width: 100%;
+      }
+
+      .gd-primary {
+        color: #fff;
+        border: none;
+        background: #448bff linear-gradient(45deg, #448bff, #44e9ff);
+      }
+
+      .gd-success {
+        color: #fff;
+        border: none;
+        background: #31c971 linear-gradient(45deg, #31c971, #3dc931);
+      }
+
+      .gd-info {
+        color: #fff;
+        border: none;
+        background: #14bae4 linear-gradient(45deg, #14bae4, #14e4a6);
+      }
+
+      .gd-warning {
+        color: #fff;
+        border: none;
+        background: #f4c414 linear-gradient(45deg, #f4c414, #f45414);
+      }
+
+      @media (min-width: 992px) {
+        .page-container {
+          max-width: 1140px;
+          margin: 0 auto;
+        }
+        .page-sidenav {
+          display: block !important;
+        }
+      }
+
+      .list {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .list-item {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+      }
+
+      .list-row .list-item {
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0.75rem 0.625rem;
+      }
+
+      .list-row .list-item > * {
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+      }
+
+      .no-wrap {
+        white-space: nowrap;
+      }
+
+      .text-color {
+        color: #5e676f;
+      }
+
+      .text-gd {
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-text-fill-color: transparent;
+        text-fill-color: transparent;
+      }
+
+      .text-sm {
+        font-size: 0.825rem;
+      }
+
+      .h-1x {
+        height: 1.25rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      .w-48 {
+        width: 48px !important;
+        height: 48px !important;
+      }
+
+      a:link {
+        text-decoration: none;
+      }
+
+      div.content-wrapper {
+        background-color: white;
+      }
+
+      input.form-control.-none {
+        display: none;
+      }
+
+      div.form-control.-none {
+        display: none;
+      }
+
+      div.card-body {
+        /* border: 2px solid #1A4D2E; */
+        background-color: #e9ecef;
+        width: 80%;
+      }
+    </style>
+  </head>
+
+  <script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      w3.includeHTML(function () {
+        var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+        for (var i = 0; i < scriptObj.length; i++) {
+          var scriptElement = document.createElement("script");
+          scriptElement.src = scriptObj[i].getAttribute("src");
+
+          document.head.appendChild(scriptElement);
+        }
+      });
+    });
+  </script>
+
+  <body>
+    <div class="container-scroller">
+      <div w3-include-html="del_sidebar.html"></div>
+
+      <div class="container-fluid page-body-wrapper">
+        <div w3-include-html="del_header.html"></div>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="card-body">
+              <div class="container mt-5 mb-5">
+                <form class="jumbotron bank_info" method="post" action="">
+                  <div class="form-group row">
+                    <label for="accountName" class="col-sm-12 col-form-label"
+                      >帳戶人姓名</label
+                    >
+                    <div class="col-sm-12">
+                      <div class="form-control acct_name delAccountName"></div>
+                      <input
+                        id="accountName"
+                        type="text"
+                        name="accountName"
+                        class="form-control input_acct_name -none"
+                      />
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="bankName" class="col-sm-12 col-form-label"
+                        >銀行名稱及代碼</label
+                      >
+                      <div>
+                        <div class="form-control bank_name delBankname"></div>
+                        <select
+                          id="bankName"
+                          name="bankName"
+                          class="form-select select_bank_name"
+                          aria-label="Default select example"
+                          hidden="true"
+                        >
+                          <option selected>請選擇</option>
+                          <option value="004">004_臺灣銀行</option>
+                          <option value="005">005_土地銀行</option>
+                          <option value="006">006_合作商銀</option>
+                          <option value="007">007_第一銀行</option>
+                          <option value="008">008_華南銀行</option>
+                          <option value="009">009_彰化銀行</option>
+                          <option value="011">011_上海商業儲蓄銀行</option>
+                          <option value="012">012_台北富邦銀行</option>
+                          <option value="013">013_國泰世華銀行</option>
+                          <option value="016">016_高雄銀行</option>
+                          <option value="017">017_兆豐國際商業銀行</option>
+                          <option value="018">018_農業金庫</option>
+                          <option value="021">021_花旗(台灣)商業銀行</option>
+                          <option value="025">025_首都銀行</option>
+                          <option value="039">039_澳商澳盛銀行</option>
+                          <option value="040">040_中華開發工業銀行</option>
+                          <option value="050">050_臺灣企銀</option>
+                          <option value="052">052_渣打國際商業銀行</option>
+                          <option value="053">053_台中商業銀行</option>
+                          <option value="054">054_京城商業銀行</option>
+                          <option value="072">072_德意志銀行</option>
+                          <option value="075">075_東亞銀行</option>
+                          <option value="081">081_匯豐(台灣)商業銀行</option>
+                          <option value="085">
+                            085_新加坡商新加坡華僑銀行
+                          </option>
+                          <option value="101">101_大台北銀行</option>
+                          <option value="102">102_華泰銀行</option>
+                          <option value="103">103_臺灣新光商銀</option>
+                          <option value="104">104_台北五信</option>
+                          <option value="106">106_台北九信</option>
+                          <option value="108">108_陽信商業銀行</option>
+                          <option value="114">114_基隆一信</option>
+                          <option value="115">115_基隆二信</option>
+                          <option value="118">118_板信商業銀行</option>
+                          <option value="119">119_淡水一信</option>
+                          <option value="120">120_淡水信合社</option>
+                          <option value="124">124_宜蘭信合社</option>
+                          <option value="127">127_桃園信合社</option>
+                          <option value="130">130_新竹一信</option>
+                          <option value="132">132_新竹三信</option>
+                          <option value="146">146_台中二信</option>
+                          <option value="147">147_三信商業銀行</option>
+                          <option value="158">158_彰化一信</option>
+                          <option value="161">161_彰化五信</option>
+                          <option value="162">162_彰化六信</option>
+                          <option value="163">163_彰化十信</option>
+                          <option value="165">165_鹿港信合社</option>
+                          <option value="178">178_嘉義三信</option>
+                          <option value="179">179_嘉義四信</option>
+                          <option value="188">188_台南三信</option>
+                          <option value="204">204_高雄三信</option>
+                          <option value="215">215_花蓮一信</option>
+                          <option value="216">216_花蓮二信</option>
+                          <option value="222">222_澎湖一信</option>
+                          <option value="223">223_澎湖二信</option>
+                          <option value="224">224_金門信合社</option>
+                          <option value="512">512_雲林區漁會</option>
+                          <option value="515">515_嘉義區漁會</option>
+                          <option value="517">517_南市區漁會</option>
+                          <option value="518">518_南縣區漁會</option>
+                          <option value="520">
+                            520_小港區漁會；高雄區漁會
+                          </option>
+                          <option value="521">
+                            521_彌陀區漁會；永安區漁會；興達港區漁會；林園區漁會
+                          </option>
+                          <option value="523">
+                            523_東港漁會；琉球區漁會；林邊區漁會
+                          </option>
+                          <option value="524">524_新港區漁會</option>
+                          <option value="525">525_澎湖區漁會</option>
+                          <option value="605">605_高雄市農會</option>
+                          <option value="612">
+                            612_豐原市農會；神岡鄉農會
+                          </option>
+                          <option value="613">613_名間農會</option>
+                          <option value="614">614_彰化地區農會</option>
+                          <option value="616">616_雲林地區農會</option>
+                          <option value="617">617_嘉義地區農會</option>
+                          <option value="618">618_台南地區農會</option>
+                          <option value="619">619_高雄地區農會</option>
+                          <option value="620">620_屏東地區農會</option>
+                          <option value="621">621_花蓮地區農會</option>
+                          <option value="622">622_台東地區農會</option>
+                          <option value="624">624_澎湖農會</option>
+                          <option value="625">625_台中市農會</option>
+                          <option value="627">627_連江縣農會</option>
+                          <option value="700">700_中華郵政</option>
+                          <option value="803">803_聯邦商業銀行</option>
+                          <option value="805">805_遠東銀行</option>
+                          <option value="806">806_元大銀行</option>
+                          <option value="807">807_永豐銀行</option>
+                          <option value="808">808_玉山銀行</option>
+                          <option value="809">809_萬泰銀行</option>
+                          <option value="810">810_星展銀行</option>
+                          <option value="812">812_台新銀行</option>
+                          <option value="814">814_大眾銀行</option>
+                          <option value="815">815_日盛銀行</option>
+                          <option value="816">816_安泰銀行</option>
+                          <option value="822">822_中國信託</option>
+                          <option value="901">901_大里市農會</option>
+                          <option value="903">903_汐止農會</option>
+                          <option value="904">904_新莊農會</option>
+                          <option value="910">
+                            910_財團法人農漁會聯合資訊中心
+                          </option>
+                          <option value="912">912_冬山農會</option>
+                          <option value="916">916_草屯農會</option>
+                          <option value="922">922_台南市農會</option>
+                          <option value="928">928_板橋農會</option>
+                          <option value="951">951_北農中心</option>
+                          <option value="954">954_中南部地區農漁會</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <label for="account" class="col-sm-12 col-form-label"
+                      >銀行帳號</label
+                    >
+                    <div class="col-sm-12">
+                      <div class="form-control acct delBankaccount"></div>
+                      <input
+                        id="account"
+                        type="text"
+                        name="account"
+                        class="form-control input_acct -none"
+                      />
+                    </div>
+                  </div>
+                </form>
+                <div class="d-flex justify-content-end">
+                  <button
+                    type="button"
+                    class="btn btn_edit btn-outline-dark mf-bdr-15"
+                  >
+                    修改
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div w3-include-html="del_footer.html"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+//載入登入資料
+      $(function () {
+        var getOneUrl = "../DelGetOneByID";
+
+        fetch(getOneUrl, {
+          method: "POST",
+          headers: {
+            "content-Type": "application.json",
+          },
+          body: JSON.stringify({
+          }),
+        })
+          .then(function (response) {
+            if (response.ok) {
+              console.log("成功載入登入資料");
+              return response.json(); // 將取得的資料，再使用 .json() 解析資料
+            }
+          })
+          .then(function (data) {
+            $("div.delAccountName").text(data.delAccountName);
+            $("div.delBankname").text(data.delBankcode + "  " + data.delBankname);
+            $("div.delBankaccount").text(data.delBankaccount);
+          });   
+      });
+
+
+//資料修改
+      $("button.btn_edit").on("click", function () {
+
+        if ($("form.bank_info").attr("data-edit") == undefined) {
+          $("form.bank_info").attr("data-edit", true);
+          $("div.form-control").toggleClass("-none");
+          $("input.form-control").toggleClass("-none");
+          $("select.form-select").attr("hidden", false).attr("data-edit", true);
+          $("button.btn_edit").html("確認");
+        } else {
+          var update_acct_name = $("input.input_acct_name").val().trim();
+          var update_bank_acct = $("input.input_acct").val().trim();
+          var update_code_name = $("select.select_bank_name").find("option:selected").text();
+          var banknamecode = update_code_name.split("_");
+          var update_bankcode = banknamecode[0];
+          var update_bankname = banknamecode[1];
+          
+          if ( update_acct_name == "" || update_bank_acct == "" || $("select.form-select").attr("data-edit") == null) {
+            alert("請輸入待辦事項");
+          } else {
+            $("div.acct_name").html(update_acct_name).toggleClass("-none");
+            $("input.input_acct_name").val(update_acct_name).toggleClass("-none");
+            $("div.acct").html(update_bank_acct).toggleClass("-none");
+            $("input.input_acct").val(update_bank_acct).toggleClass("-none");
+            $("div.bank_name").text(update_code_name).toggleClass("-none");
+            $("select.form-select").val(update_code_name).attr("hidden", true);
+            $("form.bank_info").removeAttr("data-edit");
+            $("button.btn_edit").html("修改");
+            btn_confirm();
+            
+//ajax傳修改資料
+			   var url = "../DelEditBank";
+         fetch(url, {
+           method: "POST",
+           headers: {
+             "content-Type": "application.json",
+           },
+           body: JSON.stringify({
+              delAccountName: update_acct_name,
+              delBankname: update_bankname,
+              delBankcode: update_bankcode,
+              delBankaccount: update_bank_acct
+           }),
+          })
+           .then(function (response) {
+            	if (response.ok) {
+                 console.log("成功送出修改資料");
+                 return response.json(); // 將取得的資料，再使用 .json() 解析資料
+              }
+           })
+            
+            
+            
+            
+            
+            
+          }
+        }
+
+        function btn_confirm() {
+          Swal.fire("修改成功", "更新完成", "success");
+        }
+      });
+    </script>
+  </body>
+</html>
