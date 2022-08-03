@@ -25,12 +25,23 @@ public interface ResService {
 
 	List<ResVO> adminFindResAll();
 
-	List<ResVO> adminFindByCategory(Integer resCategory);
+
+//	List<ResVO> adminFindByCategory(Integer resCategory);
+
+	List<Map<String, Object>> adminFindByCategory(Integer resCategory);
 
 	boolean updateResInfo(ResDto resDto);
 
 	ResVO selectByResId(Integer resId);
 
+
 	List<Map<String, Object>> resFindOrderService(Integer orderId);
+
+
+	
+	// 評分
+	List<Map<String, Object>> getRate();
+	// 搜尋商品
+	List<Map<String, Object>> searchProduct(String searchPdt);
 
 }
