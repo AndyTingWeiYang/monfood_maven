@@ -240,117 +240,31 @@
             ></button>
           </div>
           <h5 id="messageHeader">訊息列表</h5>
-          <div class="modal-body">
-            <div class="list-group">
-              <!-- 訊息欄start -->
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                data-bs-toggle="modal"
-                data-bs-target="#chatRoomModal"
-              >
-                <div class="d-flex w-100">
-                  <div id="avatarList"></div>
-                  <div id="chatList">
-                    <h5 class="mb-1">David</h5>
-                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+          <div class="card-body table-responsive p-0" style="height: 300px">
+            <div class="modal-body modal-message">
+              <div class="list-group">
+                <!-- 訊息欄start -->
+                <!-- <a
+                  href="#"
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                  data-bs-toggle="modal"
+                  data-bs-target="#chatRoomModal"
+                >
+                  <div class="d-flex w-100">
+                    <div class="avatarList"></div>
+                    <div id="chatList">
+                      <h5 class="mb-1">我是假的</h5>
+                      <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+                    </div>
+                    <div id="sendTime">
+                      <small>22:30</small>
+                      <br />
+                      <span id="messageNum" class="badge rounded-pill">14</span>
+                    </div>
                   </div>
-                  <div id="sendTime">
-                    <small>22:30</small>
-                    <br />
-                    <span id="messageNum" class="badge rounded-pill">14</span>
-                  </div>
-                </div>
-              </a>
-              <!-- 訊息欄end -->
-              <!-- 訊息欄start -->
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                data-bs-toggle="modal"
-                data-bs-target="#chatRoomModal"
-              >
-                <div class="d-flex w-100">
-                  <div id="avatarList"></div>
-                  <div id="chatList">
-                    <h5 class="mb-1">David</h5>
-                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
-                  </div>
-                  <div id="sendTime">
-                    <small>22:30</small>
-                    <br />
-                    <span id="messageNum" class="badge rounded-pill">14</span>
-                  </div>
-                </div>
-              </a>
-              <!-- 訊息欄end -->
-              <!-- 訊息欄start -->
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                data-bs-toggle="modal"
-                data-bs-target="#chatRoomModal"
-              >
-                <div class="d-flex w-100">
-                  <div id="avatarList"></div>
-                  <div id="chatList">
-                    <h5 class="mb-1">David</h5>
-                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
-                  </div>
-                  <div id="sendTime">
-                    <small>22:30</small>
-                    <br />
-                    <span id="messageNum" class="badge rounded-pill">14</span>
-                  </div>
-                </div>
-              </a>
-              <!-- 訊息欄end -->
-              <!-- 訊息欄start -->
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                data-bs-toggle="modal"
-                data-bs-target="#chatRoomModal"
-              >
-                <div class="d-flex w-100">
-                  <div id="avatarList"></div>
-                  <div id="chatList">
-                    <h5 class="mb-1">David</h5>
-                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
-                  </div>
-                  <div id="sendTime">
-                    <small>22:30</small>
-                    <br />
-                    <span id="messageNum" class="badge rounded-pill">14</span>
-                  </div>
-                </div>
-              </a>
-              <!-- 訊息欄end -->
-              <!-- 訊息欄start -->
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                data-bs-toggle="modal"
-                data-bs-target="#chatRoomModal"
-              >
-                <div class="d-flex w-100">
-                  <div id="avatarList"></div>
-                  <div id="chatList">
-                    <h5 class="mb-1">David</h5>
-                    <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
-                  </div>
-                  <div id="sendTime">
-                    <small>22:30</small>
-                    <br />
-                    <span id="messageNum" class="badge rounded-pill">14</span>
-                  </div>
-                </div>
-              </a>
+                </a> -->
+              </div>
               <!-- 訊息欄end -->
             </div>
           </div>
@@ -358,65 +272,66 @@
       </div>
     </div>
 
-    <!-- 聊天室燈箱chatRoomModal -->
-    <div
-      class="modal fade"
-      id="chatRoomModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div id="modalHeader" class="modal-header">
-            <h5>
-              <span class="logo">Mon</span><span class="logo2">Food</span>
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!-- 聊天室 -->
+    <div id="as">
+      <!-- 聊天室燈箱chatRoomModal -->
 
-            <div class="top_menu">
-              <div class="buttons">
-                <button
-                  id="back"
-                  data-bs-toggle="modal"
-                  data-bs-target="#chatListModal"
-                >
-                  <
-                </button>
-              </div>
-              <div class="title">David</div>
+      <!-- <div
+        class="modal fade"
+        id="chatRoomModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div id="modalHeader" class="modal-header">
+              <h5>
+                <span class="logo">Mon</span><span class="logo2">Food</span>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-            <ul class="messages"></ul>
-            <!-- 最下面文字訊息框及送出 -->
-            <div id="sendMsg" class="bottom_wrapper clearfix">
-              <div class="message_input_wrapper">
-                <input class="message_input" placeholder="請輸入文字. . . " />
+            <div class="modal-body">
+              <div class="top_menu">
+                <div class="buttons">
+                  <button
+                    id="back"
+                    data-bs-toggle="modal"
+                    data-bs-target="#chatListModal"
+                  >
+                    <
+                  </button>
+                </div>
+                <div class="title">我是假的</div>
               </div>
-              <div class="send_message">
-                <div class="icon"></div>
-                <div class="text">送出</div>
+              <ul class="messages"></ul>
+
+              <div id="sendMsg" class="bottom_wrapper clearfix">
+                <div class="message_input_wrapper">
+                  <input class="message_input" placeholder="請輸入文字. . . " />
+                </div>
+                <div class="send_message">
+                  <div class="icon"></div>
+                  <div class="text">送出</div>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- 聊天內容 -->
-          <div class="message_template">
-            <li class="message">
-              <div class="avatar"></div>
-              <div class="text_wrapper">
-                <div class="text"></div>
-              </div>
-            </li>
+
+            <div class="message_template">
+              <li class="message">
+                <div class="avatar"></div>
+                <div class="text_wrapper">
+                  <div class="text"></div>
+                </div>
+              </li>
+            </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <script src="assets/js/jQuery-3.6.0.js"></script>
     <script src="js/buttonContent.js"></script>
