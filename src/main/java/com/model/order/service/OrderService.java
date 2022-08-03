@@ -16,4 +16,5 @@ public interface OrderService {
 	MonsterVO monsCheck(Integer userId) throws SQLException;
 	Integer orderTimes(Integer userId);
 	List<OrderVO> getAllForUser(Integer userId);
+	List<OrderVO> getAllProductUser(Integer userId);
 }
