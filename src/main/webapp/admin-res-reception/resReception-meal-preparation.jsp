@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MonFood-Demo</title>
 
-  <script src="<c:url value='/assets/js/jQuery-3.6.0.js'/>"</script>
+  <script src="<c:url value='/assets/js/jQuery-3.6.0.js'/>"></script>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
