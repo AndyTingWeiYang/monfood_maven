@@ -25,18 +25,7 @@
       .monfood-resPic{
         width: 100%;
       }
-      .monfood-resHeader-sec{
-        padding: 10px 30px 10px 30px
-      }
-      .monfood-detail{
-        float: right;
-        box-shadow: none;
-        background-color: #c3c3c3;
-        border: none;
-        border-radius: 5px;
-        height: 37px;
-        margin-top: 10px;
-      }
+
       .monfood-modalResName{
         font-size: 27px;
       }
@@ -45,14 +34,8 @@
         height: 10px; 
         margin-right: 2px;
       }
-      .monfood-resType{
-        font-size: 15px; 
-        margin-left: 5px;
-      }
-      .monfood-resAddr{
-        font-size: 15px; 
-        margin-left: 5px;
-      }
+ 
+
       .monfood-openedTime{
         font-size: 15px;
       }
@@ -73,7 +56,7 @@
         margin-left: 0 !important;
       }
       .monfood-productAll{
-        margin-left: 35px;
+        /* margin-left: 35px; */
       }
       .monfood-pdtImgdiv{
         height: 196px; 
@@ -369,61 +352,52 @@
       <!-- navbar -->
     </header>
     <main>
-        <div class="monfood-resPicdiv">
-          <img class="monfood-resPic" src="images/ambitious-creative-co-rick-barrett-4u1ZT2r2c5I-unsplash.jpg"/>
-        </div>
+        
    
-      <section class="monfood-resHeader-sec" >
-        <div class="monfood-resHeader">
-          <div class="res_name">麥當勞 S006台北光復</div>
-            <!-- button trigger modal -->
-            <button type="button" class="btn btn-primary monfood-detail" data-bs-toggle="modal" data-bs-target="#exampleModalDetail">
-              詳細資訊
-            </button>
-            <!-- Modal -->
-            <div
-              class="modal fade detail-modal" id="exampleModalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title monfood-modalResName" id="exampleModalLabel">麥當勞 S006台北光復</h5>
-                    <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <br />
-                  </div>
-                  <div style="margin: 10px">
-                    <div class="modal-body">
-                      <div class="monfood-resType">美式料理</div>
-                      <hr />
-                      <div class="monfood-resAddr">台北市大安區光復南路286號</div>
-                      <hr />
-                      <div class="monfood-openedTimediv">營業時間
-                          <li class="monfood-openedTime">
-                             上午07:00 - 下午11:30
-                          </li>
-                      </div>
-                      <!--  -->
-                      <hr />
-                      <div class="ratingsdiv" style="font-size: 15px">
-                        <button class="monfood-ratingbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                          共 2 筆評分
-                        </button>
+      <section class="monfood-resHeader-sec" style="margin: 0; padding:0;">
+        <!-- <div class="monfood-resPicdiv">
+          <img class="monfood-resPic" src="images/ambitious-creative-co-rick-barrett-4u1ZT2r2c5I-unsplash.jpg"/>
+        </div> -->
 
-                        <div class="collapse" id="collapseExample">
-                          <div class="card card-body">
-                            <ul class="monfood-ratingul">
-                              <li class="monfood-ratingli">
-                                <p class="monfood-user">小吳</p>
-                                <p class="monfood-ratingDate">2022/05/02</p>
-                                <p class="monfood-comment">有夠難吃</p>
-                              </li>
-                              <hr />
-                              <li>
-                                <p>大吳</p>
-                                <p>2022/06/30</p>
-                                <p>一言難盡</p>
-                              </li>
-                            </ul>
-                          </div>
+        <div class="monfood-resHeader" style="margin: 0; padding:0;">
+          <div class="container" style="margin: 0; padding:0;">
+              <div class="row" style="margin: 0; padding:0;">
+                <div class="col-xl-10 monfood-resNameHeader" style="float: left; font-size :35px;">麥當勞 S006台北光復</div>
+                   <button type="button" class="col-xl-2 btn btn-primary monfood-resDetail" data-bs-toggle="modal" data-bs-target="#exampleModalDetail" style="width: 120px; height:40px; float:right">
+                            詳細資訊
+                   </button>
+                </div>
+          </div>
+         
+          <!-- Modal -->
+          <div class="modal fade detail-modal" id="exampleModalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title monfood-modalResName" id="exampleModalLabel">麥當勞 S006台北光復</h5>
+                  <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <br />
+                </div>
+                <div style="margin: 10px">
+                  <div class="modal-body">
+                    <div class="ratingsdiv" style="font-size: 15px">
+                      <button class="monfood-ratingbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        共 2 筆評分
+                      </button>
+
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                          <ul class="monfood-ratingul">
+                            <li class="monfood-ratingli">
+                              <p class="monfood-ratingDate">2022/05/02</p>
+                              <p class="monfood-comment">有夠難吃</p>
+                            </li>
+                            <hr />
+                            <li>
+                              <p>2022/06/30</p>
+                              <p>一言難盡</p>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -432,14 +406,13 @@
               </div>
             </div>
           </div>
-          <div class="detail">
-            <div>4.5/5</div>
-            <div>美式 速食</div>
-            <div>
-              <label>$40 外送費</label>
-              <label>40-50分鐘</label>
-            </div>
+         
+            <!-- button trigger modal -->
+
           </div>
+          <!-- <div class="monfood-resInfo">
+            <div class="monfood-resRate">4.5</div>
+          </div> -->
         </div>
 
         <div>
@@ -449,17 +422,34 @@
 
       <section>
         <!-- 分格線 -->
-        <div class="monfood-productAlldiv">
-          <h5 class="monfood-productAll">所有餐點</h5>
-        </div>
-        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 monfood-productAll" style="font-size: 22px">所有餐點</div>
+
+                <div class="col-xl-4 container" style="margin: 0; padding:0;">
+                    <div class="col-xl-6 container" style="margin: 0; padding:0;">
+                        <div class="row col-xl-12" style="margin: 0; padding:0;">
+                            <div class="col-lg-4 monfood-resType">美式料理</div>
+                            <div class="col-lg-8 monfood-resAddr">台北市大安區光復南路286號</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 row" style="margin: 0; padding:0;">
+                        <div class="col-xl-2 monfood-openedTimediv">營業時間 </div>
+                        <div class="col-xl-5 monfood-openedTime" style="margin: 0; padding:0;">開始：上午07:00</div>  
+                        <div class="col-xl-5 monfood-closeTime" style="margin: 0; padding:0;">結束：下午11:30</div> 
+                    </div>
+                </div>
+            </div>
+         </div>
+       
+          
+        <hr style="margin-top: 20px;"/>
         <br />
         <br />
 
         <!-- product div -->
         <div class="container">
-          <div class="row">
-            <!--  -->
+          <div id="prodcutPage" class="row">
             <div class="col-xl-3 col-6 col d-flex justify-content-center">
               <div>
                 <div type="button monfood-pdtModalBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -470,6 +460,7 @@
                   <p class="monfood-pdtPrice">$ 117</p>
                 </div>
                 <!-- Modal -->
+
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
