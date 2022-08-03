@@ -31,7 +31,7 @@ $(document).ready(function() {
 });
 
 navigator.geolocation.getCurrentPosition(function(position) {
-  do_something(position.coords.latitude, position.coords.longitude);
+  //do_something(position.coords.latitude, position.coords.longitude);
 });
 
 
@@ -182,83 +182,150 @@ $('select').on('change', function(){
 
 //以上勿動//
 
+//搜尋
+$('#searchPdt').keypress(function(e){
+  const resId = $("#searchPdt").val();
+    if (e.which == 13) {
+      console.log('hi');
+      $.ajax({
+          url: 'ResSearchProductServlet',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {
+            searchPdt: resId
+          },
+
+          success: function(data){
+            $('#resPageBlock').html('');
+            const resList = data.resList;
+
+
+
+            for(let i = 0; i < resList.length; i++) {
+              const resVo = resList[i];
+              let resPageHtml = `
+                <a id="resPage" 
+                  class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+                  href="restaurant.html">
+                </a>
+              `;
+
+              let resPageContentHtml = `
+              <div class="btn btn-primary monfood-resBlock">
+                <div class="monfood-resPicdiv" >
+                 <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+              </div>
+              <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                  <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                  <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}</div>
+              </div>
+              <div class="row justify-content-between monfood-resCategorydiv">
+                  <div class="col-md-6 d-flex"></div>
+                  <div id="resCategory" class="col-md-6 monfood-resCategory">${resVo.resCategory}</div>
+              </div>
+              </div>
+            `;
+               // resPageHtml<a> 新增內容
+          const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
+    
+          $('#resPageBlock').append(contentHtml);
+        }
+      }
+    });
+  }
+});
+
+
 //餐廳篩選
-
-
-
-// TODO: 餐廳顯示
-$(document).ready(function() {
+$('.restriction').click(function(){
+  const resId = $(this).data('rescategory');
   $.ajax({
-    url: 'AdminResAllServlet',
+    url: 'ResFindByCategoryServlet',
     type: 'POST',
     dataType: 'json',
-    success: function(data) {
-      console.log(data);
-      const resList = data.resList;
-      
-      for(let i = 0; i < resList.length; i++) {
-        let resPageHtml = `
-        <a id="resPage" 
-          class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" 
-          href="restaurant.html">
-        </a>
-      `;
+    data: {
+      resCat: resId
+    },
+    success: function(data){
+      $('#resPageBlock').html('');
+        const resList = data.resList;
 
-      let resPageContentHtml = `
-        <div class="btn btn-primary monfood-resBlock">
-          <div class="monfood-resPicdiv" >
-            <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
-          </div>
-          <div class="row justify-content-between monfood-resNameandRatingdiv" >
-            <div id="resName" class="col-md-6 d-flex resName">${resList.RES_NAME}</div>
-            <div id="rating" class="col-md-6 monfood-rating">4.0</div>
-          </div>
-          <div class="row justify-content-between monfood-resCategorydiv">
-            <div class="col-md-6 d-flex"></div>
-            <div id="resCategory" class="col-md-6 monfood-resCategory">${resList.RES_CATEGORY}</div>
-          </div>
-        </div>
-      `;
-
-      $('#resPageBlock').append($(resPageHtml))
-                        .append('<div>')
-                        .append(resPageContentHtml);
-      }
-      
-
-      debugger
-
-
-    }
-  });
-
-
-
-  $("#btn").click(function() { //ID 為 submitExample 的按鈕被點擊時
-      $.ajax({
-          type: "POST", //傳送方式
-          url: "AdminResAllServlet", //傳送目的地
-          dataType: "json", //資料格式
-          data: { //傳送資料
-              resName: $("#resName").val(),
-              resCategory: $("#resCategory").val(),
-              rating: $("#rating").val()
-          },
-          success: function(data) {
-              if (data.ID != null) { //如果後端回傳 json 資料有 ID
-                  $("#demo")[0].reset(); 
-                  $("#result").html(data.ID +data.Codename + data.Name);
-              } else { //否則讀取後端回傳 json 資料 errorMsg 顯示錯誤訊息
-                  $("#demo")[0].reset(); 
-                  $("#result").html('<font color="#ff0000">' + data.errorMsg + '</font>'+ '錯誤!!');
-              }
-          },
-          error: function(jqXHR) {
-              $("#demo")[0].reset();
-              $("#result").html('<font color="#ff0000">發生錯誤：' + jqXHR.status + '</font>'+ '爆了直接error');
-          }
+        for(let i = 0; i < resList.length; i++) {
+		    const resVo = resList[i];
+            let resPageHtml = `
+                <a id="resPage" 
+                  class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+                  href="restaurant.html">
+                </a>
+              `;
+  
+            let resPageContentHtml = `
+                <div class="btn btn-primary monfood-resBlock">
+                  <div class="monfood-resPicdiv" >
+                   <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+                </div>
+                <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                    <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                    <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}</div>
+                </div>
+                <div class="row justify-content-between monfood-resCategorydiv">
+                    <div class="col-md-6 d-flex"></div>
+                    <div id="resCategory" class="col-md-6 monfood-resCategory">${resVo.resCategory}</div>
+                </div>
+                </div>
+              `;
           
-      })
-  })        
-});
+          // resPageHtml<a> 新增內容
+          const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
+    
+          $('#resPageBlock').append(contentHtml);
+        }
+      }
+    });
+  });
+  // TODO: 餐廳顯示
+  $(document).ready(function() {
+    $.ajax({
+      url: 'ResGetRateServlet',
+      type: 'POST',
+      dataType: 'json',
+      
+      success: function(data) {
+        const resList = data.resList.filter(function(resVo) {
+          return resVo 
+        });
+        
+        for(let i = 0; i < resList.length; i++) {
+        const resVo = resList[i];
+
+          let resPageHtml = `
+            <a id="resPage" 
+              class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+              href="restaurant.html">
+            </a>
+          `;
+  
+          let resPageContentHtml = `
+            <div class="btn btn-primary monfood-resBlock">
+              <div class="monfood-resPicdiv" >
+                <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+              </div>
+              <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}</div>
+              </div>
+              <div class="row justify-content-between monfood-resCategorydiv">
+                <div class="col-md-6 d-flex"></div>
+                <div id="resCategory" class="col-md-6 monfood-resCategory">${resVo.resCategory}</div>
+              </div>
+            </div>
+          `;
+        
+          // resPageHtml<a> 新增內容
+          const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
+          $('#resPageBlock').append(contentHtml);
+        }
+      }
+    });
+  });
 

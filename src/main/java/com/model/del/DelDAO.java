@@ -19,6 +19,7 @@ public interface DelDAO {
 	DelVO login(String delTel, String delPassword);
 
 	DelVO findByaccount(String delAccount);
+	DelVO findByTel(String delTel);
 	DelVO findByDelID(Integer delID);
 	DelVO findByDelName(String delName);
 //ForAdmin	

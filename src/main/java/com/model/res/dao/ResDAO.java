@@ -1,6 +1,7 @@
 package com.model.res.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.model.res.ResDto;
 import com.model.res.ResVO;
@@ -23,8 +24,12 @@ public interface ResDAO {
 	List<ResVO> getAll();
 
 	List<ResVO> isDuplicateAccount(String resAccount);
-
-	List<ResVO> selectByCategory(Integer resCategory);
-
+	
 	boolean updateResInfo(ResDto resDto);
+
+	List<Map<String, Object>> selectByCategory(Integer resCategory);
+	
+	List<Map<String, Object>> getRate();
+	
+	List<Map<String, Object>> searchProduct(String searchPdt);
 }

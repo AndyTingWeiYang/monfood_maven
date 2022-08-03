@@ -1,4 +1,4 @@
-package com.model.del.servlet;
+package com.model.del.controller;
 
 import java.awt.color.ProfileDataException;
 import java.io.BufferedReader;
@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,8 +29,8 @@ import com.model.del.service.DelServiceImpl;
 /**
  * Servlet implementation class AdminDelGetAll
  */
-@WebServlet("/AdminDelEdit")
-public class AdminDelEdit extends HttpServlet {
+@WebServlet("/DelEditPic")
+public class DelEditPic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -44,8 +45,11 @@ public class AdminDelEdit extends HttpServlet {
 		JsonObject respObj = new JsonObject();
 		DelVO delVO = new DelVO();
 		
+//登入狀態下
+		HttpSession session = req.getSession();
+		DelVO loginDelVO = (DelVO) session.getAttribute("del");
+		
 //JSONObject接前端傳來的Base64圖檔並轉成bytes		
-		System.out.println("alive??");
 		JsonObject json = gson.fromJson(req.getReader(), JsonObject.class);
 		JsonElement pic64 = json.get("delIDPhoto");
 		String picString = String.valueOf(pic64);
@@ -83,38 +87,38 @@ public class AdminDelEdit extends HttpServlet {
 		byte[] insuranceByte = Base64.getDecoder().decode(insurancefinal);
 		
 //把JSONObject裡的東西一一取出轉成VO相對的格式塞入		
-		JsonElement idj = json.get("delID");
-		String idString = String.valueOf(idj);
-		idString = idString.replace("\"", "");
-		Integer delIDInteger = Integer.valueOf(idString);
+//		JsonElement idj = json.get("delID");
+//		String idString = String.valueOf(idj);
+//		idString = idString.replace("\"", "");
+//		Integer delIDInteger = Integer.valueOf(idString);
+//		
+//		String nameString = String.valueOf(json.get("delName")).replace("\"", "");
+//		String accountString = String.valueOf(json.get("delAccount")).replace("\"", "");
+//		String delPasswordString = String.valueOf(json.get("delPassword")).replace("\"", "");
+//		String delTelString = String.valueOf(json.get("delTel")).replace("\"", "");
+//		String delBirthdayString = String.valueOf(json.get("delBirthday")).replace("\"", "");
+//		java.sql.Date delBitthday = Date.valueOf(delBirthdayString);
+//		String platenumberString = String.valueOf(json.get("platenumber")).replace("\"", "");
+//		String statusString = String.valueOf(json.get("status")).replace("\"", "");
+//		Integer statusInteger = Integer.valueOf(statusString);
+//		String delAccountNameString = String.valueOf(json.get("delAccountName")).replace("\"", "");
+//		String delBanknameString = String.valueOf(json.get("delBankname")).replace("\"", "");
+//		String delBankcodeString = String.valueOf(json.get("delBankcode")).replace("\"", "");
+//		String delBankaccountsString = String.valueOf(json.get("delBankaccount")).replace("\"", "");
 		
-		String nameString = String.valueOf(json.get("delName")).replace("\"", "");
-		String accountString = String.valueOf(json.get("delAccount")).replace("\"", "");
-		String delPasswordString = String.valueOf(json.get("delPassword")).replace("\"", "");
-		String delTelString = String.valueOf(json.get("delTel")).replace("\"", "");
-		String delBirthdayString = String.valueOf(json.get("delBirthday")).replace("\"", "");
-		java.sql.Date delBitthday = Date.valueOf(delBirthdayString);
-		String platenumberString = String.valueOf(json.get("platenumber")).replace("\"", "");
-		String statusString = String.valueOf(json.get("status")).replace("\"", "");
-		Integer statusInteger = Integer.valueOf(statusString);
-		String delAccountNameString = String.valueOf(json.get("delAccountName")).replace("\"", "");
-		String delBanknameString = String.valueOf(json.get("delBankname")).replace("\"", "");
-		String delBankcodeString = String.valueOf(json.get("delBankcode")).replace("\"", "");
-		String delBankaccountsString = String.valueOf(json.get("delBankaccount")).replace("\"", "");
-		
-		delVO.setDelID(delIDInteger);
-		delVO.setDelName(nameString);
-		delVO.setDelAccount(accountString);
-		delVO.setDelPassword(delPasswordString);
-		delVO.setDelTel(delTelString);
-		delVO.setDelBirthday(delBitthday);
-		delVO.setPlatenumber(platenumberString);
-		delVO.setStatus(statusInteger);
+		delVO.setDelID(loginDelVO.getDelID());
+		delVO.setDelName(loginDelVO.getDelName());
+		delVO.setDelAccount(loginDelVO.getDelAccount());
+		delVO.setDelPassword(loginDelVO.getDelPassword());
+		delVO.setDelTel(loginDelVO.getDelTel());
+		delVO.setDelBirthday(loginDelVO.getDelBirthday());
+		delVO.setPlatenumber(loginDelVO.getPlatenumber());
+		delVO.setStatus(loginDelVO.getStatus());
 		delVO.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		delVO.setDelAccountName(delAccountNameString);
-		delVO.setDelBankname(delBanknameString);
-		delVO.setDelBankcode(delBankcodeString);
-		delVO.setDelBankaccount(delBankaccountsString);
+		delVO.setDelAccountName(loginDelVO.getDelAccountName());
+		delVO.setDelBankname(loginDelVO.getDelBankname());
+		delVO.setDelBankcode(loginDelVO.getDelBankcode());
+		delVO.setDelBankaccount(loginDelVO.getDelBankaccount());
 		delVO.setDelIDPhoto(picByte);
 		delVO.setCarLicense(carByte);
 		delVO.setDriverLicense(driveByte);
@@ -122,7 +126,6 @@ public class AdminDelEdit extends HttpServlet {
 		delVO.setInsurance(insuranceByte);
 		
 		System.out.println(delVO);
-		
 		com.model.del.service.DelService service = new DelServiceImpl();
 		DelVO result = service.updatePic(delVO);
 		

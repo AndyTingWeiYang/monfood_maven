@@ -12,37 +12,45 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
+import com.model.promotelist.PromoteListVO;
 import com.model.res.ResVO;
 import com.model.res.service.ResService;
 import com.model.res.service.impl.ResServiceImpl;
 
-@WebServlet("/ResFindByCategoryServlet")
-public class ResFindByCategoryServlet extends HttpServlet{
+
+@WebServlet("/ResSearchProductServlet")
+public class ResSearchProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");		
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-	
+
 		try {
 			ResService service = new ResServiceImpl();
-			List<Map<String, Object>> list = service.adminFindByCategory(Integer.parseInt(request.getParameter("resCat")));
 			
+			List<Map<String, Object>> resList = service.searchProduct(request.getParameter("searchPdt"));
+			
+
 			// add the list into json format
-			respObj.add("resList", gson.toJsonTree(list));
+			respObj.add("resList", gson.toJsonTree(resList));
 		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}
-		
+
 		// return data
 		response.getWriter().append(gson.toJson(respObj));
-	
+		System.out.println("清單:"+gson.toJson(respObj));
 	}
-		
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 

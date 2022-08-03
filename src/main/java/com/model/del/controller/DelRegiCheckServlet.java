@@ -28,8 +28,8 @@ import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
 
-@WebServlet("/DelRegisterServlet")
-public class DelRegisterServlet extends HttpServlet {
+@WebServlet("/DelRegiCheckServlet")
+public class DelRegiCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 //	@Override
@@ -55,11 +55,6 @@ public class DelRegisterServlet extends HttpServlet {
 			JsonObject respObj = new JsonObject();
 			DelVO delRegiVO = gson.fromJson(request.getReader(), DelVO.class);
 			System.out.println(delRegiVO+"gson接來自前端的資料");
-//			String delTel = delLoginVO.getDelTel();
-//			String password = delLoginVO.getDelPassword();
-//			String delTel = request.getParameter("delTel");
-//			String password = request.getParameter("delPassword");
-//
 //	//驗證資料
 //			Map<String, String> errors = new HashMap<String, String>();
 //			request.setAttribute("errors", errors);
@@ -85,53 +80,18 @@ public class DelRegisterServlet extends HttpServlet {
 //			
 //呼叫model
 			com.model.del.service.DelService service = new DelServiceImpl();
-			String result = service.delRegister(delRegiVO);
-			String[] answer = result.split(",");
-			System.out.println(answer[0]);
-			delRegiVO.setDelID(Integer.valueOf(answer[1]));
-			System.out.println(answer[1]);
-			System.out.println(delRegiVO.getDelID());
-
-			if("新增成功"==answer[0]) {
-				HttpSession session = request.getSession();
-				session.setAttribute("del", delRegiVO);
-				System.out.println(session.getAttribute("del")+"session裡的資料"); 
-				response.getWriter().append(gson.toJson(answer[0].trim()));
-				
+//IsAcctAvailable
+			if(delRegiVO.getDelAccount()!=null) {
+				String result = service.acctAvailable(delRegiVO.getDelAccount());
+				System.out.println(result);
+				response.getWriter().append(gson.toJson(result));
 			}
-////			CustomerBean bean = customerService.login(username, password);
-//			com.model.del.service.DelService service = new DelServiceImpl();
-//			DelVO loginResultDelVO = service.delLogin(delTel, password);
-//			
-//	//根據model執行結果，導向view
-//	//這邊回傳的結果裡面有一個delVO裡面的所有屬性為null，所以在get屬性之前不知道為什麼兩邊都進去了......
-//			if(loginResultDelVO.getDelID()==null) {
-////				respObj.addProperty("password", "登入失敗請重新嘗試");
-//				errors.put("password", "登入失敗請重新嘗試");
-//				
-//
-//				
-//				System.out.println("輸入的帳密找不到資料所以失敗");
-//				HttpSession session = request.getSession();
-//				session.setAttribute("errors", errors);
-//				
-//				
-//				request.getRequestDispatcher(
-//						"/delLogin.html").forward(request, response);
-//			} else {
-//				HttpSession session = request.getSession();
-//				session.setAttribute("del", loginResultDelVO);
-//				
-//				response.sendRedirect("del/del_index.html");
-//				System.out.println("登入成功");
-//			}
-			
-		
-		
-		
-		
-		
-		
+//IsTelAvailable
+			if(delRegiVO.getDelTel()!=null) {
+				String result = service.telAvailable(delRegiVO.getDelTel());
+				System.out.println(result);
+				response.getWriter().append(gson.toJson(result));
+			}
 	
 	
 	}
