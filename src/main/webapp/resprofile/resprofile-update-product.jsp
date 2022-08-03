@@ -69,7 +69,7 @@
 								<label for="resName" class="col-sm-12 col-form-label">餐廳名稱</label>
 								<div>
 									<input id="resName" type="text" name="resName"
-										class="form-control" readonly value="麥當勞">
+										class="form-control" readonly value="${sessionScope.resName}">
 								</div>
 							</div>
 							<div class="col-sm-6">
