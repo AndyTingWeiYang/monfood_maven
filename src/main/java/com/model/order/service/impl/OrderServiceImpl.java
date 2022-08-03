@@ -52,6 +52,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public List<OrderVO> getAllForUser(Integer userId) {
+		List<OrderVO> list = dao.getAllById(userId);
+		return list;
+	}
+	
+	@Override
 	public Integer createOrder(OrderVO orderVO) {
 		Integer generatedKey = null;
 		

@@ -15,4 +15,5 @@ public interface OrderService {
 	PromoteListVO promoteCheck(PromoteListVO promoteListVO);
 	MonsterVO monsCheck(Integer userId) throws SQLException;
 	Integer orderTimes(Integer userId);
+	List<OrderVO> getAllForUser(Integer userId);
 }
