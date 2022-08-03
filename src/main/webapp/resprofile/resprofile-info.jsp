@@ -83,8 +83,6 @@
 	   			// 更新商家 src 連結
    				$('#resPhoto').attr('src','/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
 	   		}
-	   		
-	   		
 	   	});
      	
      
