@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="cache-control" content="no-cache" />
     <title>browse_new</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="css/browse.css" />
     <style>
       .monfood-resBlock{
+        height: 280px;
         background-color: white !important;
         color: black !important;
         border: 1px solid lightgray !important;
@@ -35,9 +37,10 @@
       .monfood-resNameandRatingdiv{
         margin: 0;
       }
-      .monfood-resName{
+      #monfood-resName{
+        font-size: 14px;
         text-align: left;
-        margin-top: 15px;
+        margin-top: 12px !important;
         padding-left: 0;
       }
       .monfood-rating {
@@ -55,24 +58,6 @@
         padding-right: 0;
         text-align: end;
       }
-      /* .monfood-notification{
-        text-align: center;
-        height: 150px;
-        display: flex;
-        background-color: #F6D14B;
-        justify-content: space-around;
-        align-content: center;
-        flex-wrap: wrap;
-        color: black;
-        font-size: 30px;
-      }
-      .resCategory-panel{
-        margin:0px;
-        padding:5px;
-        text-align:center;
-        border:solid 1px #c3c3c3;
-        display:none;
-      } */
     </style>
   </head>
   <body>
@@ -87,20 +72,10 @@
       crossorigin="anonymous"
     ></script>
     <!-- offcanvas -->
-    <div
-      class="offcanvas offcanvas-end"
-      id="sidebar"
-      tabindex="-1"
-      aria-labelledby="sidebar-label"
-    >
+    <div class="offcanvas offcanvas-end" id="sidebar" tabindex="-1" aria-labelledby="sidebar-label">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="sidebar-label"></h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="container d-flex justify-content-between" style="margin: 0px">
         <div class="row" style="margin: 0px">
@@ -445,25 +420,14 @@
 
       <div class="loc_and_input">
         <div class="container-fluid">
-          <div
-            class="row"
-            style="padding-right: 50; margin-left: 30px; margin-right: 90px"
-          >
+          <div class="row" style="padding-right: 50; margin-left: 30px; margin-right: 90px">
             <div style="padding: 0px" class="col-xl-6 col-lg-12 col-sm-12 col">
-              <div
-                class="col-lg-6 col-md-12"
-                style="float: right; margin-right: 10px"
-              >
+              <div class="col-lg-6 col-md-12" style="float: right; margin-right: 10px">
                 <div style="margin-top: 43px">
                   <div id="map" style="display: none"></div>
                 </div>
                 <span id="finalAddress">台北市中正區濟南路一段321號</span>
-                <a
-                  href=""
-                  id="changeAddress"
-                  class="btn btn-primary"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#bottombar"
+                <a href="" id="changeAddress" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#bottombar"
                   aria-controls="sidebar"
                   style="
                     height: 26px;
@@ -483,7 +447,7 @@
             <div class="col-xl-6 col-lg-12 col-sm-12 col">
               <input
                 class="search"
-                id="search"
+                id="searchPdt"
                 type="text"
                 style="margin-left: 10px; float: left"
               />
@@ -502,11 +466,11 @@
           <div>
             餐廳分類
             <span class="button">
-              <button id="american" class="restriction">美式料理</button>
-              <button id="japanese" class="restriction">日式料理</button>
-              <button id="chinese" class="restriction">中式料理</button>
-              <button id="korean" class="restriction">韓式料理</button>
-              <button id="thai" class="restriction">泰式料理</button>
+              <button id="american" data-rescategory="4" class="restriction">美式料理</button>
+              <button id="japanese" data-rescategory="2" class="restriction">日式料理</button>
+              <button id="chinese" data-rescategory="1" class="restriction">台式料理</button>
+              <button id="korean" data-rescategory="5" class="restriction">韓式料理</button>
+              <button id="thai" data-rescategory="3" class="restriction">泰式料理</button>
             </span>
           </div>
         </div>
@@ -560,62 +524,25 @@
       <div class="container">
         <!-- TODO: 餐廳區塊 -->
         <div id="resPageBlock" class="row" style="justify-content: space-around">
-          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
-            <div>
-              <div class="btn btn-primary monfood-resBlock">
-                <div class="monfood-resPicdiv" >
-                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
-                </div>
-                <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
-                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
-                </div>
+<!--           <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html"> -->
+<!--             <div> -->
+<!--               <div class="btn btn-primary monfood-resBlock"> -->
+<!--                 <div class="monfood-resPicdiv" > -->
+<!--                   <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/> -->
+<!--                 </div> -->
+<!--                 <div class="row justify-content-between monfood-resNameandRatingdiv" > -->
+<!--                   <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div> -->
+<!--                   <div id="rating" class="col-md-6 monfood-rating">4.0</div> -->
+<!--                 </div> -->
 
-                <div class="row justify-content-between monfood-resCategorydiv">
-                  <div class="col-md-6 d-flex"></div>
-                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <!--  -->
-          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
-            <div>
-              <div class="btn btn-primary monfood-resBlock">
-                <div class="monfood-resPicdiv" >
-                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
-                </div>
-                <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
-                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
-                </div>
-
-                <div class="row justify-content-between monfood-resCategorydiv">
-                  <div class="col-md-6 d-flex"></div>
-                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
-                </div>
-              </div>
-            </div>
-          </a>
-         <!--  -->
-          <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html">
-            <div>
-              <div class="btn btn-primary monfood-resBlock">
-                <div class="monfood-resPicdiv" >
-                  <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/>
-                </div>
-                <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                  <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div>
-                  <div id="rating" class="col-md-6 monfood-rating">4.0</div>
-                </div>
-
-                <div class="row justify-content-between monfood-resCategorydiv">
-                  <div class="col-md-6 d-flex"></div>
-                  <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div>
-                </div>
-              </div>
-            </div>
-          </a>
+<!--                 <div class="row justify-content-between monfood-resCategorydiv"> -->
+<!--                   <div class="col-md-6 d-flex"></div> -->
+<!--                   <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </a> -->
+<!--            -->
           <!--  -->
         </div> 
       </div>

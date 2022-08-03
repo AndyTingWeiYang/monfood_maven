@@ -2,7 +2,19 @@ window.addEventListener('load', function(){
 
     // order
     $.ajax({
-
+        url: '/monfood_maven/OrderAllUserServlet',
+        type: 'POST',
+        data: JSON.stringify({
+            userId : 1
+        }),
+        dataType: 'json',
+        success: function(msg){
+            console.log(msg)
+            
+        },
+        error: function(errMsg){
+            console.log(errMsg)
+        }
     })
     
     // 重要性的星號
