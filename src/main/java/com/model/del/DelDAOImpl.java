@@ -434,7 +434,7 @@ public class DelDAOImpl implements DelDAO{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				orderVO = new OrderVO();
-				orderVO.setDelCost(rs.getInt("del_cost"));
+				orderVO.setDelCost(rs.getInt("sum(del_cost)"));
 				totalCost = String.valueOf(orderVO.getDelCost());
 			}
 			
@@ -526,7 +526,7 @@ public class DelDAOImpl implements DelDAO{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<String> comment = null;
+		List<String> comment = new ArrayList<String>();
 		try {
 			con = DriverManager.getConnection(MyData.URL, MyData.USER, MyData.PASSWORD);
 			pstmt = con.prepareStatement(GETCOMMENT);
@@ -537,6 +537,7 @@ public class DelDAOImpl implements DelDAO{
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				comment.add(rs.getString("del_comment"));
+				System.out.println(comment+"dao找到的comment");
 			}
 			
 		} catch (SQLException se) {
