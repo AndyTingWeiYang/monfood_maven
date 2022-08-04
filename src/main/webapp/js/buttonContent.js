@@ -11,208 +11,206 @@ $.ajax({
     selfId = data.userId;
     console.log(selfId);
   },
-  });
+});
 
 console.log(selfId);
-  //需改為動態網址[to be revised]
-  //先假設登入者userId = 2
-  //可存local storage
-  // let selfId = 2;
-  let friendId;
-  let MyPoint = `/ChatWebsocket/${selfId}`
-  let host = window.location.host;
-  let path = window.location.pathname;
-  let webCtx = path.substring(0, path.indexOf('/', 1));
-  let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
-  let webSocket = new WebSocket(endPointURL);
+let friendId;
+let MyPoint = `/ChatWebsocket/${selfId}`;
+let host = window.location.host;
+let path = window.location.pathname;
+let webCtx = path.substring(0, path.indexOf("/", 1));
+let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
+let webSocket = new WebSocket(endPointURL);
 
+webSocket.onopen = function (event) {
+  console.log("Connect Success!");
+};
 
+function appendNewMsg(isMe, msg) {
+  let messagesArea = document.querySelector("#messagesArea" + friendId);
+  let li = document.createElement("li");
+  li.className += isMe ? "me" : "friend";
+  li.innerHTML = msg;
+  messagesArea.appendChild(li);
+  messagesArea.scrollTop = messagesArea.scrollHeight;
+}
 
-    webSocket.onopen = function(event) {
-      console.log("Connect Success!");
-    };
+webSocket.onmessage = function (event) {
+  let jsonObj = JSON.parse(event.data);
+  console.log(jsonObj);
   
-    
-    webSocket.onmessage = function(event) {
-      let jsonObj = JSON.parse(event.data);
-      console.log(jsonObj);
-   if ("history" === jsonObj.type) {
-        let messagesArea = document.querySelector("#messagesArea" + friendId);
-        // messagesArea.innerHTML = '';
-        // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
-        let messages = JSON.parse(jsonObj.message);
-        for (let i = 0; i < messages.length; i++) {
-          let historyData = JSON.parse(messages[i]);
-          let showMsg = historyData.message;
-          let li = document.createElement('li');
-          historyData.senderId === selfId ? li.className += 'me' : li.className += 'friend';
-          li.innerHTML = showMsg;
-          messagesArea.appendChild(li);
-        }
-        messagesArea.scrollTop = messagesArea.scrollHeight;
-      } else if ("chat" === jsonObj.type) {
-        let li = document.createElement('li');
-        jsonObj.senderId === selfId ? li.className += 'me' : li.className += 'friend';
-        li.innerHTML = jsonObj.message;
-        messagesArea.appendChild(li);
-        messagesArea.scrollTop = messagesArea.scrollHeight;
-      } 
-    };
-    
-		webSocket.onclose = function(event) {
-			console.log("Disconnected!");
-		};
+  // messagesArea.innerHTML = '';
+  // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+  let messages = JSON.parse(jsonObj.message);
+  for (let i = 0; i < messages.length; i++) {
+    let historyData = JSON.parse(messages[i]);
+    let showMsg = historyData.message;
+    const isMe = historyData.senderId === selfId;
+    appendNewMsg(isMe, showMsg);
+  }
+};
 
-       //取得好友ID
-       $(document).on("click", ".findChatId", function(){
-        friendId =  $(this).data("value");
-        addListener();
-      })
-  
-  function sendMessage(event) {
-    const message = event.target.value;
-    console.log(friendId);
-    console.log(message);
-    if (message === "") {
-			alert("請輸入訊息");} else{
-        let jsonObj = {
-          "type" : "chat",
-          "senderId" : selfId,
-          "receiverId" : friendId,
-          "message" : message,
-        };
+webSocket.onclose = function (event) {
+  console.log("Disconnected!");
+};
 
-        webSocket.send(JSON.stringify(jsonObj));
-        // message.value = "";
-      
-      }
-      addListener();
+//取得好友ID
+$(document).on("click", ".findChatId", function () {
+  friendId = $(this).data("value");
+  refreshChat();
+});
+
+function sendMessage(event) {
+  const message = event.target.value;
+  if (!message && message.trim() === "") {
+    alert("請輸入訊息");
+    return;
   }
 
- //目前設在發送訊息處及點擊好友處 (應該只放在點擊好友處)[to be revised]
- //發送歷史訊息
-  function addListener() {
-    console.log(friendId);
-			let jsonObj = {
-					"type" : "history", 
-					"senderId" : selfId,   
-					"receiverId" : friendId, 
-					"message" : ""
-				};
-        //從redis推給使用者
-			webSocket.send(JSON.stringify(jsonObj)); 
-
-	}
+  appendNewMsg(true, message);
 
 
+  let jsonObj = {
+    type: "chat",
+    senderId: selfId,
+    receiverId: friendId,
+    message: message,
+  };
+  webSocket.send(JSON.stringify(jsonObj));
+}
 
+// webSocket.send(JSON.stringify({
+//   message: "123",
+//   receiverId: 3,
+//   senderId: 2,
+//   type: "chat"
+// }));
 
+//目前設在發送訊息處及點擊好友處 (應該只放在點擊好友處)[to be revised]
+//發送歷史訊息
+function refreshChat() {
+  // 移除舊的訊息
+  const ul = document.getElementById(`messagesArea${friendId}`)
+  if(ul) {
+    ul.innerHTML = '';
+  }
 
+  // type是history時表示要fetch存在redis的資料出來
+  let jsonObj = {
+    type: "history",
+    senderId: selfId,
+    receiverId: friendId,
+    message: "",
+  };
+  webSocket.send(JSON.stringify(jsonObj));
+}
 
-// 聊天室js(暫不用) 
-    //  $(function () {
-    //     var Message;
-    //     Message = function (arg) {
-    //       (this.text = arg.text), (this.message_side = arg.message_side);
-    //       this.draw = (function (_this) {
-    //         return function () {
-    //           var $message;
-    //           $message = $($(".message_template").clone().html());
-    //           $message
-    //             .addClass(_this.message_side)
-    //             .find(".text")
-    //             .html(_this.text);
-    //           $(".messages").append($message);
-    //           return setTimeout(function () {
-    //             return $message.addClass("appeared");
-    //           }, 0);
-    //         };
-    //       })(this);
-    //       return this;
-    //     };
-    //     $(function () {
-    //       var getMessageText, message_side, sendMessage;
-    //       message_side = "right";
-    //       getMessageText = function () {
-    //         var $message_input;
-    //         $message_input = $(".message_input");
-    //         return $message_input.val();
-    //       };
-    //       sendMessage = function (text) {
-    //         var $messages, message;
-    //         if (text.trim() === "") {
-    //           return;
-    //         }
-    //         $(".message_input").val("");
-    //         $messages = $(".messages");
-    //         message_side = message_side === "left" ? "right" : "left";
-    //         message = new Message({
-    //           text: text,
-    //           message_side: message_side,
-    //         });
-    //         message.draw();
-    //         return $messages.animate(
-    //           { scrollTop: $messages.prop("scrollHeight") },
-    //           300
-    //         );
-    //       };
-    //       $(document).on("click", ".send_message", function () {
-    //         return sendMessage(getMessageText());
-    //       });
-    //       $(document).on("keyup", ".message_input", function (e) {
-    //         if (e.which === 13) {
-    //           return sendMessage(getMessageText());
-    //         }
-    //       });
-    //     });
-    //   }.call(this));
+// 聊天室js(暫不用)
+//  $(function () {
+//     var Message;
+//     Message = function (arg) {
+//       (this.text = arg.text), (this.message_side = arg.message_side);
+//       this.draw = (function (_this) {
+//         return function () {
+//           var $message;
+//           $message = $($(".message_template").clone().html());
+//           $message
+//             .addClass(_this.message_side)
+//             .find(".text")
+//             .html(_this.text);
+//           $(".messages").append($message);
+//           return setTimeout(function () {
+//             return $message.addClass("appeared");
+//           }, 0);
+//         };
+//       })(this);
+//       return this;
+//     };
+//     $(function () {
+//       var getMessageText, message_side, sendMessage;
+//       message_side = "right";
+//       getMessageText = function () {
+//         var $message_input;
+//         $message_input = $(".message_input");
+//         return $message_input.val();
+//       };
+//       sendMessage = function (text) {
+//         var $messages, message;
+//         if (text.trim() === "") {
+//           return;
+//         }
+//         $(".message_input").val("");
+//         $messages = $(".messages");
+//         message_side = message_side === "left" ? "right" : "left";
+//         message = new Message({
+//           text: text,
+//           message_side: message_side,
+//         });
+//         message.draw();
+//         return $messages.animate(
+//           { scrollTop: $messages.prop("scrollHeight") },
+//           300
+//         );
+//       };
+//       $(document).on("click", ".send_message", function () {
+//         return sendMessage(getMessageText());
+//       });
+//       $(document).on("keyup", ".message_input", function (e) {
+//         if (e.which === 13) {
+//           return sendMessage(getMessageText());
+//         }
+//       });
+//     });
+//   }.call(this));
 
 //配對local storage
 
-      //[to be asked]
-      $("#acceptPair").click(function () {
-        localStorage.setItem("acceptPage", 10);
-        if (localStorage.getItem("acceptPage") == 10) {
-          $("#todayPairModal").hide();
-        } else {
-          $("#todayPairModal").show();
-        }
-      });
+//[to be asked]
+$("#acceptPair").click(function () {
+  localStorage.setItem("acceptPage", 10);
+  if (localStorage.getItem("acceptPage") == 10) {
+    $("#todayPairModal").hide();
+  } else {
+    $("#todayPairModal").show();
+  }
+});
 
 //配對者資訊ajax
-      $.ajax({
-        url: "PairInfoServlet",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-          console.log(data[0].profilePic);
-          // let blob = new Blob([data[0].profilePic],{ type: 'application/json' })
-          // url = window.URL.createObjectURL(blob);
-          // console.log(url);
-          var base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic)));
-          $("#headshot").attr('src', `data:image/png;base64,${base64String}`);
-          $(".name").append(data[0].userName);
-          $("#selfIntro").append(data[0].userProfile);
-          $("#name1").append(data[0].userName);
-        },
-      });
+$.ajax({
+  url: "PairInfoServlet",
+  type: "GET",
+  dataType: "json",
+  success: function (data) {
+    console.log(data[0].profilePic);
+    // let blob = new Blob([data[0].profilePic],{ type: 'application/json' })
+    // url = window.URL.createObjectURL(blob);
+    // console.log(url);
+    var base64String = btoa(
+      String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
+    );
+    $("#headshot").attr("src", `data:image/png;base64,${base64String}`);
+    $(".name").append(data[0].userName);
+    $("#selfIntro").append(data[0].userProfile);
+    $("#name1").append(data[0].userName);
+  },
+});
 
 //更新答案ajax
 console.log(parseInt(refusePair));
-$("#acceptPairBtn, #refusePairBtn").on("click",function(e){
-  fetch("UpdateAnswerServlet",{
-    method:"POST",
-    headers:{
-      "content-Type":"application/json"
+$("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
+  fetch("UpdateAnswerServlet", {
+    method: "POST",
+    headers: {
+      "content-Type": "application/json",
     },
-    body:JSON.stringify({
-      useraAnswer : e.target.value,
-      userbAnswer : e.target.value
-    })
+    body: JSON.stringify({
+      useraAnswer: e.target.value,
+      userbAnswer: e.target.value,
+    }),
   });
-})
+});
 
 //訊息列表+聊天室ajax
 $.ajax({
@@ -223,10 +221,7 @@ $.ajax({
     console.log(data);
     for (var i = 0; i < data.length; i++) {
       var base64String = btoa(
-        String.fromCharCode.apply(
-          null,
-          new Uint8Array(data[i].profilePic)
-        )
+        String.fromCharCode.apply(null, new Uint8Array(data[i].profilePic))
       );
       var html = "";
       html += `              <a
@@ -251,11 +246,10 @@ $.ajax({
         </div>
       </div>
     </a>
-    `
-    ;
+    `;
 
-    var html2 = "";
-    html2 += `<div
+      var html2 = "";
+      html2 += `<div
     class="modal fade"
     id="chatRoomModal${data[i].userId}"
     tabindex="-1"
@@ -312,14 +306,10 @@ $.ajax({
       </div>
     </div>
   </div>`;
-    $(".list-group").append(html);
-    $("#as").append(html2);
-    document.querySelectorAll(".avatarList")[
-      i
-    ].style.backgroundImage =
-      "url('data:image/png;base64," + base64String + "')";
-
+      $(".list-group").append(html);
+      $("#as").append(html2);
+      document.querySelectorAll(".avatarList")[i].style.backgroundImage =
+        "url('data:image/png;base64," + base64String + "')";
     }
   },
 });
-
