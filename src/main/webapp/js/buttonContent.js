@@ -1,73 +1,83 @@
 // 聊天室
 
+//取得userId ajax
+var selfId;
+$.ajax({
+  url: "IdServlet",
+  async: false,
+  type: "GET",
+  dataType: "json",
+  success: function (data) {
+    selfId = data.userId;
+    console.log(selfId);
+  },
+  });
+
+console.log(selfId);
   //需改為動態網址[to be revised]
   //先假設登入者userId = 2
   //可存local storage
-  var selfId = 2;
-  var friendId;
-  var MyPoint = `/ChatWebsocket/${selfId}`
-  var host = window.location.host;
-  var path = window.location.pathname;
-  var webCtx = path.substring(0, path.indexOf('/', 1));
-  var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+  // let selfId = 2;
+  let friendId;
+  let MyPoint = `/ChatWebsocket/${selfId}`
+  let host = window.location.host;
+  let path = window.location.pathname;
+  let webCtx = path.substring(0, path.indexOf('/', 1));
+  let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
-  var webSocket = new WebSocket(endPointURL);
+  let webSocket = new WebSocket(endPointURL);
 
-  // var date = new Date();
-  // const arr = [date];
-  // arr.toLocaleString(); 
-  // var currentTime = arr.toLocaleString()
+
+
+
+    webSocket.onopen = function(event) {
+      console.log("Connect Success!");
+    };
   
-  webSocket.onopen = function(event) {
-    console.log("Connect Success!");
-  };
-
-  
-  webSocket.onmessage = function(event) {
-    var jsonObj = JSON.parse(event.data);
-    console.log(jsonObj);
- if ("history" === jsonObj.type) {
-      var messagesArea = document.querySelector("#messagesArea" + friendId);
-      messagesArea.innerHTML = '';
-      // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
-      var messages = JSON.parse(jsonObj.message);
-      for (var i = 0; i < messages.length; i++) {
-        var historyData = JSON.parse(messages[i]);
-        var showMsg = historyData.message;
-        var li = document.createElement('li');
-        historyData.senderId === selfId ? li.className += 'me' : li.className += 'friend';
-        li.innerHTML = showMsg;
-        messagesArea.appendChild(li);
-      }
-      messagesArea.scrollTop = messagesArea.scrollHeight;
-    } else if ("chat" === jsonObj.type) {
-      var li = document.createElement('li');
-      jsonObj.senderId === selfId ? li.className += 'me' : li.className += 'friend';
-      li.innerHTML = jsonObj.message;
-      console.log(li);
-      messagesArea.appendChild(li);
-      messagesArea.scrollTop = messagesArea.scrollHeight;
-    } 
     
-  };
-
+    webSocket.onmessage = function(event) {
+      let jsonObj = JSON.parse(event.data);
+      console.log(jsonObj);
+   if ("history" === jsonObj.type) {
+        let messagesArea = document.querySelector("#messagesArea" + friendId);
+        // messagesArea.innerHTML = '';
+        // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+        let messages = JSON.parse(jsonObj.message);
+        for (let i = 0; i < messages.length; i++) {
+          let historyData = JSON.parse(messages[i]);
+          let showMsg = historyData.message;
+          let li = document.createElement('li');
+          historyData.senderId === selfId ? li.className += 'me' : li.className += 'friend';
+          li.innerHTML = showMsg;
+          messagesArea.appendChild(li);
+        }
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      } else if ("chat" === jsonObj.type) {
+        let li = document.createElement('li');
+        jsonObj.senderId === selfId ? li.className += 'me' : li.className += 'friend';
+        li.innerHTML = jsonObj.message;
+        messagesArea.appendChild(li);
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      } 
+    };
+    
+		webSocket.onclose = function(event) {
+			console.log("Disconnected!");
+		};
 
        //取得好友ID
        $(document).on("click", ".findChatId", function(){
         friendId =  $(this).data("value");
-
+        addListener();
       })
   
   function sendMessage(event) {
-    // if (event.keyCode !== 13) {
-    //   return;
-    // }
     const message = event.target.value;
     console.log(friendId);
     console.log(message);
     if (message === "") {
 			alert("請輸入訊息");} else{
-        var jsonObj = {
+        let jsonObj = {
           "type" : "chat",
           "senderId" : selfId,
           "receiverId" : friendId,
@@ -75,20 +85,17 @@
         };
 
         webSocket.send(JSON.stringify(jsonObj));
-        message.value = "";
+        // message.value = "";
       
       }
       addListener();
   }
 
-
- 
-
-
- //目前為發送訊息處(應為點擊好友處)[to be revised]
+ //目前設在發送訊息處及點擊好友處 (應該只放在點擊好友處)[to be revised]
+ //發送歷史訊息
   function addListener() {
     console.log(friendId);
-			var jsonObj = {
+			let jsonObj = {
 					"type" : "history", 
 					"senderId" : selfId,   
 					"receiverId" : friendId, 
@@ -315,3 +322,4 @@ $.ajax({
     }
   },
 });
+

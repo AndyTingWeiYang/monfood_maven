@@ -4,31 +4,36 @@
   }
 /* 聊天室 */
 /* 增加 */
-ul{
+/* ul{
   list-style: none;
   margin: 0;
   padding: 0;
-}
+} */
 
 ul li{
   display:inline-block;
   clear: both;
   padding: 20px;
-  border-radius: 30px;
+  border-radius: 10px;
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .friend{
-  background:  #ffe6cb;
+  background: #ffe6cb;
   float: left;
+  color: #c48843;
+  margin-left: 20px;
 }
 
 .me{
   float: right;
   background: #c7eafc;
-}
+  color: #45829b;
+  margin-right: 20px;
 
+}
+/* 
 .friend + .me{
   border-bottom-right-radius: 5px;
 }
@@ -40,8 +45,7 @@ ul li{
 
 .me:last-of-type {
   border-bottom-right-radius: 30px;
-}
-
+} */
 /* 增加 */
   body {
     background-color: #edeff2;
