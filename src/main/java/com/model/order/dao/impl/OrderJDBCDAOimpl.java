@@ -32,7 +32,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	private static final String GET_ONE_STMT = "select * from `ORDER` where ORDER_ID = ?";
 	private static final String DELETE = "delete from `ORDER` where ORDER_ID = ?";
 	private static final String UPDATE = "update `ORDER` "
-			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?" + "where ORDER_ID = ?";
+			+ "set RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?" + "where ORDER_ID = ?";
 	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
 	private static final String GET_RATING = "SELECT AVG(RES_RATE) FROM `ORDER` where RES_ID = ?";
 	private static final String GET_ALL_BY_ID = "SELECT o.ORDER_ID, o.USER_ID, o.RES_ID, o.DEL_ID, o.ORDER_DONE, o.TOTAL, o.RATING, o.RES_RATE, o.DEL_RATE, o.RES_COMMENT, o.DEL_COMMENT, r.RES_NAME, r.RES_PIC FROM `ORDER` o\r\n"
@@ -460,12 +460,11 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setBoolean(1, orderVO.getRating());
-			pstmt.setDouble(2, orderVO.getResRate());
-			pstmt.setDouble(3, orderVO.getDelRate());
-			pstmt.setString(4, orderVO.getResComment());
-			pstmt.setString(5, orderVO.getDelComment());
-			pstmt.setInt(6, orderVO.getOrderId());
+			pstmt.setDouble(1, orderVO.getResRate());
+			pstmt.setDouble(2, orderVO.getDelRate());
+			pstmt.setString(3, orderVO.getResComment());
+			pstmt.setString(4, orderVO.getDelComment());
+			pstmt.setInt(5, orderVO.getOrderId());
 
 			pstmt.executeUpdate();
 

@@ -166,7 +166,7 @@ window.addEventListener('load', function(){
       $('#monsPic').attr('src', 'data:image/jpg;base64,' + picBase64)
       // 總金額
       $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
-      
+      // getUserInfo();
       // 小怪獸EXP
       let levelEXP = (orderTimes % 10)+1;
       if(orderTimes >= 40){
@@ -221,6 +221,24 @@ window.addEventListener('load', function(){
   let cartData = JSON.parse(sessionStorage.getItem('cartList'));
   var itemTotal = 0;
   var kcalTotal = 0;
+  var orderDetailVO = new Array;
+  var productNameArray = new Array;
+
+  $.each(cartData, function(){
+    $.each(this, function(index, data){
+      let product = {
+        productId : this.productID,
+        amount : this.amount,
+        orderedPrice : this.productPrice
+      }
+      let productName = {
+        productName : this.productName
+      }
+      orderDetailVO.push(product);
+      productNameArray.push(productName);
+    })
+  })
+  // console.log(productNameArray)
 
   // 店名
   $('.resName').text(cartData.cartList[0].resName);
@@ -276,8 +294,6 @@ window.addEventListener('load', function(){
         kcalTotal += this.productKcal * this.amount;
         $('.cartList').append(cartLi);
         
-        // 卡路里EXP
-
       })
     })
   // 小記
@@ -354,6 +370,7 @@ window.addEventListener('load', function(){
                 $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()) - parseInt($('#promotePrice').text()));
                 $('.promoteText').attr('disabled', true);
                 $('#promoteConfirm').attr('disabled', true);
+                getUserInfo();
               }
             },
             error: function(errMsg){
@@ -368,9 +385,54 @@ window.addEventListener('load', function(){
     })
   })
 
-  // 記帳EXP
+  // 記帳 & Kcal EXP
+  function getUserInfo(){
 
-////////////////////////////////// 送出訂單 //////////////////////////////////////
+    $.ajax({
+      url: '/monfood_maven/UserProfileServlet',
+      type: 'POST',
+      data: JSON.stringify({
+        userId : 6,
+      }),
+      dataType: 'json',
+    success: function(msg){
+        var budgetSet = msg.userProfile.budget;
+        var kcalSet = msg.userProfile.calories;
+
+        if(budgetSet == null || budgetSet == undefined){
+          budgetSet = 0;
+        }
+        if(kcalSet == null || kcalSet == undefined){
+          kcalSet = 0;
+        }
+
+        $('#kcalSet').text(kcalSet);
+        $('#kcalEXP').text(kcalTotal);
+
+        if(kcalSet <= kcalTotal){
+          $('#kcalEXP').css('width', `100%`);
+        }else{
+          $('#kcalEXP').css('width', `${kcalTotal/kcalSet*100}%`);
+        }
+
+        $('#budgetSet').text(budgetSet);
+        $('#budgetEXPText').text($('#total').text());
+
+        if(parseInt(budgetSet <= parseInt($('#total').text()))){
+          $('#budgetEXP').css('width', `100%`);
+        }else{
+          $('#budgetEXP').css('width', `${parseInt($('#total').text())/budgetSet*100}%`);
+        }
+      },
+      error: function(errMsg){
+        console.log(errMsg)
+      }
+    })
+  }
+
+  // getUserInfo();
+
+    ////////////////////////////////// 送出訂單 //////////////////////////////////////
   $('.submit').on('click', function(){
     let cartList = JSON.parse(sessionStorage.getItem('cartList'));
 
@@ -379,45 +441,30 @@ window.addEventListener('load', function(){
       $.ajax({
         url: 'OrderServlet',
         type: 'POST',
-        data: JSON.stringify({
-          
-          userId : 1,
-          resId : cartList.cartList[0].resId,
-          note : $('.note').val().trim(),
-          userLocation : $('#finalAddress').text(),
-          productKcalTotal : kcalTotal,
-          total : $('#total').text(),
-          delCost : $('.delCost').text(),
-          useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
-          creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : '1234567812345678'),
-          discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
-          
-        }),
+        data: JSON.stringify(
+          {
+            order: {
+              userId : 1,
+              resId : cartList.cartList[0].resId,
+              note : $('.note').val().trim(),
+              userLocation : $('#finalAddress').text(),
+              productKcalTotal : kcalTotal,
+              total : $('#total').text(),
+              delCost : $('.delCost').text(),
+              useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
+              creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : ''),
+              discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
+            },
+            orderDetail: {
+              orderDetailVO : orderDetailVO
+            },
+            productName : productNameArray
+          }
+        ),
         dataType: 'json',
         success: function(msg){
-          // 訂單主檔建立成功, 新增訂單明細
-          $.each(cartList, function(){
-            $.each(this, function(index, detail){
-              $.ajax({
-                url: 'OrderDetailServlet',
-                type: 'POST',
-                data: JSON.stringify({
-                  orderId : msg.OrderId,
-                  productId : detail.productID,
-                  amount : detail.amount,
-                  orderedPrice : detail.productPrice
-                }),
-                dataType: 'json',
-                success: function(msg){
-   
-                },
-                error: function(errMsg){
-
-                }
-              });
-            })
-          })
-
+          console.log(msg)
+          
           // 將部分訂單資訊存入session供後頁面使用
           let orderList = {
             orderId : msg.OrderId,
@@ -428,11 +475,13 @@ window.addEventListener('load', function(){
             monsPic: $('#monsPic').attr('src')
           };
           sessionStorage.setItem('orderList', JSON.stringify(orderList));
-          location.href="searching.html"
+          if(msg.result == null || msg.result == undefined){
+            location.href="searching.html"
+          }
+          $('#ecpay').html(msg.result)
         },
         error: function(errMsg){
-          // console.log(errMsg)
-        }
+        },
       });
     }else{
 
@@ -440,46 +489,30 @@ window.addEventListener('load', function(){
       $.ajax({
         url: 'OrderServlet',
         type: 'POST',
-        data: JSON.stringify({
-          
-          userId : 1,
-          resId : cartList.cartList[0].resId,
-          note : $('.note').val().trim(),
-          userLocation : $('#finalAddress').text(),
-          productKcalTotal : kcalTotal,
-          total : $('#total').text(),
-          delCost : $('.delCost').text(),
-          useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
-          creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : '1234567812345678'),
-          discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
-          promoteId : promoteId
-          
-        }),
+        data: JSON.stringify(
+          {
+            order: {
+              userId : 1,
+              resId : cartList.cartList[0].resId,
+              note : $('.note').val().trim(),
+              userLocation : $('#finalAddress').text(),
+              productKcalTotal : kcalTotal,
+              total : $('#total').text(),
+              delCost : $('.delCost').text(),
+              useCash : ($('input[name=pay]:checked').val() == 'cash'? true : false),
+              creditId : ($('input[name=pay]:checked').val() == 'cash'? '' : ''),
+              discount : ($('#promotePrice').text() == '' ? 0 : parseInt($('#promotePrice').text())),
+              promoteId : promoteId
+            },
+            orderDetail: {
+              orderDetailVO : orderDetailVO
+            },
+            productName : productNameArray
+          }),
         dataType: 'json',
         success: function(msg){
-          // 訂單主檔建立成功, 新增訂單明細
-          $.each(cartList, function(){
-            $.each(this, function(index, detail){
-              $.ajax({
-                url: 'OrderDetailServlet',
-                type: 'POST',
-                data: JSON.stringify({
-                  orderId : msg.OrderId,
-                  productId : detail.productID,
-                  amount : detail.amount,
-                  orderedPrice : detail.productPrice
-                }),
-                dataType: 'json',
-                success: function(msg){
+          console.log(msg)
 
-                },
-                error: function(errMsg){
-
-                }
-              });
-            })
-          })
-        
           // 將部分訂單資訊存入session供後頁面使用
           let orderList = {
             orderId : msg.OrderId,
@@ -490,12 +523,13 @@ window.addEventListener('load', function(){
             monsPic: $('#monsPic').attr('src')
           };
           sessionStorage.setItem('orderList', JSON.stringify(orderList));
-          location.href="searching.html"
-        
+          if(msg.result == null || msg.result == undefined){
+            location.href="searching.html"
+          }
+          $('#ecpay').html(msg.result)
         
         },
         error: function(errMsg){
-          // console.log(errMsg)
         }
       });
 
@@ -516,21 +550,16 @@ window.addEventListener('load', function(){
         }
       })
 
-
-
-
-
-
     }
 
   })
-
+  getUserInfo();
   // select 標籤
-  $('select').on('change', function(){
-    if($(this).find('option:selected').val() == 0){
-      $(this).closest('li').remove();
-    }
+  // $('select').on('change', function(){
+  //   if($(this).find('option:selected').val() == 0){
+  //     $(this).closest('li').remove();
+  //   }
 
-  })
+  // })
 
 })
