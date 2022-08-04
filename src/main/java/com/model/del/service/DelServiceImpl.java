@@ -1,6 +1,7 @@
 package com.model.del.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.model.del.DelDAO;
@@ -16,11 +17,12 @@ public class DelServiceImpl implements DelService {
 	}
 	
 	@Override
-	public List<String> getDelRecord(Timestamp startDate, Timestamp endDate, Integer delID) {
-		List<String> orderRecord = null;
-		orderRecord.add(0, dao.getCost(startDate, endDate, delID));
-		orderRecord.add(1, dao.getRideTimes(startDate, endDate, delID));
-		dao.getComment(startDate, endDate, delID);
+	public List getDelRecord(Timestamp startDate, Timestamp endDate, Integer delID) {
+		List orderRecord = new ArrayList();
+		
+		orderRecord.add(dao.getCost(startDate, endDate, delID));
+		orderRecord.add(dao.getRideTimes(startDate, endDate, delID));
+		orderRecord.add(dao.getComment(startDate, endDate, delID));
 		return orderRecord;
 	}
 
