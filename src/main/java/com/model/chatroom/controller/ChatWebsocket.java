@@ -19,71 +19,72 @@ import javax.websocket.server.ServerEndpoint;
 import com.google.gson.Gson;
 import com.model.chatroom.ChatInfoVo;
 import com.model.chatroom.dao.JedisHandleMessage;
+
 //需改為動態網址{userId} [to be revised]
 // 先假設登入者userId = 2 (寫在js)[to be deleted]
 @ServerEndpoint("/ChatWebsocket/{userId}")
 public class ChatWebsocket {
-	
-	//拿特定資料連線做發送
+
+	// 拿特定資料連線做發送
 	private static Map<Integer, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
-	 //@PathParam需改為動態參數"userId" [to be revised] (要跟上面名稱相同)
+
+	// @PathParam需改為動態參數"userId" [to be revised] (要跟上面名稱相同)
 	@OnOpen
 	public void onOpen(@PathParam("userId") Integer userId, Session userSession) {
-		//一個session代表一個使用者跟server之間的通訊
-		sessionsMap.put(userId, userSession); 
+		// 一個session代表一個使用者跟server之間的通訊
+		sessionsMap.put(userId, userSession);
 //		System.out.println(sessionsMap);
 //		Set<Integer> AllId = sessionsMap.keySet();
 //		System.out.println(AllId);
 //		Collection<Session> sessions = sessionsMap.values();
 //		System.out.println(sessions);
-		
+
 	}
-	
+
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
 		ChatInfoVo chatInfoVo = gson.fromJson(message, ChatInfoVo.class);
 		Integer senderId = chatInfoVo.getSenderId();
 		Integer receiverId = chatInfoVo.getReceiverId();
-			
-		 //線上聊天流程
-		//拿到發送者的session
-		Session receiverSession = sessionsMap.get(receiverId); 
-		if (receiverSession != null && receiverSession.isOpen()) {
-			//發送訊息
-			receiverSession.getAsyncRemote().sendText(message); 
-			userSession.getAsyncRemote().sendText(message);
-		}
-		// 不管是否上線，把資料存進redis裡面>saveChatMessage()方法
-		JedisHandleMessage.saveChatMessage(senderId, receiverId, message);  
-		System.out.println("Message received: " + message);
 		
-		
-		//拿Redis裡面的歷史聊天紀錄，並發送給前端做顯示
-		if ("history".equals(chatInfoVo.getType())) {  
-			List<String> historyData = JedisHandleMessage.getHistoryMsg(senderId, receiverId); //有順序性，所以用list
+		// 拿Redis裡面的歷史聊天紀錄，並發送給前端做顯示
+		if ("history".equals(chatInfoVo.getType())) {
+			List<String> historyData = JedisHandleMessage.getHistoryMsg(senderId, receiverId); // 有順序性，所以用list
 			String historyMsg = gson.toJson(historyData);
 			ChatInfoVo cmHistory = new ChatInfoVo("history", senderId, receiverId, historyMsg);
 			if (userSession != null && userSession.isOpen()) {
-				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));  //送到前端
+				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory)); // 送到前端
 				System.out.println("history = " + gson.toJson(cmHistory));
 				return;
 			}
-		
-		
-	}
+
+		}
+
+		// 線上聊天流程
+		// 拿到發送者的session
+		Session receiverSession = sessionsMap.get(receiverId);
+		if (receiverSession != null && receiverSession.isOpen()) {
+			// 發送訊息
+			receiverSession.getAsyncRemote().sendText(message);
+			userSession.getAsyncRemote().sendText(message);
+		}
+		// 不管是否上線，把資料存進redis裡面>saveChatMessage()方法
+		JedisHandleMessage.saveChatMessage(senderId, receiverId, message);
+		System.out.println("Message received: " + message);
+
+
 
 	}
-	
+
 	@OnError
 	public void onError(Session userSession, Throwable e) {
 		System.out.println("Error: " + e.toString());
 	}
-	
+
 	@OnClose
 	public void onClose(Session userSession, CloseReason reason) {
 		System.out.println("Close " + reason.toString());
 	}
 
-	
 }

@@ -6,7 +6,7 @@
       <title>MonFood | delRegister</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
       
-      <link rel="stylesheet" href="./css/index.css">
+      <link rel="stylesheet" href="../css/index.css">
       <!-- datepicker -->
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -404,7 +404,7 @@
         <!-- section -->
       </main>
       
-      <script src="assets/js/jQuery-3.6.0.js"></script>
+      <script src="../assets/js/jQuery-3.6.0.js"></script>
       <!-- datepicker -->
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
@@ -426,7 +426,7 @@
               $(".emailspan").text('*請輸入完整電子郵件帳號');  
             }else{
               
-              var regicheck = "DelRegiCheckServlet"
+              var regicheck = "../DelRegiCheckServlet"
               $.ajax({
                 url: regicheck,          
                 type: "POST",                  
@@ -488,7 +488,7 @@
             }else if(!(/^09/.test($("#delTel").val()))){
               $(".phonenumspan").text('*手機號碼開頭為09'); 
             }else{
-              var regicheck = "DelRegiCheckServlet"
+              var regicheck = "../DelRegiCheckServlet"
               $.ajax({
                 url: regicheck,          
                 type: "POST",                  
@@ -557,7 +557,7 @@
 
         
         $(".enter").on("click",function(){
-        	var regi = "DelRegisterServlet"
+        	var regi = "../DelRegisterServlet"
           $.ajax({
             url: regi,           // 資料請求的網址
             type: "POST",                  // GET | POST | PUT | DELETE | PATCH
@@ -579,13 +579,13 @@
               console.log("回傳資料接收問題");
               console.log(data);
               if("新增成功"==data){
-                window.location.href="del/del_index.html";
+                window.location.href="del_index.html";
                 console.log("導向的網址問題");
               }
             },
-            complete: function(){
-              window.location.href="del/del_index.html";
-            }
+//             complete: function(){
+//               window.location.href="del/del_index.html";
+//             }
           });
         });
 

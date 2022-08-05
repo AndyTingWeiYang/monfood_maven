@@ -9,7 +9,7 @@
 	rel="stylesheet"
 	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/index.css">
+<link rel="stylesheet" href="../css/index.css">
 
 <style>
 @import
@@ -114,7 +114,7 @@
 	<main>
 		<!-- section -->
 		<div class="container">
-      <form action="DelLoginServlet" method="post">
+      <form action="../DelLoginServlet" method="post">
 			<div
 				class="form-group row mx-auto col-sm-12 col-md-10 col-lg-8 col-xl-8">
 				<div class="row">
@@ -130,14 +130,14 @@
 							class="noticespan passwordspan"></span>
 					</div>
 					<div class="bottom-btn">
-						<button class="delRegister btn btn-primary mb-3" style="background-color: #1A4D2E">
-							<a href="delRegister.html"></a>註冊成為外送員
+						<button type="button" class="delRegister btn btn-primary mb-3" style="background-color: #1A4D2E">
+							<a href="/delRegister.html"></a>註冊成為外送員
 						</button>
 						<button type="submit" class="enter btn btn-primary mb-3 btn_confirm" style="background-color: #1A4D2E">
 							送出</button>
 					</div>
 					<div class="single-btn">
-						<button class="forget-password btn btn-primary" style="background-color: #1A4D2E">忘記密碼</button>
+						<button type="button" class="forget-password btn btn-primary" style="background-color: #1A4D2E">忘記密碼</button>
 					</div>
 				</div>
 			</div>
@@ -147,13 +147,13 @@
 		<!-- section -->
 	</main>
 
-	<script src="assets/js/jQuery-3.6.0.js"></script>
+	<script src="../assets/js/jQuery-3.6.0.js"></script>
 	<script>
         
         $(function(){
 
           // 網頁轉向
-          $(".delRegister").on("click",function(){
+          $("button.delRegister").on("click",function(){
             location.href="delRegister.html";
           });
 

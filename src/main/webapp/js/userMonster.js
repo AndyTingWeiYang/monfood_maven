@@ -1,5 +1,64 @@
 window.addEventListener('load', function(){
+  const profilePic = $('#profilePic');
 
+  // update profile pic
+  $('#upload-file').on('change', function(){
+
+      var reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      reader.addEventListener('load', function(){
+          profilePic.attr('src', reader.result)
+          const base64 = new String(profilePic.attr('src'));
+          const picBase64 = base64.substring(23, base64.length)
+          // console.log(picBase64)
+          $.ajax({
+              url: '/monfood_maven/UserProfileUpdatePicServlet',
+              type: 'POST',
+              data: JSON.stringify({
+                  userId : 6,
+                  pic : picBase64
+              }),
+              dataType: 'json',
+              success: function(msg){
+                  console.log(msg)
+                  
+              },
+              error: function(errMsg){
+                  console.log(errMsg)
+              }
+          })
+      });
+
+
+
+
+
+
+  })
+
+  // onload get user profile
+  $.ajax({
+      url: '/monfood_maven/UserProfileServlet',
+      type: 'POST',
+      data: JSON.stringify({
+          userId : 6,
+      }),
+      dataType: 'json',
+      success: function(msg){
+        // console.log(msg)
+        let userProfile = msg.userProfile;
+        if(msg.profilePic == null || msg.profilePic == undefined){
+          return;
+        }
+        profilePic.attr('src', 'data:image/jpg;base64,' + msg.profilePic)
+
+          
+      },
+      error: function(errMsg){
+          console.log(errMsg)
+      }
+  })
+  
   // 小怪獸折扣
   $.ajax({
     url: '/monfood_maven/MonsCheckServlet',

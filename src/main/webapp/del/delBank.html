@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>MonFood</title>
+
+    <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css"/>
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
+    <link rel="stylesheet" href="../css/userProfile-header.css" />
+    <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+      input.form-control.-none {
+        display: none;
+      }
+
+      div.form-control.-none {
+        display: none;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container-scroller">
+<!-- SIDEBAR START -->
+      <nav class="sidebar sidebar-offcanvas mf-sidebar" id="sidebar">
+        <ul class="nav" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item nav-category">
+            <span class="nav-link">
+              <img width="16px" height="16px" src="../assets/images/arrow-left-solid.svg"/>
+              <span class="ml-3">返回前台</span>
+            </span>
+          </li>
+
+          <li class="nav-item profile d-flex justify-content-center">
+            <input type="file" id="upload-file" style="display: none;">
+            <label for="upload-file">
+              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
+            </label>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a style="background-color: white; color: rgb(30, 29, 29)" class="nav-link" data-toggle="collapse" href="delInfo.html" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-icon">
+                <svg style="color: rgb(30, 29, 29); height: 60%; width: 60%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+              </span>
+              <span style="color: rgb(30, 29, 29)" class="menu-title">基本資料</span>
+            </a>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a style="background-color: white; color: rgb(30, 29, 29)" class="nav-link" href="delDoc.html">
+              <span class="menu-icon">
+                <svg style="color: rgb(30, 29, 29); height: 60%; width: 60%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data-fill" viewBox="0 0 16 16">
+                  <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
+                  <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5ZM10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7Zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1Zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V9a1 1 0 0 1 1-1Z" />
+                </svg>
+              </span>
+              <span style="color: rgb(30, 29, 29)" class="menu-title">審查文件</span>
+            </a>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a style="background-color: #1A4D2E; color: rgb(30, 29, 29)" class="nav-link" href="delBank.html">
+              <span class="menu-icon">
+                <svg style="color: rgb(30, 29, 29); height: 60%; width: 60%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-robot" viewBox="0 0 16 16">
+                  <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a24.767 24.767 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25.286 25.286 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135Z"/>
+                  <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z"/>
+                </svg>
+              </span>
+              <span style="color: rgb(30, 29, 29)" class="menu-title">銀行帳戶</span>
+            </a>
+          </li>
+          
+          <li class="nav-item menu-items">
+            <a style="background-color: white; color: rgb(30, 29, 29)" class="nav-link" href="delRecord.html">
+              <span class="menu-icon">
+                <svg style="color: rgb(30, 29, 29); height: 60%; width: 60%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-heart" viewBox="0 0 16 16">
+                  <path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z"/>
+                </svg>
+              </span>
+              <span style="color: rgb(30, 29, 29)" class="menu-title">訂單記錄查詢</span>
+            </a>
+          </li>
+
+          <li class="nav-item menu-items">
+            <a style="color: rgb(30, 29, 29)" class="nav-link" href="delMsg.html">
+              <span class="menu-icon">
+                <svg style="color: rgb(30, 29, 29); height: 60%; width: 60%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-heart" viewBox="0 0 16 16">
+                  <path d="M9 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h10s1 0 1-1-1-4-6-4-6 3-6 4Zm13.5-8.09c1.387-1.425 4.855 1.07 0 4.277-4.854-3.207-1.387-5.702 0-4.276Z"/>
+                </svg>
+              </span>
+              <span style="color: rgb(30, 29, 29)" class="menu-title">收件匣</span>
+            </a>
+          </li>
+        
+        </ul>
+      </nav>
+<!-- SIDEBAR END -->
+
+      <div class="container-fluid page-body-wrapper">
+<!-- HEADER START -->
+        <nav id="header" class="navbar p-0 fixed-top d-flex flex-row mf-navbar" style="background-color: #1A4D2E;">
+          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+            <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button> -->
+            <ul class="navbar-nav w-100 d-flex justify-content-center">
+              <span class="logo">Mon</span>
+              <span class="logo2">Food</span>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right">
+              <div class="navbar-profile">
+                <span class="nav-item menu-items">
+                  <a class="nav-link" href="javascript:;">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-person-fill logout"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                      />
+                    </svg>
+                    <span class="menu-title align-item-center logout">登出</span>
+                  </a>
+                </span>
+              </div>
+            </ul>
+<!-- 手機畫面漢堡選單 -->
+            <button
+              class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+              type="button"
+              data-toggle="offcanvas"
+            >
+              <span class="mdi mdi-format-line-spacing"></span>
+            </button>
+          </div>
+        </nav>
+<!-- HEADER END -->
+
+        <div class="main-panel">
+          <!-- ===== 內容客製化區塊 start ===== -->
+          <div class="mf-content-wrapper mt-5">
+            <!-- 表單區塊 -->
+            <div class="jumbotron">
+              <div class="form-group row">
+                <div class="col-sm-12 bank_info">
+<!-- 植入開始             -->   
+                    <div class="form-group row">
+                      <label for="accountName" class="col-sm-12 col-form-label">帳戶人姓名</label>
+                      <div class="col-sm-12">
+                        <div class="form-control acct_name delAccountName"></div>
+                        <input id="accountName" type="text" name="accountName" class="form-control input_acct_name -none"/>
+                      </div>
+
+                      <div class="col-sm-12">
+                        <label for="bankName" class="col-sm-12 col-form-label">銀行名稱及代碼</label>
+                        <div>
+                          <div class="form-control bank_name delBankname"></div>
+                          <select id="bankName" name="bankName" class="form-select select_bank_name" aria-label="Default select example" hidden="true">
+                            <option selected>請選擇</option>
+                            <option value="004">004_臺灣銀行</option>
+                            <option value="005">005_土地銀行</option>
+                            <option value="006">006_合作商銀</option>
+                            <option value="007">007_第一銀行</option>
+                            <option value="008">008_華南銀行</option>
+                            <option value="009">009_彰化銀行</option>
+                            <option value="011">011_上海商業儲蓄銀行</option>
+                            <option value="012">012_台北富邦銀行</option>
+                            <option value="013">013_國泰世華銀行</option>
+                            <option value="016">016_高雄銀行</option>
+                            <option value="017">017_兆豐國際商業銀行</option>
+                            <option value="018">018_農業金庫</option>
+                            <option value="021">021_花旗(台灣)商業銀行</option>
+                            <option value="025">025_首都銀行</option>
+                            <option value="039">039_澳商澳盛銀行</option>
+                            <option value="040">040_中華開發工業銀行</option>
+                            <option value="050">050_臺灣企銀</option>
+                            <option value="052">052_渣打國際商業銀行</option>
+                            <option value="053">053_台中商業銀行</option>
+                            <option value="054">054_京城商業銀行</option>
+                            <option value="072">072_德意志銀行</option>
+                            <option value="075">075_東亞銀行</option>
+                            <option value="081">081_匯豐(台灣)商業銀行</option>
+                            <option value="085">085_新加坡商新加坡華僑銀行</option>
+                            <option value="101">101_大台北銀行</option>
+                            <option value="102">102_華泰銀行</option>
+                            <option value="103">103_臺灣新光商銀</option>
+                            <option value="104">104_台北五信</option>
+                            <option value="106">106_台北九信</option>
+                            <option value="108">108_陽信商業銀行</option>
+                            <option value="114">114_基隆一信</option>
+                            <option value="115">115_基隆二信</option>
+                            <option value="118">118_板信商業銀行</option>
+                            <option value="119">119_淡水一信</option>
+                            <option value="120">120_淡水信合社</option>
+                            <option value="124">124_宜蘭信合社</option>
+                            <option value="127">127_桃園信合社</option>
+                            <option value="130">130_新竹一信</option>
+                            <option value="132">132_新竹三信</option>
+                            <option value="146">146_台中二信</option>
+                            <option value="147">147_三信商業銀行</option>
+                            <option value="158">158_彰化一信</option>
+                            <option value="161">161_彰化五信</option>
+                            <option value="162">162_彰化六信</option>
+                            <option value="163">163_彰化十信</option>
+                            <option value="165">165_鹿港信合社</option>
+                            <option value="178">178_嘉義三信</option>
+                            <option value="179">179_嘉義四信</option>
+                            <option value="188">188_台南三信</option>
+                            <option value="204">204_高雄三信</option>
+                            <option value="215">215_花蓮一信</option>
+                            <option value="216">216_花蓮二信</option>
+                            <option value="222">222_澎湖一信</option>
+                            <option value="223">223_澎湖二信</option>
+                            <option value="224">224_金門信合社</option>
+                            <option value="512">512_雲林區漁會</option>
+                            <option value="515">515_嘉義區漁會</option>
+                            <option value="517">517_南市區漁會</option>
+                            <option value="518">518_南縣區漁會</option>
+                            <option value="520">520_小港區漁會；高雄區漁會</option>
+                            <option value="521">521_彌陀區漁會；永安區漁會；興達港區漁會；林園區漁會</option>
+                            <option value="523">523_東港漁會；琉球區漁會；林邊區漁會</option>
+                            <option value="524">524_新港區漁會</option>
+                            <option value="525">525_澎湖區漁會</option>
+                            <option value="605">605_高雄市農會</option>
+                            <option value="612">612_豐原市農會；神岡鄉農會</option>
+                            <option value="613">613_名間農會</option>
+                            <option value="614">614_彰化地區農會</option>
+                            <option value="616">616_雲林地區農會</option>
+                            <option value="617">617_嘉義地區農會</option>
+                            <option value="618">618_台南地區農會</option>
+                            <option value="619">619_高雄地區農會</option>
+                            <option value="620">620_屏東地區農會</option>
+                            <option value="621">621_花蓮地區農會</option>
+                            <option value="622">622_台東地區農會</option>
+                            <option value="624">624_澎湖農會</option>
+                            <option value="625">625_台中市農會</option>
+                            <option value="627">627_連江縣農會</option>
+                            <option value="700">700_中華郵政</option>
+                            <option value="803">803_聯邦商業銀行</option>
+                            <option value="805">805_遠東銀行</option>
+                            <option value="806">806_元大銀行</option>
+                            <option value="807">807_永豐銀行</option>
+                            <option value="808">808_玉山銀行</option>
+                            <option value="809">809_萬泰銀行</option>
+                            <option value="810">810_星展銀行</option>
+                            <option value="812">812_台新銀行</option>
+                            <option value="814">814_大眾銀行</option>
+                            <option value="815">815_日盛銀行</option>
+                            <option value="816">816_安泰銀行</option>
+                            <option value="822">822_中國信託</option>
+                            <option value="901">901_大里市農會</option>
+                            <option value="903">903_汐止農會</option>
+                            <option value="904">904_新莊農會</option>
+                            <option value="910">910_財團法人農漁會聯合資訊中心</option>
+                            <option value="912">912_冬山農會</option>
+                            <option value="916">916_草屯農會</option>
+                            <option value="922">922_台南市農會</option>
+                            <option value="928">928_板橋農會</option>
+                            <option value="951">951_北農中心</option>
+                            <option value="954">954_中南部地區農漁會</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <label for="account" class="col-sm-12 col-form-label">銀行帳號</label>
+                      <div class="col-sm-12">
+                        <div class="form-control acct delBankaccount"></div>
+                        <input id="account" type="text" name="account" class="form-control input_acct -none"/>
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end">
+                      <button type="button"class="btn btn_edit btn-outline-dark mf-bdr-15">修改
+                      </button>
+                    </div>
+                        
+<!-- 植入結束          -->
+                </div>
+              </div>
+            </div>
+<!-- 表單區塊結束 -->
+          </div>
+          <!-- ===== 內容客製化區塊 ===== -->
+        </div>
+      </div>
+    </div>
+
+<!--FOOTER START -->
+    <div style="background-color: #1A4D2E">
+      <div class="container pb-0 mb-0 text-light" style="background-color: #1A4D2E">
+        <footer>
+          <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
+            <div class="col-12">
+              <div class="row justify-content-between">
+                <div class="col-6 align-self-center">
+                  <a class="navbar-brand d-inline-flex" href="index.html">
+                    <span class="logo">Mon</span>
+                    <span class="logo2">Food</span>
+                  </a>
+                </div>
+
+                <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
+                  <ul class="list-unstyled justify-content-center">
+                    <li class="mt-3 mb-1">
+                      <a href="resLogin.html" class="transparent">新增您的餐廳</a>
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="aboutUs.html">關於MonFood</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+<!--FOOTER END -->
+
+    <script src="../assets/js/jQuery-3.6.0.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../assets/js/off-canvas.js"></script>
+    <script src="../assets/js/hoverable-collapse.js"></script>
+    <script src="../assets/js/misc.js"></script>
+    <script src="../assets/js/settings.js"></script>
+    <script src="../assets/js/todolist.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      window.onload = function () {
+//登入後載入資料
+          var getOneUrl = "../DelGetOneByID";
+          fetch(getOneUrl, {
+            method: "POST",
+            headers: {
+              "content-Type": "application.json",
+            },
+            body: JSON.stringify({
+            }),
+          })
+            .then(function (response) {
+              if (response.ok) {
+                console.log("成功載入登入資料");
+                return response.json(); // 將取得的資料，再使用 .json() 解析資料
+              }
+            })
+            .then(function (data) {
+              $("div.delAccountName").text(data.delAccountName);
+              $("div.delBankname").text(data.delBankcode + "  " + data.delBankname);
+              $("div.delBankaccount").text(data.delBankaccount);
+            });   
+// 銀行資料修改
+          $("button.btn_edit").on("click", function () {
+
+          if ($("div.bank_info").attr("data-edit") == undefined) {
+            $("div.bank_info").attr("data-edit", true);
+            $("div.form-control").toggleClass("-none");
+            $("input.form-control").toggleClass("-none");
+            $("select.form-select").attr("hidden", false);
+            $("button.btn_edit").html("確認");
+          } else {
+            var update_acct_name = $("input.input_acct_name").val().trim();
+            var update_bank_acct = $("input.input_acct").val().trim();
+            var update_code_name = $("select.select_bank_name").find("option:selected").text();
+            var banknamecode = update_code_name.split("_");
+            var update_bankcode = banknamecode[0];
+            var update_bankname = banknamecode[1];
+            console.log(update_acct_name);
+            console.log(update_bank_acct);
+            console.log(update_bankcode);
+            console.log(update_bankname);
+            
+                  if ( update_acct_name == "" || update_bank_acct == "" || update_bankcode == "" || update_bankname == "") {
+                      alert("請輸入待辦事項");
+                  } 
+                  else {
+                      $("div.acct_name").html(update_acct_name).toggleClass("-none");
+                      $("input.input_acct_name").val(update_acct_name).toggleClass("-none");
+                      $("div.acct").html(update_bank_acct).toggleClass("-none");
+                      $("input.input_acct").val(update_bank_acct).toggleClass("-none");
+                      $("div.bank_name").text(update_code_name).toggleClass("-none");
+                      $("select.form-select").val(update_code_name).attr("hidden", true);
+                      $("div.bank_info").removeAttr("data-edit");
+                      $("button.btn_edit").html("修改");
+                      btn_confirm();                   
+//ajax傳修改資料
+                      var url = "../DelEditBank";
+                      fetch(url, {
+                        method: "POST",
+                        headers: {
+                          "content-Type": "application.json",
+                        },
+                        body: JSON.stringify({
+                           delAccountName: update_acct_name,
+                           delBankname: update_bankname,
+                           delBankcode: update_bankcode,
+                           delBankaccount: update_bank_acct
+                        }),
+                      })
+                      .then(function (response) {
+                            if (response.ok) {
+                              console.log("成功送出修改資料");
+                              return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                            }
+                      })  
+               
+                  }
+              }
+          })
+  
+  
+          function btn_confirm() {
+          Swal.fire("修改成功", "更新完成", "success");
+        }
+        function img_change() {
+                Swal.fire('上傳照片', '請選擇照片', 'success')
+    }
+
+
+    function isPoneAvailable($poneInput) {  
+      var myreg=/^[0][9][0-9]{8}$/;  
+      if (!myreg.test($("input.info_input_phone").val())) {  
+         return false;  
+      } else {  
+         return true;  
+      }  
+    } 
+
+// LOGOUT
+$(".logout").on("click", function(){
+                     
+                     var logout = "../DelLogoutServlet"
+                     $.ajax({
+                         url: logout,            
+                         type: "POST",                
+                         data: JSON.stringify({
+                           action: "logout"
+                         }),             
+                     dataType: "json",           
+                     success: function(data){      
+                       console.log(data);
+                       if("登出成功"===data){
+                         window.location.href="monFoodIndex.html";
+                       }
+                     },
+                     complete: function(){
+                       window.location.href="monFoodIndex.html";
+                     }
+                     });
+                 });
+
+
+
+  
+  
+  
+  
+  
+  }
+    </script>
+  </body>
+</html>
