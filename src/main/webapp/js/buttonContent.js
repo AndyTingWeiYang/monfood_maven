@@ -81,15 +81,8 @@ function sendMessage(event) {
   webSocket.send(JSON.stringify(jsonObj));
 }
 
-// webSocket.send(JSON.stringify({
-//   message: "123",
-//   receiverId: 3,
-//   senderId: 2,
-//   type: "chat"
-// }));
 
-//目前設在發送訊息處及點擊好友處 (應該只放在點擊好友處)[to be revised]
-//發送歷史訊息
+
 function refreshChat() {
   // 移除舊的訊息
   const ul = document.getElementById(`messagesArea${friendId}`)
