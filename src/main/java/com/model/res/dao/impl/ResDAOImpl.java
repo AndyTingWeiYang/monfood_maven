@@ -46,7 +46,8 @@ public class ResDAOImpl implements ResDAO {
 	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 //	//搜尋框模糊查詢
 //	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, RES.BZ_LOCATION, RES.BZ_OPEN_HOURS, RES.BZ_CLOSE_HOURS FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
-
+	//首頁搜尋行政區內餐廳
+	private static final String GETRESFORINDEX = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, ZIP_CODE FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 	
 	
 //	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
@@ -759,6 +760,77 @@ public class ResDAOImpl implements ResDAO {
 		}
 		
 		return listResVO;
+	}
+
+	@Override
+	public List<ResVO> getResForZipcode() {
+		List<ResVO> reslist = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = conn.prepareStatement(GETRESFORINDEX);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ResVO resVO = new ResVO();
+				String rate = String.valueOf(rs.getDouble("AVG(RES_RATE)"));
+				String name = rs.getString("RES_NAME");
+				String resName = rate + "_" + name;
+				resVO.setResId(rs.getInt("RES_ID"));
+				resVO.setResName(resName);
+				resVO.setZipCode(rs.getInt("ZIP_CODE"));
+				resVO.setResCategory(rs.getInt("RES_CATEGORY"));
+				reslist.add(resVO);
+				System.out.println("dao in while"+reslist);
+//				Map<String, Object> map = new HashMap<>();
+//				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+//				map.put("resId",rs.getInt("RES_ID"));
+//				map.put("resCategory",rs.getInt("RES_CATEGORY"));
+//				map.put("resName",rs.getString("RES_NAME"));
+//				map.put("bzLocation",rs.getString("BZ_LOCATION"));
+//				map.put("bzOpenHours",rs.getString("BZ_OPEN_HOURS"));
+//				map.put("bzCloseHours", rs.getString("BZ_CLOSE_HOURS"));
+//				map.put("bzWeekTime", rs.getInt("BZ_WEEKTIME"));
+//				rateList.add(map);
+			}
+				
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		System.out.println("DAO:"+reslist);
+		return reslist;
 	}
 
 }

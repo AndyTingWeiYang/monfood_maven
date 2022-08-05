@@ -19,6 +19,9 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     
       <!-- offcanvas -->
+      <section style="background-image: url(https://tga102-03.s3.amazonaws.com/pexels-photo-5490358.jpeg)">
+
+      
       <div class="offcanvas offcanvas-start" id="sidebar" tabindex="-1" aria-labelledby="sidebar-label">
           <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="sidebar-label"></h5>
@@ -42,6 +45,7 @@
               </a>
           </div>
       </div>
+    </section>
     <!-- offcanvas -->
         
       <!-- navbar -->
@@ -51,11 +55,11 @@
             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand d-inline-flex" href="index.html">
+            <a class="navbar-brand d-inline-flex" href="monFoodIndex.html">
               <span class="logo">Mon</span>
               <span class="logo2">Food</span>
             </a>
-            <a href="userLogin.html" class="btn btn-primary black" id="login">
+            <a href="../userLogin.html" class="btn btn-primary black" id="login">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
               </svg><span class="login">登入</span>
@@ -87,8 +91,23 @@
         <div class="container" id="page" >
           <div class="row justify-content-center">
             <div class="col-6 input-group input-group-sm w-50 align-items-center">
-              <input type="text" class="form-control" placeholder="輸入外送地址" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-primary" type="submit" id="button-addon2">搜尋</button>
+              <select name="adminArea" id="adminArea" class="form-control">
+                <option selected>請選擇行政區</option>
+                <option value="中正區">中正區</option>
+                <option value="中山區">中山區</option>
+                <option value="大安區">大安區</option>
+                <option value="萬華區">萬華區</option>
+                <option value="信義區">信義區</option>
+                <option value="北投區">北投區</option>
+                <option value="內湖區">內湖區</option>
+                <option value="文山區">文山區</option>
+                <option value="大同區">大同區</option>
+                <option value="松山區">松山區</option>
+                <option value="士林區">士林區</option>
+                <option value="南港區">南港區</option>
+              </select>
+              <input type="text" class="form-control address" placeholder="輸入外送地址" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-primary address_search" type="submit" id="button-addon2">搜尋</button>
             </div>
           </div>
         </div>
@@ -114,25 +133,25 @@
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="https://tga102-03.s3.amazonaws.com/pexels-rajesh-tp-1600711.jpg" class="card-img-top" alt="...">
             <div class="card-footer">
-              <small class="text-muted"><a href="userLogin.html" style="text-decoration: none">註冊用戶開始點餐</a></small>
+              <small class="text-muted"><a href="../userLogin.html" style="text-decoration: none">註冊用戶開始點餐</a></small>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="https://tga102-03.s3.amazonaws.com/resLogin.jpeg" class="card-img-top" alt="...">
             <div class="card-footer">
-              <small class="text-muted"> <a href="resLogin.html" style="text-decoration: none">新增您的餐廳</a></small>
+              <small class="text-muted"> <a href="../resLogin.html" style="text-decoration: none">新增您的餐廳</a></small>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
+            <img src="https://tga102-03.s3.amazonaws.com/pexels-photo-2519374.jpeg" class="card-img-top" alt="...">
             <div class="card-footer">
-              <small class="text-muted">><a href="../delLogin.html " style="text-decoration: none">註冊成為外送夥伴</a></small>
+              <small class="text-muted">><a href="delLogin.html" style="text-decoration: none">註冊成為外送夥伴</a></small>
             </div>
           </div>
         </div>
@@ -150,40 +169,40 @@
       <div class="container">
         <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
           <div class="col">
-            <div class="p-3 border bg-light">中正區</div>
+            <div class="p-3 border bg-light adminArea">100_中正區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">大同區</div>
+            <div class="p-3 border bg-light adminArea">103_大同區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">中山區</div>
+            <div class="p-3 border bg-light adminArea">104_中山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">松山區</div>
+            <div class="p-3 border bg-light adminArea">105_松山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">大安區</div>
+            <div class="p-3 border bg-light adminArea">106_大安區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">萬華區</div>
+            <div class="p-3 border bg-light adminArea">108_萬華區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">士林區</div>
+            <div class="p-3 border bg-light adminArea">111_士林區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">北投區</div>
+            <div class="p-3 border bg-light adminArea">112_北投區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">內湖區</div>
+            <div class="p-3 border bg-light adminArea">114_內湖區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">南港區</div>
+            <div class="p-3 border bg-light adminArea">115_南港區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">文山區</div>
+            <div class="p-3 border bg-light adminArea">116_文山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light">信義區</div>
+            <div class="p-3 border bg-light adminArea">110_信義區</div>
           </div>
         </div>
       </div>
@@ -232,4 +251,51 @@
                   
     
   </body>
+  <script src="../assets/js/jQuery-3.6.0.js"></script>
+  <script>
+// 輸入外送地址
+    $(".address_search").on("click", function(){
+      var adminarea = $("select#adminArea").find("option:selected").val();
+      var address = $("input.address").val();
+      var wholeAddress = adminarea + address;
+      console.log(wholeAddress);
+      if(wholeAddress=="請選擇行政區"){
+        alert("我還不知道你住哪喔");
+      }
+      else{
+        sessionStorage.setItem("wholeAddress", JSON.stringify(wholeAddress))
+        window.location.href="browseAfterAddress.html";
+      }
+    });
+
+// 透過行政區搜尋該區商家
+    $("div.adminArea").on("click", function(){
+      var zip = $(this).text();
+      var areaResult = zip.split("_");
+      var url = "../IndexGetByZipcode"
+      fetch((url),{
+                    method: "POST",
+                    headers: {
+                      "content-Type": "application.json"
+                    },
+                    body: JSON.stringify({
+                      zip_code: areaResult[0]
+                    })
+              })
+                .then(function (response) {
+                  if (response.ok) {	// 接收到回傳的物件
+                    console.log("成功載入登入資料");		// 如果正確取得資料，沒有發生錯誤
+                    return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                  }
+                })
+                .then(function(data){
+                    console.log(data);
+                    window.location.href="browseAfterIndex.html";
+                });
+      
+    });
+
+
+  </script>
+
 </html>

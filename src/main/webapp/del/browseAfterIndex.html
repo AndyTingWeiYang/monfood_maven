@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>browse_new</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/userHeader.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/browse.css" />
+    <style>
+      .monfood-resBlock {
+        height: 280px;
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid lightgray !important;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+      .monfood-respicdiv {
+        height: 170px;
+        width: 270px;
+        overflow: hidden;
+      }
+      .monfood-respic {
+        height: 170px;
+        width: 270px;
+      }
+      .monfood-resNameandRatingdiv {
+        margin: 0;
+      }
+      #monfood-resName {
+        font-size: 14px;
+        text-align: left;
+        margin-top: 12px !important;
+        padding-left: 0;
+      }
+      .monfood-rating {
+        font-size: 12px;
+        padding-right: 0;
+        text-align: end;
+        margin-top: 15px;
+      }
+      .monfood-resCategorydiv {
+        margin: 0;
+        margin-top: 15px;
+      }
+      .monfood-resCategory {
+        font-size: 12px;
+        padding-right: 0;
+        text-align: end;
+      }
+    </style>
+  </head>
+  <body>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6AB8jcKkzMnwsPPZhMQBRgKXF_lXaX84&libraries=places"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!-- offcanvas -->
+    <div
+      class="offcanvas offcanvas-end"
+      id="sidebar"
+      tabindex="-1"
+      aria-labelledby="sidebar-label"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebar-label"></h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="container d-flex justify-content-between" style="margin: 0px">
+        <div class="row" style="margin: 0px">
+          <div class="col-md-3">
+            <h4 style="float: right">S156</h4>
+          </div>
+          <div class="col-9">
+            <h4>麥當勞台北濟南</h4>
+          </div>
+        </div>
+      </div>
+      <!-- <h4 style="margin-left: 13px">麥當勞 S156</h4> -->
+      <!-- offcanvas_body -->
+      <div class="col-12">
+        <ul class="" style="padding: 0">
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px; margin-left: 8px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h6>勁辣雞腿堡套餐</h6>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 12px">$148</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 12px">439Kcal</div>
+                  </div>
+
+                  <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
+                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+          <hr style="margin-top: 10px; margin-bottom: 10px" />
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px; margin-left: 8px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin-left: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h6>勁辣雞腿堡套餐</h6>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 12px">$148</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 12px">439Kcal</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+          <hr style="margin-top: 10px; margin-bottom: 10px" />
+          <li class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div style="margin-right: 10px; margin-left: 8px">
+                <select
+                  class="form-select form-select-sm"
+                  aria-label=".form-select-sm example"
+                  style="width: 60px; margin-left: 5px"
+                >
+                  <option value="0">移除</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="13">12</option>
+                  <option value="14">13</option>
+                  <option value="15">14</option>
+                  <option value="16">15</option>
+                  <option value="17">16</option>
+                  <option value="18">17</option>
+                  <option value="19">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <a href="" class="">
+                <div>
+                  <h6>勁辣雞腿堡套餐</h6>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="side" style="font-size: 12px">$148</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="drink" style="font-size: 12px">439Kcal</div>
+                  </div>
+
+                  <!-- <div>薯條<span style="padding-left: 35px">439Kcal</span></div>
+                  <div>可樂<span style="padding-left: 35px">439Kcal</span></div> -->
+                </div>
+              </a>
+            </div>
+            <div class="itemPrice" style="margin-right: 10px">$148</div>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="checkout"
+        style="display: flex; justify-content: space-around; margin-top: 10px"
+      >
+        <button
+          class="checkout_btn"
+          style="border: none; border-radius: 5px; font-size: 20px"
+        >
+          前往結帳
+        </button>
+        <button
+          class="clear_btn"
+          style="border: none; border-radius: 5px; font-size: 20px"
+        >
+          清空購物車
+        </button>
+      </div>
+    </div>
+
+    <!-- offcanvas -->
+    <!-- offcanvas bottom-->
+    <!-- 地址更改頁面     -->
+    <div
+      class="offcanvas offcanvas-bottom justify-content-center"
+      id="bottombar"
+      tabindex="-1"
+      aria-labelledby="sidebar-label"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebar-label">更改外送地址</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <div class="container">
+          <div class="row">
+            <div class="col d-flex justify-content-between">
+              <input
+                type="text"
+                id="address"
+                placeholder="請輸入地址"
+                style="width: 75%"
+              />
+              <button
+                class="btn textConfirm"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              >
+                確認
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <ul style="padding: 0">
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">桃園市龜山區文青二路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">台北市松山區健康路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="addressBtn">新北市新店區湖子內路</span>
+                  <button
+                    class="btn addressConfirm"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  >
+                    確認
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- offcanvas bottom-->
+
+    <header>
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg" style="background-color: #ff7f3f">
+        <div class="container">
+          <a href="userprofile.html" class="transparent" id="profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="bi bi-person-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </a>
+
+          <a class="navbar-brand d-inline-flex" href="index.html">
+            <span class="logo">Mon</span>
+            <span class="logo2">Food</span>
+          </a>
+
+          <div class="d-inline-flex align-items-center">
+            <a
+              href=""
+              class="transparent"
+              id="cart"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#sidebar"
+              aria-controls="sidebar"
+            >
+              <!-- <button class="btn btn-primary" id="cart" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar"> -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-cart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                />
+              </svg>
+              <!-- </button> -->
+            </a>
+
+            <a href="userLogin.html" class="btn btn-primary black" id="login">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                /></svg
+              ><span class="login">登入</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <!-- navbar -->
+    </header>
+
+    <main>
+      <!--  -->
+      <div class="monfood-notification">
+        輸入【生鮮七五】，最高折抵 $100 ! 生鮮雜貨 75 折！<br />日常補貨每日三省，省錢、省事、又省力！！！
+      </div>
+      <!--  -->
+
+      <!-- <section class="overflow-hidden"> -->
+
+      <div class="loc_and_input">
+        <div class="container-fluid">
+          <div
+            class="row"
+            style="padding-right: 50; margin-left: 30px; margin-right: 90px"
+          >
+            <div style="padding: 0px" class="col-xl-6 col-lg-12 col-sm-12 col">
+              <div
+                class="col-lg-6 col-md-12"
+                style="float: right; margin-right: 10px"
+              >
+                <div style="margin-top: 43px">
+                  <div id="map" style="display: none"></div>
+                </div>
+                <span id="finalAddress"></span>
+                <a
+                  href=""
+                  id="changeAddress"
+                  class="btn btn-primary"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#bottombar"
+                  aria-controls="sidebar"
+                  style="
+                    height: 26px;
+                    width: 40px;
+                    font-size: 15px;
+                    border-radius: 5px;
+                    padding: 0px;
+                    float: right;
+                    margin-left: 5px;
+                  "
+                >
+                  更改
+                </a>
+              </div>
+              <div></div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-sm-12 col">
+              <input
+                class="search"
+                id="searchPdt"
+                type="text"
+                style="margin-left: 10px; float: left"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="upper_part">
+        <!-- check_box start -->
+
+        <div class="flip">
+          <span class="1" style="font-size: 20px">選擇篩選條件</span>
+        </div>
+        <div class="resCategory-panel">
+          <div>
+            餐廳分類
+            <span class="button">
+              <button id="american" data-rescategory="4" class="restriction">
+                美式料理
+              </button>
+              <button id="japanese" data-rescategory="2" class="restriction">
+                日式料理
+              </button>
+              <button id="chinese" data-rescategory="1" class="restriction">
+                台式料理
+              </button>
+              <button id="korean" data-rescategory="5" class="restriction">
+                韓式料理
+              </button>
+              <button id="thai" data-rescategory="3" class="restriction">
+                泰式料理
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!--slide -->
+      <div
+        id="carouselExampleSlidesOnly"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        style="margin: 30px 150px 30px 150px"
+      >
+        <div
+          class="carousel-inner"
+          style="
+            overflow: hidden;
+            display: block;
+            height: 276px;
+            min-height: fit-content;
+          "
+        >
+          <div class="carousel-item active">
+            <img
+              src="../images/healthy.png"
+              class="d-block w-100"
+              style="overflow: hidden"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../images/head.webp"
+              class="d-block w-100"
+              style="overflow: hidden"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../images/header-home-precon-food.jpg"
+              class="d-block w-100"
+              style="overflow: hidden; display: block"
+            />
+          </div>
+        </div>
+      </div>
+      <!--slide -->
+
+      <div class="resAll">
+        <span class="s1"> 所有餐廳 </span>
+      </div>
+
+      <div class="container">
+        <!-- TODO: 餐廳區塊 -->
+        <div
+          id="resPageBlock"
+          class="row"
+          style="justify-content: space-around"
+        >
+          <!--           <a id="resPage" class="col-xl-3 col-lg-6 col-sm-12 col d-flex justify-content-center" href="restaurant.html"> -->
+          <!--             <div> -->
+          <!--               <div class="btn btn-primary monfood-resBlock"> -->
+          <!--                 <div class="monfood-resPicdiv" > -->
+          <!--                   <img id="resPic" src="images/111.jpg" class="mt-1 monfood-respic"/> -->
+          <!--                 </div> -->
+          <!--                 <div class="row justify-content-between monfood-resNameandRatingdiv" > -->
+          <!--                   <div id="resName" class="col-md-6 d-flex monfood-resName">麥當勞(三重店)</div> -->
+          <!--                   <div id="rating" class="col-md-6 monfood-rating">4.0</div> -->
+          <!--                 </div> -->
+
+          <!--                 <div class="row justify-content-between monfood-resCategorydiv"> -->
+          <!--                   <div class="col-md-6 d-flex"></div> -->
+          <!--                   <div id="resCategory" class="col-md-6 monfood-resCategory"> 美式</div> -->
+          <!--                 </div> -->
+          <!--               </div> -->
+          <!--             </div> -->
+          <!--           </a> -->
+          <!--            -->
+          <!--  -->
+        </div>
+      </div>
+
+      <li class="d-flex justify-content-center">
+        <div class="show_more">
+          <button class="show_more">顯示更多</button>
+        </div>
+      </li>
+    </main>
+
+    <!-- Footer -->
+    <div style="background-color: #ff7f3f">
+      <div
+        class="container pb-0 mb-0 text-light"
+        style="background-color: #ff7f3f"
+      >
+        <footer>
+          <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
+            <div class="col-12">
+              <div class="row justify-content-between">
+                <div class="col-6 align-self-center">
+                  <a class="navbar-brand d-inline-flex" href="index.html">
+                    <span class="logo">Mon</span>
+                    <span class="logo2">Food</span>
+                  </a>
+                </div>
+
+                <div
+                  class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0"
+                  style="font-size: 13px"
+                >
+                  <ul class="list-unstyled justify-content-center">
+                    <li class="mt-3 mb-1">
+                      <a href="resLogin.html" class="transparent"
+                        >新增您的餐廳</a
+                      >
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                    </li>
+                    <li class="mb-1 transparent">
+                      <a href="aboutUs.html">關於MonFood</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Footer -->
+
+    <script src="../assets/js/jquery.forMandy.js"></script>
+<!--     <script src="../js/browse.js"></script> -->
+    <script>
+      $(function () {
+// 點擊行政區後進入
+        $.ajax({
+          url: "../GetResByZipcode",
+          type: "POST",
+          dataType: "json",
+          success: function (data) {
+            
+            for(let i=0; i<data.length; i++){
+                var resCategory;
+                var resID = data[i].resId;
+                var category = data[i].resCategory;
+                var resNameRate = data[i].resName;
+                var nameRateString = JSON.stringify(resNameRate);
+                var nameRateList = nameRateString.split("_");
+                var name =nameRateList[1];
+                var resName = name.replace("\"", "");
+                var rate =nameRateList[0];
+                var resRate = rate.replace("\"", "");
+                if(category==1){
+                  resCategory = "台式";
+                }else if(category==2){
+                  resCategory = "日式";
+                }else if(category==3){
+                  resCategory = "泰式";
+                }else if(category==4){
+                  resCategory = "美式";
+                }else if(category==5){
+                  resCategory = "韓式";
+                }
+      
+              
+
+            let resPageHtml = `
+                <a id="resPage" 
+                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+                   href="../restaurant.html">
+                </a>
+                    `;
+    
+            let resPageContentHtml = `
+                <div class="btn btn-primary monfood-resBlock">
+                  <div class="monfood-resPicdiv" >
+                    <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resID}" class="mt-1 monfood-respic"/>
+                  </div>
+                  <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                    <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resName}</div>
+                    <div id="rating" class="col-md-3 monfood-rating">${resRate}</div>
+                  </div>
+                  <div class="row justify-content-between monfood-resCategorydiv">
+                    <div class="col-md-6 d-flex"></div>
+                    <div id="resCategory" class="col-md-6 monfood-resCategory">${resCategory}</div>
+                  </div>
+                </div>
+                `;
+    
+    // resPageHtml<a> 新增內容
+                  const contentHtml = $(resPageHtml).append($("<div>").append(resPageContentHtml));
+                  $("#resPageBlock").append(contentHtml);
+            }
+
+
+          }
+
+
+
+
+
+
+                      
+          });
+    
+
+// 輸入地址後進入，取出使用者輸入的地址
+        $("span#finalAddress").text(sessionStorage.getItem("wholeAddress"));
+      });
+
+
+
+
+    </script>
+  </body>
+</html>
