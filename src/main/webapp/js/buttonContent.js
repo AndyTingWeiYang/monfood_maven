@@ -1,7 +1,7 @@
 // 聊天室
 
 //取得userId ajax
-var selfId;
+let selfId;
 $.ajax({
   url: "IdServlet",
   async: false,
@@ -35,6 +35,7 @@ function appendNewMsg(isMe, msg) {
   li.innerHTML = msg;
   messagesArea.appendChild(li);
   messagesArea.scrollTop = messagesArea.scrollHeight;
+
 }
 
 webSocket.onmessage = function (event) {
@@ -78,6 +79,10 @@ function sendMessage(event) {
     message: message,
   };
   webSocket.send(JSON.stringify(jsonObj));
+  let message_input = document.querySelector("#msgInput"+ friendId);
+  message_input.value = "";
+  message_input.focus();
+
 }
 
 
@@ -210,6 +215,10 @@ $.ajax({
   type: "GET",
   dataType: "json",
   success: function (data) {
+    if (data.length == 0) {
+      let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
+      $(".list-group").append(noFriends);
+    }
     console.log(data);
     for (var i = 0; i < data.length; i++) {
       var base64String = btoa(
@@ -278,7 +287,7 @@ $.ajax({
 
           <div id="sendMsg" class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
-              <input class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage(event)"/>
+              <input id = "msgInput${data[i].userId}" class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage(event)"/>
             </div>
             <div class="send_message">
               <div class="icon"></div>
