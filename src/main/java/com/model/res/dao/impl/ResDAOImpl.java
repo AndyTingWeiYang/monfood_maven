@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.model.order.OrderVO;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
@@ -34,11 +37,54 @@ public class ResDAOImpl implements ResDAO {
 	// 使用商家名稱查詢資料
 	private static final String SELECTBYRESNAME = "SELECT * FROM MonFood.RES WHERE RES_NAME = ? ";
 	// 查詢全部
-	private static final String GETALL = "SELECT * FROM MonFood.RES ORDER BY RES_ID";
+	private static final String GETALL = "SELECT * FROM MonFood.RES ORDER BY RES_ID ";
 	// 查詢是否有此會員帳號
 	private static final String ISDUPLICATEACCOUNT = "SELECT RES_ACCOUNT FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
 	// 使用餐廳分類查詢一筆多筆資料
-	private static final String SELECTBYCATEGORY = "SELECT * FROM RES WHERE RES_CATEGORY = ? ";
+	private static final String SELECTBYCATEGORY = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM RES LEFT JOIN `ORDER` on RES.RES_ID = ORDER.RES_ID WHERE RES_CATEGORY = ? GROUP by RES.RES_ID ";
+	//使用
+	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
+//	//搜尋框模糊查詢
+//	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, RES.BZ_LOCATION, RES.BZ_OPEN_HOURS, RES.BZ_CLOSE_HOURS FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
+
+	
+	
+//	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
+//			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
+//			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
+//			+ "WHERE PRODUCT.PRODUCT_NAME like ? "
+//			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
+	
+	
+//	這裡是會跑出十幾筆的
+//	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
+//			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
+//			+ "WHERE RES.RES_NAME LIKE ? "
+//			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
+	
+//	private static final String SEARCHPRODUCT = "SELECT DISTINCT RES_ID "
+//			+ " FROM ( Select AVG(RES_RATE), RES.RES_CATEGORY, RES.RES_NAME, PRODUCT.* "
+//			+ " FROM MonFood.RES "
+//			+ " LEFT JOIN ORDER ON RES.RES_ID = `ORDER`.RES_ID "
+//			+ " INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
+//			+ " WHERE RES.RES_NAME LIKE ? "
+//			+ " GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID) as T;";
+//	
+
+	//這個查詢時會顯示出所有包含搜尋商品的結果,但是餐廳會重複
+//	private static final String SEARCHPRODUCT = "SELECT DISTINCT RES.RES_ID ,AVG(RES_RATE), RES.*, PRODUCT.* "
+//			+ "	FROM MonFood.RES "
+//			+ "	LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
+//			+ "	INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
+//			+ "	WHERE PRODUCT.PRODUCT_NAME like ? "
+//			+ "	GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
+	
+	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.* "
+			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
+			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
+			+ "WHERE PRODUCT.PRODUCT_NAME like ? "
+			+ "GROUP BY RES.RES_ID";
+	
 
 	static {
 		try {
@@ -48,6 +94,184 @@ public class ResDAOImpl implements ResDAO {
 		}
 	}
 
+	@Override
+	public List<Map<String, Object>> searchProduct(String searchPdt) {
+		List<Map<String, Object>> resList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = conn.prepareStatement(SEARCHPRODUCT);
+
+			pstmt.setString(1, "%" + searchPdt + "%");
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("resId", rs.getInt("RES_ID"));
+				map.put("resCategory", rs.getInt("RES_CATEGORY"));
+				map.put("resName", rs.getString("RES_NAME"));
+
+				resList.add(map);
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+//			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return resList;
+	}
+			
+	@Override
+	public List<Map<String, Object>> selectByCategory(Integer resCategory) {
+		List<Map<String, Object>> rateList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = conn.prepareStatement(SELECTBYCATEGORY);
+			pstmt.setInt(1, resCategory);
+			
+			rs = pstmt.executeQuery();
+			
+			
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("resId",rs.getInt("RES_ID"));
+				map.put("resCategory",rs.getInt("RES_CATEGORY"));
+				map.put("resName",rs.getString("RES_NAME"));
+//				map.put("resPic",rs.getBytes("RES_PIC"));
+//				map.put("bzLocation",rs.getString("BZ_LOCATION"));
+//				map.put("zipCode",rs.getInt("ZIP_CODE"));
+//				map.put("bzOpenHours",rs.getTime("BZ_OPEN_HOURS"));
+//				map.put("bzCloseHours",rs.getTime("BZ_CLOSE_HOURS"));
+//				map.put("bzWeekTime",rs.getInt("BZ_WEEK_TIME"));
+				
+				rateList.add(map);
+			}
+				
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return rateList;
+	}
+
+	
+	@Override
+	public List<Map<String, Object>> getRate() {
+		List<Map<String, Object>> rateList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = conn.prepareStatement(GETRATE);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("resId",rs.getInt("RES_ID"));
+				map.put("resCategory",rs.getInt("RES_CATEGORY"));
+				map.put("resName",rs.getString("RES_NAME"));
+				map.put("bzLocation",rs.getString("BZ_LOCATION"));
+//				map.put("bzOpenHours",rs.getString("BZ_OPEN_HOURS"));
+//				map.put("bzCloseHours", rs.getString("BZ_CLOSE_HOURS"));
+//				map.put("bzWeekTime", rs.getInt("BZ_WEEKTIME"));
+				
+
+				
+				rateList.add(map);
+			}
+				
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return rateList;
+	}
+	
+	
+	
 	@Override
 	public int insert(ResVO resVO) {
 		// get connect
@@ -430,64 +654,6 @@ public class ResDAOImpl implements ResDAO {
 		}
 	}
 
-	@Override
-	public List<ResVO> selectByCategory(Integer resCategory) {
-		List<ResVO> list = new ArrayList<>();
-		ResVO resVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = DriverManager.getConnection(URL, USERID, PASSWORD);
-			pstmt = con.prepareStatement(SELECTBYCATEGORY);
-
-			pstmt.setInt(1, resCategory);
-
-			rs = pstmt.executeQuery(); // 執行 SELECT 語句，但也只能執行查詢語句，執行後返回代表查詢結果的ResultSet
-
-			while (rs.next()) {
-				resVO = new ResVO();
-				resVO.setResId(rs.getInt("RES_ID"));
-				resVO.setResCategory(rs.getInt("RES_CATEGORY"));
-				resVO.setResAccount(rs.getString("RES_ACCOUNT"));
-				resVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
-				resVO.setResName(rs.getString("RES_NAME"));
-				resVO.setResPassword(rs.getString("RES_PASSWORD"));
-				resVO.setResTel(rs.getString("RES_TEL"));
-				resVO.setResPic(rs.getBytes("RES_PIC"));
-				resVO.setOwnerName(rs.getString("OWNER_NAME"));
-				resVO.setOwnerTel(rs.getString("OWNER_TEL"));
-				resVO.setBzLocation(rs.getString("BZ_LOCATION"));
-				resVO.setZipCode(rs.getInt("ZIP_CODE"));
-				resVO.setBzOpenHours(rs.getTime("BZ_OPEN_HOURS"));
-				resVO.setBzCloseHours(rs.getTime("BZ_CLOSE_HOURS"));
-				resVO.setBzWeekTime(rs.getInt("BZ_WEEK_TIME"));
-			}
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured when you selectByUserId. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-		return list;
-	}
 
 	@Override
 	public boolean updateResInfo(ResDto resDto) {
@@ -594,4 +760,5 @@ public class ResDAOImpl implements ResDAO {
 		
 		return listResVO;
 	}
+
 }

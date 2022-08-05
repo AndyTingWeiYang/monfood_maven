@@ -247,12 +247,11 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public String updateProfilePic(byte[] pic, Integer userId) {
-		
-		
-		return "updateSucess";
+		if (pic == null) {
+			return "UpdateFailed";
+		}
+		return dao.updateProfilePic(pic, userId);
 	}
-	
-	
 
 }
 

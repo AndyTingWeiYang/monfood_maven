@@ -25,4 +25,8 @@ public interface OrderDAO {
 	
 	List<Map<String, Object>>  resFindOrderService(Integer orderId);
 
+	List<OrderVO> getAllById(Integer userId);
+
+	List<OrderVO> getAllProductById(Integer userId);
+
 }

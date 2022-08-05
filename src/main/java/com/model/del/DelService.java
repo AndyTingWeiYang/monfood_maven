@@ -49,6 +49,14 @@ public class DelService {
 		return delVO;
 		
 	}
+	
+	public DelVO editBank(DelVO delVO) {
+		
+		dao.updateWithoutPic(delVO);
+		
+		return delVO;
+		
+	}
 
 
 	public void deleteDel(Integer delID) {

@@ -3,6 +3,7 @@ package com.model.user.controller;
 import java.io.IOException;
 import java.util.Base64;
 
+import javax.lang.model.element.NestingKind;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.model.user.service.UserService;
@@ -25,24 +27,19 @@ public class UserProfileUpdatePicServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-
+		
 		try {
 
-			respObj = gson.fromJson(request.getReader(), JsonObject.class);
-			String pic = respObj.get("pic").toString();
-			System.out.println(pic);
-			pic.substring(0, 23);
-			pic.substring(pic.length()-1);
-			byte[] picb = pic.getBytes();
-			System.out.println(picb);
-			byte[] decode = Base64.getDecoder().decode(picb);
-			System.out.println(decode);
+			JsonObject data = gson.fromJson(request.getReader(), JsonObject.class);
+			String pic64 = data.get("pic").toString();
+			Integer userId = Integer.parseInt(String.valueOf(data.get("userId").toString()));
+			byte[] picByte = Base64.getDecoder().decode((String) pic64.subSequence(1, pic64.length()-1));
 			UserService service = new UserServiceImpl();
+			String result = service.updateProfilePic(picByte, userId);
 			
+			respObj.addProperty("msg", result);
 			
-			respObj.addProperty("msg", "*更新成功");
-			
-		} catch (JsonSyntaxException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");
 		}

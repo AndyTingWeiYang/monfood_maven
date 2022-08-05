@@ -2,9 +2,11 @@ package com.model.res.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +18,7 @@ import com.model.res.service.ResService;
 import com.model.res.service.impl.ResServiceImpl;
 
 @WebServlet("/ResFindByCategoryServlet")
-public class ResFindByCategoryServlet {
+public class ResFindByCategoryServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,10 +28,10 @@ public class ResFindByCategoryServlet {
 	
 		try {
 			ResService service = new ResServiceImpl();
-			List<ResVO> list = service.adminFindByCategory(1);
+			List<Map<String, Object>> list = service.adminFindByCategory(Integer.parseInt(request.getParameter("resCat")));
 			
 			// add the list into json format
-			respObj.add("Restaurants", gson.toJsonTree(list));
+			respObj.add("resList", gson.toJsonTree(list));
 		} catch (Exception e) {
 			e.printStackTrace();
 			respObj.addProperty("errMsg", "系統錯誤");

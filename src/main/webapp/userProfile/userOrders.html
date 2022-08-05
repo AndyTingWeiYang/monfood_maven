@@ -34,28 +34,23 @@
               <div class="container">
                   <div class="row">
                       <div class="col d-flex justify-content-center">
-                          <img style="width: 100px; height: 100px" src="../images/ambitious-creative-co-rick-barrett-4u1ZT2r2c5I-unsplash.jpg" alt="">
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col d-flex justify-content-center">
                           <h5 style="margin: 0">您對餐廳的評價如何?</h5>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col d-flex justify-content-center">
-                          <div class="star_block">
-                              <span class="star" data-star="1"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="2"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="3"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="4"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="5"><i class="fas fa-star"></i></span>
+                          <div class="resBlock star_block">
+                              <!-- <span class="resStar star" data-star="1"><i class="fas fa-star"></i></span>
+                              <span class="resStar star" data-star="2"><i class="fas fa-star"></i></span>
+                              <span class="resStar star" data-star="3"><i class="fas fa-star"></i></span>
+                              <span class="resStar star" data-star="4"><i class="fas fa-star"></i></span>
+                              <span class="resStar star" data-star="5"><i class="fas fa-star"></i></span> -->
                           </div>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col d-flex justify-content-center">
-                          <input type="text" placeholder="點擊輸入評論" class="text-center">
+                          <input type="text" placeholder="點擊輸入評論" class="resModal text-center">
                       </div>
                   </div>
               </div>
@@ -82,18 +77,11 @@
           </div>
           <div class="modal-body">
               <div class="container">
-                  <!-- <div class="row"> -->
-                      <button class="back" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                          </svg>
-                      </button> 
-                  <!-- </div> -->
-                  <div class="row">
-                      <div class="col d-flex justify-content-center">
-                          <img style="width: 100px; height: 100px"  src="../images/MonsterLV1.png" alt="">
-                      </div>
-                  </div>
+                  <button class="back" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                      </svg>
+                  </button> 
                   <div class="row">
                       <div class="col d-flex justify-content-center">
                           <h5 style="margin: 0">您對外送員的評價如何?</h5>
@@ -101,25 +89,25 @@
                   </div>
                   <div class="row">
                       <div class="col d-flex justify-content-center">
-                          <div class="star_block">
-                              <span class="star" data-star="1"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="2"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="3"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="4"><i class="fas fa-star"></i></span>
-                              <span class="star" data-star="5"><i class="fas fa-star"></i></span>
+                          <div class="delBlock star_block">
+                              <!-- <span class="delStar star" data-star="1"><i class="fas fa-star"></i></span>
+                              <span class="delStar star" data-star="2"><i class="fas fa-star"></i></span>
+                              <span class="delStar star" data-star="3"><i class="fas fa-star"></i></span>
+                              <span class="delStar star" data-star="4"><i class="fas fa-star"></i></span>
+                              <span class="delStar star" data-star="5"><i class="fas fa-star"></i></span> -->
                           </div>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col d-flex justify-content-center">
-                          <input type="text" placeholder="點擊輸入評論" class="text-center">
+                          <input type="text" placeholder="點擊輸入評論" class="delModal text-center">
                       </div>
                   </div>
  
               </div>            
           </div>
           <div class="modal-footer">
-              <button class="btn btn-primary next" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">
+              <button id="ratingSubmit" class="btn btn-primary next" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">
                   送出
               </button>            
           </div>
@@ -273,123 +261,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0" style="height: 300px;">
-                  <div class="row">
-                    <div style="border-bottom:1px solid rgb(160, 156, 156); " class="col-12 d-flex justify-content-between">
-                      <div class="col-6 d-flex">
-                        <div class="col d-flex">
-                          <img class="align-self-center" style="width: 180px; height: 130px" src="../images/20190813JEF004__20190813_L.jpg" alt="">
-                        </div>
-                        <div class="col" style="padding-top: 10px;">
-                          <div id="resName">麥當勞</div>
-                          <div style="font-size: 14px;" >共 $<span id="total">120</span>- <span id="date">2022/5/12</span></div>
-                          <div style="font-size: 12px;" ><span id="item">漢堡</span>- <span id="kcal">120</span>kcal</div>
-
-                        </div>
-                      </div>
-                      <div class="col-3 align-self-center">
-                        <div class="col">
-                          <div>
-                            <span style="font-size: 10px;" id="orderId">訂單編號</span>
-                          </div>
-                          <div>
-                            <a style="background-color: #FF7F3F; border: none; width: 100%; margin-bottom: 25px;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">訂單評分</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="border-bottom:1px solid rgb(160, 156, 156); " class="col-12 d-flex justify-content-between">
-                      <div class="col-6 d-flex">
-                        <div class="col d-flex">
-                          <img class="align-self-center" style="width: 180px; height: 130px" src="../images/20190813JEF004__20190813_L.jpg" alt="">
-                        </div>
-                        <div class="col" style="padding-top: 10px;">
-                          <div id="resName">麥當勞</div>
-                          <div style="font-size: 14px;" >共 $<span id="total">120</span>- <span id="date">2022/5/12</span></div>
-                          <div style="font-size: 12px;" ><span id="item">漢堡</span>- <span id="kcal">120</span>kcal</div>
-
-                        </div>
-                      </div>
-                      <div class="col-3 align-self-center">
-                        <div class="col">
-                          <div>
-                            <span style="font-size: 10px;" id="orderId">訂單編號</span>
-                          </div>
-                          <div>
-                            <a style="background-color: #FF7F3F; border: none; width: 100%; margin-bottom: 25px;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">訂單評分</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="border-bottom:1px solid rgb(160, 156, 156); " class="col-12 d-flex justify-content-between">
-                      <div class="col-6 d-flex">
-                        <div class="col d-flex">
-                          <img class="align-self-center" style="width: 180px; height: 130px" src="../images/20190813JEF004__20190813_L.jpg" alt="">
-                        </div>
-                        <div class="col" style="padding-top: 10px;">
-                          <div id="resName">麥當勞</div>
-                          <div style="font-size: 14px;" >共 $<span id="total">120</span>- <span id="date">2022/5/12</span></div>
-                          <div style="font-size: 12px;" ><span id="item">漢堡</span>- <span id="kcal">120</span>kcal</div>
-
-                        </div>
-                      </div>
-                      <div class="col-3 align-self-center">
-                        <div class="col">
-                          <div>
-                            <span style="font-size: 10px;" id="orderId">訂單編號</span>
-                          </div>
-                          <div>
-                            <a style="background-color: #FF7F3F; border: none; width: 100%; margin-bottom: 25px;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">訂單評分</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="border-bottom:1px solid rgb(160, 156, 156); " class="col-12 d-flex justify-content-between">
-                      <div class="col-6 d-flex">
-                        <div class="col d-flex">
-                          <img class="align-self-center" style="width: 180px; height: 130px" src="../images/20190813JEF004__20190813_L.jpg" alt="">
-                        </div>
-                        <div class="col" style="padding-top: 10px;">
-                          <div id="resName">麥當勞</div>
-                          <div style="font-size: 14px;" >共 $<span id="total">120</span>- <span id="date">2022/5/12</span></div>
-                          <div style="font-size: 12px;" ><span id="item">漢堡</span>- <span id="kcal">120</span>kcal</div>
-
-                        </div>
-                      </div>
-                      <div class="col-3 align-self-center">
-                        <div class="col">
-                          <div>
-                            <span style="font-size: 10px;" id="orderId">訂單編號</span>
-                          </div>
-                          <div>
-                            <a style="background-color: #FF7F3F; border: none; width: 100%; margin-bottom: 25px;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">訂單評分</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="border-bottom:1px solid rgb(160, 156, 156); " class="col-12 d-flex justify-content-between">
-                      <div class="col-6 d-flex">
-                        <div class="col d-flex">
-                          <img class="align-self-center" style="width: 180px; height: 130px" src="../images/20190813JEF004__20190813_L.jpg" alt="">
-                        </div>
-                        <div class="col" style="padding-top: 10px;">
-                          <div id="resName">麥當勞</div>
-                          <div style="font-size: 14px;" >共 $<span id="total">120</span>- <span id="date">2022/5/12</span></div>
-                          <div style="font-size: 12px;" ><span id="item">漢堡</span>- <span id="kcal">120</span>kcal</div>
-
-                        </div>
-                      </div>
-                      <div class="col-3 align-self-center">
-                        <div class="col">
-                          <div>
-                            <span style="font-size: 10px;" id="orderId">訂單編號</span>
-                          </div>
-                          <div>
-                            <a style="background-color: #FF7F3F; border: none; width: 100%; margin-bottom: 25px;" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">訂單評分</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
+                  <div class="row" id="orderList">
+                    
                   </div>
                 </div>
                 <!-- /.card-body -->

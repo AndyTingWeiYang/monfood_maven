@@ -39,6 +39,13 @@
                     <!-- 表單區塊 -->
                     <form class="jumbotron" method="post" action="ProductListServlet">
                         <div class="form-group row ">
+	                        <div class="col-sm-6 ">
+	                                <span class="resID " name="resID">
+	                                    會員編號 : ${sessionScope.resID}
+	                                </span>
+	                            </div>
+                            <div class="col-sm-6 d-flex" style="justify-content: end;">
+                            </div>
                             <div class="row col-md-6 col-sm-12 mb-3">
                                 <label for="productID" class="col-form-label col-md-12 col-sm-12">商品編號</label>
                                 <div class="col-md-12 col-sm-12">
@@ -98,7 +105,7 @@
 	                                    <td>${product.productStatus}</td>
 	                                    <td>
 	                                        <div class="mf-btn-center">
-	                                        	<a class="btn btn-outline-secondary btn-sm mb-1" href="<%=request.getContextPath()%>/resprofile/PreviewProductServlet?productID=${product.productID}"  id="manual-ajax">
+	                                        	<a class="btn btn-outline-secondary btn-sm mb-1" href="<%=request.getContextPath()%>/resprofile/PreviewProductServlet?productID=${product.productID}&${product.resID}"  id="manual-ajax">
 	                                            	修改
                                                 </a>
 	                                        </div>

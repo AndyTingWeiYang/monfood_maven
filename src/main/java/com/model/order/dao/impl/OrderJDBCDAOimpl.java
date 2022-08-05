@@ -11,8 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.model.del.DelVO;
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
+import com.model.orderdetail.OrderDetailVO;
+import com.model.product.ProductVo;
+import com.model.res.ResVO;
 
 public class OrderJDBCDAOimpl implements OrderDAO {
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -28,10 +32,25 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	private static final String GET_ONE_STMT = "select * from `ORDER` where ORDER_ID = ?";
 	private static final String DELETE = "delete from `ORDER` where ORDER_ID = ?";
 	private static final String UPDATE = "update `ORDER` "
-			+ "set RATING = ?, RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?" + "where ORDER_ID = ?";
+			+ "set RES_RATE = ?, DEL_RATE = ?, RES_COMMENT = ?, DEL_COMMENT = ?" + "where ORDER_ID = ?";
 	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
 	private static final String GET_RATING = "SELECT AVG(RES_RATE) FROM `ORDER` where RES_ID = ?";
-
+	private static final String GET_ALL_BY_ID = "SELECT o.ORDER_ID, o.USER_ID, o.RES_ID, o.DEL_ID, o.ORDER_DONE, o.TOTAL, o.RATING, o.RES_RATE, o.DEL_RATE, o.RES_COMMENT, o.DEL_COMMENT, r.RES_NAME, r.RES_PIC FROM `ORDER` o\r\n"
+			+ "join RES r\r\n"
+			+ "on o.RES_ID = r.RES_ID\r\n"
+			+ "join DEL dl\r\n"
+			+ "on o.DEL_ID = dl.DEL_ID\r\n"
+			+ "where o.USER_ID =?\r\n"
+			+ "order by o.ORDER_ID";
+	
+	private static final String GET_PRODUCT_BY_ID ="SELECT o.ORDER_ID, p.PRODUCT_NAME, p.PRODUCT_KCAL FROM `ORDER` o\r\n"
+			+ "join ORDER_DETAIL d\r\n"
+			+ "on d.ORDER_ID = o.ORDER_ID\r\n"
+			+ "join PRODUCT p\r\n"
+			+ "on p.PRODUCT_ID = d.PRODUCT_ID\r\n"
+			+ "where o.USER_ID =?\r\n"
+			+ "order by o.ORDER_ID";
+	
 	@Override
 	public Double getRating(Integer resId) {
 
@@ -429,7 +448,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
-
+	
 	@Override
 	public void update(OrderVO orderVO) {
 		Connection con = null;
@@ -441,12 +460,11 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setBoolean(1, orderVO.getRating());
-			pstmt.setDouble(2, orderVO.getResRate());
-			pstmt.setDouble(3, orderVO.getDelRate());
-			pstmt.setString(4, orderVO.getResComment());
-			pstmt.setString(5, orderVO.getDelComment());
-			pstmt.setInt(6, orderVO.getOrderId());
+			pstmt.setDouble(1, orderVO.getResRate());
+			pstmt.setDouble(2, orderVO.getDelRate());
+			pstmt.setString(3, orderVO.getResComment());
+			pstmt.setString(4, orderVO.getDelComment());
+			pstmt.setInt(5, orderVO.getOrderId());
 
 			pstmt.executeUpdate();
 
@@ -475,7 +493,141 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
+	
+	@Override
+	public List<OrderVO> getAllById(Integer userId) {
 
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+		ProductVo productVo =null;
+		ResVO resVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_BY_ID);
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				orderVO = new OrderVO();
+				
+				resVO = new ResVO();
+				resVO.setResName(rs.getString("RES_NAME"));
+				resVO.setResPic(rs.getBytes("RES_PIC"));
+				
+				orderVO.setOrderId(rs.getInt("ORDER_ID"));
+				orderVO.setUserId(rs.getInt("USER_ID"));
+				orderVO.setResId(rs.getInt("RES_ID"));
+				orderVO.setDelId(rs.getInt("DEL_ID"));
+				orderVO.setOrderDone(rs.getTimestamp("ORDER_DONE"));
+				orderVO.setTotal(rs.getInt("TOTAL"));
+				orderVO.setRating(rs.getBoolean("RATING"));
+				orderVO.setResRate(rs.getDouble("RES_RATE"));
+				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
+				orderVO.setResComment(rs.getString("RES_COMMENT"));
+				orderVO.setDelComment(rs.getString("DEL_COMMENT"));
+				orderVO.setResVO(resVO);;
+				list.add(orderVO);
+
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<OrderVO> getAllProductById(Integer userId) {
+
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+		ProductVo productVo =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_PRODUCT_BY_ID);
+			pstmt.setInt(1, userId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				orderVO = new OrderVO();
+				productVo = new ProductVo();
+				productVo.setProductName(rs.getString("PRODUCT_NAME"));
+				productVo.setProductKcal(rs.getInt("PRODUCT_KCAL"));
+				
+				orderVO.setOrderId(rs.getInt("ORDER_ID"));
+				orderVO.setProductVo(productVo);
+				list.add(orderVO);
+
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 
 		OrderDAO dao = new OrderJDBCDAOimpl();

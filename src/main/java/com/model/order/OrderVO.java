@@ -3,10 +3,19 @@ package com.model.order;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.model.del.DelVO;
+import com.model.orderdetail.OrderDetailVO;
+import com.model.product.ProductVo;
+import com.model.res.ResVO;
+
 
 public class OrderVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	private OrderDetailVO orderDetailVO;
+	private ProductVo productVo;
+	private DelVO delVO;
+	private ResVO resVO;
 	private Integer orderId;
 	private Integer userId;
 	private Integer resId;
@@ -31,11 +40,16 @@ public class OrderVO implements Serializable{
 	
 	public OrderVO() {
 	}
-	
-	public OrderVO(Integer orderId, Integer userId, Integer resId, Integer delId, Integer orderStatus, String note,
-			String userLocation, Timestamp orderCreate, Timestamp orderDone, Integer productKcalTotal, Integer total, Integer delCost, Boolean useCash,
-			String creditId, Integer discount, Boolean rating, Double resRate, Double delRate, String resComment,
-			String delComment, Integer promoteId) {
+
+	public OrderVO(OrderDetailVO orderDetailVO, ProductVo productVo, DelVO delVO, ResVO resVO, Integer orderId,
+			Integer userId, Integer resId, Integer delId, Integer orderStatus, String note, String userLocation,
+			Timestamp orderCreate, Timestamp orderDone, Integer productKcalTotal, Integer total, Integer delCost,
+			Boolean useCash, String creditId, Integer discount, Boolean rating, Double resRate, Double delRate,
+			String resComment, String delComment, Integer promoteId) {
+		this.orderDetailVO = orderDetailVO;
+		this.productVo = productVo;
+		this.delVO = delVO;
+		this.resVO = resVO;
 		this.orderId = orderId;
 		this.userId = userId;
 		this.resId = resId;
@@ -58,7 +72,7 @@ public class OrderVO implements Serializable{
 		this.delComment = delComment;
 		this.promoteId = promoteId;
 	}
-	
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -185,8 +199,37 @@ public class OrderVO implements Serializable{
 	public void setPromoteId(Integer promoteId) {
 		this.promoteId = promoteId;
 	}
-	
-	
 
+	public OrderDetailVO getOrderDetailVO() {
+		return orderDetailVO;
+	}
+
+	public void setOrderDetailVO(OrderDetailVO orderDetailVO) {
+		this.orderDetailVO = orderDetailVO;
+	}
+
+	public ProductVo getProductVo() {
+		return productVo;
+	}
+
+	public void setProductVo(ProductVo productVo) {
+		this.productVo = productVo;
+	}
+
+	public DelVO getDelVO() {
+		return delVO;
+	}
+
+	public void setDelVO(DelVO delVO) {
+		this.delVO = delVO;
+	}
+
+	public ResVO getResVO() {
+		return resVO;
+	}
+
+	public void setResVO(ResVO resVO) {
+		this.resVO = resVO;
+	}
 	
 }

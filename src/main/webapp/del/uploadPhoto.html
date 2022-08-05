@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" id="uploadPic" />
+    <br>
+    <img style="width: 50%" id="testImg" src="" alt="" />
+  </body>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
+  <script>
+    $("#uploadPic").on("change", function () {
+      var input_file = $("#uploadpic");
+      var uploadPic;
+
+    
+
+      run(this, function (data) {
+        uploadPic = data;
+        $("#testImg").attr("src", data);
+      });
+
+      function run(input_file, get_data) {
+        /*input_file:檔案按鈕物件*/
+        /*get_data: 轉換成功後執行的方法*/
+        if (typeof FileReader === "undefined") {
+          alert(
+            "抱歉,你的瀏覽器不支援 FileReader,不能將圖片轉換為Base64,請使用現代瀏覽器操作!"
+          );
+        } else {
+          try {
+            /*圖片轉Base64 核心程式碼*/
+            var file = input_file.files[0];
+            // //這裡我們判斷下型別如果不是圖片就返回 去掉就可以上傳任意檔案
+            // if (!/image\/\w+/.test(file.type)) {
+            //   alert("請確保檔案為影象型別");
+            //   return false;
+            // }
+            var reader = new FileReader();
+            reader.onload = function () {
+            //檔案讀完之後傳this.result進入get_data這個方法這個方法寫在上面也太酷了
+            //還有這種寫法先定義a(1, 2)方法傳入參數1然後要執行方法2
+            // 等到呼叫a方法後再把方法2寫出來
+              get_data(this.result); };
+              //讀file讀完後寫入reader的result屬性
+            reader.readAsDataURL(file);
+          } catch (e) {
+            alert("圖片轉Base64出錯啦!" + e.toString());
+          }
+        }
+      }
+
+      var editUrl = "AdminDelEdit";
+
+      $.ajax({
+        url: editUrl,
+        type: "POST",
+        data: {
+          delID: "1",
+          delName: "小名",
+          delAccount: "ming",
+          delPassword: "12345",
+          delTel: "0989090942",
+          delBirthday: "1989-01-02",
+          platenumber: "1234-aaa",
+          status: "1",
+          updateTime: "2022-07-25",
+          getDelIDPhoto: uploadPic,
+          delAccountName: "mingW",
+          delBankname: "華南銀行",
+          delBankcode: "008",
+          delBankaccount: "111122223333",
+        },
+        dataType: "JSON",
+        success: function () {
+          console.log("成功傳出編輯資訊");
+        },
+      });
+    });
+  </script>
+</html>

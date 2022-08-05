@@ -16,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
+import com.model.res.ResVO;
+import com.model.resCategory.ResCategoryVo;
 
 public class ProductDAOImpl implements ProductDao {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -27,10 +29,12 @@ public class ProductDAOImpl implements ProductDao {
 
 	private static final String SELECT = "select * from MonFood.PRODUCT where 1 = 1 ";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID=?";
+	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID= ?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
 	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
+	private static final String FIND_RES_INFO = "select * from RES inner join RES_CATEGORY "
+			+ " on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID" + " where RES_ID = ? ";
 	static {
 //			Context context = new InitialContext();
 //			ds = (DataSource) context.lookup("java:comp/env/jdbc/MonFood"); // JNDI 還沒取名，待修改
@@ -116,9 +120,12 @@ public class ProductDAOImpl implements ProductDao {
 			sbf.append(SELECT);
 
 			// 取得產品 ID
-			// 將Integer->String判斷是否為空
 			String productIdStr = castTypeToStr(product.getProductID());
 			Map<String, Object> fieldMap = new HashedMap<>();
+			sbf.append(" and RES_ID = ? ");
+			fieldMap.put("resID", product.getResID());
+//			
+			// 將Integer->String判斷是否為空
 			if (StringUtils.isNotBlank(productIdStr)) {
 				sbf.append(" and PRODUCT_ID = ? ");
 				fieldMap.put("productId", productIdStr);
@@ -140,7 +147,8 @@ public class ProductDAOImpl implements ProductDao {
 				fieldMap.put("minPrice", product.getMinPrice());
 				fieldMap.put("maxPrice", product.getMaxPrice());
 			}
-
+		
+			
 			// 將組好的 sql 指令放進 pstmt
 			pstmt = conn.prepareStatement(sbf.toString());
 
@@ -481,19 +489,19 @@ public class ProductDAOImpl implements ProductDao {
 
 	@Override
 	public List<ProductVo> getAll() {
-		
-		List<ProductVo> list = new ArrayList<ProductVo>();
+
+		List<ProductVo> list = new ArrayList<>();
 		ProductVo productVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(GET_ALL);
 			rs = pstmt.executeQuery();
-		
+
 			while (rs.next()) {
 				ProductVo productVO = new ProductVo();
 				productVO.setProductID(rs.getInt("PRODUCT_ID"));
@@ -506,16 +514,14 @@ public class ProductDAOImpl implements ProductDao {
 				productVO.setStock(rs.getInt("STOCK"));
 
 				list.add(productVO);
-				
+
 			}
-			
+
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -542,6 +548,52 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return list;
 	}
-	
+
+	@Override
+	public Map<String, Object> findResInfo(Integer resID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, Object> resInfoMap = new HashedMap<>();
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(FIND_RES_INFO);
+			pstmt.setInt(1, resID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				resInfoMap.put("resID",rs.getInt("RES_ID") );
+				resInfoMap.put("resName", rs.getString("RES_NAME"));
+				resInfoMap.put("resCategoryName", rs.getString("RES_CATEGORY_NAME"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resInfoMap;
+	}
 
 }

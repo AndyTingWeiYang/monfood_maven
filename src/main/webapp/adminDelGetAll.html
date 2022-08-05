@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>MonFood</title>
+  <!-- w3c.js 引入共用畫面 -->
+  
+</head>
+
+
+<body>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
+  <div class="container-scroller">
+
+    <!-- ===== sidebar start ===== -->
+    <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
+    <div w3-include-html="adminSidebar.html"></div>
+    <!-- ===== sidebar end ===== -->
+
+    <div class="container-fluid page-body-wrapper">
+      <!-- ===== header start ===== -->
+      <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
+      <div w3-include-html="adminHeader.html"></div>
+      <!-- ===== header end ===== -->
+
+      <div class="main-panel">
+        <!-- ===== 內容客製化區塊 start ===== -->
+        <div class="mf-content-wrapper mt-5">
+          <!-- 表單區塊 -->
+       
+       
+          <div class="row result">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"style="background-color: #e9ecef;">
+                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>183</td>
+                        <td>John Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-success">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>219</td>
+                        <td>Alexander Pierce</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-warning">Pending</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>657</td>
+                        <td>Bob Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-primary">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>175</td>
+                        <td>Mike Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>134</td>
+                        <td>Jim Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-success">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>494</td>
+                        <td>Victoria Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-warning">Pending</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>832</td>
+                        <td>Michael Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-primary">Approved</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>982</td>
+                        <td>Rocky Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>982</td>
+                        <td>Rocky Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                      <tr>
+                        <td>982</td>
+                        <td>Rocky Doe</td>
+                        <td>11-7-2014</td>
+                        <td><span class="tag tag-danger">Denied</span></td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        </div>
+        <!-- ===== 內容客製化區塊 ===== -->
+
+
+        <!-- ===== footer start ===== -->
+        <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
+        <div w3-include-html="adminFooter.html"></div>
+        <!-- ===== footer end ===== -->
+      </div>
+    </div>
+  </div>
+  <script>
+    // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      w3.includeHTML(function () {
+        var scriptObj = document.querySelectorAll('script[src^="assets"]');
+  
+        for (var i = 0; i < scriptObj.length; i++) {
+          var scriptElement = document.createElement('script');
+          scriptElement.src = scriptObj[i].getAttribute('src');
+  
+          document.head.appendChild(scriptElement);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

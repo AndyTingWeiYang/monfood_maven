@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MonFood | userLogin</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/index.css">
+
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.container {
+	width: 75%;
+}
+
+.form-group {
+	height: calc(100vh - 56px);
+	display: flex;
+	justify-content: center; /* 水平對齊 */
+	align-items: center; /* 垂直對齊 */
+}
+
+@media ( max-width : 629.98px) {
+	.form-group {
+		align-items: baseline;
+	}
+}
+
+.headline {
+	text-align: center;
+}
+
+@media ( max-width : 629.98px) {
+	.headline {
+		margin-top: 20px;
+		width: 100%;
+		font-size: 16px;
+		white-space: nowrap
+	}
+}
+
+.single-btn {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.bottom-btn {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media ( max-width : 629.98px) {
+	/* .bottom-btn{
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        } */
+	.bottom-btn {
+		display: block;
+		width: 100%;
+	}
+	.btn {
+		width: 100%;
+	}
+}
+
+@media ( max-width : 339.20px) {
+	.bottom-btn {
+		display: block;
+		width: 100%;
+	}
+	.btn {
+		width: 100%;
+	}
+}
+
+.noticespan, .pointspan {
+	color: red;
+	font-size: 10px;
+}
+
+.pointspan {
+	color: red;
+	font-size: 10px;
+	margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
+
+	<!-- navbar -->
+	<header>
+		<nav class="navbar navbar-expand-lg" style="background-color: #1A4D2E">
+			<div class="container">
+				<a class="navbar-brand d-inline-flex" href="index.html"> <span
+					class="logo">Mon</span> <span class="logo2" style="color: white;">Food</span>
+				</a>
+			</div>
+		</nav>
+	</header>
+	<!-- navbar -->
+
+	<main>
+		<!-- section -->
+		<div class="container">
+      <form action="../DelLoginServlet" method="post">
+			<div
+				class="form-group row mx-auto col-sm-12 col-md-10 col-lg-8 col-xl-8">
+				<div class="row">
+					<h3 class="headline mb-4">您的手機號碼為何？</h3>
+					<span class="pointspan span"></span>
+					<div class="mb-3">
+						<input type="text" class="form-control" id="delTel" name="delTel"
+							placeholder="請輸入您的手機號碼"> <span class="noticespan telspan"></span>
+					</div>
+					<div class="mb-3">
+						<input type="password" class="form-control" id="delPassword" name="delPassword"
+							placeholder="請輸入您的密碼"> <span
+							class="noticespan passwordspan"></span>
+					</div>
+					<div class="bottom-btn">
+						<button type="button" class="delRegister btn btn-primary mb-3" style="background-color: #1A4D2E">
+							<a href="/delRegister.html"></a>註冊成為外送員
+						</button>
+						<button type="submit" class="enter btn btn-primary mb-3 btn_confirm" style="background-color: #1A4D2E">
+							送出</button>
+					</div>
+					<div class="single-btn">
+						<button type="button" class="forget-password btn btn-primary" style="background-color: #1A4D2E">忘記密碼</button>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+
+		<!-- section -->
+	</main>
+
+	<script src="../assets/js/jQuery-3.6.0.js"></script>
+	<script>
+        
+        $(function(){
+
+          // 網頁轉向
+          $("button.delRegister").on("click",function(){
+            location.href="delRegister.html";
+          });
+
+          $(".forget-password").on("click",function(){
+            location.href="./resetPassword.html";
+          });
+
+          function getcookie(SessionID){
+            console.log(SessionID);
+          }
+
+		  $("button.btn_confirm").on("click", function(){
+			var delTel = $("input#delTel").val();
+			console.log(delTel);
+		    console.log($("input#delPassword").val());
+
+		  });
+
+		  
+		 
+
+		  
+          
+//           fetch(("/DelLoginErrorServlet"),{
+//               method: "POST",
+//               headers: {
+//                 "content-Type": "application.json"
+//               },
+//               body: JSON.stringify({
+// 				delTel: $("input#delTel").val(),
+// 				delPassword: $("input#delPassword").val()
+//               })
+//         })
+//           .then(function (response) {
+//             if (response.ok) {
+//               console.log("接收登入錯誤訊息");
+//               return response.json(); // 將取得的資料，再使用 .json() 解析資料
+//             }
+//           })
+//           .then(function(data){
+// 			console.log(data);
+            
+//           });
+          
+
+// 有空綁在click事件寫在controller
+// tel驗證
+          // $("#delTel").on("blur",function(){
+          //   var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+          //   if($("#delTel").val().trim() == ""){
+          //     $(".telspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
+          //   }else if(!(pattern.test($("#delTel").val().trim()))){
+          //     $(".telspan").addClass("noticespan").text('*請輸入正確格式');
+          //   }else{
+          //     $(".telspan").removeClass("noticespan").text('');
+          //   }
+          // });
+          
+          // 密碼驗證
+          // 以下是這個正規表示式的 pattern 的內容:
+          // 密碼長度須超過八個字 {8,}
+          // 密碼複雜度須包含:
+          // - 小寫字母 [a-z]
+          // - 大寫字母 [A-Z]
+          // - 數字 \d
+//           $("#delpassword").on("blur",function(){
+//             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+//             if($("#delpassword").val().trim() == ""){
+//               $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
+//             }else if(!(pattern.test($("#delpassword").val().trim()))){
+//               $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
+//             }else{
+//               $(".passwordspan").removeClass("noticespan").text('');
+//             }
+//           });
+
+          // 消除ajax發出後的錯誤提示
+//           $("#delTel , #delpassword").on("blur",function(){
+//             if($("#delTel").val().trim() != "" || $("#delpassword").val().trim() != ""){
+//               $(".pointspan").removeClass("noticespan").text('');
+//             }
+//           });
+
+// 有空鍵盤按enter
+// 登入資料發出給伺服器
+//           $(".enter").on("click",function(){
+// //             if($("span").hasClass("noticespan")){
+// //               alert("輸入有誤請重新登入");
+// //               return;
+// //             }
+//             $.ajax({
+//               url: "DelLoginServlet",           
+//               type: "POST",                  
+//               data: JSON.stringify({
+//                 delTel: $("#delTel").val().trim(),
+//                 delPassword: $("#delPassword").val().trim()
+//               }),             
+//               contentType : "application/json;charset=utf-8",
+//               dataType: "json",             
+//               success: function(data){      // request 成功取得回應後執行
+//                 console.log(data);
+//                 if(data.LoginSuceesfully == "登入成功"){
+//                   location.href="del/del_index.html";
+//                 }else if(data.None == "查無帳號"){;
+//                   $(".pointspan").addClass("noticespan").text("查無帳號");
+//                 }else if (data.ErrorPassword == "密碼有誤，請重新輸入"){
+//                   $(".pointspan").addClass("noticespan").text("密碼有誤，請重新輸入");
+//                 }
+               
+//               },error: function(errMsg){         // request 發生錯誤的話執行
+//                 console.log(errMsg);
+                
+//             },
+//             });
+//           });
+        });
+
+
+
+
+
+
+
+      </script>
+
+</body>
+</html>

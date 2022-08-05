@@ -12,7 +12,7 @@
     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/timepicker.css' />">
     <script src="<c:url value='/assets/js/admin-res-reception-js/timepicker.js' />"></script>
-</script>
+
 </head>
 <body>
     <div class="container-scroller">
@@ -23,7 +23,7 @@
                 <div class="mf-content-wrapper" id="mf-res-setting">
 
                     <!-- 表單區塊 -->
-
+					<form method="post" action="UpdateResReceptionServlet">
                     <label for="resAccount" class="col-sm-12 col-form-label"></label>
                     <div class="col-sm-12">
                         <input type="text" readonly name="resAccount" class="form-control" id="resAccount">
@@ -115,8 +115,9 @@
                             <button type="submit" class="btn btn-secondary mx-1">回復原廠設定</button>
                         </div>
                     </div>
+					</form>
                 </div>
-                
+			
 				<jsp:include page="resReception-footer.jsp" />
             </div>
         </div>
