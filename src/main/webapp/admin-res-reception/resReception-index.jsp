@@ -149,7 +149,7 @@ $(document).ready(function() {
                     <br>
                     <div class="grid">
                         <div class="g-col-6">
-                            <button type="submit" class="btn btn-secondary mx-1">儲存</button>
+                            <button type="submit" id="submit" class="btn btn-secondary mx-1">儲存</button>
                             <button type="button" class="btn btn-secondary mx-1">取消</button>
                             <button type="reset" class="btn btn-secondary mx-1">回復原廠設定</button>
                         </div>
@@ -169,17 +169,26 @@ $(document).ready(function() {
             timeFormat: 'HH:mm:ss',
             interval: 15
         });
-//      $(".btn-check").each(function () {
-//      if($(this).attr("type") == "checkbox" ){
-//     	if($('input[name=bzWeekTime]:checked').size() < 1){
-//     		alert($(this).attr('btn-check') + "請選擇營業星期!");
-//     		 return false;
-//     		}
-//     	}        
-		
-	})   
+        
+        $("#submit").click(function(){
+            const check=$("input[name='bzWeekTime']:checked").length;
+            if(check != 0){
+                alert("修改成功");
+                return true;
+            }else{
+                alert("請選擇營業星期!");
+                return false;
+            	}
+        	}
 
-    });
+       	);
+        
+        
+        
+        
+        
+	});
+
 
     </script>
 </body>

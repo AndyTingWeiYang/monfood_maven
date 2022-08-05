@@ -65,6 +65,13 @@ public class UpdateResServlet extends HttpServlet {
 			dataMap.put("resID", resID);
 			//營業星期    因為這裡是String[] ,用getParameterValues = 取得陣列內所有value值
 			dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
+			Object values = dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
+			if( values == null) {
+				request.setAttribute("errMsg", "error: update fail");
+				RequestDispatcher rd = request.getRequestDispatcher("/admin-res-reception/resReception-index.jsp");
+				rd.forward(request, response);
+			}
+			
 			//開店時間
 			dataMap.put("bzOpenHours", request.getParameter("bzOpenHours"));
 			//關店時間
