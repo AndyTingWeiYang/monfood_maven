@@ -41,7 +41,6 @@ webSocket.onmessage = function (event) {
   let jsonObj = JSON.parse(event.data);
   console.log(jsonObj);
   
-  // messagesArea.innerHTML = '';
   // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
   let messages = JSON.parse(jsonObj.message);
   for (let i = 0; i < messages.length; i++) {

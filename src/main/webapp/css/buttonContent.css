@@ -4,12 +4,6 @@
   }
 /* 聊天室 */
 /* 增加 */
-/* ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-} */
-
 ul li{
   display:inline-block;
   clear: both;
@@ -33,19 +27,6 @@ ul li{
   margin-right: 20px;
 
 }
-/* 
-.friend + .me{
-  border-bottom-right-radius: 5px;
-}
-
-.me + .me{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
-} */
 /* 增加 */
   body {
     background-color: #edeff2;

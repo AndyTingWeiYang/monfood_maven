@@ -20,8 +20,7 @@ import com.google.gson.Gson;
 import com.model.chatroom.ChatInfoVo;
 import com.model.chatroom.dao.JedisHandleMessage;
 
-//需改為動態網址{userId} [to be revised]
-// 先假設登入者userId = 2 (寫在js)[to be deleted]
+
 @ServerEndpoint("/ChatWebsocket/{userId}")
 public class ChatWebsocket {
 
@@ -29,7 +28,6 @@ public class ChatWebsocket {
 	private static Map<Integer, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
 
-	// @PathParam需改為動態參數"userId" [to be revised] (要跟上面名稱相同)
 	@OnOpen
 	public void onOpen(@PathParam("userId") Integer userId, Session userSession) {
 		// 一個session代表一個使用者跟server之間的通訊
