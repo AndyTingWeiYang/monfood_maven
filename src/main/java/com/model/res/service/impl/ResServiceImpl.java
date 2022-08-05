@@ -1,6 +1,7 @@
 package com.model.res.service.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -178,6 +179,20 @@ public class ResServiceImpl implements ResService {
 	public List<Map<String, Object>> searchProduct(String searchPdt) {
 		List<Map<String, Object>> list = dao.searchProduct(searchPdt);
 		return list;
+	}
+
+	@Override
+	public List<ResVO> getByZipcode(String zipcode) {
+		List<ResVO> resList = new ArrayList<ResVO>();
+		List<ResVO> resultList = new ArrayList<ResVO>();
+		resList = dao.getResForZipcode();
+		for (ResVO resVO : resList) {
+			if(zipcode.equals(String.valueOf(resVO.getZipCode()) )) {
+				resultList.add(resVO);
+			}
+		}
+		System.out.println("service:"+resultList);
+		return resultList;
 	}
 
 }
