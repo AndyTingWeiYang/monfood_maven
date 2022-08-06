@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.model.product.ProductVo;
-import com.model.res.ResVO;
 
 public interface ProductService {
 
-	ProductVo findByID(String productID);
+	Map<String, Object> findByID(String productID);
 
 	List<ProductVo> findAll(Map<String, Object> dataMap);
 

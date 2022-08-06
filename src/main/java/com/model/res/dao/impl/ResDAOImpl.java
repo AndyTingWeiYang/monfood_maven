@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.model.order.OrderVO;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
@@ -47,27 +46,25 @@ public class ResDAOImpl implements ResDAO {
 //	//搜尋框模糊查詢
 
 //	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, RES.BZ_LOCATION, RES.BZ_OPEN_HOURS, RES.BZ_CLOSE_HOURS FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
-	//首頁搜尋行政區內餐廳
+	// 首頁搜尋行政區內餐廳
 	private static final String GETRESFORINDEX = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, ZIP_CODE FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
-	
-	
 
 //	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.* "
 //			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
 //			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
 //			+ "WHERE PRODUCT.PRODUCT_NAME like ? "
 //			+ "GROUP BY RES.RES_ID";
-	 private static final String SEARCHPRODUCT = "SELECT AVG(RES_RATE), RES.*, PRODUCT.* "
-			   + "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
-			   + "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID " + "WHERE PRODUCT.PRODUCT_NAME like ? "
-			   + "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
+	private static final String SEARCHPRODUCT = "SELECT AVG(RES_RATE), RES.*, PRODUCT.* "
+			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
+			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID " + "WHERE PRODUCT.PRODUCT_NAME like ? "
+			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
 	// 使用ResId搜尋該商家客戶回饋
 	private static final String GET_COMMENT = "select RES_COMMENT, RES_ID from `ORDER` where RES_ID = ? ";
 	// 進入餐廳頁面
 	private static final String GET_TO_RESPAGE = "SELECT RES_ID, RES_NAME, RES_CATEGORY, BZ_LOCATION, BZ_OPEN_HOURS, BZ_CLOSE_HOURS "
-			+ "FROM MonFood.RES "
-			+ "where RES_ID = ? ";
+			+ "FROM MonFood.RES " + "where RES_ID = ? ";
 
+	private static final String SELECTRESINFO = "SELECT * FROM MonFood.RES inner join RES_CATEGORY on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID where RES_ID = ? ";
 
 //	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
 //			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
@@ -119,7 +116,7 @@ public class ResDAOImpl implements ResDAO {
 			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = conn.prepareStatement(GET_TO_RESPAGE);
 			pstmt.setInt(1, resId);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -761,7 +758,7 @@ public class ResDAOImpl implements ResDAO {
 	}
 
 	@Override
-	public boolean updateResInfo(ResDto resDto) {
+	public Map<String, Object> updateResInfo(ResDto resDto) {
 		String updateResInfo = "UPDATE MonFood.RES SET RES_CATEGORY = ?,RES_TEL = ?,RES_PIC = ? ,OWNER_NAME = ? ,BZ_LOCATION = ? ,ZIP_CODE = ?  WHERE RES_ID = ?";
 
 		Connection con = null;
@@ -782,7 +779,9 @@ public class ResDAOImpl implements ResDAO {
 			int result = pstmt.executeUpdate();
 
 			if (result > 0) {
-				return true;
+				// 查詢剛剛新增成功的那筆資料
+
+				return selectResInfo(resDto.getResID());
 			}
 
 		} catch (SQLException e) {
@@ -805,7 +804,7 @@ public class ResDAOImpl implements ResDAO {
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	@Override
@@ -873,13 +872,13 @@ public class ResDAOImpl implements ResDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = conn.prepareStatement(GETRESFORINDEX);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -892,7 +891,7 @@ public class ResDAOImpl implements ResDAO {
 				resVO.setZipCode(rs.getInt("ZIP_CODE"));
 				resVO.setResCategory(rs.getInt("RES_CATEGORY"));
 				reslist.add(resVO);
-				System.out.println("dao in while"+reslist);
+				System.out.println("dao in while" + reslist);
 //				Map<String, Object> map = new HashMap<>();
 //				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
 //				map.put("resId",rs.getInt("RES_ID"));
@@ -904,13 +903,11 @@ public class ResDAOImpl implements ResDAO {
 //				map.put("bzWeekTime", rs.getInt("BZ_WEEKTIME"));
 //				rateList.add(map);
 			}
-				
+
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -934,8 +931,61 @@ public class ResDAOImpl implements ResDAO {
 				}
 			}
 		}
-		System.out.println("DAO:"+reslist);
+		System.out.println("DAO:" + reslist);
 		return reslist;
+	}
+
+	public Map<String, Object> selectResInfo(Integer resID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<String, Object> resMap = new HashMap<>();
+
+		try {
+			conn = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = conn.prepareStatement(SELECTRESINFO);
+			pstmt.setInt(1, resID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				resMap.put("resID", rs.getInt("RES_ID"));
+				resMap.put("resCategory", rs.getInt("RES_CATEGORY"));
+				resMap.put("resAccount", rs.getString("RES_ACCOUNT"));
+				resMap.put("resName", rs.getString("RES_NAME"));
+				resMap.put("resTel", rs.getString("RES_TEL"));
+				resMap.put("ownerName", rs.getString("OWNER_NAME"));
+				resMap.put("ownerTel", rs.getString("OWNER_TEL"));
+				resMap.put("bzLocation", rs.getString("BZ_LOCATION"));
+				resMap.put("resCategoryName", rs.getString("RES_CATEGORY_NAME"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return resMap;
 	}
 
 }

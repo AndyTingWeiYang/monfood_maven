@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.model.product.ProductVo;
-import com.model.res.ResVO;
 
 public interface ProductDao {
 	// 查詢一筆資料
-	public ProductVo findByID(String productID);
+	public Map<String, Object> findByID(String productID);
 
 	// 查詢多筆資料
 	public List<ProductVo> findAll(ProductVo productVO);

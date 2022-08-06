@@ -8,13 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.model.order.OrderVO;
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
 import com.model.product.service.ProductService;
 import com.model.product.util.IntTypeAdapter;
-import com.model.res.ResVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -91,8 +89,8 @@ public class ProductServiceImpl implements ProductService {
 
 	public void checkResp() {
 		// 檢核手機號碼
-		String checkPhone ="";
-		
+		String checkPhone = "";
+
 	}
 
 	@Override
@@ -116,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVo findByID(String productID) {
+	public Map<String, Object> findByID(String productID) {
 		return productDao.findByID(productID);
 	}
 

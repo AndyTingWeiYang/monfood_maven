@@ -1,6 +1,5 @@
 package com.model.res.service.impl;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.MapUtils;
 
-import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
 import com.model.res.ResDto;
@@ -142,7 +140,7 @@ public class ResServiceImpl implements ResService {
 	}
 
 	@Override
-	public boolean updateResInfo(ResDto resDto) {
+	public Map<String, Object> updateResInfo(ResDto resDto) {
 		return dao.updateResInfo(resDto);
 	}
 
@@ -178,7 +176,8 @@ public class ResServiceImpl implements ResService {
 	@Override
 	public List<Map<String, Object>> searchProduct(String searchPdt) {
 		List<Map<String, Object>> list = dao.searchProduct(searchPdt);
-		  return list.stream().filter(distinctByKey(map -> MapUtils.getString(map, "resId"))).collect(Collectors.toList());
+		return list.stream().filter(distinctByKey(map -> MapUtils.getString(map, "resId")))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -186,7 +185,6 @@ public class ResServiceImpl implements ResService {
 		List<Map<String, Object>> list = dao.getResComment(resId);
 		return list;
 	}
-	
 
 	@Override
 	public List<Map<String, Object>> adminFindByCategory(Integer resCategory) {
@@ -201,11 +199,11 @@ public class ResServiceImpl implements ResService {
 		List<ResVO> resultList = new ArrayList<ResVO>();
 		resList = dao.getResForZipcode();
 		for (ResVO resVO : resList) {
-			if(zipcode.equals(String.valueOf(resVO.getZipCode()) )) {
+			if (zipcode.equals(String.valueOf(resVO.getZipCode()))) {
 				resultList.add(resVO);
 			}
 		}
-		System.out.println("service:"+resultList);
+		System.out.println("service:" + resultList);
 		return resultList;
 	}
 
@@ -213,12 +211,16 @@ public class ResServiceImpl implements ResService {
 		Map<String, Object> list = dao.getToResPage(resId);
 		return list;
 	}
-	
+
+	@Override
+	public Map<String, Object> selectResInfo(Integer resID) {
+		return dao.selectResInfo(resID);
+	}
+
 	private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-		  Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+		Map<Object, Boolean> seen = new ConcurrentHashMap<>();
 
-		  return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-		 }
-
+		return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+	}
 
 }
