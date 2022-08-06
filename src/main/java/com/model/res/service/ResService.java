@@ -43,5 +43,8 @@ public interface ResService {
 	List<Map<String, Object>> getRate();
 	// 搜尋商品
 	List<Map<String, Object>> searchProduct(String searchPdt);
+	
+	//首頁點選行政區之後搜尋行政區內之餐廳
+	List<ResVO> getByZipcode(String zipcode);
 
 }

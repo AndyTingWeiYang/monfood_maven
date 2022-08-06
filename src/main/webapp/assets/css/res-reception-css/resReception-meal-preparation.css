@@ -1,0 +1,31 @@
+div.modal-content{
+    border: none;
+}
+
+div.modal-header{
+    justify-content: center;
+    background-color: #946c51;
+    height: 60px;
+}
+
+
+span.logo{
+    color: black;
+    font-size: 20px;
+}
+
+span.logo2{
+    color: white;
+    font-size: 20px;
+
+}
+
+.modal img{
+    height: 100px;
+    width: 100px;
+}
+
+div.row{
+    margin: 5px;
+}
+

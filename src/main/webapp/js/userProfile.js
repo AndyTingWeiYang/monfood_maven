@@ -42,11 +42,6 @@ window.addEventListener('load', function(){
             })
         });
 
-
-
-
-
-
     })
 
     // onload get user profile
@@ -73,6 +68,10 @@ window.addEventListener('load', function(){
                 return;
             }else{
                 introduction.val(userProfile.userProfile);
+            }
+            
+            if(msg.profilePic == null || msg.profilePic == undefined){
+                return;
             }
             
         },

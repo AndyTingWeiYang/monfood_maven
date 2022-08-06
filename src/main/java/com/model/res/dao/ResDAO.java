@@ -32,4 +32,6 @@ public interface ResDAO {
 	List<Map<String, Object>> getRate();
 	
 	List<Map<String, Object>> searchProduct(String searchPdt);
+	
+	List<ResVO> getResForZipcode();
 }

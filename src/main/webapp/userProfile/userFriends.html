@@ -47,12 +47,15 @@
             </span>
           </li>
           <li class="nav-item profile d-flex justify-content-center">
-
-            <input type="file" id="upload-file" style="display: none;">
+            <input type="file" id="upload-file" style="display: none" />
             <label for="upload-file">
-              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
+              <img
+                id="profilePic"
+                class="img-xs rounded-circle"
+                src="../images/default-user-icon-13.jpg"
+                alt=""
+              />
             </label>
-
           </li>
 
           <li class="nav-item menu-items">
@@ -315,7 +318,11 @@
           type: "GET",
           dataType: "json",
           success: function (data) {
-            // console.log(data);
+            if (data.length == 0) {
+              let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
+              $("#friendList").append(noFriends);
+            }
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
               var base64String = btoa(
                 String.fromCharCode.apply(
@@ -380,6 +387,7 @@
           </div>
           <h4 id="title">好友資訊</h4>
           <div id="waitPairInfo" class="col align-self-center">
+            <img id = "headshot${data[i].userId}" class="headshot" src="" />
             <div id="info">姓名</div>
             <div id="name">${data[i].userName}</div>
             <hr id="info" />
@@ -409,6 +417,10 @@
                 i
               ].style.backgroundImage =
                 "url('data:image/png;base64," + base64String + "')";
+              $(`#headshot${data[i].userId}`).attr(
+                "src",
+                `data:image/png;base64,${base64String}`
+              );
             }
           },
         });

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en"> 
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>MonFood | delDelivery</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+      <link rel="stylesheet" href="./css/indexHeader.css">
+      <link rel="stylesheet" href="./css/footer.css">
+      <link rel="stylesheet" href="./css/layout.css">
+      <link rel="stylesheet" href="./css/index.css">
+      <link rel="stylesheet" href="./css/delDeliveryIng.css"> <!-- 外送員外送中css -->
+      <link rel="stylesheet" href="../css/messenger.css"> <!-- 聊天室css -->
+      <script src="https://kit.fontawesome.com/0291f08ffe.js" crossorigin="anonymous"></script> <!-- FontAwesome icon -->
+      <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>Geocoding API -->
+
+
+
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+      .container{
+        width: 80%;
+      }
+      @media (max-width: 768px){
+        .container{
+          width: 100%;
+        }
+      }
+
+      .del-center{
+        width: 130px;
+      }
+      @media (max-width: 629.98px){
+        .del-center{
+          width: 100px;
+          display: flex;
+          justify-content: flex-start;
+        }
+      }
+    
+      .btn-primary{
+        margin: auto;
+        margin-top: 20px;
+      }
+
+      .google-map{
+        height: calc(100vh - 200px);
+      }
+      @media (max-width: 629.98px){
+        .google-map{
+          height: calc(100vh - 300px);
+        }
+      }
+
+      .navbar-brand{
+        margin-right: 0;
+      }
+
+      .meal-status{
+        font-size: 25px;
+      }
+
+      .title{
+        margin: 5px 15px 5px 15px;
+      }
+      
+      .but-group{
+        display:flex;
+        justify-content: space-around;
+      }
+
+      #exampleModalFullscreenSmLabel{
+        color: white;
+      }
+
+
+      @media (max-width: 575.98px){
+        .messages{
+            height: calc(100vh - 300px);
+        }
+      }
+ 
+      .btn-close{
+        background-color: white;
+
+      }
+
+      .modal-header .btn-close{
+        margin: calc(var(--bs-modal-header-padding-y) * -.5) 110 calc(var(--bs-modal-header-padding-y) * -.5) auto;
+      }
+
+      .meal-title{
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .payment{
+        display: flex;
+        justify-content: space-between;
+      }
+      .meal-list{
+        margin-bottom: 0px;
+      }
+
+      #map{
+        height: calc(100vh - 200px);
+      }
+      @media (max-width: 629.98px){
+        #map{
+          height: calc(100vh - 290px);
+        }
+      }
+      
+      </style>
+  </head>
+  
+  <body  style="background-color:white;">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+      <!-- navbar -->
+      <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #1A4D2E">
+          <div class="container">
+            <!-- 外送員開關 -->
+            <!-- <div class="container delswitch"> -->
+              <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked disabled>
+                  <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+              </div>
+            <!-- </div> -->
+
+
+            <!-- MonFood Logo -->
+            <div style="width:130px; text-align:center">
+              <!-- <a class="navbar-brand d-inline-flex" href="#"> -->
+                <span class="logo">Mon</span>
+                <span class="logo2">Food</span>
+              <!-- </a> -->
+            </div>
+
+            <!-- 外送夥伴會員中心icon -->
+            <div class="del-center" >
+              <!-- <a href="#"> -->
+                <i class="fa-solid fa-shoe-prints fa-lg fa-rotate-270" style="color: white;"></i>         
+              <!-- </a> -->
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- navbar -->
+      
+      <main>
+          <!-- title -->
+          <div class="title">
+            <span style="font-size: 25px;"><b>餐點狀態：</b></span>
+            <span id="meal-status">請前往領取餐點</span>
+            <!-- meal-status = 已接單請前往領取餐點、請前往送餐、完成送餐請點擊完成訂單 -->
+          </div>
+
+          <!-- 地圖 -->
+          <div id="map"></div>
+
+        <!-- section -->
+          <!-- but-group -->
+          <div class="but-group"> 
+            <div class="d-grid gap-2 d-md-block">
+              <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#orderDetial">訂單資訊</button>
+            </div>
+            <div class="d-grid gap-2 d-md-block">
+              <button type="button" class="btn btn-primary btnOrderFinish" data-bs-toggle="modal" data-bs-target="#orderFinish">完成訂單</button>
+            </div>       
+            <div class="d-grid gap-2 d-md-block">      
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connectUser">聯絡使用者</button>
+            </div>  
+          </div>
+        <!-- section -->
+
+        <!-- Full screen modal -->
+
+        <!-- 訂單資訊 -->
+        <div class="modal fade" id="orderDetial" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel">訂單資訊</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- 訂單明細放進來↓ -->
+                <h3>外送資訊</h3>
+                <h5 id="res-name">店名連結</h5>
+                <div>
+                  <div>
+                    送至
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    <span id="del-address"></span>
+                  </div>
+                  <div>預計送達時間 <span id="del-time"></span></div>
+                </div>
+
+
+                <hr>
+                <h5>付款方式</h5>
+                <div class="list-group">
+                  <div class="list-group-item payment">
+                    <div>總金額$<span id="lump-sum">xxx</span>元</div>
+                    <div id="payment-method">現金/信用卡</div>
+                  </div>
+                </div>
+
+                
+                <hr>
+                <h5>訂單內容</h5>
+                <div class="list-group">
+
+                  <div class="order-list">
+                    <div class="list-group-item">
+                      <div class="meal-title">
+                        <div id="meal">品項a</div>
+                        <div>$<span id="meal-price">餐點價格</span></div>                       
+                      </div>
+                      <p class="meal-list">餐點內容</p>
+                      <p class="meal-list">餐點1</p>
+                      <p class="meal-list">餐點2</p>
+                      <p class="meal-list">餐點3</p>
+                    </div>
+                  </div>
+                
+                  
+                </div>
+   
+                <!-- 訂單明細放進來↑ --> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 完成訂單 -->
+        <div class="modal fade" id="orderFinish" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel">完成訂單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                感謝您完成此次的訂單
+                <p>
+                  畫面將於<span id="countsec"></span>秒內返回首頁。
+                </p>
+              </div>
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+
+        <!-- 聯絡使用者 -->
+        <div class="modal fade" id="connectUser" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel">與使用者<span id="user-name">XXX</span>聯絡</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+                  <ul class="messages"></ul>
+                  <!-- 最下面文字訊息框及送出 -->
+                  <div id="sendMsg" class="bottom_wrapper clearfix">
+                    <div class="message_input_wrapper">
+                      <input class="message_input" placeholder="請輸入訊息..." />
+                    </div>
+                    <div class="send_message">
+                      <div class="icon"></div>
+                      <div class="text">送出</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 聊天內容 -->
+                <div class="message_template">
+                  <li class="message">
+                    <div class="avatar"></div>
+                    <div class="text_wrapper">
+                      <div class="text"></div>
+                    </div>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <script src="assets/js/jQuery-3.6.0.js"></script>
+      
+      <script>
+      
+
+
+          // 完成訂單倒轉畫面
+          var btnOrderFinish = document.querySelector(".btnOrderFinish");
+          btnOrderFinish.addEventListener("click",function(){
+            var worker = new Worker("../js/worker_countdown.js");
+            worker.onmessage = function (e) {
+              document.querySelector("#countsec").innerHTML = e.data;
+              if (e.data == 0) {
+                worker.terminate();
+                window.location.replace("./delIndex.html");
+              }
+            };
+          });
+          
+       
+            
+
+          //聯絡使用者的聊天室
+          (function () {
+          var Message;
+          Message = function (arg) {
+            (this.text = arg.text), (this.message_side = arg.message_side);
+            this.draw = (function (_this) {
+              return function () {
+                var $message;
+                $message = $($(".message_template").clone().html());
+                $message
+                  .addClass(_this.message_side)
+                  .find(".text")
+                  .html(_this.text);
+                $(".messages").append($message);
+                return setTimeout(function () {
+                  return $message.addClass("appeared");
+                }, 0);
+              };
+            })(this);
+            return this;
+          };
+          $(function () {
+            var getMessageText, message_side, sendMessage;
+            message_side = "right";
+            getMessageText = function () {
+              var $message_input;
+              $message_input = $(".message_input");
+              return $message_input.val();
+            };
+            sendMessage = function (text) {
+              var $messages, message;
+              if (text.trim() === "") {
+                return;
+              }
+              $(".message_input").val("");
+              $messages = $(".messages");
+              message_side = message_side === "left" ? "right" : "left";
+              message = new Message({
+                text: text,
+                message_side: message_side,
+              });
+              message.draw();
+              return $messages.animate(
+                { scrollTop: $messages.prop("scrollHeight") },
+                300
+              );
+            };
+            $(".send_message").click(function (e) {
+              return sendMessage(getMessageText());
+            });
+            $(".message_input").keyup(function (e) {
+              if (e.which === 13) {
+                return sendMessage(getMessageText());
+              }
+            });
+          });
+          }.call(this));
+
+
+          // //google map api
+          // // 抓外送員即時位置
+          let delLng = "";
+          let delLat = "";
+  
+          // 初始化地圖
+          function initMap() {       
+            
+            // 用Directions Service送出request
+            let directionsService = new google.maps.DirectionsService();
+            // 得到res開始畫路線
+            let directionsDisplay = new google.maps.DirectionsRenderer();
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  console.log(position);
+                  delLng = position.coords.longitude; // 經度
+                  delLat = position.coords.latitude; // 緯度
+
+                  const delLocation = { lat: delLat, lng: delLng };
+                  console.log(delLng);
+                  console.log(delLat);
+
+                  const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 15,
+                    center: delLocation,
+                    zoomControl: false,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    rotateControl: false,
+                    fullscreenControl: false
+                  });
+                  const marker = new google.maps.Marker({
+                    position: delLocation,
+                    animation: google.maps.Animation.BOUNCE,
+                    map: map,
+                  });
+
+                  // 放置路線圖層
+                  directionsDisplay.setMap(map);             
+      
+                  // 設置參數,繪製路線圖
+                  // directionsService.route(directionsRequest, callback);
+                  var markers = [];
+                  var infowindows = [];
+                  directionsService.route(
+                    {
+                      origin: delLocation ,
+                      destination: "國立臺北商業大學",  //目的地到時候要串使用者及商家位置
+                      travelMode: "DRIVING",
+                      unitSystem: google.maps.UnitSystem.METRIC,
+                      // drivingOptions: pessimistic,
+                      avoidFerries: true ,
+                      avoidHighways: true ,
+                      avoidTolls: true 
+                    },
+                    (response, status) => {
+                      if(status == "OK"){
+                        console.log(response);
+                        
+                        // 取得地址及時間
+                        let delAddress = response.routes[0].legs[0].end_address;
+                        console.log(delAddress);
+                        $("#del-address").text(delAddress);
+                     
+                     
+                        let delTime = response.routes[0].legs[0].duration.text;
+                        console.log(delTime);
+                        $("#del-time").text(delTime);
+                        
+                        
+
+                        // 資訊窗 // 回傳路線上每個步驟的細節
+                        // var steps = response.routes[0].legs[0].steps;
+                        // steps.forEach((e, i) => {
+                        //     // console.log(steps);
+                        //     // 加入地圖標記
+                        //     markers[i] = new google.maps.Marker({
+                        //     position: { lat: e.start_location.lat(), lng: e.start_location.lng() },
+                        //     map: map,
+                        //     label: { text: i + '', color: "#fff" }
+                        //     });
+                        //     // 加入資訊視窗
+                        //     infowindows[i] = new google.maps.InfoWindow({
+                        //     content: e.instructions
+                        //     });
+                        //     // 加入地圖標記點擊事件
+                        //     markers[i].addListener('click', function () {
+                        //     if(infowindows[i].anchor){
+                        //         infowindows[i].close();
+                        //     }else{
+                        //         infowindows[i].open(map, markers[i]);
+                        //     }
+                        //     });
+                        // });
+                        directionsDisplay.setDirections(response);
+                      }else{
+                        console.log(status);
+                      }
+                    }
+                  );             
+                },
+                function (error) {
+                  alert(
+                    "使用者不同意取得位置資訊或尚未取得位置資訊：ERROR(" +
+                      error.code +
+                      "): " +
+                      error.message
+                  );
+                
+                }
+              
+              )
+              
+              
+            };
+
+            
+          };
+          window.initMap = initMap;
+       
+      </script>
+      <!-- google api key -->
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9Wyu4IelumqKy_D_q721dTQbsGyn2goA&libraries=geometry,places,drawing&callback=initMap"></script>
+  </body>
+</html>

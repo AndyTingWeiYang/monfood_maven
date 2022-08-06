@@ -92,7 +92,7 @@ public class DelRegisterServlet extends HttpServlet {
 			System.out.println(answer[1]);
 			System.out.println(delRegiVO.getDelID());
 
-			if("新增成功"==answer[0]) {
+			if("新增成功".equals(answer[0]) ) {
 				HttpSession session = request.getSession();
 				session.setAttribute("del", delRegiVO);
 				System.out.println(session.getAttribute("del")+"session裡的資料"); 
