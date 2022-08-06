@@ -43,5 +43,8 @@ public interface ResService {
 	List<Map<String, Object>> getRate();
 	// 搜尋商品
 	List<Map<String, Object>> searchProduct(String searchPdt);
-
+	// 餐廳客戶回饋
+	List<Map<String, Object>> getResComment(Integer resId);
+	// 餐廳頁面
+	Map<String, Object> getToResPage(Integer resId);
 }

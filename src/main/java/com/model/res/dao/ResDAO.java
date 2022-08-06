@@ -32,4 +32,8 @@ public interface ResDAO {
 	List<Map<String, Object>> getRate();
 	
 	List<Map<String, Object>> searchProduct(String searchPdt);
+
+	List<Map<String, Object>> getResComment(Integer resId);
+	
+	Map<String, Object> getToResPage(Integer resId);
 }
