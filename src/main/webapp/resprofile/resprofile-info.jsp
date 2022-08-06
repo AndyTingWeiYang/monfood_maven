@@ -14,7 +14,6 @@
     <link href="<c:url value='/assets/vendors/file-input/css/fileinput.min.css' />" media="all" rel="stylesheet"
         type="text/css" />
 
-
     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <script src="<c:url value='/assets/js/resprofile-js/twzipcode.js' />"></script>
     <script src="<c:url value='/assets/vendors/file-input/buffer.min.js' />" type="text/javascript"></script>
@@ -25,76 +24,74 @@
     <script src="<c:url value='/assets/vendors/file-input/theme.min.js' />"></script>
     <script src="<c:url value='/assets/vendors/file-input/zh-TW.js' />"></script>
     <script src="<c:url value='/assets/js/resprofile-js/resprofile-info.js' />"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <style>
-        span {
-            font-size: small;
-        }
-    </style>
+	 <style>
+	     span {
+	         font-size: small;
+	     }
+	 </style>
 
 </head>
 <script>
-    $(document).ready(function () {
-        let twzipcode;
-        // 取得地方區域
-        function init() {
-            twzipcode = new TWzipcode("#twzipcode");
+ $(document).ready(function () {
+ 	
+     let twzipcode;
+     // 取得地方區域
+     function init() {
+         twzipcode = new TWzipcode('#twzipcode');
+         $('#ownerName').on('blur', checkInputOwnerName);
+         $('#resPhone').on('blur', checkInputResPhone);
+         $('#bzAdd').on('blur', checkInputBzAdd);
+     }
+     // 上傳圖片
+     function fileUpload() {
+         $('#resFile').fileinput({
+             theme: 'fa6',
+             language: 'zh-TW'
+         });
+     }
+     init();
+     fileUpload();
+     
+     let files = [];
+     $('#resFile').change(function (e) {
+         files = Array.from(e.target.files);
+     });
 
-            $('#ownerName').on('blur', checkInputOwnerName);
-            $('#resPhone').on('blur', checkInputResPhone);
-            $('#resPhone').on('blur', respPhone);
-            $('#bzAdd').on('blur', checkInputBzAdd);
+     $('#btnCheck').click(function () {
+         let formData = new FormData();
+         formData.append('ownerName', $('#ownerName').val());
+         formData.append('resPhone', $('#resPhone').val());
+         formData.append('resCategory', $('#resCategory').val());
+         formData.append('country', twzipcode.get('county'));
+         formData.append('district', twzipcode.get('district'));
+         formData.append('zipcode', twzipcode.get('zipcode'));
+         formData.append('bzAdd', $('#bzAdd').val());
+         formData.append('resFile', files[0]);
 
-        }
-        // 上傳圖片
-        function fileUpload() {
-            $('#resFile').fileinput({
-                theme: "fa6",
-                language: "zh-TW"
-            });
-        }
-        init();
-        fileUpload();
-
-        let files = [];
-        $('#resFile').change(function (e) {
-            files = Array.from(e.target.files);
-        });
-
-        $('#btnCheck').click(function () {
-            let formData = new FormData();
-            formData.append('ownerName', $('#ownerName').val());
-            formData.append('resPhone', $('#resPhone').val());
-            formData.append('resCategory', $('#resCategory').val());
-            formData.append('country', twzipcode.get('county'));
-            formData.append('district', twzipcode.get('district'));
-            formData.append('zipcode', twzipcode.get('zipcode'));
-            formData.append('bzAdd', $('#bzAdd').val());
-            formData.append('resFile', files[0]);
-
-            $.ajax({
-                url: 'ResInfoUpdateServlet',
-                method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                dataType: 'JSON',
-                success: function (data) {
-                    console.log(data);
-                    // 清空商家 src 圖片
-                    $('#resPhoto').attr('src', '');
-                    // 更新商家 src 連結
-                    $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
-                }
-            });
-
-
-        });
-
-
-
-
-    }); 
+         $.ajax({
+             url: 'ResInfoUpdateServlet',
+             method: 'POST',
+             data: formData,
+             contentType: false,
+             processData: false,
+             dataType: 'JSON',
+             success: function (data) {
+            	
+                 console.log(data);
+                 // 清空商家 src 圖片
+                 $('#resPhoto').attr('src', '');
+                 // 更新商家 src 連結
+                 $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                 swal('新增成功', '產品資訊已更新', 'success');
+             },error: function(){
+            	
+             	swal('新增失敗', '請確認是否有空格', 'error');
+             }
+         });
+     });
+ }); 
 </script>
 
 <body>

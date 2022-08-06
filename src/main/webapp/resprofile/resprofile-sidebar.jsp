@@ -57,11 +57,12 @@
 			<span class="menu-icon"> <i class="mdi mdi-plus-circle"></i>
 				</span> <span class="menu-title">新增商品</span>
 			</a></li>
-			<li class="nav-item menu-items"><a class="nav-link"
-				href="resprofile-mailbox.jsp"> <span class="menu-icon"> <i
-						class="mdi mdi-email-open-outline"></i>
-				</span> <span class="menu-title">收件匣</span>
-			</a></li>
+<!-- 			<li class="nav-item menu-items"><a class="nav-link" -->
+<!-- 				href="resprofile-mailbox.jsp"> <span class="menu-icon">  -->
+<!-- 				<i -->
+<!-- 						class="mdi mdi-email-open-outline"></i> -->
+<!-- 				</span> <span class="menu-title">收件匣</span> -->
+<!-- 			</a></li> -->
 			<li class="nav-item menu-items"><a class="nav-link"
 				href="resprofile-order-history.jsp"> <span class="menu-icon">
 						<i class="mdi mdi-playlist-play"></i>
