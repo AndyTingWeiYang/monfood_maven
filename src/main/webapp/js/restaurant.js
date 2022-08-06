@@ -34,6 +34,8 @@ $(function () {
   });
 })();
 
+
+// IIFE 立即執行函式
 (function () {
   "use strict";
   function Guantity($root) {
@@ -77,15 +79,15 @@ $(document).ready(function(){
                     var resCat;
 
                     if(resPage.resCategory==1){
-                      resCat = "台式";
+                      resCat = "台式料理";
                       }else if(resPage.resCategory==2){
-                      resCat = "日式";
+                      resCat = "日式料理";
                       }else if(resPage.resCategory==3){
-                      resCat = "泰式";
+                      resCat = "泰式料理";
                       }else if(resPage.resCategory==4){
-                      resCat = "美式";
+                      resCat = "美式料理";
                       }else if(resPage.resCategory==5){
-                      resCat = "韓式";
+                      resCat = "韓式料理";
                       }
 
                     let resHeaderHtml = `
@@ -103,43 +105,47 @@ $(document).ready(function(){
                     </div>  
                   `;
 
+                    let res
+
                 const contentHtml = $(resHeaderHtml);
-                $('#pdtPageBlock').append(contentHtml);
+                $('#resHeaderBlock').append(contentHtml);
               }
               
           });
 
           $.ajax({
-            url: 'AdminProductAllServlet',
+            url: 'GetAllPdtServlet',
             type: 'POST',
             data: {
               resId: resId
             },
             dataType: 'JSON',
             success: function(data){
-                console.log(data)
+                
                 const pdtList = data.pdtList;
           
                   for(let i = 0; i < pdtList.length; i++) {
                     const productVo = pdtList[i];
             
                       let pdtPageHtml = `
-                          <div type="button monfood-pdtModalBtn" class="btn btn-primary col-xl-3 col-6 col d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <div type="button monfood-pdtModalBtn" class="btn btn-primary col-xl-3 col-6 col d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal-${productVo.productID}">
+                              <div id="product_img monfood-pdtImgdiv">
+                                <img id="showPopup" class="monfood-pdtImg" src="/monfood_maven/resprofile/ProductPicServlet?productID=${productVo.productID}"/>
+                                <p class="monfood-pdtName">${productVo.productName}</p>
+                                <p class="monfood-pdtPrice">$${productVo.productPrice}</p>
+                            </div>
+                          </div>
                       `;
                       let pdtPageContentHtml = `
-                          <div id="product_img monfood-pdtImgdiv">
-                              <img id="showPopup" class="monfood-pdtImg" src="/monfood_maven/resprofile/ProductPicServlet?productID=${productVo.productID}"/>
-                              <p class="monfood-pdtName">${productVo.productName}</p>
-                              <p class="monfood-pdtPrice">${productVo.productPrice}</p>
-                          </div>
+                          
                     
-                      <!-- Modal -->
+    
           
-                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="exampleModal-${productVo.productID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              // <div class="modal-title monfood-pdtNameModdal" id="exampleModalLabel"></div>
+                              
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body monfood-modalBody">
@@ -148,10 +154,10 @@ $(document).ready(function(){
                               </div>
                               <div class="monfood-pdtinfoModeldiv">
                                 <h4 class="monfood-ModalPdtName">${productVo.productName}</h4>
-                                <h6 class="monfood-ModalPdtKcal">${productVo.productKcal}</h6>
-                                <h6 class="monfood-ModalPdtPrice">${productVo.productPrice}</h6>
+                                <h6 class="monfood-ModalPdtKcal">${productVo.productKcal}Kcal</h6>
+                                <h6 class="monfood-ModalPdtPrice">$${productVo.productPrice}</h6>
                               </div>
-                              <!--  -->
+                             
                               <div class="Qcontainer">
                                 <div class="quantity-control" data-quantity="" style="margin-top: 0px">
                                   <button class="quantity-btn" data-quantity-minus="">
@@ -174,7 +180,6 @@ $(document).ready(function(){
                                 </div>
                               </div>
           
-                              <!--  -->
                             </div>
                             <div class="modal-footer monfood-modalFooter">
                               <button type="button" class="monfood-addToCart">加入購物車</button>
@@ -185,99 +190,15 @@ $(document).ready(function(){
                       `;
                     
                       // resPageHtml<a> 新增內容
-                      const contentHtml = $(pdtPageHtml).append(pdtPageContentHtml);
-                      $('#pdtPageBlock').append(contentHtml);
-                  
+                      $('#pdtPageBlock').append(pdtPageHtml).append(pdtPageContentHtml);
+
+                      $("[data-quantity]").Guantity();
                     }
                       
               
             }
-    });		
+        });		
     } 
 });
 
 
-//商品展示
-// $(document).ready(function(){
-//     $.ajax({
-
-//         url: 'AdminProductAllServlet',
-//         type: 'POST',
-//         dataType: 'JSON',
-
-//         success: function(data){
-//           console.log(data)
-//             const pdtList = data.pdtList;
-
-//         for(let i = 0; i < pdtList.length; i++) {
-//           const productVo = pdtList[i];
-  
-//             let pdtPageHtml = `
-//                 <div type="button monfood-pdtModalBtn" class="btn btn-primary col-xl-3 col-6 col d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-//             `;
-//             let pdtPageContentHtml = `
-//                 <div id="product_img monfood-pdtImgdiv">
-//                     <img id="showPopup" class="monfood-pdtImg" src="/monfood_maven/resprofile/ProductPicServlet?productID=${productVo.productID}"/>
-//                     <p class="monfood-pdtName">${productVo.productName}</p>
-//                     <p class="monfood-pdtPrice">${productVo.productPrice}</p>
-//                 </div>
-           
-//             <!-- Modal -->
-
-//             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-//               <div class="modal-dialog">
-//                 <div class="modal-content">
-//                   <div class="modal-header">
-//                     // <div class="modal-title monfood-pdtNameModdal" id="exampleModalLabel"></div>
-//                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//                   </div>
-//                   <div class="modal-body monfood-modalBody">
-//                     <div id="modal-img monfood-pdtPicModaldiv" class="mon">
-//                       <img class="monfood-pdtPicModal" src="/monfood_maven/resprofile/ProductPicServlet"/>
-//                     </div>
-//                     <div class="monfood-pdtinfoModeldiv">
-//                       <h4 class="monfood-ModalPdtName">${productVo.productName}</h4>
-//                       <h6 class="monfood-ModalPdtKcal">${productVo.productKcal}</h6>
-//                       <h6 class="monfood-ModalPdtPrice">${productVo.productPrice}</h6>
-//                     </div>
-//                     <!--  -->
-//                     <div class="Qcontainer">
-//                       <div class="quantity-control" data-quantity="" style="margin-top: 0px">
-//                         <button class="quantity-btn" data-quantity-minus="">
-//                           <svg viewBox="0 0 409.6 409.6">
-//                             <g>
-//                               <g>
-//                                 <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"/>
-//                               </g>
-//                             </g>
-//                           </svg>
-//                         </button>
-//                         <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1" max="" name="quantity"/>
-//                         <button class="quantity-btn" data-quantity-plus="">
-//                           <svg viewBox="0 0 426.66667 426.66667">
-//                             <path
-//                               d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"
-//                             />
-//                           </svg>
-//                         </button>
-//                       </div>
-//                     </div>
-
-//                     <!--  -->
-//                   </div>
-//                   <div class="modal-footer monfood-modalFooter">
-//                     <button type="button" class="monfood-addToCart">加入購物車</button>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//             `;
-          
-//             // resPageHtml<a> 新增內容
-//             const contentHtml = $(pdtPageHtml).append(pdtPageContentHtml);
-//             $('#pdtPageBlock').append(contentHtml);
-        
-//           }
-//         }
-//   });
-// });
