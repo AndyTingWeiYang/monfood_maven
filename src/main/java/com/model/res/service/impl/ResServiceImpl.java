@@ -4,7 +4,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.MapUtils;
 
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
@@ -136,12 +142,6 @@ public class ResServiceImpl implements ResService {
 	}
 
 	@Override
-	public List<Map<String, Object>> adminFindByCategory(Integer resCategory) {
-		List<Map<String, Object>> list = dao.selectByCategory(resCategory);
-		return list;
-	}
-
-	@Override
 	public boolean updateResInfo(ResDto resDto) {
 		return dao.updateResInfo(resDto);
 	}
@@ -178,10 +178,24 @@ public class ResServiceImpl implements ResService {
 	@Override
 	public List<Map<String, Object>> searchProduct(String searchPdt) {
 		List<Map<String, Object>> list = dao.searchProduct(searchPdt);
+		  return list.stream().filter(distinctByKey(map -> MapUtils.getString(map, "resId"))).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Map<String, Object>> getResComment(Integer resId) {
+		List<Map<String, Object>> list = dao.getResComment(resId);
+		return list;
+	}
+	
+
+	@Override
+	public List<Map<String, Object>> adminFindByCategory(Integer resCategory) {
+		List<Map<String, Object>> list = dao.selectByCategory(resCategory);
 		return list;
 	}
 
 	@Override
+
 	public List<ResVO> getByZipcode(String zipcode) {
 		List<ResVO> resList = new ArrayList<ResVO>();
 		List<ResVO> resultList = new ArrayList<ResVO>();
@@ -194,5 +208,17 @@ public class ResServiceImpl implements ResService {
 		System.out.println("service:"+resultList);
 		return resultList;
 	}
+
+	public Map<String, Object> getToResPage(Integer resId) {
+		Map<String, Object> list = dao.getToResPage(resId);
+		return list;
+	}
+	
+	private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		  Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+
+		  return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+		 }
+
 
 }
