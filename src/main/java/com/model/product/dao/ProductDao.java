@@ -27,5 +27,7 @@ public interface ProductDao {
 	List<ProductVo> getAll();
 
 	Map<String, Object> findResInfo(Integer resID);
+	
+	List<Map<String, Object>> getAllPdt(Integer resId);
 
 }

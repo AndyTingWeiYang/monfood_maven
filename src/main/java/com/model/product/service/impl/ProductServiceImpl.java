@@ -136,4 +136,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.findResInfo(resID);
 	}
 
+	@Override
+	public List<Map<String, Object>> getAllPdt(Integer resId) {
+		List<Map<String, Object>> list = productDao.getAllPdt(resId);
+		return list;
+	}
+
 }
