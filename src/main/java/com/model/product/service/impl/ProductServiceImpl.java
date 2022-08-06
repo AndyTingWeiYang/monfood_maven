@@ -91,8 +91,8 @@ public class ProductServiceImpl implements ProductService {
 
 	public void checkResp() {
 		// 檢核手機號碼
-		String checkPhone ="";
-		
+		String checkPhone = "";
+
 	}
 
 	@Override
@@ -136,6 +136,12 @@ public class ProductServiceImpl implements ProductService {
 	public Map<String, Object> findResInfo(Integer resID) {
 
 		return productDao.findResInfo(resID);
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllPdt(Integer resId) {
+		List<Map<String, Object>> list = productDao.getAllPdt(resId);
+		return list;
 	}
 
 }

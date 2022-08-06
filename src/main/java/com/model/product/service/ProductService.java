@@ -22,4 +22,5 @@ public interface ProductService {
 
 	Map<String, Object> findResInfo(Integer resID);
 
+	List<Map<String, Object>> getAllPdt(Integer resId);
 }
