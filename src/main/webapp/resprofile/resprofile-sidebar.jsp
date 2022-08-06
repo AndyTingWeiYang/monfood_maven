@@ -42,7 +42,7 @@
 			<li class="nav-item nav-category"><span class="nav-link">商家帳號</span>
 			</li>
 			<li class="nav-item menu-items"><a class="nav-link"
-				data-toggle="collapse" href="resprofile-info.jsp"
+				data-toggle="collapse" href="ResInfoPreviewServlet"
 				aria-expanded="false" aria-controls="ui-basic"> <span
 					class="menu-icon"> <i class="mdi mdi-laptop"></i>
 				</span> <span class="menu-title">餐廳資訊</span>

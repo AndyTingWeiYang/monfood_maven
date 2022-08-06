@@ -86,8 +86,7 @@
 							<div class="col-sm-6">
 								<label for="resCategory" class="col-sm-12 col-form-label">餐廳類別</label>
 								<div>
-									<input id="resCategory" type="text" name="resCategory" class="form-control"
-										value="${resCategoryName}" readonly>
+									<input id="resCategory" type="text" name="resCategory" class="form-control" readonly>
 								</div>
 							</div>
 

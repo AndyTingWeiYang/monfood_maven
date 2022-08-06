@@ -41,9 +41,9 @@ public class PreviewProductServlet extends HttpServlet {
 		// 接取前端畫面的參數
 		String productID = request.getParameter("productID");
 		// 藉由參數去抓取一筆的所有資料 (DAO內入資料)
-		ProductVo product = productService.findByID(productID);
+		Map<String, Object> productMap = productService.findByID(productID);
 		// 設定參數，DB 抓取到的資料暫存到下一頁
-		request.setAttribute("product", product);
+		request.setAttribute("productMap", productMap);
 		// 將請求及回應回傳到畫面上
 		RequestDispatcher rd = request.getRequestDispatcher("/resprofile/resprofile-update-product.jsp");
 		rd.forward(request, response);
