@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,12 +29,15 @@ public class PromoteDetailOneServlet extends HttpServlet{
 		
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
 		
 		try {
 			
 			PromoteDetailVO promoteDetailVO = gson.fromJson(request.getReader(), PromoteDetailVO.class);
-			PromoteDetailService prmotDetailService = new PromoteDetailServiceImpl();
+			promoteDetailVO.setUserId(userId);
 			
+			PromoteDetailService prmotDetailService = new PromoteDetailServiceImpl();
 			final Integer result = prmotDetailService.FindPromoteDetailOne(promoteDetailVO);
 			
 			if (result == 0) {

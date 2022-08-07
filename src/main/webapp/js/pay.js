@@ -150,7 +150,7 @@ window.addEventListener('load', function(){
     url: 'MonsCheckServlet',
     type: 'POST',
     data: JSON.stringify({
-      userId : 1,
+      // userId : 1,
     }),
     dataType: 'json',
     success: function(msg){
@@ -342,7 +342,7 @@ window.addEventListener('load', function(){
             type: 'POST',
             data: JSON.stringify({
               // 送出userId & promoteId 做雙pk查詢驗證使用狀況
-              userId : 1,
+              // userId : 1,
               promoteId : msg.promoteCode.promoteId,
               
             }),
@@ -392,7 +392,7 @@ window.addEventListener('load', function(){
       url: '/monfood_maven/UserProfileServlet',
       type: 'POST',
       data: JSON.stringify({
-        userId : 6,
+        // userId : 6,
       }),
       dataType: 'json',
     success: function(msg){
@@ -444,7 +444,7 @@ window.addEventListener('load', function(){
         data: JSON.stringify(
           {
             order: {
-              userId : 1,
+              // userId : 1,
               resId : cartList.cartList[0].resId,
               note : $('.note').val().trim(),
               userLocation : $('#finalAddress').text(),
@@ -492,7 +492,7 @@ window.addEventListener('load', function(){
         data: JSON.stringify(
           {
             order: {
-              userId : 1,
+              // userId : 1,
               resId : cartList.cartList[0].resId,
               note : $('.note').val().trim(),
               userLocation : $('#finalAddress').text(),
@@ -538,7 +538,7 @@ window.addEventListener('load', function(){
         url: 'PromoteDetailServlet',
         type: 'POST',
         data: JSON.stringify({
-          userId : 1,
+          // userId : 1,
           promoteId : promoteId
         }),
         dataType: 'json',
