@@ -12,6 +12,7 @@
     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
     <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/timepicker.css' />">
     <script src="<c:url value='/assets/js/admin-res-reception-js/timepicker.js' />"></script>
+<%--     <script src="<c:url value='/assets/js/admin-res-reception-js/resReception-index.js' />"></script> --%>
 
 </head>
 
@@ -67,8 +68,8 @@ $(document).ready(function() {
                     <div class="col-sm-12">
                         <input type="text" readonly name="resAccount" class="form-control" id="resAccount">
                     </div>
-                    <div>營業時間設定(系統預設星期一到星期五 上午8:00到下午17:00)</div>
-                    <div class="">星期設定:
+                    <div>營業時間設定</div>
+                    <div class="">周期設定:
                         <input type="checkbox" class="btn-check" name="bzWeekTime" value="日" id="btn-check-outlined-7" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-7">日</label>
 
@@ -95,19 +96,19 @@ $(document).ready(function() {
                         <div class="timeSet">
                             <div>營業時段設定:</div>
                             <div class="input-group bootstrap-timepicker timepicker inp-mf">
-                                <h3>上午:</h3>
+                                <h3>開店:</h3>
                                 <input type="text" class="form-control input-small tp1" id="bzOpenHours" name="bzOpenHours" value="" required="required">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                             </div>
                             <div class="input-group bootstrap-timepicker timepicker inp-mf">
-                                <h3>下午:</h3>
+                                <h3>休店:</h3>
                                 <input type="text" class="form-control input-small tp1" id="bzCloseHours" name="bzCloseHours" value="" required="required" >
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                             </div>
                         </div>
                     </div>
                     <br>
-                    <div>營業模式設定</div>
+                    <div>營業模式設定(開發中)</div>
                     <br>
                     <div>
                         <input type="radio" class="btn-check" name="shop_status" value="0" id="secondary-outlined-9" checked
@@ -122,7 +123,7 @@ $(document).ready(function() {
                         <label class="btn btn-outline-danger" for="danger-outlined-8">暫停接單</label>
                     </div>
                     <br>
-                    <div>備餐時間設定(系統預設20分鐘)</div>
+                    <div>備餐時間設定(系統預設20分鐘)(開發中)</div>
                     <br>
                     <div class="">
                         <input type="radio" class="btn-check" name="prepare_time" id="secondary-outlined-15" checked
@@ -176,17 +177,13 @@ $(document).ready(function() {
                 alert("修改成功");
                 return true;
             }else{
-                alert("請選擇營業星期!");
+                alert("請選擇營業周期!請至少選擇一天!");
                 return false;
             	}
         	}
 
        	);
-        
-        
-        
-        
-        
+     
 	});
 
 
