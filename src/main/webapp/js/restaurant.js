@@ -96,8 +96,8 @@ $(document).ready(function(){
                         <div class="col-lg-3 monfood-resType">${resCat}</div>
                         <div class="row">
                             <div class="col-xl-2 monfood-openedTimediv" style="text-align: center;">營業時間</div>
-                            <div class="col-xl-3 monfood-openedTime" style="margin: 0; padding:0;">${resPage.bzOpenHours}</div>  
-                            <div class="col-xl-3 monfood-closeTime" style="margin: 0; padding:0;">${resPage.bzCloseHours}</div>    
+                            <div class="col-xl-3 monfood-openedTime" style="margin: 0; padding:0;">開始: ${resPage.bzOpenHours}</div>  
+                            <div class="col-xl-3 monfood-closeTime" style="margin: 0; padding:0;">結束: ${resPage.bzCloseHours}</div>    
                         </div> 
                     </div>  
                     <div class="col-lg-6">
@@ -105,13 +105,55 @@ $(document).ready(function(){
                     </div>  
                   `;
 
-                    let res
+                    let resCommentHtml = `
+                    
+                    `;
 
                 const contentHtml = $(resHeaderHtml);
                 $('#resHeaderBlock').append(contentHtml);
               }
               
           });
+
+          // $.ajax({
+          //     url: 'AdminGetResComment',
+          //     type: 'POST',
+          //     data: 'JSON',
+
+          //     success: function(data){
+          //         const commentList = data.commentList;
+          //         for(let i = 0; i < commentList.length; i++) {
+          //             const ResVO = commentList[i];
+                    
+          //             let commentModalHtml = `
+          //             <div class="modal-dialog">
+          //             <div class="modal-content">
+          //               <div class="modal-header">
+          //                 <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+          //               </div>
+                     
+          //                 <div class="modal-body">
+          //                   <div class="ratingsdiv" style="font-size: 15px">
+          //                       <div class="card card-body">
+          //                         </ul>
+          //                       </div>
+          //                   </div>
+          //                 </div>
+          //             </div>
+          //           </div>
+          //             `;
+          //         }
+
+          //     }
+          // });                            <ul class="monfood-ratingul" >
+                                    // <li class="monfood-ratingli">
+                                    //   <p class="monfood-ratingDate">2022/05/02</p>
+                                    //   <p class="monfood-comment">有夠難吃</p>
+                                    // </li>
+                         
+                                    // <hr>
+      
+
 
           $.ajax({
             url: 'GetAllPdtServlet',
@@ -137,10 +179,6 @@ $(document).ready(function(){
                           </div>
                       `;
                       let pdtPageContentHtml = `
-                          
-                    
-    
-          
                       <div class="modal fade" id="exampleModal-${productVo.productID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -150,11 +188,11 @@ $(document).ready(function(){
                             </div>
                             <div class="modal-body monfood-modalBody">
                               <div id="modal-img monfood-pdtPicModaldiv" class="mon">
-                                <img class="monfood-pdtPicModal" src="/monfood_maven/resprofile/ProductPicServlet"/>
+                                <img class="monfood-pdtPicModal" src="/monfood_maven/resprofile/ProductPicServlet?productID=${productVo.productID}"/>
                               </div>
                               <div class="monfood-pdtinfoModeldiv">
                                 <h4 class="monfood-ModalPdtName">${productVo.productName}</h4>
-                                <h6 class="monfood-ModalPdtKcal">${productVo.productKcal}Kcal</h6>
+                                <h6 class="monfood-ModalPdtKcal">${productVo.productKcal} Kcal</h6>
                                 <h6 class="monfood-ModalPdtPrice">$${productVo.productPrice}</h6>
                               </div>
                              
@@ -198,6 +236,18 @@ $(document).ready(function(){
               
             }
         });		
+
+        // 商品談窗點擊加入購物車
+        $('.monfood-addToCart').each(function(index,element){
+          alert('新增成功')
+        });
+
+
+        // $('.monfood-addToCart').click(function(){
+        //   console.log('here!');
+        //     alert('新增成功!');
+
+        // }); 
     } 
 });
 
