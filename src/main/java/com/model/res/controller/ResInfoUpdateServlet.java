@@ -19,6 +19,7 @@ import org.apache.commons.collections4.map.HashedMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.model.product.controller.NewProductServlet;
 import com.model.product.util.IntTypeAdapter;
@@ -66,15 +67,15 @@ public class ResInfoUpdateServlet extends HttpServlet {
 		System.out.println(dataMap);
 		String dataMapStr = gson.toJson(dataMap);
 		ResDto resDto = gson.fromJson(dataMapStr, ResDto.class);
-		boolean result = resService.updateResInfo(resDto);
-		if (result) {
+		Map<String, Object> resMap = resService.updateResInfo(resDto);
+		
 			JsonObject resp = new JsonObject();
-			resp.addProperty("result", result);
+			
+			resp.add("resMap", gson.toJsonTree(resMap));
 			resp.addProperty("resID", resID);
 			PrintWriter out = response.getWriter();
 			out.write(gson.toJson(resp));
-		}
-
+		
 	}
 
 	private Map<String, Object> resToMap(HttpServletRequest request) {

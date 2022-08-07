@@ -14,8 +14,7 @@
     <link href="<c:url value='/assets/vendors/file-input/css/fileinput.min.css' />" media="all" rel="stylesheet"
         type="text/css" />
 
-
-    <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script>
+<%--     <script src="<c:url value='/assets/js/jQuery-3.6.0.js' />"></script> --%>
     <script src="<c:url value='/assets/js/resprofile-js/twzipcode.js' />"></script>
     <script src="<c:url value='/assets/vendors/file-input/buffer.min.js' />" type="text/javascript"></script>
     <script src="<c:url value='/assets/vendors/file-input/piexif.min.js' />" type="text/javascript"></script>
@@ -25,89 +24,100 @@
     <script src="<c:url value='/assets/vendors/file-input/theme.min.js' />"></script>
     <script src="<c:url value='/assets/vendors/file-input/zh-TW.js' />"></script>
     <script src="<c:url value='/assets/js/resprofile-js/resprofile-info.js' />"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <style>
-        span {
-            font-size: small;
-        }
-    </style>
+	 <style>
+	     span {
+	         font-size: small;
+	     }
+	 </style>
 
 </head>
 <script>
-    $(document).ready(function () {
-        let twzipcode;
-        // 取得地方區域
-        function init() {
-            twzipcode = new TWzipcode("#twzipcode");
+ $(document).ready(function () {
+ 	
+     let twzipcode;
+     // 取得地方區域
+     function init() {
+         twzipcode = new TWzipcode('#twzipcode');
+         $('#ownerName').on('blur', checkInputOwnerName);
+         $('#resPhone').on('blur', checkInputResPhone);
+         $('#bzAdd').on('blur', checkInputBzAdd);
+     }
+     // 上傳圖片
+     function fileUpload() {
+         $('#resFile').fileinput({
+             theme: 'fa6',
+             language: 'zh-TW'
+         });
+     }
+     init();
+     fileUpload();
+     
+     let files = [];
+     $('#resFile').change(function (e) {
+         files = Array.from(e.target.files);
+     });
 
-            $('#ownerName').on('blur', checkInputOwnerName);
-            $('#resPhone').on('blur', checkInputResPhone);
-            $('#resPhone').on('blur', respPhone);
-            $('#bzAdd').on('blur', checkInputBzAdd);
+     $('#btnCheck').click(function () {
+    	
+         let formData = new FormData();
+         formData.append('ownerName', $('#ownerName').val());
+         formData.append('resPhone', $('#resPhone').val());
+         formData.append('resCategory', $('#resCategory').val());
+         formData.append('country', twzipcode.get('county'));
+         formData.append('district', twzipcode.get('district'));
+         formData.append('zipcode', twzipcode.get('zipcode'));
+         formData.append('bzAdd', $('#bzAdd').val());
+         formData.append('resFile', files[0]);
 
-        }
-        // 上傳圖片
-        function fileUpload() {
-            $('#resFile').fileinput({
-                theme: "fa6",
-                language: "zh-TW"
-            });
-        }
-        init();
-        fileUpload();
-
-        let files = [];
-        $('#resFile').change(function (e) {
-            files = Array.from(e.target.files);
-        });
-
-        $('#btnCheck').click(function () {
-            let formData = new FormData();
-            formData.append('ownerName', $('#ownerName').val());
-            formData.append('resPhone', $('#resPhone').val());
-            formData.append('resCategory', $('#resCategory').val());
-            formData.append('country', twzipcode.get('county'));
-            formData.append('district', twzipcode.get('district'));
-            formData.append('zipcode', twzipcode.get('zipcode'));
-            formData.append('bzAdd', $('#bzAdd').val());
-            formData.append('resFile', files[0]);
-
-            $.ajax({
-                url: 'ResInfoUpdateServlet',
-                method: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                dataType: 'JSON',
-                success: function (data) {
-                    console.log(data);
-                    // 清空商家 src 圖片
-                    $('#resPhoto').attr('src', '');
-                    // 更新商家 src 連結
-                    $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
-                }
-            });
-
-
-        });
-
-
-
-
-    }); 
+         $.ajax({
+             url: 'ResInfoUpdateServlet',
+             type: 'post',
+             data: formData,
+             contentType: false,
+             processData: false,
+             dataType: 'JSON',
+             success: function (data) {
+            	const resMap = data.resMap;
+            	 
+                 console.log(data);
+                 // 清空商家 src 圖片
+                 $('#resPhoto').attr('src', '');
+                 // 更新商家 src 連結
+                 $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                 
+                 // 將剛剛更新成功的資料帶回 resprofile-info-preview.jsp
+                 $('#ownerNameDiv').text(resMap.ownerName);
+                 $('#ownerTel').text(resMap.ownerTel);
+                 $('#resTelDiv').text(resMap.resTel);
+                 $('#bzLocationDiv').text(resMap.bzLocation);
+                 $('#resCategoryNameDiv').text(resMap.resCategoryName);
+                 
+                 
+                 $('#resPhotoDiv').attr('src', '');
+                 $('#resPhotoDiv').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                 
+                 swal('新增成功', '產品資訊已更新', 'success');
+                 $("#fancybox-close").trigger('click');
+             },error: function(){
+            	$("#fancybox-close").trigger('click'); 
+             	swal('新增失敗', '請確認是否有空格', 'error');
+             }
+         });
+     });
+ }); 
 </script>
 
 <body>
     <div class="container-scroller">
-        <div>
-            <jsp:include page="resprofile-sidebar.jsp" />
-        </div>
         <div class="container-fluid page-body-wrapper">
-            <jsp:include page="resprofile-header.jsp" />
             <div class="main-panel">
                 <div class="mf-content-wrapper">
 
                     <!-- 表單區塊 -->
+                    <span class="monfood-title mr-1"></span>
+                    <h3 style="display: inline-block;">餐廳資訊更新</h3>
                     <form class="jumbotron" method="post" action="">
                         <div class="form-group row">
                             <div class="col-sm-6 ">
@@ -154,10 +164,10 @@
                                     aria-label="Default select example">
                                     <option selected>請選擇</option>
                                     <option value="1">台式</option>
-                                    <option value="2">美式</option>
-                                    <option value="3">日式</option>
-                                    <option value="4">韓式</option>
-                                    <option value="5">泰式</option>
+                                    <option value="2">日式</option>
+                                    <option value="3">泰式</option>
+                                    <option value="4">美式</option>
+                                    <option value="5">韓式</option>
                                 </select>
 
                             </div>
@@ -192,7 +202,6 @@
                     </div>
 
                 </div>
-                <jsp:include page="resprofile-footer.jsp" />
             </div>
         </div>
     </div>
