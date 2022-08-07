@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
 
+import com.model.order.OrderVO;
 import com.model.reception.ResVO;
 import com.model.reception.dao.ResDAO;
 import com.model.reception.dao.impl.ResJDBCDAOimpl;
@@ -44,6 +45,10 @@ public class ResServiceImpl implements ResService {
 
 	public ResVO findByPrimaryKey(Integer resId) {
 		return dao.findByPrimaryKey(resId);
+	}
+	
+	public OrderVO findByPrimaryKey1(Integer resId) {
+		return dao.findByPrimaryKey1(resId);
 	}
 
 

@@ -1,3 +1,13 @@
+.monfood-pdtName{
+  padding-top: 20px;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.monfood-pdtPrice{
+  text-align: left;
+}
+
 .monfood-productAll{
   padding: 0px 0px 0px 60px;
   margin: 0;
@@ -118,7 +128,7 @@
   color: black;
   border: none;
   opacity: 1;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 .monfood-modalFooter{
   display: flex; 

@@ -199,8 +199,6 @@ $('#searchPdt').keypress(function(e){
             $('#resPageBlock').html('');
             const resList = data.resList;
 
-
-
             for(let i = 0; i < resList.length; i++) {
               const resVo = resList[i];
               let resPageHtml = `

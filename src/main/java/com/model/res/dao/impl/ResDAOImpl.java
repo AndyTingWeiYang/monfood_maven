@@ -49,11 +49,6 @@ public class ResDAOImpl implements ResDAO {
 	// 首頁搜尋行政區內餐廳
 	private static final String GETRESFORINDEX = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, ZIP_CODE FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 
-//	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.* "
-//			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
-//			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
-//			+ "WHERE PRODUCT.PRODUCT_NAME like ? "
-//			+ "GROUP BY RES.RES_ID";
 	private static final String SEARCHPRODUCT = "SELECT AVG(RES_RATE), RES.*, PRODUCT.* "
 			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
 			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID " + "WHERE PRODUCT.PRODUCT_NAME like ? "
@@ -66,34 +61,6 @@ public class ResDAOImpl implements ResDAO {
 
 	private static final String SELECTRESINFO = "SELECT * FROM MonFood.RES inner join RES_CATEGORY on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID where RES_ID = ? ";
 
-//	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
-//			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
-//			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
-//			+ "WHERE PRODUCT.PRODUCT_NAME like ? "
-//			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
-
-//	這裡是會跑出十幾筆的
-//	private static final String SEARCHPRODUCT = "SELECT  AVG(RES_RATE), RES.*, PRODUCT.* "
-//			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
-//			+ "WHERE RES.RES_NAME LIKE ? "
-//			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
-
-//	private static final String SEARCHPRODUCT = "SELECT DISTINCT RES_ID "
-//			+ " FROM ( Select AVG(RES_RATE), RES.RES_CATEGORY, RES.RES_NAME, PRODUCT.* "
-//			+ " FROM MonFood.RES "
-//			+ " LEFT JOIN ORDER ON RES.RES_ID = `ORDER`.RES_ID "
-//			+ " INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
-//			+ " WHERE RES.RES_NAME LIKE ? "
-//			+ " GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID) as T;";
-//	
-
-	// 這個查詢時會顯示出所有包含搜尋商品的結果,但是餐廳會重複
-//	private static final String SEARCHPRODUCT = "SELECT DISTINCT RES.RES_ID ,AVG(RES_RATE), RES.*, PRODUCT.* "
-//			+ "	FROM MonFood.RES "
-//			+ "	LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
-//			+ "	INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID "
-//			+ "	WHERE PRODUCT.PRODUCT_NAME like ? "
-//			+ "	GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
 
 	static {
 		try {
