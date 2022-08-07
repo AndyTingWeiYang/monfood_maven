@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -23,11 +24,12 @@ public class UserProfileUpdateServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
-
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
+		
 		try {
 
 			respObj = gson.fromJson(request.getReader(), JsonObject.class);
-			Integer userId = Integer.parseInt(respObj.get("userId").toString());
 			String data = respObj.get("data").toString();
 			String msg = respObj.get("msg").toString();
 			

@@ -2,7 +2,6 @@ package com.model.order.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,8 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.property.access.internal.PropertyAccessStrategyIndexBackRefImpl;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -20,7 +18,6 @@ import com.google.gson.JsonObject;
 import com.model.order.OrderVO;
 import com.model.order.service.OrderService;
 import com.model.order.service.impl.OrderServiceImpl;
-import com.model.orderdetail.OrderDetailVO;
 
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
@@ -35,12 +32,17 @@ public class OrderServlet extends HttpServlet {
 		JsonObject respObj = new JsonObject();
 		Integer orderId = null;
 		String result = null;
+		
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
+		
 		try {
 			// get the json from ajax and send to OrderVO
 			JsonObject req = gson.fromJson(request.getReader(), JsonObject.class);
 			
 			// OrderVO
 			OrderVO orderVO = gson.fromJson(req.get("order"), OrderVO.class);
+			orderVO.setUserId(userId);
 			
 			// OrderDetailVO
 			JsonObject orderDetailObj = gson.fromJson(req.get("orderDetail"), JsonObject.class);

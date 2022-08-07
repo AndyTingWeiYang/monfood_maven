@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
@@ -24,9 +25,13 @@ public class MonsCheckServlet extends HttpServlet {
 		JsonObject respObj = new JsonObject();
 		MonsterVO result = null;
 		Integer orderTimes = null;
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
+		
 		try {
 			// get the json from ajax and send to OrderVO
 			OrderVO orderVO = gson.fromJson(request.getReader(), OrderVO.class);
+			orderVO.setUserId(userId);
 			OrderService service = new OrderServiceImpl();
 			result = service.monsCheck(orderVO.getUserId());
 			orderTimes = service.orderTimes(orderVO.getUserId());
