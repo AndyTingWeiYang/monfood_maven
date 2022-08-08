@@ -21,7 +21,7 @@ public interface DelDAO {
 	DelVO findByaccount(String delAccount);
 	DelVO findByTel(String delTel);
 	DelVO findByDelID(Integer delID);
-	DelVO findByDelName(String delName);
+	DelVO findByDelNamePassword(String delName, String delTel);
 //ForAdmin	
 	List<DelVO> getAll();
 

@@ -20,7 +20,7 @@ public class DelDAOImpl implements DelDAO{
 			"UPDATE MonFood.DEL SET DEL_NAME=?, DEL_ACCOUNT=?, DEL_PASSWORD=?, DEL_TEL=?, DEL_BIRTHDAY=?, PLATENUMBER=?, STATUS=?, UPDATE_TIME=?, DEL_ID_PHOTO=?, CAR_LICENSE=?, DRIVE_LICENSE=?, CRIMINAL_RECORD=?, INSURANCE=?, DEL_ACCOUNT_NAME=?, DEL_BANKNAME=?, DEL_BANKCODE=?, DEL_BANKACCOUNT=? WHERE DEL_ID=?";
 	private static final String UPDATEWITHOUTPIC = 
 			"UPDATE DEL SET del_name=?, del_account=?, del_password = ?, del_Tel = ?, del_birthday=?, platenumber = ?, status = ?, update_time=?, del_Account_Name = ?, del_Bankname = ?, del_Bankcode = ?, del_bankaccount = ? where del_ID = ?";
-	private static final String FIND_BY_NAME = "SELECT * FROM DEL WHERE DEL_NAME = ?";
+	private static final String FIND_BY_NAME = "SELECT * FROM DEL WHERE DEL_NAME = ? AND DEL_TEL = ?";
 	private static final String LOGIN = "SELECT * FROM MonFood.DEL WHERE DEL_TEL = ? AND DEL_PASSWORD = ?";
 	private static final String GETCOST = "SELECT SUM(DEL_COST) FROM MonFood.ORDER WHERE ORDER_CREATE between ? and ? and del_id = ?";	
 	private static final String GETCOMMENT = "SELECT DEL_COMMENT FROM MonFood.ORDER WHERE ORDER_CREATE between ? and ? and del_id = ?";
@@ -259,7 +259,7 @@ public class DelDAOImpl implements DelDAO{
 	}
 
 	@Override
-	public DelVO findByDelName(String delName) {
+	public DelVO findByDelNamePassword(String delName, String deTel) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -268,6 +268,8 @@ public class DelDAOImpl implements DelDAO{
 			con = DriverManager.getConnection(MyData.URL, MyData.USER, MyData.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_NAME);
 			pstmt.setString(1, delName);
+			pstmt.setString(2, deTel);
+			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				delVO = new DelVO();

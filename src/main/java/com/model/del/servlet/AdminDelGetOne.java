@@ -35,16 +35,13 @@ public class AdminDelGetOne extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
-		JsonObject respObj = new JsonObject();
-		DelVO bean = null;
+		DelVO bean = new DelVO();
 
 		DelVO delVO = gson.fromJson(req.getReader(), DelVO.class);
 		DelService service = new DelService();
-		bean = service.getOnebyName(delVO.getDelName());
-		
+		bean = service.findByDelNamePassword(delVO.getDelName(), delVO.getDelTel());
 		resp.getWriter().append(gson.toJson(bean));
 		
-//		
 		}
 		
 		

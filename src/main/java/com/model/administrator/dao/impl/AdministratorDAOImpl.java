@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.model.administrator.AdministratorVO;
 import com.model.administrator.dao.AdministratorDAO;
+import com.model.order.OrderVO;
 
 public class AdministratorDAOImpl implements AdministratorDAO {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -22,6 +23,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 	private static final String UPDATE = "update MonFood.ADMINISTRATOR set ADMIN_PASSWORD =?, PERMISSION =? where ADMIN_ID = ?";
 	private static final String DELETE = "delete from MonFood.ADMINISTRATOR where ADMIN_ID= ?";
 	private static final String GETBYID = "SELECT * FROM MonFood.ADMINISTRATOR WHERE ADMIN_ID= ? AND  ADMIN_PASSWORD=?";
+	private static final String GETORDERBYID = "SELECT * FROM MonFood.ORDER WHERE ORDER_ID= ?";
 
 	static {
 		try {
@@ -228,6 +230,57 @@ public class AdministratorDAOImpl implements AdministratorDAO {
 			}
 		}
 		return administratorVO;
+	}
+
+	@Override
+	public OrderVO getOrderByID(Integer orderID) {
+		OrderVO orderVO = new OrderVO();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(GETORDERBYID);
+			pstmt.setInt(1, orderID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				orderVO.setOrderId(rs.getInt("ORDER_ID"));
+				orderVO.setResId(rs.getInt("RES_ID"));;
+				orderVO.setUserId(rs.getInt("USER_ID"));
+				orderVO.setDelId(rs.getInt("DEL_ID"));
+				orderVO.setTotal(rs.getInt("TOTAL"));
+				orderVO.setDelCost(rs.getInt("DEL_COST"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return orderVO;
 	}
 
 }

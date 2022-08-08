@@ -9,4 +9,5 @@ import com.model.order.OrderVO;
 
 public interface AdminService {
 	AdministratorVO adminLogin(Integer adminID, String adminPassword);
+	OrderVO getOrderByID(Integer orderID);
 }

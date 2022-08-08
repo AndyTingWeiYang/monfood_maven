@@ -67,8 +67,8 @@ public class DelService {
 		return dao.findByDelID(delID);
 	}
 	
-	public DelVO getOnebyName(String delName) {
-		return dao.findByDelName(delName);
+	public DelVO findByDelNamePassword(String delName, String deTel) {
+		return dao.findByDelNamePassword(delName, deTel);
 	}
 
 	public List<DelVO> getAll() {

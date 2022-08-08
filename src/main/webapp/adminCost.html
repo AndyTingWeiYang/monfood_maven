@@ -36,13 +36,45 @@
               <div class="col-sm-12">
                 <input type="text" name="resAccount" class="form-control" id="resAccount">
               </div>
+              <div class="col-sm-12 d-flex justify-content-end mt-3">
+                <button type="submit" class="btn btn-primary orderGetOne" style="background: #3d424e; border: none;">送出查詢</button>
+              </div>
             </div>
           </div>
        
-          <div>Content</div>
-          <div>Content</div>
-          <div>Content</div>
-          <div>Content</div>
+          
+          <div class="row result ">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header"style="background-color: #e9ecef;">
+                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+             
+                    </thead>
+                    <tbody class="result">
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
         </div>
         <!-- ===== 內容客製化區塊 ===== -->
 
@@ -54,6 +86,7 @@
       </div>
     </div>
   </div>
+  <script src="assets/js/jQuery-3.6.0.js"></script>
   <script>
     // <jsp:include page="head.jsp" /> 即可移除以下 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -67,6 +100,85 @@
           document.head.appendChild(scriptElement);
         }
       });
+//====================START FROM HERE===============================================
+      $("button.orderGetOne").on("click", function(){
+        var orderID = $("input#resAccount").val().trim();
+        if(orderID == ""){
+          alert("請輸入訂單ID");
+          return;
+        }
+        else{
+        var tableHead = `
+          <tr>
+              <td>訂單ID</td>
+              <td>消費者ID</td>
+              <td>餐廳ID</td>
+              <td>外送員ID</td>
+              <td>消費金額</td>
+              <td>外送費</td>              
+          </tr>
+        `
+        $("tbody.result").html(tableHead);
+        var url = "AdminGetOrder";
+        fetch((url),{
+          method: "POST", 
+          headers: {"content-Type": "application.json"},
+          body: JSON.stringify({
+            orderId: parseInt(orderID) 
+          })
+        })
+        .then(function(response){
+          if(response.ok){
+            console.log("getone回應沒問題");
+            return response.json();
+          }
+        })
+        .then(function(data){
+          if(data.orderId != null){
+              	var orderId = data.orderId;
+                var userId = data.userId;
+                var resId = data.resId;
+                var delId = data.delId;
+                var total = data.total;
+                var delCost = data.delCost;     
+                console.log("have it");
+                var orderResult = `
+                  <tr>
+                    <td class="delID">${orderId}</td>
+                    <td class="delName">${userId}</td>
+                    <td class="delAccount">${resId}</td>
+                    <td class="editPassword">${delId}</td>
+                    <td class="delBirthday">${total}</td>
+                    <td class="editTel delID">${delCost}</td>
+                  </tr>
+                
+                  `
+                $("tbody.result").append(orderResult);
+          }
+          else{
+            console.log(data);
+            alert("查無此筆資料請重新查詢");
+          }                 	    
+        })
+        .catch(function (error) {
+                alert("上面的if else有錯喔");
+                console.log(error); // 這裡取得錯誤資訊：error
+                $("tbody.result").html();
+        });
+
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
     });
   </script>
 </body>
