@@ -353,4 +353,9 @@ $(document).ready(function(){
       }
 });
 
+//優惠通知
+$(document).ready(function(){
+
+});
+
 
