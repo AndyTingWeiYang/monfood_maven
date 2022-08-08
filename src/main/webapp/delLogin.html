@@ -164,53 +164,26 @@
           function getcookie(SessionID){
             console.log(SessionID);
           }
-
-		  $("button.btn_confirm").on("click", function(){
-			var delTel = $("input#delTel").val();
-			console.log(delTel);
-		    console.log($("input#delPassword").val());
-
-		  });
-
-		  
-		 
-
-		  
-          
-//           fetch(("/DelLoginErrorServlet"),{
-//               method: "POST",
-//               headers: {
-//                 "content-Type": "application.json"
-//               },
-//               body: JSON.stringify({
-// 				delTel: $("input#delTel").val(),
-// 				delPassword: $("input#delPassword").val()
-//               })
-//         })
-//           .then(function (response) {
-//             if (response.ok) {
-//               console.log("接收登入錯誤訊息");
-//               return response.json(); // 將取得的資料，再使用 .json() 解析資料
-//             }
-//           })
-//           .then(function(data){
-// 			console.log(data);
-            
-//           });
-          
+// 最後的送出鍵如果電話有值綁enter
+		  $("input#delPassword").on("keyup", function(e){
+        		// console.log(e.which);
+        		if($("input#delTel").val() != "" && e.which == 13){
+            		$("button.btn_confirm").click();
+        		}
+    		});
 
 // 有空綁在click事件寫在controller
 // tel驗證
-          // $("#delTel").on("blur",function(){
-          //   var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-          //   if($("#delTel").val().trim() == ""){
-          //     $(".telspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
-          //   }else if(!(pattern.test($("#delTel").val().trim()))){
-          //     $(".telspan").addClass("noticespan").text('*請輸入正確格式');
-          //   }else{
-          //     $(".telspan").removeClass("noticespan").text('');
-          //   }
-          // });
+          $("#delTel").on("blur",function(){
+            var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+            if($("#delTel").val().trim() == ""){
+              $(".telspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
+            }else if(!(pattern.test($("#delTel").val().trim()))){
+              $(".telspan").addClass("noticespan").text('*請輸入正確格式');
+            }else{
+              $(".telspan").removeClass("noticespan").text('');
+            }
+          });
           
           // 密碼驗證
           // 以下是這個正規表示式的 pattern 的內容:
@@ -219,16 +192,16 @@
           // - 小寫字母 [a-z]
           // - 大寫字母 [A-Z]
           // - 數字 \d
-//           $("#delpassword").on("blur",function(){
-//             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-//             if($("#delpassword").val().trim() == ""){
-//               $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
-//             }else if(!(pattern.test($("#delpassword").val().trim()))){
-//               $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
-//             }else{
-//               $(".passwordspan").removeClass("noticespan").text('');
-//             }
-//           });
+          $("#delPassword").on("blur",function(){
+            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if($("#delPassword").val().trim() == ""){
+              $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
+            }else if(!(pattern.test($("#delpassword").val().trim()))){
+              $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
+            }else{
+              $(".passwordspan").removeClass("noticespan").text('');
+            }
+          });
 
           // 消除ajax發出後的錯誤提示
 //           $("#delTel , #delpassword").on("blur",function(){

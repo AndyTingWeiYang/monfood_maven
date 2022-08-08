@@ -10,4 +10,5 @@ public interface AdministratorDAO {
 	public void insert(AdministratorVO admin);
 	public void update(AdministratorVO admin);
 	public void delete(AdministratorVO adminID);
+	public AdministratorVO selectByIDPassword(Integer adminID, String adminPassword);
 }

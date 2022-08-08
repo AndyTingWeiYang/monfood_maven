@@ -1,4 +1,4 @@
-package com.model.del.controller;
+package com.model.administrator.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -19,6 +19,9 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.model.administrator.AdministratorVO;
+import com.model.administrator.service.AdminService;
+import com.model.administrator.service.AdminServiceImpl;
 import com.model.del.DelService;
 import com.model.del.DelVO;
 import com.model.del.service.DelServiceImpl;
@@ -27,84 +30,53 @@ import com.model.user.service.UserService;
 import com.model.user.serviceImpl.UserServiceImpl;
 
 
-@WebServlet("/DelLoginServlet")
-public class DelLoginServlet extends HttpServlet {
+@WebServlet("/AdminLogin")
+public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-//	@Override
-//	public void init() throws ServletException {
-////		customerService = new CustomerService();
-//		ServletContext application = this.getServletContext();
-//		ApplicationContext context = (ApplicationContext) application.getAttribute(
-//				WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-//		this.customerService = context.getBean("customerService", CustomerService.class);
-//		this.messageSource = context.getBean("messageSource", MessageSource.class);
-//	}
-	
-	
-	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
-		
-	//接收資料
 			Gson gson = new Gson();
-//			JsonObject respObj = new JsonObject();
-//			DelVO delLoginVO = gson.fromJson(request.getReader(), DelVO.class);
-//			String delTel = delLoginVO.getDelTel();
-//			String password = delLoginVO.getDelPassword();
-			String delTel = request.getParameter("delTel");
-			String password = request.getParameter("delPassword");
+			JsonObject respObj = new JsonObject();
+			AdministratorVO administratorVO = gson.fromJson(request.getReader(), AdministratorVO.class);
+			Integer adminID = administratorVO.getAdminID();
+			String adminPassword = administratorVO.getAdminPassword();
+			System.out.println(adminID);
+			System.out.println(adminPassword);
 
 	//驗證資料
-			Map<String, String> errors = new HashMap<String, String>();
-			request.setAttribute("errors", errors);
-			if(delTel==null || delTel.length()==0) {
-//				respObj.addProperty("delTel", "請輸入手機號碼登入");
-				errors.put("delTel", "請輸入手機號碼登入");
-			}
-			if(password==null || password.length()==0) {
+//			if(adminID==null) {
+//				respObj.addProperty("adminID", "請輸入管理員ID");
+//			}
+//			if(adminPassword==null || adminPassword.length()==0) {
 //				respObj.addProperty("password", "請輸入密碼登入");
-				errors.put("password", "請輸入密碼登入");
-
-			}
-			
-			if(errors!=null && !errors.isEmpty()) {
-				request.getRequestDispatcher(
-						"del/delLogin.html").forward(request, response);
-				response.getWriter().append(gson.toJson(errors));
-
-				System.out.println("輸入的帳密有一個是空白所以失敗");
-
-				return;
-			}
+//			}
+//			
+//			if(respObj != null) {
+//				response.getWriter().append(gson.toJson(respObj));
+//				System.out.println("輸入的帳密有一個是空白所以失敗");
+//				return;
+//			}
 			
 	//呼叫model
-//			CustomerBean bean = customerService.login(username, password);
-			com.model.del.service.DelService service = new DelServiceImpl();
-			DelVO loginResultDelVO = service.delLogin(delTel, password);
+			AdminService service = new AdminServiceImpl();
+			AdministratorVO login = service.adminLogin(adminID, adminPassword);
 			
+			System.out.println(login);
 	//根據model執行結果，導向view
 	//這邊回傳的結果裡面有一個delVO裡面的所有屬性為null，所以在get屬性之前不知道為什麼兩邊都進去了......
-			if(loginResultDelVO.getDelID()==null) {
-//				respObj.addProperty("password", "登入失敗請重新嘗試");
-				errors.put("password", "登入失敗請重新嘗試");
-				response.getWriter().append(gson.toJson(errors));
-
-				
+			if(login.getAdminID()==null) {
 				System.out.println("輸入的帳密找不到資料所以失敗");
+				respObj.addProperty("loginStatus", "登入失敗請重新嘗試");
 				HttpSession session = request.getSession();
-				session.setAttribute("errors", errors);
+				session.setAttribute("errors", respObj);
+				response.getWriter().append(gson.toJson(respObj));
 				
-				
-				request.getRequestDispatcher(
-						"/del/delLogin.html").forward(request, response);
 			} else {
 				HttpSession session = request.getSession();
-				session.setAttribute("del", loginResultDelVO);
-				
-				response.sendRedirect("del/delInfo.html");
+				session.setAttribute("admin", login);
+				response.getWriter().append(gson.toJson(login));
 				System.out.println("登入成功");
 			}
 			
