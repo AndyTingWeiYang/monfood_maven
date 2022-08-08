@@ -204,7 +204,7 @@ $('#searchPdt').keypress(function(e){
               let resPageHtml = `
                 <a id="resPage" 
                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
-                  href="restaurant.html">
+                  href="restaurant.html?resID=${resVo.resId}">
                 </a>
               `;
 
@@ -232,8 +232,7 @@ $('#searchPdt').keypress(function(e){
     });
   }
 });
-
-
+// 以上為測試
 //餐廳篩選
 $('.restriction').click(function(){
   const resId = $(this).data('rescategory');
@@ -253,7 +252,7 @@ $('.restriction').click(function(){
             let resPageHtml = `
                 <a id="resPage" 
                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
-                  href="">
+                  href="restaurant.html?resID=${resVo.resId}">
                   <span id=${resVo.resId}></span>
                 </a>
 
