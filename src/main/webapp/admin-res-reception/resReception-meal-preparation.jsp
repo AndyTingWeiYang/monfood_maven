@@ -25,6 +25,7 @@
         <div class="mf-content-wrapper" id="mf-res">
 
           <!-- 表單區塊 -->
+<!--           <form method="" action=""> -->
           <label for="resAccount" class="col-sm-12 col-form-label"></label>
           <div class="col-sm-12">
             <input type="text" readonly name="resAccount" class="form-control" id="resAccount">
@@ -87,7 +88,7 @@
                           </div>
                         </ul>
                       </div>
-                      <div class="mf-order-delay">訂單延遲:
+                      <%-- /* <div class="mf-order-delay">訂單延遲:
                         <input type="Radio" class="btn-check" name="shop_status" id="secondary-outlined-17"
                           autocomplete="off">
                         <label class="btn btn-outline-secondary" for="secondary-outlined-17">+10分鐘</label>
@@ -95,6 +96,7 @@
                         <input type="Radio" class="btn-check" name="shop_status" id="danger-outlined-18"
                           autocomplete="off">
                         <label class="btn btn-outline-secondary" for="danger-outlined-18">+20分鐘</label>
+                       
                         <input type="Radio" class="btn-check" name="shop_status" id="danger-outlined-19"
                           autocomplete="off">
                         <label class="btn btn-outline-secondary" for="danger-outlined-19">+30分鐘</label>
@@ -102,7 +104,7 @@
                       <div class="mf-order-noies-2">
                         <button type="button" class="btn btn-secondary">返回</button>
                         <span>注意! 更改訂單請於媒合外送前通知</span>
-                      </div>
+                      </div>*/ --%>
                     </div>
                     <div>
                       <div class="mf-order-test1-2">
@@ -110,7 +112,7 @@
                           <li>統一編號:<span>24708053</span></li>
                           <li class="mf-order-test1-3">是否需要餐具:<span>否</span> </li>
                           <li>總額:<span>NT$ 200.00</span></li>
-                          <li>距離取餐時間:<span>20:00</span></li>
+					  <%--<li>距離取餐時間:<span>20:00</span></li>--%> 
                         </ul>
                       </div>
                       <div class="mf-order-test2-1">
@@ -119,12 +121,12 @@
                       </div>
                       <div>
                         <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">可取餐</button>
-                        <button button type="button" class="btn btn-secondary">訂單管理</button>
+                        <%-- <button button type="button" class="btn btn-secondary">訂單管理</button>--%>
                       </div>
-                      <div class="mf-order-test2-2">
+                      <%-- /* <div class="mf-order-test2-2">
                         <button type="button" class="btn btn-secondary">修改</button>
                         <button button type="button" class="btn btn-secondary">取消訂單</button>
-                      </div>
+                      </div>*/--%>
                     </div>
                   </div>     
                 </div>
@@ -170,6 +172,7 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" >NO</button>
                                  </div>
                              </div>
+<!--           					</form> -->
                           
                          </div>
                      </div>
@@ -211,20 +214,6 @@
         </div>
         <!-- modal3 -->
   
-  
-  
-  
-  
-  
-  <script>
-    $(function () {
-        $(".tp1").timepicker({
-            timeFormat: 'HH:mm',
-            interval: 15
-        });
-    });
-
-</script>
 </body>
 
 </html>

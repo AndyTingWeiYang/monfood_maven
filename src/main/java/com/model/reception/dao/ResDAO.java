@@ -2,7 +2,9 @@ package com.model.reception.dao;
 
 import java.util.Map;
 
+import com.model.order.OrderVO;
 import com.model.reception.ResVO;
+
 
 public interface ResDAO {
 
@@ -21,6 +23,7 @@ public interface ResDAO {
 	    //進行VO單一數據查找根據PK鍵
 	    public ResVO findByPrimaryKey(Integer resId) ;
 
+	    public OrderVO findByPrimaryKey1(Integer resId) ;
 	    
 	    //進行VO全部查找
 //	    public List<ResVO> getAll() ;

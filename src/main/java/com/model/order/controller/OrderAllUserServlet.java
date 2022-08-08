@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -28,8 +29,12 @@ public class OrderAllUserServlet extends HttpServlet {
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
 		OrderVO orderVO = new OrderVO();
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
+		
 		try {
 			orderVO = gson.fromJson(request.getReader(), OrderVO.class);
+			orderVO.setUserId(userId);
 			
 			OrderService service = new OrderServiceImpl();
 			List<OrderVO> list = service.getAllForUser(orderVO.getUserId());

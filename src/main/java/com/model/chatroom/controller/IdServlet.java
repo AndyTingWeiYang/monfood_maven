@@ -29,8 +29,8 @@ public class IdServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Gson gson = new Gson();
-		response.setContentType("application/json;charset=UTF-8");//回傳json格式並使用UTF-8編碼
-		response.addHeader("Access-Control-Allow-Origin", "*");//*為允許可以跨域連線進自己設計的本機連線
+		response.setContentType("application/json;charset=UTF-8");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 
 //		HttpSession httpSession = request.getSession();
 //		httpSession.getAttribute("userID");
