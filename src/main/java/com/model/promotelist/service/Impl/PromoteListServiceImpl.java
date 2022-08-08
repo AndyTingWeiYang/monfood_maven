@@ -2,6 +2,7 @@ package com.model.promotelist.service.Impl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.dao.PromoteListDAO;
@@ -49,7 +50,7 @@ public class PromoteListServiceImpl implements PromoteListService {
 
 		}
 
-		return null;
+		return "新增成功";
 	}
 
 	@Override
@@ -67,9 +68,9 @@ public class PromoteListServiceImpl implements PromoteListService {
 
 
 	@Override
-	public PromoteListVO adminUpdatePromoteList(PromoteListVO promoteListVO) {
-		dao.update(promoteListVO);
-		return promoteListVO;
+	public Integer adminUpdatePromoteList(PromoteListVO promoteListVO) {
+		Integer status = dao.update(promoteListVO);
+		return status;
 
 	}
 
@@ -77,5 +78,11 @@ public class PromoteListServiceImpl implements PromoteListService {
 	public PromoteListVO adminFindListByCode(PromoteListVO promoteListVO) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Map<String, Object> showPromote(Integer promoteId) {
+		Map<String, Object> map = dao.showPromote(promoteId);
+		return map;
 	}
 }

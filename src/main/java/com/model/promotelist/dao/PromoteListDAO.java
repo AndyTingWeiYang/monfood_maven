@@ -1,6 +1,7 @@
 package com.model.promotelist.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.model.promotelist.PromoteListVO;
 
@@ -14,7 +15,9 @@ public interface PromoteListDAO {
 		
 		PromoteListVO findByCode(String promoteCode);
 		
-		void update(PromoteListVO promoteListVO);
+//		PromoteListVO update(PromoteListVO promoteListVO);
 		
-//		void delete(Integer promoteId);
+		Integer update (PromoteListVO promoteListVO);
+		
+		Map<String, Object> showPromote(Integer promoteId);
 }

@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.model.del.MyData;
 import com.model.order.OrderVO;
@@ -28,12 +30,123 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 	private static final String GET_ALL_STMT = "select * from PROMOTE_LIST order by PROMOTE_ID";
 	private static final String GET_ONE_STMT = "select * from PROMOTE_LIST where PROMOTE_ID = ?";
 	private static final String FIND_BY_CODE = "select * from PROMOTE_LIST where PROMOTE_CODE = ?";
-//	private static final String DELETE = 
-//			"delete from PROMOTE_LIST where PROMOTE_ID = ?";
 	private static final String UPDATE = "update PROMOTE_LIST "
-			+ "set PROMOTE_CODE = ?, PROMOTE_PRICE = ?, START_DATE = ?, END_DATE = ?, STATUS = ? "
+			+ "set STATUS = ? "
 			+ "where PROMOTE_ID = ?";
 
+	private static final String SHOW_PROMOTE = "SELECT PROMOTE_ID, PROMOTE_PRICE FROM PROMOTE_LIST WHERE PROMOTE_ID = ?";
+	
+	@Override
+	public Map<String, Object> showPromote(Integer promoteId) {
+		Map<String, Object> show = new HashMap<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+			
+			pstmt.setInt(1, promoteId);
+			pstmt.executeQuery();
+			
+			while (rs.next()) {
+				show.put("promoteCode", rs.getString("PROMOTE_CODE"));
+				show.put("promotePrice", rs.getInt("PROMOTE_PRICE"));
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return show;
+	}
+
+	
+	@Override
+	public Integer update(PromoteListVO promoteListVO) {
+		Integer status = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			// 執行 promoteList 更新
+			pstmt = con.prepareStatement(UPDATE);
+			pstmt.setInt(1, promoteListVO.getStatus());
+			pstmt.setInt(2, promoteListVO.getPromoteId());
+			int result = pstmt.executeUpdate();
+			
+			// 更新成功為 1 筆，因此大於 0 才需撈出該筆最新狀態
+			if (result > 0) {
+				pstmt = con.prepareStatement(GET_ONE_STMT);
+				pstmt.setInt(1, promoteListVO.getPromoteId());
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					status = rs.getInt("STATUS");
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return status;
+	}
+
+	
 	@Override
 	public Integer insert(PromoteListVO promoteListVO) {
 
@@ -78,6 +191,8 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 		return 1;
 	}
 
+	
+	
 	@Override
 	public List<PromoteListVO> getAll() {
 
@@ -198,89 +313,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 		return promoteListVO;
 	}
 
-//	@Override
-//	public void delete(Integer promoteId) {
-//
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//
-//		try {
-//
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
-//			pstmt = con.prepareStatement(DELETE);
-//
-//			pstmt.setInt(1, promoteId);
-//
-//			pstmt.executeUpdate();
-//
-//		} catch (ClassNotFoundException e) {
-//			throw new RuntimeException("Couldn't load database driver. "
-//					+ e.getMessage());
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//
-//	}
 
-	@Override
-	public void update(PromoteListVO promoteListVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, promoteListVO.getPromoteCode());
-			pstmt.setInt(2, promoteListVO.getPromotePrice());
-			pstmt.setDate(3, promoteListVO.getStartDate());
-			pstmt.setDate(4, promoteListVO.getEndDate());
-			pstmt.setInt(5, promoteListVO.getStatus());
-			pstmt.setInt(6, promoteListVO.getPromoteId());
-
-			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
-	}
 
 	@Override
 	public PromoteListVO findByCode(String promoteCode) {
