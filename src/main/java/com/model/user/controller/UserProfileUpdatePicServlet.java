@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -27,12 +28,14 @@ public class UserProfileUpdatePicServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
+		HttpSession session = request.getSession();
+		Integer userId = (Integer) session.getAttribute("userID");
 		
 		try {
 
 			JsonObject data = gson.fromJson(request.getReader(), JsonObject.class);
 			String pic64 = data.get("pic").toString();
-			Integer userId = Integer.parseInt(String.valueOf(data.get("userId").toString()));
+//			Integer userId = Integer.parseInt(String.valueOf(data.get("userId").toString()));
 			byte[] picByte = Base64.getDecoder().decode((String) pic64.subSequence(1, pic64.length()-1));
 			UserService service = new UserServiceImpl();
 			String result = service.updateProfilePic(picByte, userId);

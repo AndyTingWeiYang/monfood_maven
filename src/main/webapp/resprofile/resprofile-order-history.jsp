@@ -25,7 +25,7 @@
 </head>
 <script>
 	document.addEventListener('DOMContentLoaded', function () {
-
+		$('#orderList').DataTable();
 		
 		$('#checkbtn').click(function() {		
 			let orderId= {
@@ -129,24 +129,7 @@
 									<th>訂單狀態</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="odd">
-									<td valign="top" colspan="6" class="dataTables_empty">Loading...</td>
-								</tr>
-<%-- 										<c:forEach var="orderMap" items="${orderList}" begin="0" step="1" varStatus="i" > --%>
-<!-- 											<tr> -->
-<%-- 												<td>${orderMap.userId}</td> --%>
-<%-- 												<td>${orderMap.orderId}</td> --%>
-<%-- 												<td>${orderMap.productName}</td> --%>
-<%-- 												<td>${orderMap.amount}</td> --%>
-<%-- 												<td>${orderMap.total}</td> --%>
-<%-- 												<td>${orderMap.orderDone}</td> --%>
-<%-- 												<td>${orderMap.note}</td> --%>
-<%-- 												<td>${orderMap.resComment}</td> --%>
-<%-- 												<td>${orderMap.orderStatus}</td> --%>
-<!-- 											</tr> -->
-<%-- 										</c:forEach> --%>
-							</tbody>
+							<tbody></tbody>
 							<tfoot>
 								<tr>
 									<th>會員編號</th>

@@ -16,14 +16,15 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.model.product.controller.NewProductServlet;
 import com.model.product.util.IntTypeAdapter;
 import com.model.res.ResDto;
-import com.model.res.ResVO;
+import com.model.res.dao.ResDAO;
+import com.model.res.dao.impl.ResDAOImpl;
 import com.model.res.service.ResService;
 import com.model.res.service.impl.ResServiceImpl;
 
@@ -61,19 +62,25 @@ public class ResInfoUpdateServlet extends HttpServlet {
 		// 取得 session 物件中的會員編號
 		HttpSession session = request.getSession(false);
 		Integer resID = (Integer) session.getAttribute("resID");
-	
+
 		dataMap.put("resID", resID);
 		System.out.println(dataMap);
 		String dataMapStr = gson.toJson(dataMap);
 		ResDto resDto = gson.fromJson(dataMapStr, ResDto.class);
-		boolean result = resService.updateResInfo(resDto);
-		if (result) {
-			JsonObject resp = new JsonObject();
-			resp.addProperty("result", result);
-			resp.addProperty("resID", resID);
-			PrintWriter out = response.getWriter();
-			out.write(gson.toJson(resp));
+		Map<String, Object> resMap = resService.updateResInfo(resDto);
+		String ownerName = (String) dataMap.get("ownerName");
+		String resPhone = (String) dataMap.get("resPhone");
+		dataMap.get(resPhone);
+		
+		if (StringUtils.isNotBlank(ownerName) || StringUtils.isNoneBlank(resPhone)) {
+
 		}
+		JsonObject resp = new JsonObject();
+
+		resp.add("resMap", gson.toJsonTree(resMap));
+		resp.addProperty("resID", resID);
+		PrintWriter out = response.getWriter();
+		out.write(gson.toJson(resp));
 
 	}
 

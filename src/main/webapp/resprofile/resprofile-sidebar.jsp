@@ -42,7 +42,7 @@
 			<li class="nav-item nav-category"><span class="nav-link">商家帳號</span>
 			</li>
 			<li class="nav-item menu-items"><a class="nav-link"
-				data-toggle="collapse" href="resprofile-info.jsp"
+				data-toggle="collapse" href="ResInfoPreviewServlet"
 				aria-expanded="false" aria-controls="ui-basic"> <span
 					class="menu-icon"> <i class="mdi mdi-laptop"></i>
 				</span> <span class="menu-title">餐廳資訊</span>
@@ -57,11 +57,12 @@
 			<span class="menu-icon"> <i class="mdi mdi-plus-circle"></i>
 				</span> <span class="menu-title">新增商品</span>
 			</a></li>
-			<li class="nav-item menu-items"><a class="nav-link"
-				href="resprofile-mailbox.jsp"> <span class="menu-icon"> <i
-						class="mdi mdi-email-open-outline"></i>
-				</span> <span class="menu-title">收件匣</span>
-			</a></li>
+<!-- 			<li class="nav-item menu-items"><a class="nav-link" -->
+<!-- 				href="resprofile-mailbox.jsp"> <span class="menu-icon">  -->
+<!-- 				<i -->
+<!-- 						class="mdi mdi-email-open-outline"></i> -->
+<!-- 				</span> <span class="menu-title">收件匣</span> -->
+<!-- 			</a></li> -->
 			<li class="nav-item menu-items"><a class="nav-link"
 				href="resprofile-order-history.jsp"> <span class="menu-icon">
 						<i class="mdi mdi-playlist-play"></i>

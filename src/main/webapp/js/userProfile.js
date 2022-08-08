@@ -28,7 +28,7 @@ window.addEventListener('load', function(){
                 url: '/monfood_maven/UserProfileUpdatePicServlet',
                 type: 'POST',
                 data: JSON.stringify({
-                    userId : 6,
+                    // userId : 6,
                     pic : picBase64
                 }),
                 dataType: 'json',
@@ -49,7 +49,7 @@ window.addEventListener('load', function(){
         url: '/monfood_maven/UserProfileServlet',
         type: 'POST',
         data: JSON.stringify({
-            userId : 6,
+            // userId : 6,
         }),
         dataType: 'json',
         success: function(msg){
@@ -130,7 +130,7 @@ window.addEventListener('load', function(){
             url: '/monfood_maven/UserProfileUpdateServlet',
             type: 'POST',
             data: JSON.stringify({
-                userId : 6,
+                // userId : 6,
                 data : parseInt(budget.val().trim()),
                 msg : 'budget'
             }),
@@ -168,7 +168,7 @@ window.addEventListener('load', function(){
             url: '/monfood_maven/UserProfileUpdateServlet',
             type: 'POST',
             data: JSON.stringify({
-                userId : 6,
+                // userId : 6,
                 data : parseInt(kcal.val().trim()),
                 msg : 'kcal'
             }),
@@ -199,7 +199,7 @@ window.addEventListener('load', function(){
             url: '/monfood_maven/UserProfileUpdateServlet',
             type: 'POST',
             data: JSON.stringify({
-                userId : 6,
+                // userId : 6,
                 data : introduction.val().trim(),
                 msg : 'introduction'
             }),

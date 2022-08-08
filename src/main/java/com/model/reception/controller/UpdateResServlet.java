@@ -67,9 +67,9 @@ public class UpdateResServlet extends HttpServlet {
 			dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
 			Object values = dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
 			if( values == null) {
-				request.setAttribute("errMsg", "error: update fail");
-				RequestDispatcher rd = request.getRequestDispatcher("/admin-res-reception/resReception-index.jsp");
-				rd.forward(request, response);
+				request.setAttribute("errMsg", "error: 請選擇營業週期!請至少選擇一天");
+				String url = "/admin-res-reception/resReception-index.jsp";//這裡換成update頁面
+				response.sendRedirect(request.getContextPath() + url);
 			}
 			
 			//開店時間

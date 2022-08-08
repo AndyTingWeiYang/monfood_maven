@@ -199,8 +199,6 @@ $('#searchPdt').keypress(function(e){
             $('#resPageBlock').html('');
             const resList = data.resList;
 
-
-
             for(let i = 0; i < resList.length; i++) {
               const resVo = resList[i];
               let resPageHtml = `
@@ -255,8 +253,10 @@ $('.restriction').click(function(){
             let resPageHtml = `
                 <a id="resPage" 
                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
-                  href="restaurant.html">
+                  href="">
+                  <span id=${resVo.resId}></span>
                 </a>
+
               `;
   
             let resPageContentHtml = `
@@ -291,33 +291,47 @@ $('.restriction').click(function(){
       dataType: 'json',
       
       success: function(data) {
-        const resList = data.resList.filter(function(resVo) {
-          return resVo 
-        });
+        const resList = data.resList;
         
         for(let i = 0; i < resList.length; i++) {
         const resVo = resList[i];
 
+        var resCat;
+
+        if(resVo.resCategory==1){
+          resCat = "台式";
+          }else if(resVo.resCategory==2){
+          resCat = "日式";
+          }else if(resVo.resCategory==3){
+          resCat = "泰式";
+          }else if(resVo.resCategory==4){
+          resCat = "美式";
+          }else if(resVo.resCategory==5){
+          resCat = "韓式";
+          }
+          console.log(resCat);
+          console.log(resVo.resCategory);
+
           let resPageHtml = `
             <a id="resPage" 
               class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
-              href="restaurant.html">
+              href="restaurant.html?resID=${resVo.resId}">
             </a>
           `;
   
           let resPageContentHtml = `
             <div class="btn btn-primary monfood-resBlock">
-              <div class="monfood-resPicdiv" >
-                <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
-              </div>
-              <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
-                <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}</div>
-              </div>
-              <div class="row justify-content-between monfood-resCategorydiv">
-                <div class="col-md-6 d-flex"></div>
-                <div id="resCategory" class="col-md-6 monfood-resCategory">${resVo.resCategory}</div>
-              </div>
+                <div class="monfood-resPicdiv" >
+                    <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+                </div>
+                <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                    <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                    <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}分</div>
+                </div>
+                <div class="row justify-content-between monfood-resCategorydiv">
+                    <div class="col-md-6 d-flex"></div>
+                    <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
+                </div>
             </div>
           `;
         
@@ -328,4 +342,16 @@ $('.restriction').click(function(){
       }
     });
   });
+
+//點擊導向選擇店家
+$(document).ready(function(){
+  
+      // 取得 queryString
+      const urlParams = new URLSearchParams(window.location.search);
+      const resId = urlParams.get('resID');
+         if(resId) {
+            
+      }
+});
+
 

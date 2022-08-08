@@ -15,7 +15,7 @@ window.addEventListener('load', function(){
               url: '/monfood_maven/UserProfileUpdatePicServlet',
               type: 'POST',
               data: JSON.stringify({
-                  userId : 6,
+                  // userId : 6,
                   pic : picBase64
               }),
               dataType: 'json',
@@ -41,7 +41,7 @@ window.addEventListener('load', function(){
       url: '/monfood_maven/UserProfileServlet',
       type: 'POST',
       data: JSON.stringify({
-          userId : 6,
+          // userId : 6,
       }),
       dataType: 'json',
       success: function(msg){
@@ -64,7 +64,7 @@ window.addEventListener('load', function(){
     url: '/monfood_maven/MonsCheckServlet',
     type: 'POST',
     data: JSON.stringify({
-      userId : 6,
+      // userId : 6,
     }),
     dataType: 'json',
     success: function(msg){
@@ -79,7 +79,7 @@ window.addEventListener('load', function(){
       $('#total').text(parseInt($('.itemTotal').text()) + parseInt($('.delCost').text()) - parseInt($('.discountVal').text()));
       
       // 小怪獸EXP
-      let levelEXP = (orderTimes % 10)+1;
+      let levelEXP = orderTimes % 10;
       if(orderTimes >= 40){
         $('#levelEXP').css('width', `100%`).text('100%');
       }else if(orderTimes >= 10 && levelEXP == 0){

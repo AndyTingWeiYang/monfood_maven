@@ -75,8 +75,8 @@
 							<div class="col-sm-6">
 								<label for="resCategory" class="col-sm-12 col-form-label">餐廳類別</label>
 								<div>
-									<input id="resCategory" type="text" readonly name="resCategory"
-										class="form-control" value="美式">
+									<input id="resCategory" type="text" readonly name="rs3" value="${productMap.resCategory}"
+										class="form-control">
 								</div>
 							</div>
 
@@ -85,7 +85,7 @@
 								<div>
 									<input id="productName" type="text" name="productName"
 										class="form-control" placeholder="請輸入商品名稱"
-										value="${product.productName}">
+										value="${productMap.productName}">
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -93,7 +93,7 @@
 								<div>
 									<input id="productPrice" type="text" name="productPrice"
 										class="form-control" placeholder="請輸入商品價格"
-										value="${product.productPrice}">
+										value="${productMap.productPrice}">
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -101,14 +101,14 @@
 								<div>
 									<input id="productKcal" type="text" name="productKcal"
 										class="form-control" placeholder="請輸入商品熱量 (份/kcal)"
-										value="${product.productKcal}">
+										value="${productMap.productKcal}">
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<label for="stock" class="col-sm-12 col-form-label">商品庫存</label>
 								<div>
 									<input id="stock" type="text" name="stock" class="form-control"
-										placeholder="請輸入數量" value="${product.stock}">
+										placeholder="請輸入數量" value="${productMap.stock}">
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -116,17 +116,17 @@
 								<select id="productStatus" name="productStatus"
 									class="form-select" aria-label="Default select example">
 									<option>請選擇</option>
-									<option value="1" ${(product.productStatus==1)?'selected':'' }>上架</option>
-									<option value="2" ${(product.productStatus==2)?'selected':'' }>售完</option>
-									<option value="3" ${(product.productStatus==3)?'selected':'' }>下架</option>
+									<option value="1" ${(productMap.productStatus==1)?'selected':'' }>上架</option>
+									<option value="2" ${(productMap.productStatus==2)?'selected':'' }>售完</option>
+									<option value="3" ${(productMap.productStatus==3)?'selected':'' }>下架</option>
 								</select>
 							</div>
 						</div>
 						<!-- 預覽圖片 -->
 						<div class="row">
 							<div class="col-sm-6">
-								<span>原產品圖片</span> <img width="100%"
-									src="ProductPicServlet?productID=${product.productID}" />
+								<div>原產品圖片</div>
+								<img width="400px" src="ProductPicServlet?productID=${productMap.productID}" />
 							</div>
 							<!-- 更新圖片區塊 -->
 							<div class="col-sm-6">
@@ -139,7 +139,7 @@
 						</div>
 						<div class="d-flex justify-content-end mt-3">
 							<input type="hidden" name="productID"
-								value="${product.productID}" />
+								value="${productMap.productID}" />
 							<button type="submit" class="btn btn-outline-dark mf-bdr-15">確定</button>
 							<button type="reset" class="btn btn-outline-dark mf-bdr-15 ml-2">取消</button>
 						</div>

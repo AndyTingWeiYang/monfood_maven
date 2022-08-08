@@ -22,10 +22,8 @@
         <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
             <ul class="list-unstyled justify-content-center">
                 <li class="mt-3 mb-1">
-                    <a href="resLogin.html" class="transparent text-white">新增您的餐廳</a>
                 </li>
                 <li class="mb-1 transparent">
-                    <a href="delLogin.html" class="transparent text-white">註冊成為外送夥伴</a>
                 </li>
                 <li class="mb-1 transparent">
                     <a href="aboutUs.html" class="transparent text-white">關於MonFood</a>

@@ -20,7 +20,8 @@ import com.model.res.service.impl.ResServiceImpl;
 @WebServlet("/ResFindByCategoryServlet")
 public class ResFindByCategoryServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");		
 		Gson gson = new Gson();

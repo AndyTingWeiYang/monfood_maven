@@ -31,6 +31,14 @@ span.logo2{
 
 }
 
+.headshot{
+  width:50%;
+  height: 50%;
+  border-radius: 10px;
+  position: relative;
+  margin:0 0 0 25%;
+}
+
 
 /* 好友列表 */
 #friendList{

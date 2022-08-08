@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
-import com.model.res.ResVO;
-import com.model.resCategory.ResCategoryVo;
+
 
 public class ProductDAOImpl implements ProductDao {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -27,11 +28,19 @@ public class ProductDAOImpl implements ProductDao {
 
 //	private static DataSource ds = null;
 
+	private static final String GET_ALL_PDT = "SELECT PRODUCT_ID, RES_ID, PRODUCT_PRICE, PRODUCT_NAME, PRODUCT_KCAL "
+			+ "FROM PRODUCT "
+			+ "WHERE RES_ID = ?";
+	
 	private static final String SELECT = "select * from MonFood.PRODUCT where 1 = 1 ";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID= ?";
 	private static final String DELETE = "delete from MonFood.PRODUCT where PRODUCT_ID=?";
 	private static final String SELECT_BY_ID = "select * from MonFood.PRODUCT where PRODUCT_ID = ?";
+	private static final String SELECT_PRODUCT_RESCATE_BY_ID = "SELECT * FROM MonFood.RES "
+			+ "inner join PRODUCT on PRODUCT.RES_ID =RES.RES_ID "
+			+ "inner join RES_CATEGORY on RES_CATEGORY.RES_CATEGORY_ID = RES.RES_CATEGORY "
+			+ "where PRODUCT.PRODUCT_ID = ?";
 	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
 	private static final String FIND_RES_INFO = "select * from RES inner join RES_CATEGORY "
 			+ " on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID" + " where RES_ID = ? ";
@@ -121,10 +130,10 @@ public class ProductDAOImpl implements ProductDao {
 
 			// 取得產品 ID
 			String productIdStr = castTypeToStr(product.getProductID());
-			Map<String, Object> fieldMap = new HashedMap<>();
+			Map<String, Object> fieldMap = new LinkedHashMap<>();
 			sbf.append(" and RES_ID = ? ");
 			fieldMap.put("resID", product.getResID());
-//			
+			
 			// 將Integer->String判斷是否為空
 			if (StringUtils.isNotBlank(productIdStr)) {
 				sbf.append(" and PRODUCT_ID = ? ");
@@ -147,8 +156,7 @@ public class ProductDAOImpl implements ProductDao {
 				fieldMap.put("minPrice", product.getMinPrice());
 				fieldMap.put("maxPrice", product.getMaxPrice());
 			}
-		
-			
+
 			// 將組好的 sql 指令放進 pstmt
 			pstmt = conn.prepareStatement(sbf.toString());
 
@@ -444,29 +452,29 @@ public class ProductDAOImpl implements ProductDao {
 	}
 
 	@Override
-	public ProductVo findByID(String productID) {
+	public Map<String, Object> findByID(String productID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVo product = null;
+		Map<String, Object> productMap = new HashedMap<>();
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-			pstmt = conn.prepareStatement(SELECT_BY_ID);
+			pstmt = conn.prepareStatement(SELECT_PRODUCT_RESCATE_BY_ID);
 			// 接收從畫面來的參數
 			pstmt.setInt(1, Integer.parseInt(productID));
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				product = new ProductVo();
-				product.setProductID(rs.getInt("PRODUCT_ID"));
-				product.setResID(rs.getInt("RES_ID"));
-				product.setProductPic(rs.getBytes("PRODUCT_PIC"));
-				product.setProductPrice(rs.getInt("PRODUCT_PRICE"));
-				product.setProductStatus(rs.getInt("PRODUCT_STATUS"));
-				product.setProductKcal(rs.getInt("PRODUCT_KCAL"));
-				product.setProductName(rs.getString("PRODUCT_NAME"));
-				product.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
-				product.setStock(rs.getInt("STOCK"));
+
+				productMap.put("productID", rs.getInt("PRODUCT_ID"));
+				productMap.put("resID", rs.getInt("RES_ID"));
+				productMap.put("productPic", rs.getBytes("PRODUCT_PIC"));
+				productMap.put("productPrice", rs.getInt("PRODUCT_PRICE"));
+				productMap.put("productStatus", rs.getInt("PRODUCT_STATUS"));
+				productMap.put("productKcal", rs.getInt("PRODUCT_KCAL"));
+				productMap.put("productName", rs.getString("PRODUCT_NAME"));
+				productMap.put("stock", rs.getInt("STOCK"));
+				productMap.put("resCategory", rs.getString("RES_CATEGORY_NAME"));
 
 			}
 
@@ -474,7 +482,7 @@ public class ProductDAOImpl implements ProductDao {
 			e.printStackTrace();
 		}
 
-		return product;
+		return productMap;
 	}
 
 	// 將各類別轉型為字串
@@ -562,7 +570,7 @@ public class ProductDAOImpl implements ProductDao {
 			pstmt.setInt(1, resID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				resInfoMap.put("resID",rs.getInt("RES_ID") );
+				resInfoMap.put("resID", rs.getInt("RES_ID"));
 				resInfoMap.put("resName", rs.getString("RES_NAME"));
 				resInfoMap.put("resCategoryName", rs.getString("RES_CATEGORY_NAME"));
 			}
@@ -596,4 +604,60 @@ public class ProductDAOImpl implements ProductDao {
 		return resInfoMap;
 	}
 
+	@Override
+	public List<Map<String, Object>> getAllPdt(Integer resId) {
+		List<Map<String, Object>> pdtList = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(GET_ALL_PDT);
+			pstmt.setInt(1, resId);
+		
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("productID", rs.getInt("PRODUCT_ID"));
+				map.put("resId", rs.getInt("RES_ID"));
+				map.put("productPrice", rs.getInt("PRODUCT_PRICE"));
+				map.put("productName", rs.getString("PRODUCT_NAME"));
+				map.put("productKcal", rs.getInt("PRODUCT_KCAL"));
+
+				pdtList.add(map);
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return pdtList;
+	}
 }

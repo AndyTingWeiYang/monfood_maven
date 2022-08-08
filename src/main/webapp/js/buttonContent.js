@@ -1,7 +1,7 @@
 // 聊天室
 
 //取得userId ajax
-var selfId;
+let selfId;
 $.ajax({
   url: "IdServlet",
   async: false,
@@ -67,10 +67,7 @@ function sendMessage(event) {
     alert("請輸入訊息");
     return;
   }
-
   appendNewMsg(true, message);
-
-
   let jsonObj = {
     type: "chat",
     senderId: selfId,
@@ -78,6 +75,9 @@ function sendMessage(event) {
     message: message,
   };
   webSocket.send(JSON.stringify(jsonObj));
+  let message_input = document.querySelector("#msgInput"+ friendId);
+  message_input.value = "";
+  message_input.focus();
 }
 
 
@@ -89,7 +89,7 @@ function refreshChat() {
     ul.innerHTML = '';
   }
 
-  // type是history時表示要fetch存在redis的資料出來
+  // type是history時表示要拿redis的資料出來
   let jsonObj = {
     type: "history",
     senderId: selfId,
@@ -190,7 +190,6 @@ $.ajax({
 });
 
 //更新答案ajax
-console.log(parseInt(refusePair));
 $("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
   fetch("UpdateAnswerServlet", {
     method: "POST",
@@ -210,6 +209,10 @@ $.ajax({
   type: "GET",
   dataType: "json",
   success: function (data) {
+    if (data.length == 0) {
+      let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
+      $(".list-group").append(noFriends);
+    }
     console.log(data);
     for (var i = 0; i < data.length; i++) {
       var base64String = btoa(
@@ -229,13 +232,9 @@ $.ajax({
         <div class="avatarList"></div>
         <div id="chatList">
           <h5 class="mb-1">${data[i].userName}</h5>
-          <p id="chatContent" class="mb-1">吃飽睡睡飽吃</p>
+          <p id="chatContent" class="mb-1">開始聊天吧!</p>
         </div>
-        <div id="sendTime">
-          <small>22:30</small>
-          <br />
-          <span id="messageNum" class="badge rounded-pill">14</span>
-        </div>
+        
       </div>
     </a>
     `;
@@ -278,7 +277,7 @@ $.ajax({
 
           <div id="sendMsg" class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
-              <input class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage(event)"/>
+              <input id = "msgInput${data[i].userId}" class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage(event)"/>
             </div>
             <div class="send_message">
               <div class="icon"></div>

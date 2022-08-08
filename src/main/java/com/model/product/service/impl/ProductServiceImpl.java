@@ -8,13 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.model.order.OrderVO;
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
 import com.model.product.dao.impl.ProductDAOImpl;
 import com.model.product.service.ProductService;
+import com.model.product.util.ErrorMsgException;
 import com.model.product.util.IntTypeAdapter;
-import com.model.res.ResVO;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -29,36 +28,36 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVo> findAll(Map<String, Object> dataMap) {
-		// TODO: 檢核錯誤目前回傳 null 後續改成 throw ErrorInputException
-		String productId = MapUtils.getString(dataMap, "productId");
-		if (proccessCheckMsg(productId)) {
-			return null;
-		}
+	public List<ProductVo> findAll(Map<String, Object> dataMap) throws ErrorMsgException {
+		String productID = MapUtils.getString(dataMap, "productID");
 
-		String resCategory = MapUtils.getString(dataMap, "resCategory");
-		if (proccessCheckMsg(resCategory)) {
-			return null;
+		ErrorMsgException eme = null;
+		if (proccessCheckMsg(productID)) {
+			eme = getErrorMsgException(eme, "productIdError", "商品編號有特殊字元，請重新輸入");
 		}
 
 		String productName = MapUtils.getString(dataMap, "productName");
 		if (proccessCheckMsg(productName)) {
-			return null;
+			eme = getErrorMsgException(eme, "productNameError", "商品名稱有特殊字元，請重新輸入");
 		}
 
 		String minPrice = MapUtils.getString(dataMap, "minPrice");
 		if (proccessCheckMsg(minPrice)) {
-			return null;
+			eme = getErrorMsgException(eme, "minPriceError", "商品最小價格有特殊字元，請重新輸入");
 		}
 		String maxPrice = MapUtils.getString(dataMap, "maxPrice");
 		if (proccessCheckMsg(maxPrice)) {
-			return null;
+			eme = getErrorMsgException(eme, "maxPriceError", "商品最高價格有特殊字元，請重新輸入");
 		}
 		// 最大金額不得小於最小金額
 		if (StringUtils.isNotBlank(minPrice) && StringUtils.isNotBlank(maxPrice)) {
 			if (Integer.parseInt(maxPrice) < Integer.parseInt(minPrice)) {
-				return null;
+				eme = getErrorMsgException(eme, "rangeError", "最高金額不可小於最小金額，請重新輸入");
 			}
+		}
+		// 拋出錯誤例外
+		if (eme != null) {
+			throw eme;
 		}
 
 		// 將 Map 物件變成 JSON 字串做序列化
@@ -79,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
 
 			for (int i = 0; i < msgSp.length; i++) {
 				for (int j = 0; j < flag.length; j++) {
-					if (msgSp[i].equals(flag)) {
+					if (msgSp[i].equals(flag[j])) {
 						System.out.println("有特殊字元，請重新輸入");
 						return true;
 					}
@@ -91,8 +90,8 @@ public class ProductServiceImpl implements ProductService {
 
 	public void checkResp() {
 		// 檢核手機號碼
-		String checkPhone ="";
-		
+		String checkPhone = "";
+
 	}
 
 	@Override
@@ -116,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductVo findByID(String productID) {
+	public Map<String, Object> findByID(String productID) {
 		return productDao.findByID(productID);
 	}
 
@@ -136,6 +135,21 @@ public class ProductServiceImpl implements ProductService {
 	public Map<String, Object> findResInfo(Integer resID) {
 
 		return productDao.findResInfo(resID);
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllPdt(Integer resId) {
+		List<Map<String, Object>> list = productDao.getAllPdt(resId);
+		return list;
+	}
+
+	private ErrorMsgException getErrorMsgException(ErrorMsgException eme, String msgKey, String msgValue) {
+		if (eme == null) {
+			eme = new ErrorMsgException();
+		}
+
+		eme.appendMessage(msgKey, msgValue);
+		return eme;
 	}
 
 }
