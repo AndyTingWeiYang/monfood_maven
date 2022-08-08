@@ -72,6 +72,8 @@
 				<div class="mf-content-wrapper">
 
 					<!-- 表單區塊 -->
+					 <span class="monfood-title mr-1"></span>
+                    <h3 style="display: inline-block;">新增商品</h3>
 					<form method="post" action="NewProductServlet" enctype="multipart/form-data">
 						<div class="jumbotron form-group row">
 							<!-- 並排兩格區塊:餐廳資訊 -->

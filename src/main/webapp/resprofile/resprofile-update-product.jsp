@@ -61,6 +61,8 @@
 				<div class="mf-content-wrapper">
 
 					<!-- 表單區塊 -->
+					 <span class="monfood-title mr-1"></span>
+                    <h3 style="display: inline-block;">產品資訊更新</h3>
 					<form method="post" action="UpdateProductServlet"
 						enctype="multipart/form-data">
 						<div class="jumbotron form-group row">

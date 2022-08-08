@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.model.product.util.ErrorMsgException;
 import com.model.product.util.IntTypeAdapter;
 import com.model.res.ResDto;
 import com.model.res.dao.ResDAO;
@@ -50,38 +53,42 @@ public class ResInfoUpdateServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
-		Map<String, Object> dataMap = resToMap(request);
-		Part resFile = request.getPart("resFile");
-		InputStream is = resFile.getInputStream();
-		byte[] buffer = new byte[is.available()];
-		is.read(buffer);
-
-		dataMap.put("resFile", buffer);
-
-		// 取得 session 物件中的會員編號
-		HttpSession session = request.getSession(false);
-		Integer resID = (Integer) session.getAttribute("resID");
-
-		dataMap.put("resID", resID);
-		System.out.println(dataMap);
-		String dataMapStr = gson.toJson(dataMap);
-		ResDto resDto = gson.fromJson(dataMapStr, ResDto.class);
-		Map<String, Object> resMap = resService.updateResInfo(resDto);
-		String ownerName = (String) dataMap.get("ownerName");
-		String resPhone = (String) dataMap.get("resPhone");
-		dataMap.get(resPhone);
-		
-		if (StringUtils.isNotBlank(ownerName) || StringUtils.isNoneBlank(resPhone)) {
-
-		}
 		JsonObject resp = new JsonObject();
-
-		resp.add("resMap", gson.toJsonTree(resMap));
-		resp.addProperty("resID", resID);
 		PrintWriter out = response.getWriter();
-		out.write(gson.toJson(resp));
+		try {
+			Map<String, Object> dataMap = resToMap(request);
+			Part resFile = request.getPart("resFile");
+			InputStream is = resFile.getInputStream();
+			byte[] buffer = new byte[is.available()];
+			is.read(buffer);
 
+			dataMap.put("resFile", buffer);
+
+			// 取得 session 物件中的會員編號
+			HttpSession session = request.getSession(false);
+			Integer resID = (Integer) session.getAttribute("resID");
+
+			dataMap.put("resID", resID);
+			System.out.println(dataMap);
+			String dataMapStr = gson.toJson(dataMap);
+			ResDto resDto = gson.fromJson(dataMapStr, ResDto.class);
+			Map<String, Object> resMap;
+			resMap = resService.updateResInfo(resDto);
+
+			resp.add("resMap", gson.toJsonTree(resMap));
+			resp.addProperty("resID", resID);
+
+			out.write(gson.toJson(resp));
+
+		} catch (ErrorMsgException eme) {
+			Map<String, String> errorMsg = eme.getErrorMsg();
+			resp.add("errorMsg", gson.toJsonTree(errorMsg));
+			out.write(gson.toJson(resp));
+
+			eme.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Map<String, Object> resToMap(HttpServletRequest request) {

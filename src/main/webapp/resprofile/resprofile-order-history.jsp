@@ -97,6 +97,8 @@
 			<div class="main-panel">
 				<div class="mf-content-wrapper">
 					<!-- 表單區塊 -->
+					 <span class="monfood-title mr-1"></span>
+                    <h3 style="display: inline-block;">歷史訂單</h3>
 					<form class="jumbotron" method="post" action="ResFindOrderServlet">
 						<div class="form-group row ">
 							<div class="row col-md-12 col-sm-12 mb-3">

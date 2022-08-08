@@ -58,11 +58,13 @@
     		$("#fancybox-close").trigger('click'); 
     	});
      
+ 	 // 上傳圖片
      let files = [];
      $('#resFile').change(function (e) {
          files = Array.from(e.target.files);
      });
 
+     // ajax FormData
      $('#btnCheck').click(function () {
     	
          let formData = new FormData();
@@ -83,28 +85,41 @@
              processData: false,
              dataType: 'JSON',
              success: function (data) {
+                console.log(data);
+                // success 傳遞的參數去呼叫後端的key
             	const resMap = data.resMap;
             	 
-                 console.log(data);
-                 // 清空商家 src 圖片
-                 $('#resPhoto').attr('src', '');
-                 // 更新商家 src 連結
-                 $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
-                 
-                 // 將剛剛更新成功的資料帶回 resprofile-info-preview.jsp
-               $('#ownerNameDiv').text(resMap.ownerName);
-               $('#ownerTel').text(resMap.ownerTel);
-               $('#resTelDiv').text(resMap.resTel);
-               $('#bzLocationDiv').text(resMap.bzLocation);
-               $('#resCategoryNameDiv').text(resMap.resCategoryName);
-                 
-                 
-                $('#resPhotoDiv').attr('src', '');
-                $('#resPhotoDiv').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                 // 成功回傳
+                 if(resMap) {
+                	  // 清空商家 src 圖片
+                     $('#resPhoto').attr('src', '');
+                     // 更新商家 src 連結
+                     $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                     
+                     // 將剛剛更新成功的資料帶回 resprofile-info-preview.jsp
+    	             $('#ownerNameDiv').text(resMap.ownerName);
+    	             $('#ownerTel').text(resMap.ownerTel);
+    	             $('#resTelDiv').text(resMap.resTel);
+    	             $('#bzLocationDiv').text(resMap.bzLocation);
+    	             $('#resCategoryNameDiv').text(resMap.resCategoryName);
+                     
+                     $('#resPhotoDiv').attr('src', '');
+                     $('#resPhotoDiv').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+                   
+                    swal('新增成功', '餐廳資訊已更新', 'success');
+                    $("#fancybox-close").trigger('click');
+                 }
                
-                swal('新增成功', '餐廳資訊已更新', 'success');
-                
-                $("#fancybox-close").trigger('click');
+                // 檢核錯誤訊息
+                const errorMsg = data.errorMsg;
+	          	if(errorMsg) {
+	          		$('#checkOwnerNameSp').text(errorMsg.ownerName);
+	          		$('#checkResPhoneSp').text(errorMsg.resPhone);
+	          		$('#checkBzAddSp').text(errorMsg.bzLocation);
+	          		
+	          		swal('新增失敗', '請確認是否有空格', 'error');
+                }
+      
              },error: function(){
             	$("#fancybox-close").trigger('click'); 
              	swal('新增失敗', '請確認是否有空格', 'error');
@@ -155,13 +170,13 @@
                             <div class="col-sm-6">
                                 <label for="ownerName" class="col-sm-6 col-form-label">聯絡人姓名</label>
                                 <input class="col-sm-12 form-control " id="ownerName" name="ownerName"
-                                    placeholder="請輸入聯絡人姓名"><span id="checkOwnerNameSp"></span>
+                                    placeholder="請輸入聯絡人姓名"><span id="checkOwnerNameSp" style="color:red;"></span>
                             </div>
                             <div class="col-sm-6">
                                 <label for="resPhone" class="col-sm-6 col-form-label">餐廳電話</label>
                                 <input class="col-sm-12 form-control " id="resPhone" name="resPhone"
-                                    placeholder="請輸入餐廳電話"><span id="checkResPhoneSp"></span><i
-                                    id="checkResPhoneI"></i>
+                                    placeholder="請輸入餐廳電話"><span id="checkResPhoneSp" style="color:red;"></span>
+                                    
                             </div>
                             <div class="col-sm-6">
                                 <label for="resCategory" class="col-sm-6 col-form-label">餐廳類型</label>
@@ -188,8 +203,7 @@
                                     </div>
                                     <div class="col-sm-9" style="padding: 0;">
                                         <input id="bzAdd" type="text" class="form-control " name="bzAdd"
-                                            placeholder="請輸入詳細地址"><span id="checkBzAddSp"></span><i
-                                            id="checkBzAddI"></i>
+                                            placeholder="請輸入詳細地址"><span id="checkBzAddSp" style="color:red;"></span>
                                     </div>
                                 </div>
                             </div>

@@ -10,9 +10,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
+import com.model.product.util.ErrorMsgException;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
@@ -140,7 +142,29 @@ public class ResServiceImpl implements ResService {
 	}
 
 	@Override
-	public Map<String, Object> updateResInfo(ResDto resDto) {
+	public Map<String, Object> updateResInfo(ResDto resDto) throws ErrorMsgException {
+		ErrorMsgException eme = null;
+
+		String ownerName = resDto.getOwnerName();
+		if (proccessCheckMsg(ownerName)) {
+			eme = getErrorMsgException(eme, "ownerName", "聯絡人姓名有特殊字元，請重新輸入");
+		}
+
+		String resPhone = resDto.getResPhone();
+		if (proccessCheckMsg(resPhone)) {
+			eme = getErrorMsgException(eme, "resPhone", "餐廳電話有特殊字元，請重新輸入");
+		}
+
+		String bzLocation = resDto.getBzAdd();
+		if (proccessCheckMsg(bzLocation)) {
+			eme = getErrorMsgException(eme, "resPhone", "餐廳地址有特殊字元，請重新輸入");
+		}
+
+		// 拋出錯誤例外
+		if (eme != null) {
+			throw eme;
+		}
+
 		return dao.updateResInfo(resDto);
 	}
 
@@ -214,7 +238,35 @@ public class ResServiceImpl implements ResService {
 
 	@Override
 	public Map<String, Object> selectResInfo(Integer resID) {
+
 		return dao.selectResInfo(resID);
+	}
+
+	public boolean proccessCheckMsg(String msg) {
+		if (StringUtils.isNoneBlank(msg)) {
+			String[] msgSp = msg.split("");
+			String[] flag = new String[] { "!", "@", "#", "$", "%", "^", "&" };
+
+			for (int i = 0; i < msgSp.length; i++) {
+				for (int j = 0; j < flag.length; j++) {
+					if (msgSp[i].equals(flag[j])) {
+						System.out.println("有特殊字元，請重新輸入");
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	// 錯誤例外處理
+	private ErrorMsgException getErrorMsgException(ErrorMsgException eme, String msgKey, String msgValue) {
+		if (eme == null) {
+			eme = new ErrorMsgException();
+		}
+
+		eme.appendMessage(msgKey, msgValue);
+		return eme;
 	}
 
 	private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

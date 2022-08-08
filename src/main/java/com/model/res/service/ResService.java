@@ -3,6 +3,7 @@ package com.model.res.service;
 import java.util.List;
 import java.util.Map;
 
+import com.model.product.util.ErrorMsgException;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
 
@@ -30,7 +31,7 @@ public interface ResService {
 
 	List<Map<String, Object>> adminFindByCategory(Integer resCategory);
 
-	Map<String, Object> updateResInfo(ResDto resDto);
+	Map<String, Object> updateResInfo(ResDto resDto)throws ErrorMsgException;
 
 	ResVO selectByResId(Integer resId);
 
