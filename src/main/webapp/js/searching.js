@@ -8,20 +8,4 @@ window.addEventListener('load', function(){
     $('#address').text(orderList.address)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })

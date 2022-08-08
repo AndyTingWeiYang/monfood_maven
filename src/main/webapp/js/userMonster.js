@@ -72,6 +72,7 @@ window.addEventListener('load', function(){
       let monsLevel = msg.monsterInfo.monsLevel;
       let orderTimes = msg.orderTimes;
       let picBase64 = msg.monsPic;
+      console.log(picBase64)
       $('#discount').val(discountVal).attr('disabled', 'disabled');
       $('#monsLevel').text(monsLevel);
       $('#monsPic').attr('src', 'data:image/jpg;base64,' + picBase64)
