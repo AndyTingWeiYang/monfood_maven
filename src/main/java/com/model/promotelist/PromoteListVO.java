@@ -62,4 +62,10 @@ public class PromoteListVO implements Serializable{
 		this.status = status;
 		
 	}
+
+	@Override
+	public String toString() {
+		return "PromoteListVO [promoteId=" + promoteId + ", promoteCode=" + promoteCode + ", promotePrice="
+				+ promotePrice + ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + "]";
+	}
 }
