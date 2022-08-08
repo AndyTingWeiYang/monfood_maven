@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.model.pairlist.PairListVo;
@@ -32,7 +33,8 @@ public class UpdateAnswerServlet extends HttpServlet {
 		java.util.Date date = new java.util.Date();
 		java.sql.Date today = new java.sql.Date(date.getTime());
 		pairListVo.setPairedDate(today);
-		int useraId = 2; //先寫死 [to be revised]
+		HttpSession httpSession = req.getSession();
+		Integer useraId = (Integer) httpSession.getAttribute("userID");
 		pairListVo.setUseraId(useraId);
 		pairListVo.setUserbId(useraId);
 		PairListService service = new PairListServiceImpl();
