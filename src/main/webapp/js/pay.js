@@ -187,37 +187,7 @@ window.addEventListener('load', function(){
 
   })
 
-
-
-
-
-  // 購物車假資料
-  var data = {"cartList" : [{
-      resId : 4,
-      resName : '麥當勞-台北民生店',
-      productID : 1,
-      productName : '雙層牛肉吉士堡',
-      amount : 5,
-      productPrice : 65,
-      productKcal : 467,
-      // img : 'images/20190813JEF004__20190813_L.jpg'
-    },
-    {
-      resId : 4,
-      resName : '麥當勞-台北民生店',
-      productID : 2,
-      productName : '大麥克',
-      amount : 4,
-      productPrice : 75,
-      productKcal : 548,
-      // img : 'images/111.jpg's
-    }]
-  };
-
-  // 設定假資料到session
-  sessionStorage.setItem('cartList', JSON.stringify(data));
-
-  // 從session 取得購物車假資料
+  // 從session 取得購物車資料
   let cartData = JSON.parse(sessionStorage.getItem('cartList'));
   var itemTotal = 0;
   var kcalTotal = 0;
