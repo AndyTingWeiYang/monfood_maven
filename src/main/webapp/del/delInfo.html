@@ -32,6 +32,12 @@
       li.info.-none{
         display: none;
       }
+
+      button.btn.btn-primary{
+        background-color: #1A4D2E;
+        border: #1A4D2E;
+      }
+
     </style>
   </head>
 
@@ -42,8 +48,10 @@
         <ul class="nav" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item nav-category">
             <span class="nav-link">
-              <img width="16px" height="16px" src="../assets/images/arrow-left-solid.svg"/>
-              <span class="ml-3">返回前台</span>
+              <a href="../delIndex.html">
+                <img width="16px" height="16px" src="../assets/images/arrow-left-solid.svg"/>
+                <span class="ml-3">返回前台</span>
+              </a>
             </span>
           </li>
 
@@ -290,6 +298,7 @@
                   }
                 })
                 .then(function(data){
+                    sessionStorage.setItem("del", data.delID);
                     $("span.loginDelID").text(data.delID);
                     $("h4.loginName").text(data.delName);
                     $("li.delName").text(data.delName);

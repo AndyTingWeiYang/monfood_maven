@@ -1,5 +1,4 @@
-// 聊天室
-
+// 聊天室WebSocket
 //取得userId ajax
 let selfId;
 $.ajax({
@@ -40,7 +39,7 @@ function appendNewMsg(isMe, msg) {
 webSocket.onmessage = function (event) {
   let jsonObj = JSON.parse(event.data);
   console.log(jsonObj);
-  
+
   // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
   let messages = JSON.parse(jsonObj.message);
   for (let i = 0; i < messages.length; i++) {
@@ -75,18 +74,16 @@ function sendMessage(event) {
     message: message,
   };
   webSocket.send(JSON.stringify(jsonObj));
-  let message_input = document.querySelector("#msgInput"+ friendId);
+  let message_input = document.querySelector("#msgInput" + friendId);
   message_input.value = "";
   message_input.focus();
 }
 
-
-
 function refreshChat() {
   // 移除舊的訊息
-  const ul = document.getElementById(`messagesArea${friendId}`)
-  if(ul) {
-    ul.innerHTML = '';
+  const ul = document.getElementById(`messagesArea${friendId}`);
+  if (ul) {
+    ul.innerHTML = "";
   }
 
   // type是history時表示要拿redis的資料出來
@@ -99,75 +96,7 @@ function refreshChat() {
   webSocket.send(JSON.stringify(jsonObj));
 }
 
-// 聊天室js(暫不用)
-//  $(function () {
-//     var Message;
-//     Message = function (arg) {
-//       (this.text = arg.text), (this.message_side = arg.message_side);
-//       this.draw = (function (_this) {
-//         return function () {
-//           var $message;
-//           $message = $($(".message_template").clone().html());
-//           $message
-//             .addClass(_this.message_side)
-//             .find(".text")
-//             .html(_this.text);
-//           $(".messages").append($message);
-//           return setTimeout(function () {
-//             return $message.addClass("appeared");
-//           }, 0);
-//         };
-//       })(this);
-//       return this;
-//     };
-//     $(function () {
-//       var getMessageText, message_side, sendMessage;
-//       message_side = "right";
-//       getMessageText = function () {
-//         var $message_input;
-//         $message_input = $(".message_input");
-//         return $message_input.val();
-//       };
-//       sendMessage = function (text) {
-//         var $messages, message;
-//         if (text.trim() === "") {
-//           return;
-//         }
-//         $(".message_input").val("");
-//         $messages = $(".messages");
-//         message_side = message_side === "left" ? "right" : "left";
-//         message = new Message({
-//           text: text,
-//           message_side: message_side,
-//         });
-//         message.draw();
-//         return $messages.animate(
-//           { scrollTop: $messages.prop("scrollHeight") },
-//           300
-//         );
-//       };
-//       $(document).on("click", ".send_message", function () {
-//         return sendMessage(getMessageText());
-//       });
-//       $(document).on("keyup", ".message_input", function (e) {
-//         if (e.which === 13) {
-//           return sendMessage(getMessageText());
-//         }
-//       });
-//     });
-//   }.call(this));
 
-//配對local storage
-
-//[to be asked]
-$("#acceptPair").click(function () {
-  localStorage.setItem("acceptPage", 10);
-  if (localStorage.getItem("acceptPage") == 10) {
-    $("#todayPairModal").hide();
-  } else {
-    $("#todayPairModal").show();
-  }
-});
 
 //配對者資訊ajax
 $.ajax({
@@ -176,9 +105,6 @@ $.ajax({
   dataType: "json",
   success: function (data) {
     console.log(data[0].profilePic);
-    // let blob = new Blob([data[0].profilePic],{ type: 'application/json' })
-    // url = window.URL.createObjectURL(blob);
-    // console.log(url);
     var base64String = btoa(
       String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
     );
@@ -304,3 +230,33 @@ $.ajax({
     }
   },
 });
+
+
+//配對local storage (按完接受配對or拒絕配對後當天不能再按按鈕)
+
+let twentyFourHoursSec = 24 * 60 * 60;
+$("#acceptPairBtn, #refusePairBtn").click(function () {
+  localStorage.setItem(
+    "whetherShow",
+    JSON.stringify({ date: new Date().getDate() })
+  );
+  init()
+
+});
+
+const showBtn = (value) => {
+  let acceptPairBtn = document.querySelector("#acceptPairBtn");
+  let refusePairBtn = document.querySelector("#refusePairBtn");
+  acceptPairBtn.disabled = value;
+  refusePairBtn.disabled = value;
+};
+
+const init = () => {
+  let show = JSON.parse(localStorage.getItem("whetherShow"));
+  let { date } = !!show ? show : { date: null };
+
+  if (!date | (parseInt(new Date().getDate()) > parseInt(date)  )) return showBtn(false);
+
+  showBtn(true);
+};
+window.addEventListener("load", init);

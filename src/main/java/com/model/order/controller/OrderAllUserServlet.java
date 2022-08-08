@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -43,6 +44,13 @@ public class OrderAllUserServlet extends HttpServlet {
 			// add the list into json format
 			respObj.add("userOrders", gson.toJsonTree(list));
 			respObj.add("orderDetail", gson.toJsonTree(productList));
+//			for (OrderVO pic : list) {
+//				list.getClass();
+//			}
+//			
+//			byte[] pic = result.getMonsPic();
+//			String picBase64 = DatatypeConverter.printBase64Binary(pic);
+//			respObj.addProperty("monsPic", picBase64);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

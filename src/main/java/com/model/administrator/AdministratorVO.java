@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class AdministratorVO implements Serializable {
 	private Integer adminID;
-	private String adminAccount;
 	private String adminPassword;
 	private Integer permission;
 	
@@ -18,14 +17,6 @@ public class AdministratorVO implements Serializable {
 
 	public void setAdminID(Integer adminID) {
 		this.adminID = adminID;
-	}
-
-	public String getAdminAccount() {
-		return adminAccount;
-	}
-
-	public void setAdminAccount(String adminAccount) {
-		this.adminAccount = adminAccount;
 	}
 
 	public String getAdminPassword() {
@@ -46,8 +37,7 @@ public class AdministratorVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AdministratorVO [adminID=" + adminID + ", adminAccount=" + adminAccount + ", adminPassword="
-				+ adminPassword + ", permission=" + permission + "]";
+		return "AdministratorVO [adminID=" + adminID + ", adminPassword=" + adminPassword + ", permission=" + permission + "]";
 	}
 	
 

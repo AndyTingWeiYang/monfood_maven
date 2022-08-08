@@ -31,10 +31,8 @@ public class IdServlet extends HttpServlet {
 		Gson gson = new Gson();
 		response.setContentType("application/json;charset=UTF-8");
 		response.addHeader("Access-Control-Allow-Origin", "*");
-
-//		HttpSession httpSession = request.getSession();
-//		httpSession.getAttribute("userID");
-		Integer userId =2; //[to be revised]
+		HttpSession httpSession = request.getSession();
+		Integer userId = (Integer) httpSession.getAttribute("userID");
 		PrintWriter out = response.getWriter();
 		out.print(gson.toJson(userDao.selectByUserId(userId)));
 	}

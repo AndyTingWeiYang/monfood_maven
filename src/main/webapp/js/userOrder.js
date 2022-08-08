@@ -58,6 +58,15 @@ window.addEventListener('load', function(){
         }
     })
 
+    function byteToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
 
     function getOrder(){
         // order
@@ -69,15 +78,15 @@ window.addEventListener('load', function(){
             }),
             dataType: 'json',
             success: function(msg){
-                console.log(msg)
-
+                // console.log(msg)
                 $.each(msg.userOrders, function(index, data){
+                //    console.log(byteToBase64(this.resVO.resPic))
                     
                     let list = `
                         <div style="border-bottom:1px solid rgb(160, 156, 156); " class="orderList col-12 d-flex justify-content-between">
                             <div class="col-6 d-flex">
                                 <div class="col d-flex">
-                                    <img class="align-self-center" style="width: 180px; height: 130px" src="" alt="">
+                                    <img class="align-self-center" style="width: 180px; height: 130px" src="${'data:image/jpg;base64,' + byteToBase64(this.resVO.resPic)}" alt="">
                                 </div>
                                 <div class="col" style="padding-top: 10px;" class="productList">
                                     <div class="resName">${this.resVO.resName}</div>

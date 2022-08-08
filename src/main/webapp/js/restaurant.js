@@ -73,7 +73,7 @@ $(document).ready(function(){
               },
 
               success: function(data){
-                
+                console.log(data);
                 console.log('hihi');
                     const resPage = data.resPage;
                     var resCat;
@@ -92,7 +92,7 @@ $(document).ready(function(){
 
                     let resHeaderHtml = `
                     <div class="col-lg-6">
-                        <div class="col-xl-10 monfood-resNameHeader" style="float: left; font-size :35px;">${resPage.resName}</div>  
+                        <div class="col-xl-10 monfood-resNameHeader" style="float: left; font-size :35px;" resId="${resPage.resId}">${resPage.resName}</div>  
                         <div class="col-lg-3 monfood-resType">${resCat}</div>
                         <div class="row">
                             <div class="col-xl-2 monfood-openedTimediv" style="text-align: center;">營業時間</div>
@@ -111,6 +111,7 @@ $(document).ready(function(){
 
                 const contentHtml = $(resHeaderHtml);
                 $('#resHeaderBlock').append(contentHtml);
+                $('#cart-res-name').text(resPage.resName);
               }
               
           });
@@ -163,7 +164,7 @@ $(document).ready(function(){
             },
             dataType: 'JSON',
             success: function(data){
-                
+                console.log(data)
                 const pdtList = data.pdtList;
           
                   for(let i = 0; i < pdtList.length; i++) {
@@ -191,9 +192,9 @@ $(document).ready(function(){
                                 <img class="monfood-pdtPicModal" src="/monfood_maven/resprofile/ProductPicServlet?productID=${productVo.productID}"/>
                               </div>
                               <div class="monfood-pdtinfoModeldiv">
-                                <h4 class="monfood-ModalPdtName">${productVo.productName}</h4>
-                                <h6 class="monfood-ModalPdtKcal">${productVo.productKcal} Kcal</h6>
-                                <h6 class="monfood-ModalPdtPrice">$${productVo.productPrice}</h6>
+                                <h4 class="monfood-ModalPdtName" prodId="${productVo.productID}">${productVo.productName}</h4>
+                                <h6><span class="monfood-ModalPdtKcal">${productVo.productKcal}</span> Kcal</h6>
+                                <h6>$<span class="monfood-ModalPdtPrice">${productVo.productPrice}</span></h6>
                               </div>
                              
                               <div class="Qcontainer">
@@ -238,9 +239,9 @@ $(document).ready(function(){
         });		
 
         // 商品談窗點擊加入購物車
-        $('.monfood-addToCart').each(function(index,element){
-          alert('新增成功')
-        });
+        // $('.monfood-addToCart').each(function(index,element){
+        //   alert('新增成功')
+        // });
 
 
         // $('.monfood-addToCart').click(function(){

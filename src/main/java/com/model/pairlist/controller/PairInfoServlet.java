@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.model.pairlist.service.PairListService;
@@ -21,8 +22,8 @@ public class PairInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//useraId待改為從登入session獲取的id參數(先寫死) [to be revised]
-		Integer useraId =2;
+		HttpSession httpSession = request.getSession();
+		Integer useraId = (Integer) httpSession.getAttribute("userID");
 		java.util.Date date = new java.util.Date();
 		java.sql.Date today = new java.sql.Date(date.getTime());
 		Gson gson = new Gson();

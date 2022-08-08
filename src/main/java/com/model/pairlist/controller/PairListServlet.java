@@ -28,12 +28,10 @@ public class PairListServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//useraId待改為從登入session獲取的id參數(先寫死) [to be revised]
-//		HttpSession httpSession = req.getSession();
-//		Integer useraId = (Integer) httpSession.getAttribute("userID");
-		Integer useraId =2;
+		HttpSession httpSession = req.getSession();
+		Integer useraId = (Integer) httpSession.getAttribute("userID");
+		System.out.println(useraId);
 		Gson gson = new Gson();
-//		PairListVo pairVO = gson.fromJson(req.getReader(), PairListVo.class);
 		resp.setContentType("application/json;charset=UTF-8");
 		resp.addHeader("Access-Control-Allow-Origin", "*");
 		PairListService service = new PairListServiceImpl();
