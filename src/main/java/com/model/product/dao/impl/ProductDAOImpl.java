@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -129,10 +130,10 @@ public class ProductDAOImpl implements ProductDao {
 
 			// 取得產品 ID
 			String productIdStr = castTypeToStr(product.getProductID());
-			Map<String, Object> fieldMap = new HashedMap<>();
+			Map<String, Object> fieldMap = new LinkedHashMap<>();
 			sbf.append(" and RES_ID = ? ");
 			fieldMap.put("resID", product.getResID());
-//			
+			
 			// 將Integer->String判斷是否為空
 			if (StringUtils.isNotBlank(productIdStr)) {
 				sbf.append(" and PRODUCT_ID = ? ");

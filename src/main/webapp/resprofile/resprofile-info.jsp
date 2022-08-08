@@ -54,6 +54,10 @@
      init();
      fileUpload();
      
+     $('#btnCancel1').click(function(){
+    		$("#fancybox-close").trigger('click'); 
+    	});
+     
      let files = [];
      $('#resFile').change(function (e) {
          files = Array.from(e.target.files);
@@ -88,18 +92,19 @@
                  $('#resPhoto').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
                  
                  // 將剛剛更新成功的資料帶回 resprofile-info-preview.jsp
-                 $('#ownerNameDiv').text(resMap.ownerName);
-                 $('#ownerTel').text(resMap.ownerTel);
-                 $('#resTelDiv').text(resMap.resTel);
-                 $('#bzLocationDiv').text(resMap.bzLocation);
-                 $('#resCategoryNameDiv').text(resMap.resCategoryName);
+               $('#ownerNameDiv').text(resMap.ownerName);
+               $('#ownerTel').text(resMap.ownerTel);
+               $('#resTelDiv').text(resMap.resTel);
+               $('#bzLocationDiv').text(resMap.bzLocation);
+               $('#resCategoryNameDiv').text(resMap.resCategoryName);
                  
                  
-                 $('#resPhotoDiv').attr('src', '');
-                 $('#resPhotoDiv').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
-                 
-                 swal('新增成功', '產品資訊已更新', 'success');
-                 $("#fancybox-close").trigger('click');
+                $('#resPhotoDiv').attr('src', '');
+                $('#resPhotoDiv').attr('src', '/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=' + data.resID + '&time=' + new Date().getTime());
+               
+                swal('新增成功', '餐廳資訊已更新', 'success');
+                
+                $("#fancybox-close").trigger('click');
              },error: function(){
             	$("#fancybox-close").trigger('click'); 
              	swal('新增失敗', '請確認是否有空格', 'error');
@@ -197,7 +202,7 @@
                     </form>
                     <div class="d-flex justify-content-end mt-5">
                         <button type="button" id="btnCheck" class="btn btn-outline-dark mf-bdr-15">確定</button>
-                        <button type="button" id="btnCancel" class="btn btn-outline-dark mf-bdr-15 ml-2">取消
+                        <button type="button" id="btnCancel1" class="btn btn-outline-dark mf-bdr-15 ml-2">取消
                         </button>
                     </div>
 

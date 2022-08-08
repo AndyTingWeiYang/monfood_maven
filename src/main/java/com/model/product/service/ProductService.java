@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.model.product.ProductVo;
+import com.model.product.util.ErrorMsgException;
 
 public interface ProductService {
 
 	Map<String, Object> findByID(String productID);
 
-	List<ProductVo> findAll(Map<String, Object> dataMap);
+	List<ProductVo> findAll(Map<String, Object> dataMap) throws ErrorMsgException;
 
 	ProductVo findPic(String productID);
 

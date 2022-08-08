@@ -44,7 +44,9 @@ function init(){
 	});
 }
 
-
+$('#btnCancel2').click(function(){
+	$("#fancybox-close").trigger('click'); 
+});
 
 
 init();
@@ -116,8 +118,8 @@ init();
                         <a id="btnUpdate" href="resprofile-info.jsp">
                         	<button type="button" class="btn btn-outline-dark mf-bdr-15 ml-2">更新</button>
                         </a>
-                        <button type="button" id="btnCancel" class="btn btn-outline-dark mf-bdr-15 ml-2">取消
-                        </button>
+<!--                         <button type="button" id="btnCancel2" class="btn btn-outline-dark mf-bdr-15 ml-2">取消 -->
+<!--                         </button> -->
                     </div>
 
                 </div>

@@ -50,6 +50,7 @@
                                 <label for="productID" class="col-form-label col-md-12 col-sm-12">商品編號</label>
                                 <div class="col-md-12 col-sm-12">
                                     <input id="productID" type="text" name="productID" class="form-control">
+                                    <span id="checkProductID" style="color: red;" >${errorMsg.productIdError}</span>
                                 </div>
                             </div>
 
@@ -57,6 +58,7 @@
                                 <label for="productName" class="col-form-label col-md-12 col-sm-12">商品名稱</label>
                                 <div class="col-md-12 col-sm-12">
                                     <input id="productName" type="text" name="productName" class="form-control">
+                                    <span id="checkProductNameID" style="color: red;" >${errorMsg.productNameError}</span>
                                 </div>
                             </div>
 
@@ -66,11 +68,13 @@
                                     <div class="col-md-5">
                                         <input id="mintPrice" type="text" name="minPrice" class="form-control"
                                             placeholder="請輸入最小金額">
+                                            <span id="checkMinPrice" style="color: red;" >${errorMsg.minPriceError}</span>
+                                            <span id="rangeError" style="color: red;" >${errorMsg.rangeError}</span>
                                     </div>
                                     ~
                                     <div class="col-md-5">
                                         <input id="maxtPrice" type="text" name="maxPrice" class="form-control"
-                                            placeholder="請輸入最大金額">
+                                            placeholder="請輸入最大金額"><span id="checkMaxPrice" style="color: red;" >${errorMsg.maxPriceError}</span>
                                     </div>
                                 </div>
                             </div>

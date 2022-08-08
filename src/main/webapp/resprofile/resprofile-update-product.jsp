@@ -126,7 +126,7 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<div>原產品圖片</div>
-								<img src="ProductPicServlet?productID=${productMap.productID}" />
+								<img width="400px" src="ProductPicServlet?productID=${productMap.productID}" />
 							</div>
 							<!-- 更新圖片區塊 -->
 							<div class="col-sm-6">
