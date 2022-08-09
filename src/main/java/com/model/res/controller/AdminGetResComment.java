@@ -31,7 +31,7 @@ public class AdminGetResComment extends HttpServlet {
 
 		try {
 			ResService service = new ResServiceImpl();
-			List<Map<String, Object>> commentList = service.getResComment(Integer.parseInt(request.getParameter("resComment")));
+			List<Map<String, Object>> commentList = service.getResComment(Integer.parseInt(request.getParameter("resId")));
 			
 
 			// add the list into json format

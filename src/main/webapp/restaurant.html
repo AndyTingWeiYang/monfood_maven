@@ -21,65 +21,9 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    <style>
-      .monfood-resPic{
-        width: 100%;
-      }
 
-      .monfood-closeModal{
-        width: 10px; 
-        height: 10px; 
-        margin-right: 2px;
-      }
- 
-
-      .monfood-openedTime{
-        font-size: 15px;
-      }
-      .monfood-openedTime{
-        margin-left: 10px; 
-        list-style: none;
-        font-size: 15px;
-      }
-      .monfood-ratingul{
-        list-style: none; 
-        font-size: 15px;
-        padding-left:0px;
-      }
-      .monfood-ratingbtn{
-        font-size: 15px !important; 
-        border: none !important;
-        background-color: transparent !important;
-        margin-top: none !important;
-        margin-left: 0 !important;
-      }
-
-      .monfood-pdtImgdiv{
-        height: 196px; 
-        width: 240px; 
-        overflow: hidden;
-      }
-      .monfood-pdtImg{
-        height: 196px;
-        width: 240px;
-        overflow: hidden;
-      }
-      .monfood-pdtPicModaldiv{
-        width: 380px; 
-        overflow: hidden; 
-        margin: auto;
-      }
-      .monfood-pdtPicModal{
-        display: block; 
-        width: 100%;
-      }
-      .monfood-pdtinfoModeldiv{
-        padding: 20px;
-      }
-    </style>
   </head>
-
-  <body>
+    <body>
     <!-- offcanvas -->
     <div
       class="offcanvas offcanvas-end"
@@ -90,16 +34,10 @@
     >
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="sidebar-label"></h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="container d-flex justify-content-between" style="margin: 0px">
         <div class="row" style="margin: 0px">
-
           <div class="col-12">
             <h4 id="cart-res-name">麥當勞台北濟南</h4>
           </div>
@@ -108,27 +46,12 @@
       <!-- <h4 style="margin-left: 13px">麥當勞 S156</h4> -->
       <!-- offcanvas_body -->
       <div class="col-12">
-        <ul class="cartList" style="padding: 0">
-   
-        </ul>
+        <ul class="cartList" style="padding: 0"></ul>
       </div>
 
-      <div
-        class="checkout"
-        style="display: flex; justify-content: space-around; margin-top: 10px"
-      >
-        <button
-          class="checkout_btn"
-          style="border: none; border-radius: 5px; font-size: 20px"
-        >
-          前往結帳
-        </button>
-        <button
-          class="clear_btn"
-          style="border: none; border-radius: 5px; font-size: 20px"
-        >
-          清空購物車
-        </button>
+      <div class="checkout" style="display: flex; justify-content: space-around; margin-top: 10px">
+        <button class="checkout_btn" style="border: none; border-radius: 5px; font-size: 20px">前往結帳</button>
+        <button class="clear_btn" style="border: none; border-radius: 5px; font-size: 20px">清空購物車</button>
       </div>
     </div>
     <!-- offcanvas -->
@@ -146,13 +69,8 @@
               viewBox="0 0 16 16"
             >
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-              <path
-                fill-rule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-              />
-            </svg>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
           </a>
-
           <a class="navbar-brand d-inline-flex" href="index.html">
             <span class="logo">Mon</span>
             <span class="logo2">Food</span>
@@ -182,7 +100,6 @@
               </svg>
               <!-- </button> -->
             </a>
-
             <a href="userLogin.html" class="btn btn-primary black" id="login">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -203,125 +120,47 @@
       <!-- navbar -->
     </header>
     <main>
-        
-   
-     
       <div class="monfood-resHeader" style="margin: 0; padding:0;">
+          <div id="resHeaderBlock" class="row" style="margin: 0; padding:0;">
+           
 
-        <!-- <div class="container" style="margin: 0; padding:0;"> -->
 
-            <div id="resHeaderBlock" class="row" style="margin: 0; padding:0;">
-              <!-- <div class="col-lg-6">
-                  <div class="col-xl-10 monfood-resNameHeader" style="float: left; font-size :35px;">麥當勞 S006台北光復</div>  
-                  <div class="col-lg-3 monfood-resType">美式</div>
-                  <div class="row">
-                      <div class="col-xl-2 monfood-openedTimediv" style="text-align: center;">營業時間 </div>
-                      <div class="col-xl-3 monfood-openedTime" style="margin: 0; padding:0;">開始：上午07:00</div>  
-                      <div class="col-xl-3 monfood-closeTime" style="margin: 0; padding:0;">結束：下午11:30</div>    
-                  </div> 
-              </div>  
-              <div class="col-lg-6">
-                <button type="button" class="col-xl-2 btn btn-primary monfood-resDetail" data-bs-toggle="modal" data-bs-target="#exampleModalDetail">評分</button>
-              </div>   -->
-
-            </div>  
-     
-          <!-- </div> -->
-         
-          <!-- Modal -->
           <div id="commentModal" class ="modal fade detail-modal" id="exampleModalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <!-- <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-             
-                  <div class="modal-body">
-                    <div class="ratingsdiv" style="font-size: 15px">
-                        <div class="card card-body">
-                          <ul class="monfood-ratingul" >
-                            <li class="monfood-ratingli">
-                              <p class="monfood-ratingDate">2022/05/02</p>
-                              <p class="monfood-comment">有夠難吃</p>
-                            </li>
-                 
-                            <hr>
-                          </ul>
+<!--           
+          
+               <div class="modal-dialog"> 
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close monfood-closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class="ratingsdiv" style="font-size: 15px">
+                                <div class="card card-body">
+                                    <ul class="monfood-ratingul" >
+                                        <li class="monfood-ratingli">
+                                            <p class="monfood-ratingDate">2022/05/02</p>
+                                            <p class="monfood-comment">有夠難吃</p>
+                                        </li>       
+                                        <hr>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                  </div>
-              </div>
-            </div> -->
+              </div>  -->
+          </div> 
+          
+
+
+
           </div>  
-         </div>
-
-     
-      <!-- </section> -->
-
+      </div>
       <section>
-
-        <hr style="margin: 5px 0px 30px 0px"/>
+          <hr style="margin: 5px 0px 30px 0px"/>
           <div class="container" style="margin: auto;">
             <div id="pdtPageBlock" class="row prodcutPage">
-       
-                <!-- <div type="button monfood-pdtModalBtn" class="btn btn-primary col-xl-3 col-6 col d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <div id="product_img monfood-pdtImgdiv">
-                        <img id="showPopup" class="monfood-pdtImg" src="images/20190813JEF004__20190813_L.jpg"/>
-                        <p class="monfood-pdtName">麥香雞堡套餐</p>
-                        <p class="monfood-pdtPrice">$ 117</p>
-                    </div>
-                </div> -->
-              
-
-                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title monfood-pdtNameModdal" id="exampleModalLabel">麥香雞堡套餐</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body monfood-modalBody">
-                        <div id="modal-img monfood-pdtPicModaldiv" class="mon">
-                          <img class="monfood-pdtPicModal" src="images/20190813JEF004__20190813_L.jpg"/>
-                        </div>
-                        <div class="monfood-pdtinfoModeldiv">
-                          <h4 class="monfood-ModalPdtName">麥香雞堡套餐</h4>
-                          <h6 class="monfood-ModalPdtKcal">419 Kcal</h6>
-                          <h6 class="monfood-ModalPdtPrice">$139</h6>
-                        </div>
-                    
-                        <div class="Qcontainer">
-                          <div class="quantity-control" data-quantity="" style="margin-top: 0px">
-                            <button class="quantity-btn" data-quantity-minus="">
-                              <svg viewBox="0 0 409.6 409.6">
-                                <g>
-                                  <g>
-                                    <path d="M392.533,187.733H17.067C7.641,187.733,0,195.374,0,204.8s7.641,17.067,17.067,17.067h375.467 c9.426,0,17.067-7.641,17.067-17.067S401.959,187.733,392.533,187.733z"/>
-                                  </g>
-                                </g>
-                              </svg>
-                            </button>
-                            <input type="number" class="quantity-input" data-quantity-target="" value="1" step="1" min="1" max="" name="quantity"/>
-                            <button class="quantity-btn" data-quantity-plus="">
-                              <svg viewBox="0 0 426.66667 426.66667">
-                                <path
-                                  d="m405.332031 192h-170.664062v-170.667969c0-11.773437-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.558594-21.332031 21.332031v170.667969h-170.667969c-11.773437 0-21.332031 9.558594-21.332031 21.332031 0 11.777344 9.558594 21.335938 21.332031 21.335938h170.667969v170.664062c0 11.777344 9.558594 21.335938 21.332031 21.335938 11.777344 0 21.335938-9.558594 21.335938-21.335938v-170.664062h170.664062c11.777344 0 21.335938-9.558594 21.335938-21.335938 0-11.773437-9.558594-21.332031-21.335938-21.332031zm0 0"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-
-               
-                      </div>
-                      <div class="modal-footer monfood-modalFooter">
-                        <button type="button" class="monfood-addToCart">加入購物車</button>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-     
-          </div>
+            </div>
         </div>
         <br />
         <br />
@@ -330,10 +169,7 @@
     </main>
     <!-- Footer -->
     <div style="background-color: #ff7f3f">
-      <div
-        class="container pb-0 mb-0 text-light"
-        style="background-color: #ff7f3f"
-      >
+      <div class="container pb-0 mb-0 text-light" style="background-color: #ff7f3f">
         <footer>
           <div class="row justify-content-center mb-0 pt-0 pb-0 row-2 px-3">
             <div class="col-12">
@@ -344,16 +180,10 @@
                     <span class="logo2">Food</span>
                   </a>
                 </div>
-
-                <div
-                  class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0"
-                  style="font-size: 13px"
-                >
+              <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
                   <ul class="list-unstyled justify-content-center">
                     <li class="mt-3 mb-1">
-                      <a href="resLogin.html" class="transparent"
-                        >新增您的餐廳</a
-                      >
+                      <a href="resLogin.html" class="transparent">新增您的餐廳</a>
                     </li>
                     <li class="mb-1 transparent">
                       <a href="delLogin.html">註冊成為外送夥伴</a>
