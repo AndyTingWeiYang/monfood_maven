@@ -131,6 +131,7 @@
       </div>
     </div>
     <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
@@ -160,46 +161,30 @@
           }
         });
 
-        //update
-        $("#content").on("click", "button.edit", function () {
-          var promoteId = $("td.promoteId").text();
-          var promoteCode = $("td.promoteCode").text();
-          var promotePrice = $("td.promotePrice").text();
-          var startDate = $("td.startDate").text();
-          var endDate = $("td.endDate").text();
-          var status = $("select.status").val();
-          status.append($("<option>").append("1"));
-          let statusIn = $("input.statusIn").addClass("hidden");
+//update
+function select() { 
+  // 取得下拉選單的狀態值
+  const selectedVal = $(this).val();
 
-          var updateServlet = "updateServlet";
+  // 取得該筆 promoteListId
+  const promoteId = $(this).data('promoteid');
 
-          const url = "PromoteListUpdateServlet";
-          fetch(url, {
-            method: "POST",
-            headers: {
-              "content-Type": "application.json",
-            },
-            body: JSON.stringify({
-              // action: Edit,
-              promoteId: promoteId,
-              promoteCode: promoteCode,
-              promotePrice: promotePrice,
-              startDate: startDate,
-              endDate: endDate,
-              status: status,
-            }),
-          })
-            .then(function (response) {
-              if (response.ok) {
-                console.log("修改成功收到回應");
-                return response.json();
-              }
-              throw new Error(response.statusText);
-            })
-            .then(function (data) {
-              console.log(data);
-            });
-        });
+  $.ajax({
+    url: 'PromoteListUpdateServlet',
+    type: 'POST',
+    dataType: 'JSON',
+    data: JSON.stringify({
+      status: selectedVal,
+      promoteId: promoteId
+    }),
+    success: function(data) {
+      // 執行成功，改變下拉選單狀態
+      console.log(data);
+      $(this).val(data.status);
+      swal('修改成功', '', 'success');
+    }
+  });
+}
 
         // selectOne
         $("#selectOne").on("click", function () {
@@ -226,13 +211,10 @@
             dataType: "json",
             success: function (res) {
               console.log(res);
-              // console.log(res[0]);
-              // console.log(res.promoteId);
-              // console.log(res[0].promoteId);
               console.log(res["PromoteLists"].promoteId);
 
               let selectHtml = `
-                <select id="status" class="monfood-select" name="status">
+                <select id="status" class="monfood-select" data-promoteid="${res["PromoteLists"].promoteId}" name="status">
                   <option value="0">過期</option>
                   <option value="1">使用中</option>
                   <option value="2">未生效</option>
@@ -252,15 +234,14 @@
 
               $("#content").html(table_html);
               $("#status").val(res.PromoteLists.status);
-              // $("status").change(function(){
-              //   alert('修改成功!');
-              // });
+
+              // 綁定 change 事件
+              $("#status").change(select);
             },
           });
         });
 
         // selectAll
-
         $("#selectAll").on("click", function () {
           let errMsg;
 

@@ -6,6 +6,7 @@ window.addEventListener('load', function(){
         type: 'POST',
         dataType: 'json',
         success: function(msg){
+            // console.log(msg)
             if(msg == null){
                 $('#logStatus').text('登入')
             }else{

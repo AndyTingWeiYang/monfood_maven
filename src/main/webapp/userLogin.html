@@ -203,7 +203,8 @@
               success: function(data){      // request 成功取得回應後執行
                 console.log(data);
                 if(data.LoginSuceesfully == "登入成功"){
-                  location.href="./del/monFoodIndex.html";
+                  history.back();
+//                   location.href="./del/monFoodIndex.html";
                 }else if(data.None == "查無帳號"){;
                   $(".pointspan").addClass("noticespan").text("查無帳號");
                 }else if (data.ErrorPassword == "密碼有誤，請重新輸入"){
