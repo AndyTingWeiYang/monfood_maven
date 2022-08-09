@@ -30,4 +30,8 @@ public interface ProductDao {
 	
 	List<Map<String, Object>> getAllPdt(Integer resId);
 
+	boolean updateStock(ProductVo productVo);
+
+	boolean updateStatus(ProductVo productVo);
+
 }

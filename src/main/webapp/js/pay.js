@@ -439,6 +439,10 @@ window.addEventListener('load', function(){
         dataType: 'json',
         success: function(msg){
           console.log(msg)
+          if(msg.OrderId < 1){
+            $('#orderMsg').text('庫存不足, 請選擇其他商品')
+            return;
+          }
           
           // 將部分訂單資訊存入session供後頁面使用
           let orderList = {
@@ -486,7 +490,11 @@ window.addEventListener('load', function(){
           }),
         dataType: 'json',
         success: function(msg){
-          console.log(msg)
+          
+          if(msg.OrderId < 1){
+            $('#orderMsg').text('庫存不足, 請選擇其他商品')
+            return;
+          }
 
           // 將部分訂單資訊存入session供後頁面使用
           let orderList = {

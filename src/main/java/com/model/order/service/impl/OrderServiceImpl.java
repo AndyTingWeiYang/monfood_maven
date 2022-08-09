@@ -27,12 +27,16 @@ import com.model.orderdetail.dao.OrderDetailDAO;
 import com.model.orderdetail.dao.impl.OrderDetailDAOimpl;
 import com.model.orderdetail.service.OrderDetailService;
 import com.model.orderdetail.service.impl.OrderDetailServiceimpl;
+import com.model.product.ProductVo;
+import com.model.product.dao.ProductDao;
+import com.model.product.dao.impl.ProductDAOImpl;
 import com.model.promotelist.PromoteListVO;
 import com.model.promotelist.dao.PromoteListDAO;
 import com.model.promotelist.dao.Impl.PromoteListJDBCDAO;
 import com.model.user.dao.UserDAO;
 import com.model.user.dao.impl.UserDAOImpl;
 
+import antlr.debug.NewLineEvent;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
@@ -108,39 +112,98 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Integer createOrder(List<com.google.gson.JsonElement> list , OrderVO orderVO) {
+	synchronized public Integer createOrder(List<com.google.gson.JsonElement> list , OrderVO orderVO) throws SQLException {
 		Gson gson = new Gson();
 		Integer generatedKey = null;
+		Integer total = 0;
+		Integer monsDiscount = null;
 		OrderDetailService orderDetailService = new OrderDetailServiceimpl();
+		ProductVo productVo = new ProductVo();
+		ProductDao productDao = new ProductDAOImpl();
+		PromoteListDAO promoteListDAO = new PromoteListJDBCDAO();
+		List<OrderDetailVO> productList = new ArrayList<OrderDetailVO>();
+
+		for (JsonElement jsonElement : list) {
+			
+			OrderDetailVO orderDetailVO = new OrderDetailVO();
+			orderDetailVO = gson.fromJson(jsonElement, OrderDetailVO.class);
+			// get productVo by product ID
+			productVo = productDao.findPic(orderDetailVO.getProductId().toString());
+			// reset the product price from DB
+			orderDetailVO.setOrderedPrice(productVo.getProductPrice());
+			// reset total amount from DB
+			total += productVo.getProductPrice()*orderDetailVO.getAmount();
+			
+			// stock check 
+			Integer stock = null;
+			Integer orderQty = orderDetailVO.getAmount();
+			
+			// checking stock
+			productVo = productDao.findPic(orderDetailVO.getProductId().toString());
+			stock = productVo.getStock();
+			
+			if (stock <= 0) {
+				productVo.setProductStatus(2);
+				productDao.updateStatus(productVo);
+				return -1;
+			}else if(stock < orderQty){
+				return -1;
+			}else {
+				productList.add(orderDetailVO);
+			}
+			
+		}
 		
 		// no promote code
 		if (orderVO.getPromoteId() == null) {
+			// reset monster discount from DB
+			monsDiscount = monsCheck(orderVO.getUserId()).getDiscount();
+			// reset del cost from DB
+			orderVO.setDelCost(40);
+			// reset total amount
+			total += orderVO.getDelCost() - monsDiscount;
+			// reset orderVO
+			orderVO.setTotal(total);
+			
+			// create order
 			generatedKey = dao.insertNoPromote(orderVO);
 			if(generatedKey == null) {
 				return -1;
 			}
 			
-			for (JsonElement jsonElement : list) {
-				OrderDetailVO orderDetailVO = new OrderDetailVO();
-				orderDetailVO = gson.fromJson(jsonElement, OrderDetailVO.class);
-				orderDetailVO.setOrderId(generatedKey);
-				orderDetailService.createOrderDetail(orderDetailVO);
+			// create order detail
+			for (OrderDetailVO vo : productList) {
+				vo.setOrderId(generatedKey);
+				if(orderDetailService.createOrderDetail(vo) < 0) {
+					return -1;
+				}
 			}
-		
+			
 			return generatedKey;
 			
 		} 	
 		
+		// reset monster discount from DB
+		monsDiscount = monsCheck(orderVO.getUserId()).getDiscount();
+		// reset del cost from DB
+		orderVO.setDelCost(40);
+		// reset discount value from DB
+		orderVO.setDiscount(promoteListDAO.findByPrimaryKey(orderVO.getPromoteId()).getPromotePrice());
+		// reset total amount
+		total += orderVO.getDelCost() - monsDiscount - orderVO.getDiscount();
+		// reset orderVO
+		orderVO.setTotal(total);
+		
 		// with promote code
+		// create order
 		generatedKey = dao.insert(orderVO);
 		if(generatedKey == null) {
 			return -1;
 		}
-		for (JsonElement jsonElement : list) {
-			OrderDetailVO orderDetailVO = new OrderDetailVO();
-			orderDetailVO = gson.fromJson(jsonElement, OrderDetailVO.class);
-			orderDetailVO.setOrderId(generatedKey);
-			orderDetailService.createOrderDetail(orderDetailVO);
+		// create order detail
+		for (OrderDetailVO vo : productList) {
+			vo.setOrderId(generatedKey);
+			orderDetailService.createOrderDetail(vo);
 		}
 		
 		return generatedKey;
