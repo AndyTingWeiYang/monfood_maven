@@ -131,6 +131,7 @@
       </div>
     </div>
     <script src="assets/js/jQuery-3.6.0.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
@@ -180,48 +181,10 @@ function select() {
       // 執行成功，改變下拉選單狀態
       console.log(data);
       $(this).val(data.status);
-      alert('修改成功');
+      swal('修改成功', '', 'success');
     }
   });
 }
-          
-        // $("#status").change(function () {
-        //   var status = $("select.status").val();
-        //   let statusIn = $("input.statusIn").addClass("hidden");
-
-        //       $.ajax({
-        //           url: 'PromoteListUpdateServlet',
-        //           type: 'POST',
-        //           dataType: 'JSON',
-        //           data: JSON.stringify({
-        //             promoteId : $('td.select.status').val()}),
-
-        //             success: function(promote){
-                    
-        //               let selectHtml = `
-        //               <select id="status" class="monfood-select" name="status">
-        //                 <option value="0">過期</option>
-        //                 <option value="1">使用中</option>
-        //                 <option value="2">未生效</option>
-        //               </select>
-        //             `;
-        //            debugger
-        //               let table_html = `
-        //                 <tr>
-        //                   <td>${promote["PromoteLists"].promoteId}</td>
-        //                   <td>${promote["PromoteLists"].promoteCode}</td>
-        //                   <td>${promote["PromoteLists"].promotePrice}</td>
-        //                   <td>${promote["PromoteLists"].startDate}</td>
-        //                   <td>${promote["PromoteLists"].endDate}</td>
-        //                   <td>${selectHtml}</td>
-        //                   </tr>
-        //                   `;
-                 
-        //                   $("#content").html(table_html);
-        //                   $("#status").val(promote.PromoteLists.status);
-        //           }
-        //       });
-        // });
 
         // selectOne
         $("#selectOne").on("click", function () {
@@ -248,9 +211,6 @@ function select() {
             dataType: "json",
             success: function (res) {
               console.log(res);
-              // console.log(res[0]);
-              // console.log(res.promoteId);
-              // console.log(res[0].promoteId);
               console.log(res["PromoteLists"].promoteId);
 
               let selectHtml = `

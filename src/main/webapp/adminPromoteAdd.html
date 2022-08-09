@@ -25,6 +25,7 @@
     <script src="assets/js/jQuery-3.6.0.js"></script>
     <script src="assets/js/datetimepicker.full.forMandy.js"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <div class="container-scroller">
       <!-- ===== sidebar start ===== -->
@@ -181,7 +182,7 @@
         </div>
       </div>
     </div>
-
+    
     <script>
       var sDay;
       var eDay;
@@ -204,6 +205,7 @@
       // <jsp:include page="head.jsp" /> 即可移除以下 <script>
 
       document.addEventListener("DOMContentLoaded", function () {
+        debugger
         w3.includeHTML(function () {
           var scriptObj = document.querySelectorAll('script[src^="assets"]');
 
@@ -225,21 +227,21 @@
         if (
           !promoteCode.value ||
           !promotePrice.value ||
-          !startDate ||
-          !endDate ||
+          !startDate.value ||
+          !endDate.value ||
           !status
         ) {
-          alert("資料請填寫完整");
+          swal('資料請填寫完成', '', 'warning');
           return;
         } else {
-          console.log(startDate);
+          console.log(startDate.value);
           var url = "PromoteListServlet";
           fetch(url, {
             method: "POST",
-            // scriptCharset: 'GBK',
             headers: {
               "content-Type": "application.json",
             },
+            
             body: JSON.stringify({
               promoteCode: promoteCode.value,
               promotePrice: promotePrice.value,
@@ -247,12 +249,23 @@
               endDate: endDate.value,
               status: status.value,
             }),
+            
           })
-            .then((resp) => resp.json())
-            .then((body) => {
-              const msg = body.errMsg ?? "新增成功";
-              alert(msg);
-            });
+                .then(function(resp){
+                  if(resp.ok){
+                    const promoteCode = document.querySelector("#promoteCode");
+                    promoteCode.value = '';
+                    const promotePrice = document.querySelector("#promotePrice");
+                    promotePrice.value = '';
+                    const startDate = document.querySelector("#start_date");
+                    startDate.value = '';
+                    const endDate = document.querySelector("#end_date");
+                    endDate.value = '';
+                    const success = swal('新增成功', '', 'success');
+                    return resp.json();
+                    
+                  }
+                })
         }
       });
 
