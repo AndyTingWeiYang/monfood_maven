@@ -1,5 +1,9 @@
 window.addEventListener('load', function(){
-
+  
+  if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
+    location.href = '/monfood_maven/browse.html';
+    return;
+  }
     var res = {lat: 25.0444475, lng:121.5212073};
   
     var directionsService = new google.maps.DirectionsService();
@@ -106,8 +110,5 @@ window.addEventListener('load', function(){
 
       })
     })
-
-
-
 
 })
