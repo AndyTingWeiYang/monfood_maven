@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import com.model.product.service.ProductService;
 import com.model.product.service.impl.ProductServiceImpl;
+import com.model.product.util.ErrorMsgException;
 
 @MultipartConfig
 @WebServlet("/resprofile/NewProductServlet")
@@ -31,11 +32,11 @@ public class NewProductServlet extends HttpServlet {
 		this.productService = new ProductServiceImpl();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		boolean result = false;
 		RequestDispatcher rd = request.getRequestDispatcher("/resprofile/resprofile-new-product.jsp");
@@ -61,13 +62,14 @@ public class NewProductServlet extends HttpServlet {
 			result = productService.insert(reqMap);
 			request.setAttribute("result", result);
 			rd.forward(request, response);
-		} catch (Exception e) {
-			try {
-				request.setAttribute("result", result);
-				rd.forward(request, response);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+		}catch (ErrorMsgException eme) {
+			Map<String, String>  errorMsg = eme.getErrorMsg();
+			request.setAttribute("errorMsg", errorMsg);
+			rd.forward(request, response);
+			
+			
+		}catch (Exception e) {
+				e.printStackTrace();
 		}
 	}
 

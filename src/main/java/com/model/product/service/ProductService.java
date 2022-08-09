@@ -14,7 +14,7 @@ public interface ProductService {
 
 	ProductVo findPic(String productID);
 
-	boolean insert(Map<String, Object> dataMap);
+	boolean insert(Map<String, Object> dataMap)throws ErrorMsgException;
 
 	boolean update(ProductVo product);
 

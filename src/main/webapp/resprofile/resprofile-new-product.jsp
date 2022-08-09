@@ -34,7 +34,7 @@
 			if(result) {
 				swal("新增成功", "產品資訊已更新", "success");
 			} else {
-				swal("新增失敗", "請確認是否有空格", "error");
+				swal("新增失敗", "請確認是否輸入正確", "error");
 			}
 		</c:if>
 		
@@ -96,7 +96,7 @@
 								<label for="productName" class="col-sm-12 col-form-label">商品名稱</label>
 								<div>
 									<input id="productName" type="text" name="productName" class="form-control"
-										placeholder="請輸入商品名稱">
+										placeholder="請輸入商品名稱"><span id="productNameSp" style="color:red;">${errorMsg.productName}</span>
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -104,6 +104,7 @@
 								<div>
 									<input id="productPrice" type="text" name="productPrice"
 										class="form-control" placeholder="請輸入商品價格">
+										<span id="productPriceSp" style="color:red;">${errorMsg.productPrice}</span>
 								</div>
 							</div>
 							<div class="col-sm-6">
@@ -111,6 +112,7 @@
 								<div>
 									<input id="productKcal" type="text" name="productKcal" class="form-control"
 										placeholder="請輸入商品熱量 (份/kcal)">
+										<span id="productKcalSp" style="color:red;">${errorMsg.productKcal}</span>
 								</div>
 							</div>
 							<div class="col-sm-6 ">
@@ -118,6 +120,7 @@
 								<div>
 									<input id="stock" type="text" name="stock" class="form-control"
 										placeholder="請輸入數量">
+										<span id="stockSp" style="color:red;">${errorMsg.stock}</span>
 								</div>
 							</div>
 							<div class="col-sm-6">

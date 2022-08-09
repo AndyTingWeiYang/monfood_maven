@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.transform.TupleSubsetResultTransformer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,9 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductVo> findAll(Map<String, Object> dataMap) throws ErrorMsgException {
-		String productID = MapUtils.getString(dataMap, "productID");
-
 		ErrorMsgException eme = null;
+		// 檢核特殊字元
+		String productID = MapUtils.getString(dataMap, "productID");
 		if (proccessCheckMsg(productID)) {
 			eme = getErrorMsgException(eme, "productIdError", "商品編號有特殊字元，請重新輸入");
 		}
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
 		if (proccessCheckMsg(minPrice)) {
 			eme = getErrorMsgException(eme, "minPriceError", "商品最小價格有特殊字元，請重新輸入");
 		}
+
 		String maxPrice = MapUtils.getString(dataMap, "maxPrice");
 		if (proccessCheckMsg(maxPrice)) {
 			eme = getErrorMsgException(eme, "maxPriceError", "商品最高價格有特殊字元，請重新輸入");
@@ -71,29 +73,6 @@ public class ProductServiceImpl implements ProductService {
 		return productList;
 	}
 
-	public boolean proccessCheckMsg(String msg) {
-		if (StringUtils.isNoneBlank(msg)) {
-			String[] msgSp = msg.split("");
-			String[] flag = new String[] { "!", "@", "#", "$", "%", "^", "&" };
-
-			for (int i = 0; i < msgSp.length; i++) {
-				for (int j = 0; j < flag.length; j++) {
-					if (msgSp[i].equals(flag[j])) {
-						System.out.println("有特殊字元，請重新輸入");
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
-	public void checkResp() {
-		// 檢核手機號碼
-		String checkPhone = "";
-
-	}
-
 	@Override
 	public ProductVo findPic(String productID) {
 		ProductVo pic = productDao.findPic(productID);
@@ -101,12 +80,55 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public boolean insert(Map<String, Object> dataMap) {
+	public boolean insert(Map<String, Object> dataMap) throws ErrorMsgException {
+		ErrorMsgException eme = null;
+		String productName = MapUtils.getString(dataMap, "productName");
+		String productPriceStr = MapUtils.getString(dataMap, "productPrice");
+		String productKcalStr = MapUtils.getString(dataMap, "productKcal");
+		String stockStr = MapUtils.getString(dataMap, "stock");
+
+		// 檢核是否空白
+		if (StringUtils.isBlank(productName)) {
+			eme = getErrorMsgException(eme, "productName", "請勿留取空白，請輸入內容");
+		}
+		if (StringUtils.isBlank(productPriceStr)) {
+			eme = getErrorMsgException(eme, "productPrice", "請勿留取空白，請輸入內容");
+		}
+
+		if (StringUtils.isBlank(productKcalStr)) {
+			eme = getErrorMsgException(eme, "productKcal", "請勿留取空白，請輸入內容");
+		}
+
+		if (StringUtils.isBlank(stockStr)) {
+			eme = getErrorMsgException(eme, "stock", "請勿留取空白，請輸入內容");
+		}
+
+		// 檢核是否有特殊字元
+		if (proccessCheckMsg(productName)) {
+			eme = getErrorMsgException(eme, "productName", "商品名稱有特殊字元，請重新輸入");
+		}
+
+		if (proccessCheckMsg(productPriceStr)) {
+			eme = getErrorMsgException(eme, "productPrice", "商品價格有特殊字元，請重新輸入");
+		}
+		if (proccessCheckMsg(productKcalStr)) {
+			eme = getErrorMsgException(eme, "productKcal", "熱量有特殊字元，請重新輸入");
+		}
+		if (proccessCheckMsg(stockStr)) {
+			eme = getErrorMsgException(eme, "stock", "庫存有特殊字元，請重新輸入");
+		}
+
+		// 拋出錯誤例外
+		if (eme != null) {
+			throw eme;
+		}
+
 		// 將 Map 物件變成 JSON 字串做序列化
 		String dataJsonStr = gson.toJson(dataMap);
 
 		// 用 gson 將拿到的 JSON 字串轉 VO
 		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
+
 		System.out.println(productVO);
 		// 將結果用 dao 回傳給 service
 		boolean result = productDao.insert(productVO);
@@ -141,6 +163,23 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map<String, Object>> getAllPdt(Integer resId) {
 		List<Map<String, Object>> list = productDao.getAllPdt(resId);
 		return list;
+	}
+
+	public boolean proccessCheckMsg(String msg) {
+		if (StringUtils.isNoneBlank(msg)) {
+			String[] msgSp = msg.split("");
+			String[] flag = new String[] { "!", "@", "#", "$", "%", "^", "&" };
+
+			for (int i = 0; i < msgSp.length; i++) {
+				for (int j = 0; j < flag.length; j++) {
+					if (msgSp[i].equals(flag[j])) {
+						System.out.println("有特殊字元，請重新輸入");
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private ErrorMsgException getErrorMsgException(ErrorMsgException eme, String msgKey, String msgValue) {
