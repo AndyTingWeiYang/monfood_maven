@@ -4,5 +4,5 @@ import com.model.orderdetail.OrderDetailVO;
 
 public interface OrderDetailService {
 	
-	void createOrderDetail(OrderDetailVO orderDetailVO);
+	Integer createOrderDetail(OrderDetailVO orderDetailVO);
 }

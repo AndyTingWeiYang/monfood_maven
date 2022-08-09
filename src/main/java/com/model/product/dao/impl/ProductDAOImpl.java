@@ -44,6 +44,10 @@ public class ProductDAOImpl implements ProductDao {
 	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
 	private static final String FIND_RES_INFO = "select * from RES inner join RES_CATEGORY "
 			+ " on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID" + " where RES_ID = ? ";
+	
+	private static final String UPDATE_STOCK ="update MonFood.PRODUCT set STOCK = ? where PRODUCT_ID= ?";
+	private static final String UPDATE_STATUS ="update MonFood.PRODUCT set PRODUCT_STATUS = ? where PRODUCT_ID= ?";
+	
 	static {
 //			Context context = new InitialContext();
 //			ds = (DataSource) context.lookup("java:comp/env/jdbc/MonFood"); // JNDI 還沒取名，待修改
@@ -660,4 +664,82 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return pdtList;
 	}
+	
+	@Override
+	public boolean updateStock(ProductVo productVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(UPDATE_STOCK);
+
+			// 將VO 設定好的資料->DB
+			pstmt.setInt(1, productVo.getStock());
+			pstmt.setInt(2, productVo.getProductID());
+			int count = pstmt.executeUpdate();
+
+			if (count > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean updateStatus(ProductVo productVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = conn.prepareStatement(UPDATE_STATUS);
+			
+			// 將VO 設定好的資料->DB
+			pstmt.setInt(1, productVo.getProductStatus());
+			pstmt.setInt(2, productVo.getProductID());
+			int count = pstmt.executeUpdate();
+			
+			if (count > 0) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 }

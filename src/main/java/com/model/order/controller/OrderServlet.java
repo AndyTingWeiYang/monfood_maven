@@ -65,7 +65,7 @@ public class OrderServlet extends HttpServlet {
 			respObj.addProperty("OrderId", orderId);
 			
 			// validate the orderId get from service
-			if (orderId <= 1) {
+			if (orderId < 1) {
 				respObj.addProperty("errMsg", "新增訂單失敗");
 				response.getWriter().append(gson.toJson(respObj));
 				return;
