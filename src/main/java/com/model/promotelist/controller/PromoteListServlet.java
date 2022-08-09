@@ -32,7 +32,7 @@ public class PromoteListServlet extends HttpServlet {
 		response.setContentType("application/json;charset=utf-8;");
 		request.setCharacterEncoding("UTF-8");
 
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		JsonObject respObj = new JsonObject();
 		String result = null;
 		PrintWriter out = response.getWriter();
