@@ -1,5 +1,10 @@
 window.addEventListener('load', function(){
 
+    if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
+        location.href = '/monfood_maven/browse.html';
+        return;
+    }
+
     let orderList = JSON.parse(sessionStorage.getItem('orderList'));
     console.log(orderList)
     $('#orderId').text(orderList.orderId);

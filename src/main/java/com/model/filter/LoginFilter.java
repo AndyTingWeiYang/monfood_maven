@@ -15,27 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = {"/pay.html", "/userProfile/*", "/status.html", "/searching.html"})
-public class LoginFilter extends HttpFilter implements Filter {
+public class LoginFilter extends HttpFilter{
 	private static final long serialVersionUID = 1L;
 
 	public void init(FilterConfig fConfig) throws ServletException {
 		System.out.println("LoginFilter initialized");
 	}
 	
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		HttpServletRequest req = (HttpServletRequest)request;
-		HttpServletResponse res = (HttpServletResponse)response;
-		
-		HttpSession session = req.getSession();
+		HttpSession session = request.getSession();
 		Object loginStatus = session.getAttribute("isuserLogin");
 		if("true".equals(loginStatus)) {
-			chain.doFilter(req, res);
+			chain.doFilter(request, response);
 		}
 		else {
 			System.out.println("not login");
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/userLogin.html");
-			requestDispatcher.forward(req, res);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/userLogin.html");
+			requestDispatcher.forward(request, response);
 		}
 	}
 

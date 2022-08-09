@@ -6,6 +6,11 @@ window.addEventListener('load', function(){
   var directionsService = new google.maps.DirectionsService();
   var directionsDisplay = new google.maps.DirectionsRenderer();
 
+  if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
+    location.href = '/monfood_maven/browse.html';
+    return;
+  }
+
   // 初始化地圖
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
