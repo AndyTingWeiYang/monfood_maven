@@ -20,10 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.model.product.util.IntTypeAdapter;
-import com.model.reception.ResVO;
 import com.model.reception.dao.ResDAO;
 import com.model.reception.service.ResService;
 import com.model.reception.service.impl.ResServiceImpl;
+import com.model.res.ResVO;
 
 
 @WebServlet("/admin-res-reception/UpdateResReceptionServlet")
@@ -63,8 +63,11 @@ public class UpdateResServlet extends HttpServlet {
 			// put(K,V) = 新增key及value(值),如果已存在值,就會直接取代舊值
 			//            (key , value)
 			dataMap.put("resID", resID);
+//			System.out.println(dataMap);//看拿到什麼
+			
 			//營業星期    因為這裡是String[] ,用getParameterValues = 取得陣列內所有value值
-			dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
+			dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));			
+//			System.out.println(dataMap);//看拿到什麼
 			Object values = dataMap.put("bzWeekTime", request.getParameterValues("bzWeekTime"));
 			if( values == null) {
 				request.setAttribute("errMsg", "error: 請選擇營業週期!請至少選擇一天");
@@ -74,10 +77,12 @@ public class UpdateResServlet extends HttpServlet {
 			
 			//開店時間
 			dataMap.put("bzOpenHours", request.getParameter("bzOpenHours"));
+//			System.out.println(dataMap);//看拿到什麼
 			//關店時間
 			dataMap.put("bzCloseHours", request.getParameter("bzCloseHours"));
+//			System.out.println(dataMap);//看拿到什麼
 			//營業模式
-			dataMap.put("shop_status", request.getParameter("shop_status"));
+//			dataMap.put("shop_status", request.getParameter("shop_status"));
 			
 				
 			//http://blog.tonycube.com/2012/03/gsonjavajson.html 解說來源網站

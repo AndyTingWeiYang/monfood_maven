@@ -42,7 +42,11 @@ $(document).ready(function() {
 			$('#bzOpenHours').val(resVO.bzOpenHours);
 			$('#bzCloseHours').val(resVO.bzCloseHours);
 			
-			const bzWeekTime = resVO.bzWeekTime.split(',');
+			//原本String時用來切的 但改成Ingeter就沒用
+// 			const bzWeekTime = resVO.bzWeekTime.split(',');
+			
+			//改成Ingeter用,先把他轉成String,用toString()
+			const bzWeekTime = resVO.bzWeekTime.toString().split('');
 			$.each(bzWeekTime, function(index, element) {
 				$("input[name=bzWeekTime][value=" + element + "]").attr("checked","checked");	        
 		       
@@ -70,25 +74,25 @@ $(document).ready(function() {
                     </div>
                     <div>營業時間設定</div>
                     <div class="">周期設定:
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="日" id="btn-check-outlined-7" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="7" id="btn-check-outlined-7" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-7">日</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="一" id="btn-check-outlined-1" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="1" id="btn-check-outlined-1" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-1">一</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="二" id="btn-check-outlined-2" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="2" id="btn-check-outlined-2" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-2">二</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="三" id="btn-check-outlined-3" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="3" id="btn-check-outlined-3" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-3">三</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="四" id="btn-check-outlined-4" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="4" id="btn-check-outlined-4" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-4">四</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="五" id="btn-check-outlined-5" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="5" id="btn-check-outlined-5" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-5">五</label>
 
-                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="六" id="btn-check-outlined-6" autocomplete="off">
+                        <input type="checkbox" class="btn-check" name="bzWeekTime" value="6" id="btn-check-outlined-6" autocomplete="off">
                         <label class="btn btn-outline-secondary" for="btn-check-outlined-6">六</label>
                     </div>
 
@@ -111,14 +115,14 @@ $(document).ready(function() {
                     <div>營業模式設定(開發中)</div>
                     <br>
                     <div>
-                        <input type="radio" class="btn-check" name="shop_status" value="0" id="secondary-outlined-9" checked
+                        <input type="radio" class="btn-check" name="shop_status" value="" id="secondary-outlined-9" checked
                             autocomplete="off">
                         <label class="btn btn-outline-secondary" for="secondary-outlined-9">預設正常</label>
 
-                        <input type="radio" class="btn-check" name="shop_status" value="1" id="danger-outlined-16"
+                        <input type="radio" class="btn-check" name="shop_status" value="" id="danger-outlined-16"
                             autocomplete="off">
                         <label class="btn btn-outline-danger" for="danger-outlined-16">忙碌模式</label>
-                        <input type="radio" class="btn-check" name="shop_status" value="2" id="danger-outlined-8"
+                        <input type="radio" class="btn-check" name="shop_status" value="" id="danger-outlined-8"
                             autocomplete="off">
                         <label class="btn btn-outline-danger" for="danger-outlined-8">暫停接單</label>
                     </div>

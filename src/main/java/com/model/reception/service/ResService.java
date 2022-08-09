@@ -2,8 +2,8 @@ package com.model.reception.service;
 
 import java.util.Map;
 
-import com.model.reception.ResVO;
-import com.model.reception.dao.ResDAO;
+import com.model.order.OrderVO;
+import com.model.res.ResVO;
 
 public interface ResService {
 
@@ -11,5 +11,8 @@ public interface ResService {
 
 	ResVO findByPrimaryKey(Integer resId);
 
-//	boolean updateResInfo(ResDAO resDao);
+	Map<String, Object> findByOrder(String orderId);
+
+	void updateOrderStatus(OrderVO orderVO);
+	
 }

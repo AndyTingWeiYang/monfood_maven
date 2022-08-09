@@ -43,47 +43,44 @@
                 <div class="accordion-body">
                   <div class="mf-order-order-test">
                     <div>
-                      <div>訂購會員:<span>01603</span></div>
-                      <div>訂單編號:<span>0603</span></div>
+                      <div>訂購會員:<span class="userID" name="userID"></span></div>
+                      <div>訂單編號:<span class="orderID" name="orderID"></span></div>
                       <div class="mf-order-model">訂單管理模式</div>
                     </div>
                     <div>
-                      <div><span>TibaMe牛肉麵</span>(外送)</div>
+                      <div><span class="resName" name="resName"></span></div>
                     </div>
                     <div>
-                      <div>訂購日期:<span>2022-06-04</span></div>
-                      <div>訂購時間:<span>12:20</span></div>
+                      <div>訂購日期:<span class="orderCreate" name="orderCreate"></span></div>
+<!--                       <div>訂購時間:<span>12:20</span></div> -->
                     </div>
                   </div>
                   <hr>
                   <div class="mf-order-test1 ">
                     <div class="list-group " >
                       <ul class="list-group list-group-horizontal ">
-                        <li class="list-group-item flex-balance"><span>招牌紅燒牛肉麵(細)X1</span></li>
-                        <li class="list-group-item flex-balance"><span>NT$140.00</span></li>
+                        <li class="list-group-item flex-balance"><span class="productName" name="productName"></span></li>
+                        <li class="list-group-item flex-balance">數量:<span class="amount" name="amount"></span></li>
+                        <li class="list-group-item flex-balance">NT$<span class="productPrice" name="productPrice"></span></li>
                         <li class="list-group-item flex-balance -off"><input type="checkbox" name="" id="">已售完</li>
                       </ul>
-                      <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item flex-balance"><span>加大X1</span></li>
-                        <li class="list-group-item flex-balance"><span>NT$10.00</span></li>
-                        <li class="list-group-item flex-balance"><input type="checkbox" name="" id="">已售完</li>
-                      </ul>
-                      <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item flex-balance"><span>滷蛋X2</span></li>
-                        <li class="list-group-item flex-balance"><span>NT$20.00</span></li>
-                        <li class="list-group-item flex-balance"><input type="checkbox" name="" id="">已售完</li>
-                      </ul>
-                      <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item flex-balance"><span>燙青菜X1</span></li>
-                        <li class="list-group-item flex-balance"><span>NT$30.00</span></li>
-                        <li class="list-group-item flex-balance"><input type="checkbox" name="" id="">已售完</li>
-                      </ul>
+<!--                       <ul class="list-group list-group-horizontal"> -->
+<!--                         <li class="list-group-item flex-balance"><span>滷蛋</span></li> -->
+<!--                         <li class="list-group-item flex-balance">數量:<span>2</span></li> -->
+<!--                         <li class="list-group-item flex-balance">NT$<span>20.00</span></li> -->
+<!--                         <li class="list-group-item flex-balance"><input type="checkbox" name="" id="">已售完</li> -->
+<!--                       </ul> -->
+<!--                       <ul class="list-group list-group-horizontal"> -->
+<!--                         <li class="list-group-item flex-balance"><span>燙青菜</span></li> -->
+<!--                         <li class="list-group-item flex-balance">數量:<span>1</span></li> -->
+<!--                         <li class="list-group-item flex-balance"><span>NT$30.00</span></li> -->
+<!--                         <li class="list-group-item flex-balance"><input type="checkbox" name="" id="">已售完</li> -->
+<!--                       </ul> -->
                       <div>
                         <ul class="mf-order-notes">
                           <li>訂單備註:</li>
                           <div class="mf-order-notes-1">
-                            <li><span>麵要特辣</span></li>
-                            <li><span>燙青菜不要加醬油</span></li>
+                            <li><span class="note" name="note"></span></li>                            
                           </div>
                         </ul>
                       </div>
@@ -107,14 +104,13 @@
                     <div>
                       <div class="mf-order-test1-2">
                         <ul class="mf-order-test1-1-1">
-                          <li>統一編號:<span>24708053</span></li>
-                          <li class="mf-order-test1-3">是否需要餐具:<span>否</span> </li>
-                          <li>總額:<span>NT$ 200.00</span></li>
+                          <li>統一編號:<span class="resAccount" name="resAccount"></span></li>
+                          <li>總額:NT$ <span class="total" name="total"></span></li>
                         </ul>
                       </div>
                       <div class="mf-order-test2-1">
                         <p>訂單狀態:</p>
-                        <div class="mf-order-model-1"><span>接單中</span></div>
+                        <div class="mf-order-model-1"><span class="orderStatus" name="orderStatus"></span></div>
                       </div>
                       <div>
                         <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" href="#exampleModalToggle3" role="button">拒絕接單</button>

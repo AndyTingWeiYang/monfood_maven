@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/style.css' />">
     <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/bootstrap.css' />">
     <link rel="stylesheet" href="<c:url value="/assets/css/res-reception-css/monfood-skeleton.css" />">
+    <link rel="stylesheet" href="<c:url value="/assets/css/res-reception-css/resReception-meal-preparation.css" />">
     <link rel="shortcut icon" href="<c:url value='/assets/images/favicon.png' />" />
     <script src="<c:url value='/assets/js/bootstrap.js' />"></script>
     <script src="<c:url value='/assets/js/off-canvas.js' />"></script>
@@ -32,7 +33,7 @@
             <ul class="navbar-nav navbar-nav-right">
                 <div class="navbar-profile">
                     <span class="nav-item menu-items">
-                        <a class="nav-link" href="<c:url value='/resprofile/resprofile-info.jsp'/>">
+                        <a class="nav-link" href="<c:url value='/resprofile/resprofile-info-preview.jsp'/>">
                             <span class="menu-title align-item-center">後臺設定</span>
                         </a>
                     </span>
