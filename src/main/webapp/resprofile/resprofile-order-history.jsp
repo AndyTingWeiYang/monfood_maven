@@ -24,7 +24,7 @@
 	</style>
 </head>
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
+$(document).ready(function () {
 		$('#orderList').DataTable();
 		
 		$('#checkbtn').click(function() {		
@@ -146,6 +146,7 @@
 								</tr>
 							</tfoot>
 						</table>
+						<button id="btn1">確定</button>
 					</div>
 				</div>
 				<jsp:include page="resprofile-footer.jsp" />
