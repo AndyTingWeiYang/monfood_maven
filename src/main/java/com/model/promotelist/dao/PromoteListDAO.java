@@ -15,9 +15,7 @@ public interface PromoteListDAO {
 		
 		PromoteListVO findByCode(String promoteCode);
 		
-//		PromoteListVO update(PromoteListVO promoteListVO);
-		
 		Integer update (PromoteListVO promoteListVO);
 		
-		Map<String, Object> showPromote(Integer promoteId);
+		Map<String, Object> showPromote();
 }

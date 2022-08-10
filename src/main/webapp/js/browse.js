@@ -355,7 +355,26 @@ $(document).ready(function(){
 
 //優惠通知
 $(document).ready(function(){
+    $.ajax({
+        url: 'ShowPromote',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {},
+        
+        success: function(data){
+            console.log(data);
 
+            const promoteMap = data.promoteMap;
+            let notiHtml = `
+                <div id="promoteBlock">輸入【 ${promoteMap.promoteCode} 】，折抵 $ ${promoteMap.promotePrice} 元 !<br />日常補貨每日三省，省錢、省事、又省力！！！</div>
+            `;
+
+            const contentHtml = $(notiHtml);
+            $('#notiBlock').append(contentHtml);
+        }
+    });
 });
+
+
 
 

@@ -27,8 +27,6 @@ public interface ResService {
 
 	List<ResVO> adminFindResAll();
 
-//	List<ResVO> adminFindByCategory(Integer resCategory);
-
 	List<Map<String, Object>> adminFindByCategory(Integer resCategory);
 
 	Map<String, Object> updateResInfo(ResDto resDto)throws ErrorMsgException;
