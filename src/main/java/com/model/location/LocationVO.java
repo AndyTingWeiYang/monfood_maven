@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class LocationVO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer locationId;
 	private Integer userId;
 	private Integer zipCode;
@@ -14,7 +15,6 @@ public class LocationVO implements Serializable {
 	}
 
 	public LocationVO(Integer locationId, Integer userId, Integer zipCode, String location, Integer defaultStatus) {
-		super();
 		this.locationId = locationId;
 		this.userId = userId;
 		this.zipCode = zipCode;
