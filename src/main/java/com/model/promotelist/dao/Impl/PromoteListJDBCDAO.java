@@ -280,7 +280,7 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 				promoteListVO.setStartDate(rs.getDate("START_DATE"));
 				promoteListVO.setEndDate(rs.getDate("END_DATE"));
 				promoteListVO.setStatus(rs.getInt("STATUS"));
-
+System.out.println("dao date:"+ promoteListVO.getStartDate());
 			}
 
 		} catch (ClassNotFoundException e) {
