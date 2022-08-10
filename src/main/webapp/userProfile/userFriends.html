@@ -261,6 +261,8 @@
         </div>
       </div>
     </div>
+    <!-- include -->
+    <!-- <div w3-include-html="/monfood_maven/buttonContent.html"></div> -->
 
     <!-- ===== footer start ===== -->
     <div style="background-color: #ff7f3f">
@@ -312,6 +314,8 @@
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
     <script src="../assets/js/todolist.js"></script>
+    <!-- include -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>
       window.onload = function () {
         $.ajax({
@@ -475,6 +479,20 @@
           console.log(errMsg);
         },
       });
+
+      //include
+      // document.addEventListener("DOMContentLoaded", function () {
+      //   w3.includeHTML(function () {
+      //     var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+      //     for (var i = 0; i < scriptObj.length; i++) {
+      //       var scriptElement = document.createElement("script");
+      //       scriptElement.src = scriptObj[i].getAttribute("src");
+
+      //       document.head.appendChild(scriptElement);
+      //     }
+      //   });
+      // });
     </script>
   </body>
 </html>

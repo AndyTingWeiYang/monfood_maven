@@ -73,10 +73,10 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	// 更改好友狀態>雙方接受配對成為好友
-	// update PAIR_LIST set status = 1 where USER_A_ANSWER = 1 and USER_B_ANSWER =1;
+	// update PAIR_LIST set STATUS = 1 where USER_A_ANSWER = 1 and USER_B_ANSWER =1;
 	public boolean updateStatus(PairListVo pairListVo) {
 		int rowCount = 0;
-		String sql = "update PAIR_LIST set status = ? where USER_A_ANSWER = ? and USER_B_ANSWER = ?;";
+		String sql = "update PAIR_LIST set STATUS = ? where USER_A_ANSWER = ? and USER_B_ANSWER = ?;";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, 1);
@@ -90,14 +90,14 @@ public class PairListDaoImpl implements PairListDao {
 	}
 
 	// 查找A會員好友 ?為A會員ID > 查詢結果為B會員ID
-//	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and status = 1
+//	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and STATUS = 1
 //	union
-//	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and status = 1;
+//	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and STATUS = 1;
 	public List<PairListVo> selectByIdAndStatus(Integer useraId ) {
 		List<PairListVo> list = new ArrayList<PairListVo>();
 		PairListVo pairListVo = null;
-		String sql = "	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and status = ?" + "	union"
-				+ "	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and status = ?;";
+		String sql = "	select USER_B_ID from PAIR_LIST where USER_A_ID = ? and STATUS = ?" + "	union"
+				+ "	select USER_A_ID from PAIR_LIST where USER_B_ID = ? and STATUS = ?;";
 		try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement ps = connection.prepareStatement(sql)) {
 			ps.setInt(1, useraId);

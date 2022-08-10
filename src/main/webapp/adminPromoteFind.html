@@ -210,9 +210,20 @@ function select() {
             data: JSON.stringify({ promoteId: promoteId.val().trim() }),
             dataType: "json",
             success: function (res) {
-              console.log(res);
-              console.log(res["PromoteLists"].promoteId);
 
+              var startDate = res["PromoteLists"].startDate;
+              console.log(startDate);
+              JSON.stringify(res);
+              var startDateFinal = dateformat(res["PromoteLists"].startDate);
+              var endDate = dateformat(res["PromoteLists"].endDate)
+              
+              function dateformat(date){
+                var date1 = date.replace("月", "-");
+                var datelist = date1.split(",")
+                var startDateFinal = datelist[1] + "  -  " + datelist[0]
+                return startDateFinal
+              }
+          
               let selectHtml = `
                 <select id="status" class="monfood-select" data-promoteid="${res["PromoteLists"].promoteId}" name="status">
                   <option value="0">過期</option>
@@ -226,8 +237,8 @@ function select() {
                     <td>${res["PromoteLists"].promoteId}</td>
                     <td>${res["PromoteLists"].promoteCode}</td>
                     <td>${res["PromoteLists"].promotePrice}</td>
-                    <td>${res["PromoteLists"].startDate}</td>
-                    <td>${res["PromoteLists"].endDate}</td>
+                    <td>${startDateFinal}</td>
+                    <td>${endDate}</td>
                     <td>${selectHtml}</td>
                     </tr>
                     `;
@@ -274,14 +285,6 @@ function select() {
                   $("#content").append(table_html);
                 });
               });
-
-              // $("#errMsg").text("");
-
-              // if (data.errMsg == "系統錯誤") {
-              //   errMsg = "*系統錯誤";
-              //   $("#errMsg").text(errMsg);
-              //   return;
-              // }
             },
           });
         });

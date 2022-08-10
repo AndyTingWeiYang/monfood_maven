@@ -1,3 +1,66 @@
+.monfood-resPic{
+  width: 100%;
+}
+
+.monfood-closeModal{
+  width: 10px; 
+  height: 10px; 
+  margin-right: 2px;
+}
+
+.monfood-openedTime{
+  font-size: 15px;
+}
+
+.monfood-openedTime{
+  margin-left: 10px; 
+  list-style: none;
+  font-size: 15px;
+}
+
+.monfood-ratingul{
+  list-style: none; 
+  font-size: 15px;
+  padding-left:0px;
+}
+
+.monfood-ratingbtn{
+  font-size: 15px !important; 
+  border: none !important;
+  background-color: transparent !important;
+  margin-top: none !important;
+  margin-left: 0 !important;
+}
+
+.monfood-pdtImgdiv{
+  height: 196px; 
+  width: 240px; 
+  overflow: hidden;
+}
+
+.monfood-pdtImg{
+  height: 196px;
+  width: 240px;
+  overflow: hidden;
+}
+
+.monfood-pdtPicModaldiv{
+  width: 380px; 
+  overflow: hidden; 
+  margin: auto;
+}
+
+.monfood-pdtPicModal{
+  display: block; 
+  width: 100%;
+}
+
+.monfood-pdtinfoModeldiv{
+  padding: 20px;
+}
+
+
+
 .monfood-pdtName{
   padding-top: 20px;
   text-align: left;
