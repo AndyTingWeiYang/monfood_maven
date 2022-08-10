@@ -34,10 +34,12 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 			+ "set STATUS = ? "
 			+ "where PROMOTE_ID = ?";
 
-	private static final String SHOW_PROMOTE = "SELECT PROMOTE_ID, PROMOTE_PRICE FROM PROMOTE_LIST WHERE PROMOTE_ID = ?";
+	private static final String SHOW_PROMOTE = "select PROMOTE_ID, PROMOTE_CODE, PROMOTE_PRICE "
+			+ "from MonFood.PROMOTE_LIST "
+			+ "where Promote_id in ( select max(Promote_id) from MonFood.PROMOTE_LIST);";
 	
 	@Override
-	public Map<String, Object> showPromote(Integer promoteId) {
+	public Map<String, Object> showPromote() {
 		Map<String, Object> show = new HashMap<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -47,12 +49,12 @@ public class PromoteListJDBCDAO implements PromoteListDAO {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
-			
-			pstmt.setInt(1, promoteId);
-			pstmt.executeQuery();
+			pstmt = con.prepareStatement(SHOW_PROMOTE);
+			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
+				
+				show.put("promoteId", rs.getInt("PROMOTE_ID"));
 				show.put("promoteCode", rs.getString("PROMOTE_CODE"));
 				show.put("promotePrice", rs.getInt("PROMOTE_PRICE"));
 			}
