@@ -93,6 +93,7 @@ public class ResDAOImpl implements ResDAO {
 				resPage.put("bzLocation", rs.getString("BZ_LOCATION"));
 				resPage.put("bzOpenHours", rs.getTime("BZ_OPEN_HOURS"));
 				resPage.put("bzCloseHours", rs.getTime("BZ_CLOSE_HOURS"));
+				
 			}
 
 		} catch (ClassNotFoundException e) {
