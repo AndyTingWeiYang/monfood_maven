@@ -74,6 +74,10 @@ window.addEventListener('load', function(){
     $('.checkout_btn').on('click', function(){
         let cartItem = ($('.cartItem'));
         var cartList = new Array;
+        
+        if ($('.cartList').text() == '') {
+          return;
+        }
 
         $.each(cartItem, function(){
             let cart = {
