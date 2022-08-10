@@ -1,7 +1,6 @@
 window.addEventListener('load', function(){
 
 
-
     const userId = $('#userId');
     const userName = $('#userName');
     const userTel = $('#userTel');
