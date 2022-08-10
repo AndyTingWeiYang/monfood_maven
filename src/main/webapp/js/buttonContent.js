@@ -41,13 +41,20 @@ webSocket.onmessage = function (event) {
   console.log(jsonObj);
 
   // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
-  let messages = JSON.parse(jsonObj.message);
-  for (let i = 0; i < messages.length; i++) {
-    let historyData = JSON.parse(messages[i]);
-    let showMsg = historyData.message;
-    const isMe = historyData.senderId === selfId;
-    appendNewMsg(isMe, showMsg);
+  if ("history" === jsonObj.type) {
+    let messages = JSON.parse(jsonObj.message);
+    for (let i = 0; i < messages.length; i++) {
+      let historyData = JSON.parse(messages[i]);
+      let showMsg = historyData.message;
+      const isMe = historyData.senderId === selfId;
+      appendNewMsg(isMe, showMsg);
+    }
+  } else if ("chat" === jsonObj.type) {
+    let message = jsonObj.message;
+    let isMe = jsonObj.senderId === selfId;
+    appendNewMsg(isMe, message);
   }
+
 };
 
 webSocket.onclose = function (event) {
@@ -66,7 +73,7 @@ function sendMessage(event) {
     alert("請輸入訊息");
     return;
   }
-  appendNewMsg(true, message);
+  // appendNewMsg(true, message);
   let jsonObj = {
     type: "chat",
     senderId: selfId,
@@ -85,7 +92,6 @@ function refreshChat() {
   if (ul) {
     ul.innerHTML = "";
   }
-
   // type是history時表示要拿redis的資料出來
   let jsonObj = {
     type: "history",
