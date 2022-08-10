@@ -54,7 +54,6 @@ webSocket.onmessage = function (event) {
     let isMe = jsonObj.senderId === selfId;
     appendNewMsg(isMe, message);
   }
-
 };
 
 webSocket.onclose = function (event) {

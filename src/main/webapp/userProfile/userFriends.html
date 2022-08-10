@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
     <link rel="stylesheet" href="../css/userProfile-header.css" />
     <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
     </style>
@@ -38,12 +39,15 @@
         >
           <li class="nav-item nav-category">
             <span class="nav-link">
-              <img
-                width="16px"
-                height="16px"
-                src="../assets/images/arrow-left-solid.svg"
-              />
-              <span class="ml-3">返回前台</span>
+              <a href="../browse.html" class="d-flex align-items-center">
+                <img
+                  width="16px"
+                  height="16px"
+                  src="../assets/images/arrow-left-solid.svg"
+                />
+
+                <span class="ml-3">返回前台</span>
+              </a>
             </span>
           </li>
           <li class="nav-item profile d-flex justify-content-center">
@@ -263,7 +267,6 @@
     </div>
     <!-- include -->
     <!-- <div w3-include-html="/monfood_maven/buttonContent.html"></div> -->
-
     <!-- ===== footer start ===== -->
     <div style="background-color: #ff7f3f">
       <div
@@ -483,13 +486,24 @@
       //include
       // document.addEventListener("DOMContentLoaded", function () {
       //   w3.includeHTML(function () {
-      //     var scriptObj = document.querySelectorAll('script[src^="assets"]');
+      //     var scriptObj = document.querySelectorAll('script[src^="/assets"]');
 
       //     for (var i = 0; i < scriptObj.length; i++) {
       //       var scriptElement = document.createElement("script");
       //       scriptElement.src = scriptObj[i].getAttribute("src");
 
       //       document.head.appendChild(scriptElement);
+      //     }
+
+      //     var scriptObjChat = document.querySelectorAll(
+      //       'script[src^="/webapp/images"]'
+      //     );
+
+      //     for (var j = 0; j < scriptObjChat.length; j++) {
+      //       var scriptElementChat = document.createElement("script");
+      //       scriptElementChat.src = scriptObjChat[j].getAttribute("src");
+
+      //       document.head.appendChild(scriptElementChat);
       //     }
       //   });
       // });
