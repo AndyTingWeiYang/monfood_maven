@@ -22,5 +22,5 @@ public interface PromoteListService {
 	//getbyCode
 	PromoteListVO adminFindListByCode(PromoteListVO promoteListVO);
 	
-	Map<String, Object> showPromote(Integer promoteId);
+	Map<String, Object> showPromote();
 }

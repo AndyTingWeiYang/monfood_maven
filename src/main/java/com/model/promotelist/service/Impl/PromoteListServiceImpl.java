@@ -81,8 +81,8 @@ public class PromoteListServiceImpl implements PromoteListService {
 	}
 
 	@Override
-	public Map<String, Object> showPromote(Integer promoteId) {
-		Map<String, Object> map = dao.showPromote(promoteId);
+	public Map<String, Object> showPromote() {
+		Map<String, Object> map = dao.showPromote();
 		return map;
 	}
 }
