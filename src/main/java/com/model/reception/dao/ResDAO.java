@@ -1,5 +1,6 @@
 package com.model.reception.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.model.order.OrderVO;
@@ -29,7 +30,7 @@ public interface ResDAO {
 //	    public OrderVO findByPrimaryKey1(Integer resId) ;
 	    
 	    //查詢新訂單
-	    public Map<String, Object> findByOrder(String orderId);
+	    public List<Map<String, Object>>findByOrder(Integer resId,String orderStatus);
 	    
 	    //進行VO全部查找
 //	    public List<ResVO> getAll() ;

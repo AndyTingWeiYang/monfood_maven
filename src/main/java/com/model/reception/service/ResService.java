@@ -1,5 +1,6 @@
 package com.model.reception.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.model.order.OrderVO;
@@ -11,8 +12,8 @@ public interface ResService {
 
 	ResVO findByPrimaryKey(Integer resId);
 
-	Map<String, Object> findByOrder(String orderId);
+	List<Map<String, Object>> findByOrder(Integer resId, String orderStatus);
 
 	void updateOrderStatus(OrderVO orderVO);
-	
+
 }

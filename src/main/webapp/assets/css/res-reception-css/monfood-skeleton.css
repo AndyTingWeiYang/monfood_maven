@@ -135,7 +135,7 @@ span.logo2 {
 /* 訂單用css */
 
 .accordion{
-    height: 500px;
+	/* height: 500px; */
     /* border: 2px solid blue; */
     overflow-y :auto; /* 當有東西超過區塊內畫面,畫面做隱藏 */
 }
