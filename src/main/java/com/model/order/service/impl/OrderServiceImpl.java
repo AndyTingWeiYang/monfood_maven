@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
 		aioCheckOutALL.setTradeDesc("test");
 		aioCheckOutALL.setItemName(itemName);
 		aioCheckOutALL.setClientBackURL("http://localhost:8080/monfood_maven/searching.html");
-		aioCheckOutALL.setReturnURL("http://localhost:8080/monfood_maven/searching.html");
+		aioCheckOutALL.setReturnURL("http://localhost:8080/monfood_maven/pay.html");
 		aioCheckOutALL.setNeedExtraPaidInfo("N");
 		
 		return allInOne.aioCheckOut(aioCheckOutALL, null);

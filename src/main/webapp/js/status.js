@@ -1,25 +1,36 @@
 window.addEventListener('load', function(){
   
-  if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
-    location.href = '/monfood_maven/browse.html';
-    return;
-  }
-    var res = {lat: 25.0444475, lng:121.5212073};
-  
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+    if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
+      location.href = '/monfood_maven/browse.html';
+      return;
+    }
 
     let cartList = JSON.parse(sessionStorage.getItem('cartList'))
     let orderList = JSON.parse(sessionStorage.getItem('orderList'));
-    console.log(cartList)
+    var res;
+
+    // get res location
+    let resId = cartList.cartList[0].resId
+    $.ajax({
+      url: 'ResGetToResPage',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {
+        resId: resId
+      },
+      success: function(data){
+        res = data.resPage.bzLocation;
+      },
+      async: false
+    })
+
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
 
     $('.resName').text(cartList.cartList[0].resName);
     $('#finalAddress').text(orderList.address);
     $('#total').text(orderList.total)
     $('#payBy').text(orderList.payBy)
-
-
-
 
 
     // 初始化地圖
@@ -94,15 +105,13 @@ window.addEventListener('load', function(){
                 
               </select>
             </div>
-            <a href="" class="">
-              <div>
-                <h5>${this.productName}</h5>
-                <div class="itemPrice">$${this.amount * this.productPrice}</div>
-                <div class="kcal">${this.productKcal * this.amount}Kcal</div>
-              </div>
-            </a>
+            <div>
+              <h5>${this.productName}</h5>
+              <div class="itemPrice" style="font-size: 12px">$${this.amount * this.productPrice}</div>
+              <div class="kcal" style="font-size: 12px">${this.productKcal * this.amount}Kcal</div>
+            </div>
           </div>
-          <img src="images/20190813JEF004__20190813_L.jpg" alt="" style="height: 90px; width: 90px">
+          <img src="/monfood_maven/resprofile/ProductPicServlet?productID=${this.productID}" alt="" style="height: 90px; width: 90px">
           </li>
         `
         

@@ -1,20 +1,79 @@
 window.addEventListener('load', function(){
 
-  var mylatlng = { lat: 25.0393131, lng: 121.3871121 };
-  var res = {lat: 25.0444475, lng:121.5212073};
-
-  var directionsService = new google.maps.DirectionsService();
-  var directionsDisplay = new google.maps.DirectionsRenderer();
-
   if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
     location.href = '/monfood_maven/browse.html';
     return;
   }
+  // location
+  $.ajax({
+    url: 'GetAllLocation',
+    type: 'POST',
+    dataType: 'json',
+    success: function(msg){
+      console.log(msg)
+
+      $.each(msg.locations, function(index, data){
+        console.log(this)
+        let loc_list = `
+          <li class="d-flex justify-content-between align-items-center">
+            <span class="addressBtn">${this.location}</span>
+            <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
+          </li>
+        `
+        $('#userLocation').append(loc_list);
+      })
+    }
+  })
+
+
+
+  // 從session 取得購物車資料
+  let cartData = JSON.parse(sessionStorage.getItem('cartList'));
+  var itemTotal = 0;
+  var kcalTotal = 0;
+  var orderDetailVO = new Array;
+  var productNameArray = new Array;
+
+  $.each(cartData, function(){
+    $.each(this, function(index, data){
+      let product = {
+        productId : this.productID,
+        amount : this.amount,
+        orderedPrice : this.productPrice
+      }
+      let productName = {
+        productName : this.productName
+      }
+      orderDetailVO.push(product);
+      productNameArray.push(productName);
+    })
+  })
+
+  var mylatlng = { lat: 25.0393131, lng: 121.3871121 };
+  var res;
+
+  // get res location
+  let resId = cartData.cartList[0].resId
+  $.ajax({
+    url: 'ResGetToResPage',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      resId: resId
+    },
+    success: function(data){
+      res = data.resPage.bzLocation;
+    },
+    async: false
+  })
+
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
 
   // 初始化地圖
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
-    center: res
+    center: mylatlng
   });
   
   // 放置路線圖層
@@ -65,7 +124,7 @@ window.addEventListener('load', function(){
     // var lng = place.geometry.location.lng();
     // mylatlng = { lat: lat, lng: lng }
 
-    document.querySelector('button.btn.textConfirm').addEventListener('click', function(){
+    $('button.btn.textConfirm').on('click', function(){
       document.getElementById('finalAddress').innerText = document.getElementById('address').value
       
       // 路線相關設定
@@ -102,10 +161,10 @@ window.addEventListener('load', function(){
 })
   
   // 按下按鈕地圖路線變更為已儲存地址
-  var button = document.querySelectorAll('button.addressConfirm');
+  var button = $('#userLocation');
   // console.log(button)
-  for(i of button){
-    i.addEventListener('click',  function(){
+  // for(i of button){
+  button.on('click', 'button.addressConfirm', function(){
       document.getElementById('finalAddress').innerText = this.parentNode.children[0].innerText;
       // 路線相關設定
       var request = {
@@ -137,7 +196,7 @@ window.addEventListener('load', function(){
       }
     });
     })
-  }
+  // }
 
   // radio標籤
   $('#cash').on('click', function(){
@@ -192,27 +251,7 @@ window.addEventListener('load', function(){
 
   })
 
-  // 從session 取得購物車資料
-  let cartData = JSON.parse(sessionStorage.getItem('cartList'));
-  var itemTotal = 0;
-  var kcalTotal = 0;
-  var orderDetailVO = new Array;
-  var productNameArray = new Array;
-
-  $.each(cartData, function(){
-    $.each(this, function(index, data){
-      let product = {
-        productId : this.productID,
-        amount : this.amount,
-        orderedPrice : this.productPrice
-      }
-      let productName = {
-        productName : this.productName
-      }
-      orderDetailVO.push(product);
-      productNameArray.push(productName);
-    })
-  })
+  
   // console.log(productNameArray)
 
   // 店名
@@ -251,15 +290,13 @@ window.addEventListener('load', function(){
                 
               </select>
             </div>
-            <a href="" class="">
-              <div>
-                <h5>${this.productName}</h5>
-                <div class="itemPrice">$${this.amount * this.productPrice}</div>
-                <div class="kcal">${this.productKcal * this.amount}Kcal</div>
-              </div>
-            </a>
+            <div>
+              <h5>${this.productName}</h5>
+              <div class="itemPrice" style="font-size: 12px">$${this.amount * this.productPrice}</div>
+              <div class="kcal" style="font-size: 12px">${this.productKcal * this.amount}Kcal</div>
+            </div>
           </div>
-          <img src="images/20190813JEF004__20190813_L.jpg" alt="" style="height: 90px; width: 90px">
+          <img src="/monfood_maven/resprofile/ProductPicServlet?productID=${this.productID}" alt="" style="height: 90px; width: 90px">
           </li>
         `
         
