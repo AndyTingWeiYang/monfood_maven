@@ -141,9 +141,6 @@ window.addEventListener('load', function(){
         })
      }
 
-
-
-
       // 路線相關設定
       var request = {
         origin: res,
@@ -500,6 +497,7 @@ window.addEventListener('load', function(){
           
           // 將部分訂單資訊存入session供後頁面使用
           let orderList = {
+            userId : msg.userId,
             orderId : msg.OrderId,
             delTime: $('#duration').text(),
             address: $('#finalAddress').text(),

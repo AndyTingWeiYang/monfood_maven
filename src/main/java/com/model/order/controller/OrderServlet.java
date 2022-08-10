@@ -63,6 +63,7 @@ public class OrderServlet extends HttpServlet {
 			OrderService service = new OrderServiceImpl();
 			orderId = service.createOrder(list, orderVO);
 			respObj.addProperty("OrderId", orderId);
+			respObj.addProperty("userId", userId);
 			
 			// validate the orderId get from service
 			if (orderId < 1) {
