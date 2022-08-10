@@ -10,10 +10,7 @@ window.addEventListener('load', function(){
     type: 'POST',
     dataType: 'json',
     success: function(msg){
-      console.log(msg)
-
       $.each(msg.locations, function(index, data){
-        console.log(this)
         let loc_list = `
           <li class="d-flex justify-content-between align-items-center">
             <span class="addressBtn">${this.location}</span>
@@ -127,6 +124,26 @@ window.addEventListener('load', function(){
     $('button.btn.textConfirm').on('click', function(){
       document.getElementById('finalAddress').innerText = document.getElementById('address').value
       
+      // insert location for user
+      if($('#address').val().trim() != null || $('#address').val().trim() != ''){
+
+        $.ajax({
+          url: 'InsertLocation',
+          type: 'POST',
+          data: JSON.stringify({
+            location: $('#address').val()
+          }),
+          dataType: 'json',
+          success: function(msg){
+          },
+          error: function(errMsg){
+          }
+        })
+     }
+
+
+
+
       // 路線相關設定
       var request = {
         origin: res,
@@ -136,26 +153,26 @@ window.addEventListener('load', function(){
       
       
       // 繪製路線
-    directionsService.route(request, function (result, status) {
-      if (status == 'OK') {
-        // 回傳路線上每個步驟的細節
-        directionsDisplay.setDirections(result);
-        // 路程時間
-        var duration = parseInt(result.routes[0].legs[0].duration.value);
-        // 目前時間
-        var today = new Date();
-        // 轉為毫秒數
-        var t_s = today.getTime();
-        
-        var time = new Date();
-        time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
-        var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-        document.getElementById("duration").innerText = arrival;
-        
-      } else {
-        // console.log(status);
-      }
-    });
+      directionsService.route(request, function (result, status) {
+        if (status == 'OK') {
+          // 回傳路線上每個步驟的細節
+          directionsDisplay.setDirections(result);
+          // 路程時間
+          var duration = parseInt(result.routes[0].legs[0].duration.value);
+          // 目前時間
+          var today = new Date();
+          // 轉為毫秒數
+          var t_s = today.getTime();
+          
+          var time = new Date();
+          time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
+          var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
+          document.getElementById("duration").innerText = arrival;
+          
+        } else {
+          // console.log(status);
+        }
+      });
     
   })
 })

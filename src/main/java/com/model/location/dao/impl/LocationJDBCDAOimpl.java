@@ -19,7 +19,7 @@ public class LocationJDBCDAOimpl implements LocationDAO{
 	String password = "password";
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO MonFood.LOCATION (LOCATION) VALUES (?, ?)";
+			"INSERT INTO MonFood.LOCATION (USER_ID, LOCATION) VALUES (?, ?)";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM MonFood.LOCATION where USER_ID = ?";
 
