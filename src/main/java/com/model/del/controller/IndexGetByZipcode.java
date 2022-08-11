@@ -45,12 +45,10 @@ public class IndexGetByZipcode extends HttpServlet {
 		JsonElement zipcodeJsonObject = jsonObject.get("zip_code");
 		String zipString = String.valueOf(zipcodeJsonObject);
 		String zipcode = zipString.replace("\"", "");
-		System.out.println(zipcode);
 //呼叫service
 		List<ResVO> resResult = new ArrayList<ResVO>();
 		ResService service = new ResServiceImpl();
 		resResult = service.getByZipcode(zipcode);
-		System.out.println(resResult);
 //		JsonObject respObj = new JsonObject();
 //存結果在session
 		HttpSession session = req.getSession();
