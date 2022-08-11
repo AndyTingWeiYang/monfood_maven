@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="css/delMsg.css" type="text/css" /> -->
+    <title>MonFood</title>
+    <!-- w3c.js 引入共用畫面 -->
+    <style>
+      h2.friendList{
+        background-color: green;
+        border-radius: 10px;
+        width: 15px;
+        display: flex;
+      }
+      ul#area{
+	    list-style: none;
+	    margin: 0;
+	    padding: 0;
+      }
+
+ 	  ul#area li{ 
+ 	  	margin: 5px;
+      border: solid 2px;
+   		clear: both; 
+   		padding: 10px; 
+  		border-radius: 30px; 
+/*    		margin-bottom: 2px;  */
+   		font-family: Helvetica, Arial, sans-serif; 
+ 	  } 
+    </style>
+  </head>
+
+  <body>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+
+    <!-- include libraries(jQuery, bootstrap) -->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- include summernote css/js -->
+
+    <div class="container-scroller">
+      <!-- ===== sidebar start ===== -->
+      <!-- TODO: 未來 JSP <jsp:include page="sidebar.jsp" /> 取代 -->
+      <div w3-include-html="adminSidebar.html"></div>
+      <!-- ===== sidebar end ===== -->
+
+      <div class="container-fluid page-body-wrapper">
+        <!-- ===== header start ===== -->
+        <!-- TODO: 未來 JSP <jsp:include page="header.jsp" /> 取代 -->
+        <div w3-include-html="adminHeader.html"></div>
+        <!-- ===== header end ===== -->
+
+        <div class="main-panel">
+          <!-- ===== 內容客製化區塊 start ===== -->
+          <div class="mf-content-wrapper mt-5">
+            <!-- 表單區塊 -->
+            <div class="jumbotron">
+              <div class="form-group row">
+<!-- 貼開始-->
+                
+                <div id="friendList" style="display: inline-block; height: 500px; width: 360px;">
+                    <h3 id="listHead" style="margin: 5px;">線上外送員</h3>
+                    <div id="listDetail" style="background-color: gainsboro; height: 400px"></div>
+                
+                </div>
+
+                <div id="chatArea" style="display: inline-block; height: 500px; width: 360px;">
+                  <h3 id="statusOutput" class="statusOutput"></h3>
+                  
+                  <div id="messagesArea" class="panel message-area" style="height: 400px; overflow: scroll"> </div>
+
+                  <div id="btnArea">
+                    <input id="message" class="text-field" type="text" placeholder="Message" style=" width: 290px;" /> 
+                    <input type="submit" id="sendMessage" class="button" value="Send" /> 
+                    <input type="submit" id="msgToAll" value="toAll" class="button"/>
+                  </div>
+                </div>
+                <!-- <h3 id="statusOutput" class="statusOutput"></h3>
+                <div id="row"></div>
+                <div id="messagesArea" class="panel message-area" style="float: right; width: 50%; height: 70%; resize: none; overflow: auto;"  ></div>
+                <div class="panel input-area">
+                  <input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" style="min-width: 50%; max-width: 60%" /> 
+                  <input type="submit" id="sendMessage" class="button" value="Send" /> 
+                  <input type="button" id="connect" class="button" value="Connect" /> 
+                  <input type="button" id="disconnect" class="button" value="Disconnect" />
+                </div> -->
+
+
+<!-- 貼結束-->           
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== footer start ===== -->
+          <!-- TODO: 未來 JSP <jsp:include page="footer.jsp" /> 取代 -->
+          <div w3-include-html="adminFooter.html"></div>
+          <!-- ===== footer end ===== -->
+        </div>
+      </div>
+    </div>
+    <script>
+      // <jsp:include page="head.jsp" /> 即可移除以下 <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        w3.includeHTML(function () {
+          function init() {
+            $("#summernote").summernote({
+              placeholder: "Hello Bootstrap 5",
+              tabsize: 2,
+              height: 100,
+            });
+          }
+          var scriptObj = document.querySelectorAll('script[src^="assets"]');
+
+          for (var i = 0; i < scriptObj.length; i++) {
+            var scriptElement = document.createElement("script");
+            scriptElement.src = scriptObj[i].getAttribute("src");
+
+            document.head.appendChild(scriptElement);
+          }
+          init();
+        });
+
+        var MyPoint = "/FriendWS/admin";		//  /FriendWS/
+	      var host = window.location.host;			//	localhost:8080
+	      var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
+	      var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
+	      var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+	      var statusOutput = document.getElementById("statusOutput");
+	      var messagesArea = document.getElementById("messagesArea");
+	      var self = 'admin';
+	      var webSocket;
+        
+        connect();
+
+	      function connect() {
+        // create a websocket
+            webSocket = new WebSocket(endPointURL);
+
+            webSocket.onopen = function(event) {
+                console.log("Connect Success!");
+//                 document.getElementById('sendMessage').disabled = false;
+//                 document.getElementById('connect').disabled = true;
+//                 document.getElementById('disconnect').disabled = false;
+            };
+        
+
+            webSocket.onmessage = function(event) {
+			      var jsonObj = JSON.parse(event.data);
+//上線載入好友列表			
+			      if ("open" === jsonObj.type) {
+				      refreshFriendList(jsonObj);
+//載入歷史訊息				
+			      } else if ("history" === jsonObj.type) {
+              messagesArea.innerHTML = '';
+              var ul = document.createElement('ul');
+              ul.id = "area";
+              messagesArea.appendChild(ul);
+              // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+              var messages = JSON.parse(jsonObj.message);
+              for (var i = 0; i < messages.length; i++) {
+                var historyData = JSON.parse(messages[i]);
+                var showMsg = historyData.message;
+                var li = document.createElement('li');
+                // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
+                historyData.sender === self ? li.className += 'me' : li.className += 'friend';
+                li.innerHTML = showMsg;
+                ul.appendChild(li);
+              }
+				      messagesArea.scrollTop = messagesArea.scrollHeight;
+// 線上聊天				
+			        } else if ("chat" === jsonObj.type) {
+//聊天泡泡
+				          var li = document.createElement('li');
+//判斷是誰的泡泡
+				          jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+//把訊息裝入泡泡
+                  li.innerHTML = jsonObj.message;
+                  console.log(li);
+//把裝有訊息的泡泡貼上去
+				          document.getElementById("area").appendChild(li);
+// *******		保持畫面在最下面要再了解一下
+				          messagesArea.scrollTop = messagesArea.scrollHeight;
+			        } else if ("close" === jsonObj.type) {
+				          refreshFriendList(jsonObj);
+			        }
+			
+		    };
+        
+        webSocket.onclose = function(event) {
+          console.log("Disconnected!");
+        };
+
+        $("input#sendMessage").on("click", function(){
+          sendMessage();
+        });
+
+        $("input#message").on("keyup", function(e){
+        		if($("input#message").val() != "" && e.which == 13){
+              sendMessage();
+        		}
+    		});
+
+        $("input#msgToAll").on("click", function(){
+          sendMessage();
+        });
+
+        $("input#disconnect").on("cilck", function(){
+          disconnect();
+        });
+
+      }
+
+//傳訊息囉
+        function sendMessage() {
+          var inputMessage = document.getElementById("message");
+          var friend = statusOutput.textContent;
+          var message = inputMessage.value.trim();
+
+          if (message === "") {
+            alert("Input a message");
+            inputMessage.focus();
+          } else if (friend === "") {
+            alert("Choose a friend");
+          } else {
+            var jsonObj = {
+              "type" : "chat",
+              "sender" : self,
+              "receiver" : friend,
+              "message" : message
+            };
+            webSocket.send(JSON.stringify(jsonObj));
+            inputMessage.value = "";
+            inputMessage.focus();
+          }
+	      }
+
+
+
+
+
+
+// 有好友上線或離線就更新列表
+          function refreshFriendList(jsonObj) {
+            var friends = jsonObj.users;
+            var listDetail = document.getElementById("listDetail");
+            //養成習慣新增東西前把舊東西清一清
+            listDetail.innerHTML = '';
+            for (var i = 0; i < friends.length; i++) {
+              //水喔跳過自己不要新增到好友列表思緒周密
+              if (friends[i] === self) { continue; }
+              listDetail.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends[i] + ' ><h2 class="friendList">' + friends[i] + '</h2></div>';
+            }
+            //這個也很屌 監聽者
+            addListener();
+          }
+
+// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
+          function addListener() {  
+            var container = document.getElementById("listDetail");
+            container.addEventListener("click", function(e) {
+              //這行不知道耶srcElement感覺是取點哪個好朋友 事件來源的元素 酷耶還有這種寫法
+              var friend = e.srcElement.textContent;
+              updateFriendName(friend);
+              //統一格式丟一包msg出去裡面有類型, 誰送誰收內容是什麼
+              var jsonObj = {
+                  "type" : "history",
+                  "sender" : self,
+                  "receiver" : friend,
+                  "message" : ""
+                };
+              webSocket.send(JSON.stringify(jsonObj));
+            });
+          }
+
+          function disconnect() {
+            webSocket.close();
+            document.getElementById('sendMessage').disabled = true;
+            document.getElementById('connect').disabled = false;
+            document.getElementById('disconnect').disabled = true;
+          }
+
+
+
+
+
+//只是顯示出跟誰聊天而已
+          function updateFriendName(name) {
+            statusOutput.innerHTML = name;
+          }
+
+
+
+      });
+    </script>
+  </body>
+</html>

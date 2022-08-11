@@ -43,7 +43,6 @@ public class GetResByZipcode extends HttpServlet {
 		Gson gson = new Gson();
 		HttpSession session = req.getSession();
 		List<ResVO> resList = (List<ResVO>) session.getAttribute("resZipcode");
-		System.out.println("從session取出:"+resList);
 
 //傳結果回前端
 		resp.getWriter().append(gson.toJson(resList));
