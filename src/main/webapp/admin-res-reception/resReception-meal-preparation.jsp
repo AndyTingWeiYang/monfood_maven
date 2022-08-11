@@ -60,7 +60,7 @@
                              </div>
                              <div class="row">
                                  <div class="col d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">YES</button>
+                                    <button type="submit" id="match" class="btn btn-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">YES</button>
                                  </div>
                                  <div class="col d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" >NO</button>

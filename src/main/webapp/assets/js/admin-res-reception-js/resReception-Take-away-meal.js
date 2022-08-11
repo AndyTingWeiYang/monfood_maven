@@ -8,7 +8,7 @@ $(document).ready(function() {
             url: 'FindByOrderServlet',
             method: 'post',
             data: {
-                orderStatus: 1
+                orderStatus: 2
             },
             dataType: 'JSON',
             success: function(data) {
@@ -78,7 +78,7 @@ $(document).ready(function() {
                             </div>
                             <div>
                                 <button class="delBtn btn btn-secondary" data-index="${i}"
-                                type="button" data-bs-toggle="modal" href="#exampleModalToggle" role="button">可取餐</button>
+                                type="button" data-bs-toggle="modal" href="#exampleModalToggle" role="button">已取餐</button>
                                 </div>
                                 </div>
                                 </div>
