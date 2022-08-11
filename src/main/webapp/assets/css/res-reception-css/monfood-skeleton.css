@@ -418,8 +418,8 @@ ul,ol{
     .switch_demo-inner {
     display: block;
     width: 200%;
-    margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
+/*     margin-left: -100%; */
+/*     transition: margin 0.3s ease-in 0s; */
     }
     .switch_demo-inner:before,
     .switch_demo-inner:after {
@@ -447,28 +447,28 @@ ul,ol{
     }
     /* 開關文字設定 */
     .switch_demo-inner:after {
-    content: "未營業";
-    padding-right: 20px;
-    background-color: #c50505;
-    color: #f9f9f9;
-    text-align: right;
-    font-size: 30px;
-    line-height: 50px;
+/*     content: "未營業"; */
+/*     padding-right: 20px; */
+/*     background-color: #c50505; */
+/*     color: #f9f9f9; */
+/*     text-align: right; */
+/*     font-size: 30px; */
+/*     line-height: 50px; */
     }
     /* 白色開關鈕設定 */
     .switch_demo-switch {
-        display: block;
-        width: 15px;
-        margin: 6px;
-        height: 40px;
-        background: #FFFFFF;
-        position: absolute;
-        top: 30px;
-        bottom: 0;
-        right: 116px;
-        border: 2px solid #999999;
-        border-radius: 20px;
-        transition: all 0.3s ease-in 0s;
+/*         display: block; */
+/*         width: 15px; */
+/*         margin: 6px; */
+/*         height: 40px; */
+/*         background: #FFFFFF; */
+/*         position: absolute; */
+/*         top: 30px; */
+/*         bottom: 0; */
+/*         right: 116px; */
+/*         border: 2px solid #999999; */
+/*         border-radius: 20px; */
+/*         transition: all 0.3s ease-in 0s; */
     }
     .switch_demo-checkbox:checked + .switch_demo-label .switch_demo-inner {
     margin-left: 0;

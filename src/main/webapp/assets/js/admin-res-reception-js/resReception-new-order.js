@@ -8,7 +8,7 @@ $(document).ready(function() {
             url: 'FindByOrderServlet',
             method: 'post',
             data: {
-                orderStatus: 1
+                orderStatus: 0
             },
             dataType: 'JSON',
             success: function(data) {

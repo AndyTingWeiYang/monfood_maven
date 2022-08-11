@@ -8,7 +8,7 @@ $(document).ready(function() {
             url: 'FindByOrderServlet',
             method: 'post',
             data: {
-                orderStatus: 1
+                orderStatus: 3
             },
             dataType: 'JSON',
             success: function(data) {
@@ -76,10 +76,6 @@ $(document).ready(function() {
                                 <p>訂單狀態:</p>
                                 <div class="mf-order-model-1"><span>${orderMap.ORDER_STATUS}</span></div>
                             </div>
-                            <div>
-                                <button class="delBtn btn btn-secondary" data-index="${i}"
-                                type="button" data-bs-toggle="modal" href="#exampleModalToggle" role="button">可取餐</button>
-                                </div>
                                 </div>
                                 </div>
                                 </div>

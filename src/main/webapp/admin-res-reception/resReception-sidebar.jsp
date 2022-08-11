@@ -23,14 +23,14 @@
                     </label>
                 </div>
             </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="resReception-new-order.jsp" aria-expanded="false"
-                    aria-controls="ui-basic">
-                        <i class="mdi mdi-48px mdi-new-box"></i>
-                    <span class="menu-title">新訂單</span>
-                    <span class="badge bg-primary rounded-pill">6</span>
-                </a>
-            </li>
+<!--             <li class="nav-item menu-items"> -->
+<!--                 <a class="nav-link" data-toggle="collapse" href="resReception-new-order.jsp" aria-expanded="false" -->
+<!--                     aria-controls="ui-basic"> -->
+<!--                         <i class="mdi mdi-48px mdi-new-box"></i> -->
+<!--                     <span class="menu-title">新訂單</span> -->
+<!--                     <span class="badge bg-primary rounded-pill">6</span> -->
+<!--                 </a> -->
+<!--             </li> -->
             <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="resReception-meal-preparation.jsp" aria-expanded="false"
                     aria-controls="ui-basic">
