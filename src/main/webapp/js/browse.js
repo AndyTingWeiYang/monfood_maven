@@ -373,8 +373,51 @@ $(document).ready(function(){
             $('#notiBlock').append(contentHtml);
         }
     });
+
+    // 
+location
+$.ajax({
+  url: 'GetAllLocation',
+  type: 'POST',
+  dataType: 'json',
+  success: function(msg){
+    $.each(msg.locations, function(index, data){
+      let loc_list = `
+        <li class="d-flex justify-content-between align-items-center">
+          <span class="addressBtn">${this.location}</span>
+          <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
+        </li>
+      `
+      $('#userLocation').append(loc_list);
+    })
+  }
 });
 
+$('button.btn.textConfirm').on('click', function(){
+  document.getElementById('finalAddress').innerText = document.getElementById('address').value
+  
+  // insert location for user
+  if($('#address').val().trim() != null || $('#address').val().trim() != ''){
+
+    $.ajax({
+      url: 'InsertLocation',
+      type: 'POST',
+      data: JSON.stringify({
+        location: $('#address').val()
+      }),
+      dataType: 'json',
+      success: function(msg){
+      },
+      error: function(errMsg){
+      }
+    })
+ }
 
 
+
+
+
+});
+
+});
 
