@@ -73,7 +73,6 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setDate(5, userVO.getBirthday());
 			pstmt.setTimestamp(6, userVO.getUpdateTime());
 
-			System.out.println("in UserDAOImpl im done");
 			return pstmt.executeUpdate();
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -122,12 +121,9 @@ public class UserDAOImpl implements UserDAO {
 //			pstmt.setTimestamp(11, userVO.getUpdateTime());
 
 			int numOfSuccess = pstmt.executeUpdate();
-			System.out.println("我在UserDAOImpl的變數numOfSuccess" + numOfSuccess);
 			if (numOfSuccess < 1) {
-				System.out.println("小於1的結果 代表失敗");
 				return "UpdateFailed";
 			} else {
-				System.out.println("大於1的結果 代表成功");
 				return "UpdateCompleted";
 			}
 		} catch (SQLException se) {
@@ -165,12 +161,9 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setString(1, userAccount);
 
 			int checkAccountStatus = pstmt.executeUpdate();
-			System.out.println("我在UserDAOImpl的變數checkAccountStatus：" + checkAccountStatus);
 			if (checkAccountStatus < 1) {
-				System.out.println("小於1的結果 代表失敗");
 				return "CheckFailed";
 			} else {
-				System.out.println("大於1的結果 代表成功");
 				return "CheckCompleted";
 			}
 
@@ -498,12 +491,9 @@ public class UserDAOImpl implements UserDAO {
 			pstmt.setInt(2, userId);
 
 			int numOfSuccess = pstmt.executeUpdate();
-			System.out.println("我在UserDAOImpl的變數numOfSuccess" + numOfSuccess);
 			if (numOfSuccess < 1) {
-				System.out.println("小於1的結果 代表失敗");
 				return "UpdateMonsLvFailed";
 			} else {
-				System.out.println("大於1的結果 代表成功");
 				return "UpdateMonsLvCompleted";
 			}
 		} catch (SQLException se) {
@@ -602,7 +592,6 @@ public class UserDAOImpl implements UserDAO {
 			if (numOfSuccess < 1) {
 				return "UpdateFailed";
 			} else {
-				System.out.println("大於1的結果 代表成功");
 				return "UpdateCompleted";
 			}
 		} catch (SQLException se) {
@@ -680,10 +669,8 @@ public class UserDAOImpl implements UserDAO {
 
 			int numOfSuccess = pstmt.executeUpdate();
 			if (numOfSuccess < 1) {
-				System.out.println("小於1的結果 代表失敗");
 				return "UpdateFailed";
 			} else {
-				System.out.println("大於1的結果 代表成功");
 				return "UpdateCompleted";
 			}
 		} catch (SQLException se) {

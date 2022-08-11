@@ -34,8 +34,6 @@ public class AdminResGetOneByAccount extends HttpServlet {
 			ResVO resVO = gson.fromJson(request.getReader(), ResVO.class);
 			ResService service = new ResServiceImpl();
 			final ResVO result = service.getOneByResAccount(resVO.getResAccount());
-			System.out.println("我在AdminResGetOneByAccount的resVO = " + resVO);
-			System.out.println("我在AdminResGetOneByAccount的result = " + result);
 
 			if (result == null) {
 				respObj.addProperty("errMsg", "無此會員");

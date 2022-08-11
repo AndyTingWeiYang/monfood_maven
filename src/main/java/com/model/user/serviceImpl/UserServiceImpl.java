@@ -83,7 +83,6 @@ public class UserServiceImpl implements UserService {
 			long msb = System.currentTimeMillis();
 			long lsb = System.currentTimeMillis();
 			UUID uuidConstructor = new UUID(msb, lsb);
-			System.out.println("我是userAccount：" + userAccount);
 			String subject = "歡迎使用MonFood";
 			String ch_name = userName;
 			// http://localhost:8080/monfood_maven/userAccount/UUID
@@ -92,10 +91,8 @@ public class UserServiceImpl implements UserService {
 			MailService mailService = new MailService();
 			mailService.sendMail(userAccount, subject, messageText);
 
-			System.out.println("im in UserServiceImpl userRegister 已發送mail");
 		}
 
-		System.out.println("im in UserServiceImpl");
 		return "Register Success"; // 沒有回傳就等於成功
 	}
 
@@ -131,7 +128,6 @@ public class UserServiceImpl implements UserService {
 		}
 
 		String resetReult = dao.updatePassword(userVO);
-		System.out.println("我在UserServiceImpl = " + resetReult);
 		if (!("UpdateCompleted".equals(resetReult))) {
 			return "ResetFailed";
 		}
@@ -144,7 +140,6 @@ public class UserServiceImpl implements UserService {
 //		UserVO userVO = new UserVO();
 //		String userAccont = userVO.getUserAccount();
 		String resetReult = dao.updateAccountStatus(userAccount);
-		System.out.println("我在UserServiceImpl的updateAccountStatus = " + resetReult);
 		if ("CheckFailed".equals(resetReult)) {
 			return "ResetFailed";
 		}
@@ -163,12 +158,10 @@ public class UserServiceImpl implements UserService {
 //			System.out.println("USER_ACCOUNT:"+userVO2.getUserAccount());
 			count++;
 		}
-		System.out.println("isDuplicateAccount查詢帳號重複筆數" + count);
 		if (count >= 1) {
 			return "DuplicateAccount";
 		}
 
-		System.out.println("im in UserServiceImpl isDuplicateAccount ： Account Pass");
 		return "pass";
 
 	}
