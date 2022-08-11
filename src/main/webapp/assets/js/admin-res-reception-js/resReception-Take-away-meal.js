@@ -2,14 +2,13 @@ $(document).ready(function() {
     let orderList;
     let delOrder;
     let intervalId;
-    let orderMap;
 
     function init() {
         $.ajax({
             url: 'FindByOrderServlet',
             method: 'post',
             data: {
-                orderStatus: 1
+                orderStatus: 2
             },
             dataType: 'JSON',
             success: function(data) {
@@ -21,7 +20,7 @@ $(document).ready(function() {
                 }
 
                 for(let i = 0; i < orderList.length; i++) {
-                    orderMap = orderList[i];
+                    const orderMap = orderList[i];
 
                     const accordionList = `
                         <div class="accordion" id="accordionExample-${i}"></div><br>
@@ -79,7 +78,7 @@ $(document).ready(function() {
                             </div>
                             <div>
                                 <button class="delBtn btn btn-secondary" data-index="${i}"
-                                type="button" data-bs-toggle="modal" href="#exampleModalToggle" role="button">可取餐</button>
+                                type="button" data-bs-toggle="modal" href="#exampleModalToggle" role="button">已取餐</button>
                                 </div>
                                 </div>
                                 </div>
@@ -115,136 +114,27 @@ $(document).ready(function() {
                         $('#productList' + i).append(orderItemHtml);
                     }
                 }
-// ===============websocket yuyu======================
-                // webSocket
-				let resId = orderMap.RES_ID;
-				let resType = "0";
 
-				// 建立連線
-				let myPoint = `/ResToDel/${resId}/${resType}`;
-				let host = window.location.host;
-				let path = window.location.pathname;
-				let webCtx = path.substring(0, path.indexOf("/", 1));
-				let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
-				console.log(endPointURL);
-
-				let webSocket = new WebSocket(endPointURL);
-
-				webSocket.onopen = function(event) {
-					console.log("商家連線上囉Connect Success!");					
-				};
-
-				// onmessage 接收到資料才會執行
-				let delIdArr = new Array();			
-				let cartList;
-/*這個QQ跟商家組的討論後要改掉*/let orderListQQ; 	
-				function onmessage() {
-					webSocket.onmessage = function(event) {
-						let jsonObj = JSON.parse(event.data);
-						console.log("jsonObj = ", jsonObj);
-						if ("open" === jsonObj.stateType) {
-							console.log(jsonObj.allUser);
-							alert("onmessage 我收到後端資料囉");
-							console.log("onmessage 我收到後端資料囉");
-
-							// 取得delId 存進陣列
-							jsonObj.allUser.forEach(function(item) {
-								if (item.slice(-1) == "1") {
-									delIdArr.push(item);
-								}
-							});
-						} else if ("userNotification" === jsonObj.type) {
-							console.log("收到使用者訂單jsonObj = ", jsonObj);
-							console.log(jsonObj.message);
-							Swal.fire({
-								title: jsonObj.message+"請問是否接受?",
-								showDenyButton: true,
-								confirmButtonText: '接單',
-								denyButtonText: '拒單',
-							}).then((result) => {
-								/* Read more about isConfirmed, isDenied below */
-								if (result.isConfirmed) {
-									cartList = jsonObj.cartList;
-									orderListQQ = jsonObj.orderList;
-									alert("您已接單")
-								/*
-								*
-								*留給商家寫訂單資料
-								*
-								*
-								*
-								*
-								*
-								*
-								*
-								*/
-								} else if (result.isDenied) {
-									Swal.fire('您已拒絕接受此單')
-									var resToUser = {
-										type: "resReject",
-										sender: resId,
-										receiver: orderMap.USER_ID,
-										message: `${orderMap.RES_NAME}已拒絕此訂單`,
-									};
-									webSocket.send(JSON.stringify(resToUser)); // 	jsonObj改成json格式
-									console.log(resToUser);
-								}
-							})
-						} else if ("delReject" === jsonObj.type) {
-							console.log("通知餐廳 外送員拒單囉")
-							alert("外送員已拒單");
-						}
-					};
-				}
-				onmessage();
-
-
-				let delId;
-				$('#match').click(function() {
-					console.log("按下btn");
-					// 隨機取resId
-					delId = delIdArr[getRandomInt(delIdArr.length)];
-					addListener();
-				});
-
-				
-				// sendMessage 將資料送至後端所以後端@onMessage事件就發生了
-				function addListener() {
-					var jsonObj = {
-						type: "resNotification",
-						sender: resId,
-						receiver: delId,
-						message: `有一筆外送單來自：${orderMap.RES_NAME}`,
-						cartList: cartList,
-						orderList: orderListQQ
-					};
-					webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
-					console.log(jsonObj);
-				}
-
-
-				webSocket.onclose = function(event) {
-					console.log("商家連線斷囉Disconnected!");
-				};
-
-				// 取亂數
-				function getRandomInt(max) {
-					return Math.floor(Math.random() * max);
-				}
-// ===============^^websocket yuyu^^======================
+                $('.delBtn').click(function() {
+                    const index = $(this).data('index');
+                    console.log(orderList[index]);
+                    
+                    // 待外送員接單
+                    delOrder = orderList[index];
+                });
             }      
         });
     }
 
     init();
 
-//    $(document).mouseover(function() {
-//        clearInterval(intervalId);
-//    });
+   $(document).mouseover(function() {
+       clearInterval(intervalId);
+   });
 
-//    $(document).mouseleave(function() {
-//        // 每5秒撈取資料
-//        clearInterval(intervalId);
-//        intervalId = setInterval(init, 5000);
-//    });
+   $(document).mouseleave(function() {
+       // 每5秒撈取資料
+       clearInterval(intervalId);
+       intervalId = setInterval(init, 5000);
+   });
 });

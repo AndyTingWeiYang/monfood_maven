@@ -19,11 +19,11 @@ public class UserLogoutServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		 PrintWriter out = response.getWriter();
 	        request.setCharacterEncoding("UTF-8");
-	        request.getRequestDispatcher("/del/monFoodIndex.html").include(request, response);
+	        request.getRequestDispatcher("/index.html").include(request, response);
 	        HttpSession session = request.getSession();
 	        // 清除資料
-	        session.invalidate();
 	        out.print("您已成功登出退出系統!");
+	        session.invalidate();
 	        out.close();
 	
 	

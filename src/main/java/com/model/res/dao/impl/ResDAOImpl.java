@@ -42,7 +42,7 @@ public class ResDAOImpl implements ResDAO {
 	// 使用餐廳分類查詢一筆多筆資料
 	private static final String SELECTBYCATEGORY = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM RES LEFT JOIN `ORDER` on RES.RES_ID = ORDER.RES_ID WHERE RES_CATEGORY = ? GROUP by RES.RES_ID ";
 	// 使用
-	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
+	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.ZIP_CODE, RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 //	//搜尋框模糊查詢
 
 //	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, RES.BZ_LOCATION, RES.BZ_OPEN_HOURS, RES.BZ_CLOSE_HOURS FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
@@ -305,10 +305,8 @@ public class ResDAOImpl implements ResDAO {
 				map.put("resId", rs.getInt("RES_ID"));
 				map.put("resCategory", rs.getInt("RES_CATEGORY"));
 				map.put("resName", rs.getString("RES_NAME"));
-//				map.put("bzLocation",rs.getString("BZ_LOCATION"));
-//				map.put("bzOpenHours",rs.getString("BZ_OPEN_HOURS"));
-//				map.put("bzCloseHours", rs.getString("BZ_CLOSE_HOURS"));
-//				map.put("bzWeekTime", rs.getInt("BZ_WEEKTIME"));
+				map.put("zipCode",rs.getInt("ZIP_CODE"));
+//			
 
 				rateList.add(map);
 			}

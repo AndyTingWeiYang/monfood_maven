@@ -291,55 +291,126 @@ $('.restriction').click(function(){
       
       success: function(data) {
         const resList = data.resList;
+        let zipCodeSession = sessionStorage.getItem("zipcode");
+        let length = resList.length;
+        if(zipCodeSession != null){
+          for(let i=0; i < length; i++){
+            if(resList[i].zipCode == zipCodeSession){
+                const resVo = resList[i];
+                var resCat;
+      
+              if(resVo.resCategory==1){
+                resCat = "台式";
+                }else if(resVo.resCategory==2){
+                resCat = "日式";
+                }else if(resVo.resCategory==3){
+                resCat = "泰式";
+                }else if(resVo.resCategory==4){
+                resCat = "美式";
+                }else if(resVo.resCategory==5){
+                resCat = "韓式";
+                }
+      
+                let resPageHtml = `
+                  <a id="resPage" 
+                    class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+                    href="restaurant.html?resID=${resVo.resId}">
+                  </a>
+                `;
         
-        for(let i = 0; i < resList.length; i++) {
-        const resVo = resList[i];
-
-        var resCat;
-
-        if(resVo.resCategory==1){
-          resCat = "台式";
-          }else if(resVo.resCategory==2){
-          resCat = "日式";
-          }else if(resVo.resCategory==3){
-          resCat = "泰式";
-          }else if(resVo.resCategory==4){
-          resCat = "美式";
-          }else if(resVo.resCategory==5){
-          resCat = "韓式";
+                let resPageContentHtml = `
+                  <div class="btn btn-primary monfood-resBlock">
+                      <div class="monfood-resPicdiv" >
+                          <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+                      </div>
+                      <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                          <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                          <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}分</div>
+                      </div>
+                      <div class="row justify-content-between monfood-resCategorydiv">
+                          <div class="col-md-6 d-flex"></div>
+                          <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
+                      </div>
+                  </div>
+                `;
+              
+                // resPageHtml<a> 新增內容
+                const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
+                $('#resPageBlock').append(contentHtml);
+            }
           }
-          console.log(resCat);
-          console.log(resVo.resCategory);
+        }  
+        else{
 
-          let resPageHtml = `
-            <a id="resPage" 
-              class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
-              href="restaurant.html?resID=${resVo.resId}">
-            </a>
-          `;
-  
-          let resPageContentHtml = `
-            <div class="btn btn-primary monfood-resBlock">
-                <div class="monfood-resPicdiv" >
-                    <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+       
+            for(let i=0; i < length; i++){
+          
+            // console.log(resList[i]);
+            // for(let i = 0; i < resList.length; i++) {
+            const resVo = resList[i];
+    
+            var resCat;
+    
+            if(resVo.resCategory==1){
+              resCat = "台式";
+              }else if(resVo.resCategory==2){
+              resCat = "日式";
+              }else if(resVo.resCategory==3){
+              resCat = "泰式";
+              }else if(resVo.resCategory==4){
+              resCat = "美式";
+              }else if(resVo.resCategory==5){
+              resCat = "韓式";
+              }
+              // console.log(resCat);
+              // console.log(resVo.resCategory);
+    
+              let resPageHtml = `
+                <a id="resPage" 
+                  class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
+                  href="restaurant.html?resID=${resVo.resId}">
+                </a>
+              `;
+      
+              let resPageContentHtml = `
+                <div class="btn btn-primary monfood-resBlock">
+                    <div class="monfood-resPicdiv" >
+                        <img id="resPic" src="/monfood_maven/resprofile/ResPhotoPreviewServlet?resID=${resVo.resId}" class="mt-1 monfood-respic"/>
+                    </div>
+                    <div class="row justify-content-between monfood-resNameandRatingdiv" >
+                        <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
+                        <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}分</div>
+                    </div>
+                    <div class="row justify-content-between monfood-resCategorydiv">
+                        <div class="col-md-6 d-flex"></div>
+                        <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
+                    </div>
                 </div>
-                <div class="row justify-content-between monfood-resNameandRatingdiv" >
-                    <div id="monfood-resName" class="col-md-9 d-flex monfood-resName">${resVo.resName}</div>
-                    <div id="rating" class="col-md-3 monfood-rating">${resVo.rate}分</div>
-                </div>
-                <div class="row justify-content-between monfood-resCategorydiv">
-                    <div class="col-md-6 d-flex"></div>
-                    <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
-                </div>
-            </div>
-          `;
+              `;
+            
+              // resPageHtml<a> 新增內容
+              const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
+              $('#resPageBlock').append(contentHtml);
         
-          // resPageHtml<a> 新增內容
-          const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
-          $('#resPageBlock').append(contentHtml);
+            }
+            
+
         }
+
+
+
+
+         
       }
+    
+      
+        
     });
+            if(sessionStorage.getItem("wholeAddress")!=null){
+              $("span#finalAddress").text(sessionStorage.getItem("wholeAddress"));
+
+            }
+  
   });
 
 //點擊導向選擇店家
@@ -373,8 +444,51 @@ $(document).ready(function(){
             $('#notiBlock').append(contentHtml);
         }
     });
+
+    // 
+location
+$.ajax({
+  url: 'GetAllLocation',
+  type: 'POST',
+  dataType: 'json',
+  success: function(msg){
+    $.each(msg.locations, function(index, data){
+      let loc_list = `
+        <li class="d-flex justify-content-between align-items-center">
+          <span class="addressBtn">${this.location}</span>
+          <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
+        </li>
+      `
+      $('#userLocation').append(loc_list);
+    })
+  }
 });
 
+$('button.btn.textConfirm').on('click', function(){
+  document.getElementById('finalAddress').innerText = document.getElementById('address').value
+  
+  // insert location for user
+  if($('#address').val().trim() != null || $('#address').val().trim() != ''){
+
+    $.ajax({
+      url: 'InsertLocation',
+      type: 'POST',
+      data: JSON.stringify({
+        location: $('#address').val()
+      }),
+      dataType: 'json',
+      success: function(msg){
+      },
+      error: function(errMsg){
+      }
+    })
+ }
 
 
+
+
+
+});
+
+});
 

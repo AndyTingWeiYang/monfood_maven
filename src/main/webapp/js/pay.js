@@ -1,9 +1,10 @@
 window.addEventListener('load', function(){
 
-  if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == '') {
+  if (sessionStorage.getItem('cartList') == null || sessionStorage.getItem('cartList') == [] || sessionStorage.getItem('cartList') == '') {
     location.href = '/monfood_maven/browse.html';
     return;
   }
+
   // location
   $.ajax({
     url: 'GetAllLocation',

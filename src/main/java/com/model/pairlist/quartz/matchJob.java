@@ -103,23 +103,8 @@ public class matchJob implements Job {
 				//將已將配對好的刪除
 		         user = (ArrayList<Integer>) user.stream().filter(item -> !paired.contains(item)).collect(Collectors.toList());
 		         System.out.println("當日未被配對過的會員" + user);
-					
-		         
-		         //配對不到例外處理 (有時間再弄) >>> 如果為可配對的user人數為奇數>>> 加入一個測試人員 [to be revised]
-//		         if (user.size() % 2 != 0) {
-//		        	 UserVO uVo = new UserVO();  
-//		        	 uVo.setUserName("吳宜玲");
-//		        	 uVo.setUserAccount("accounttest");
-//		        	 uVo.setUserPassword("passwordtest");
-//		        	 uVo.setUserTel("0933333333");
-//		        	 uVo.setBirthday(java.sql.Date.valueOf("2013-09-04"));
-//		        	 java.util.Date date = new java.util.Date();
-//		        	 uVo.setUpdateTime(new Timestamp(date.getTime()));
-//		        	 userDao.insert(uVo);
-//		         }
-		         
-		         
-		         
+							         
+		         	         
 		         
 				}
 				System.out.println("觸發!");

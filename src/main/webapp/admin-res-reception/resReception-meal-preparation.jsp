@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/resReception-meal-preparation.css' />">
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   <script src="<c:url value='/assets/js/admin-res-reception-js/resReception-meal-preparation.js' />"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
+  <style>
+    .swal2-title {
+        color: black !important
+    }
+    </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -60,7 +66,7 @@
                              </div>
                              <div class="row">
                                  <div class="col d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">YES</button>
+                                    <button type="submit" id="match" class="btn btn-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">YES</button>
                                  </div>
                                  <div class="col d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" >NO</button>
