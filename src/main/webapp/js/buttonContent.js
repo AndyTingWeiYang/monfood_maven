@@ -66,8 +66,8 @@ $(document).on("click", ".findChatId", function () {
   refreshChat();
 });
 
-function sendMessage(event) {
-  const message = event.target.value;
+function sendMessage() {
+  const message = document.querySelector(".message_input").value;
   if (!message && message.trim() === "") {
     alert("請輸入訊息");
     return;
@@ -99,6 +99,7 @@ function refreshChat() {
     message: "",
   };
   webSocket.send(JSON.stringify(jsonObj));
+
 }
 
 
@@ -109,10 +110,19 @@ $.ajax({
   type: "GET",
   dataType: "json",
   success: function (data) {
-    console.log(data[0].profilePic);
+    if (data.length == 0){
+      console.log("a");
+      $("#acceptPairBtn").hide();
+      $("#refusePairBtn").hide();
+      let pairHtml = `<div>很抱歉，您今日無任何配對</div>`;
+      $("#intro").append(pairHtml);
+      $("#intro").css("background-color", "white");
+
+    }
     var base64String = btoa(
       String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
     );
+    
     $("#headshot").attr("src", `data:image/png;base64,${base64String}`);
     $(".name").append(data[0].userName);
     $("#selfIntro").append(data[0].userProfile);
@@ -208,11 +218,11 @@ $.ajax({
 
           <div id="sendMsg" class="bottom_wrapper clearfix">
             <div class="message_input_wrapper">
-              <input id = "msgInput${data[i].userId}" class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage(event)"/>
+              <input id = "msgInput${data[i].userId}" class="message_input" type="text" placeholder="請輸入文字. . . " onkeydown="if (event.keyCode == 13) sendMessage()"/>
             </div>
-            <div class="send_message">
+            <div class="send_message" onclick="sendMessage();">
               <div class="icon"></div>
-              <div class="text" onclick="sendMessage();">送出</div>
+              <div class="text">送出</div>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 
-@WebServlet("/Schedule")
+@WebServlet(urlPatterns="/Schedule",loadOnStartup=1)
 public class Schedule extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
