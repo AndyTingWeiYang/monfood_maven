@@ -347,8 +347,8 @@
         alert("我還不知道你住哪喔");
       }
       else{
-        sessionStorage.setItem("wholeAddress", JSON.stringify(address))
-        window.location.href="del/browseAfterIndex.html";
+        sessionStorage.setItem("wholeAddress", JSON.stringify(address));
+        window.location.href="browse.html";
       }
     });
 
@@ -356,26 +356,31 @@
     $("div.adminArea").on("click", function(){
       var zip = $(this).text();
       var areaResult = zip.split("_");
-      var url = "IndexGetByZipcode"
-      fetch((url),{
-                    method: "POST",
-                    headers: {
-                      "content-Type": "application.json"
-                    },
-                    body: JSON.stringify({
-                      zip_code: areaResult[0]
-                    })
-              })
-                .then(function (response) {
-                  if (response.ok) {	// 接收到回傳的物件
-                    console.log("成功載入登入資料");		// 如果正確取得資料，沒有發生錯誤
-                    return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                  }
-                })
-                .then(function(data){
-                    console.log(data);
-                    window.location.href="del/browseAfterIndex.html";
-                });
+      let zipcode = areaResult[0];
+      sessionStorage.setItem("zipcode", zipcode);
+      window.location.href="browse.html";
+      // console.log(zipcode);
+      // console.log(JSON.stringify(zipcode));
+      // var url = "IndexGetByZipcode"
+      // fetch((url),{
+      //               method: "POST",
+      //               headers: {
+      //                 "content-Type": "application.json"
+      //               },
+      //               body: JSON.stringify({
+      //                 zip_code: areaResult[0]
+      //               })
+      //         })
+      //           .then(function (response) {
+      //             if (response.ok) {	// 接收到回傳的物件
+      //               console.log("成功載入登入資料");		// 如果正確取得資料，沒有發生錯誤
+      //               return response.json(); // 將取得的資料，再使用 .json() 解析資料
+      //             }
+      //           })
+      //           .then(function(data){
+      //               console.log(data);
+      //               window.location.href="browse.html";
+      //           });
       
     });
 
