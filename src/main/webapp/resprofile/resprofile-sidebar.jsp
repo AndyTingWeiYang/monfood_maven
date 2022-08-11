@@ -27,8 +27,8 @@
 				<div class="profile-desc">
 					<div class="profile-pic">
 						<div class="count-indicator">
-							<img id="resPhoto" width="80px" height="50px"
-								class="rounded-circle"
+							<img id="resPhoto" name="resPhoto" width="80px" height="50px"
+								class="rounded-circle" 
 								src="<c:url value='/resprofile/ResPhotoPreviewServlet?resID=${sessionScope.resID}' />"
 								alt="">
 						</div>

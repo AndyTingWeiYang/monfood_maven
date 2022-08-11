@@ -1,8 +1,10 @@
 package com.model.res.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,12 +33,26 @@ public class ResPhotoPreviewServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		ServletContext sc = this.getServletContext();
+		System.out.println(sc);
+		InputStream is = null;
 		Integer resID = Integer.parseInt(request.getParameter("resID"));
 
 		ResVO resVo = resService.selectByResId(resID);
 		byte[] resPic = resVo.getResPic();
 		OutputStream os = response.getOutputStream();
-		os.write(resPic);
+
+		if (resPic == null) {
+			is = sc.getResourceAsStream("/images/user.png");
+			int read = 0;
+			byte[] image = new byte[2048];
+			while ((read = is.read(image)) != -1) {
+				os.write(image);
+			}
+		} else {
+			os.write(resPic);
+		}
+
 		os.flush();
 		os.close();
 
