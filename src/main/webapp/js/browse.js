@@ -340,6 +340,9 @@ $('.restriction').click(function(){
         }
       }
     });
+
+    $("span#finalAddress").text(sessionStorage.getItem("wholeAddress"));
+  
   });
 
 //點擊導向選擇店家
