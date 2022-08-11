@@ -42,7 +42,6 @@ public class UserLoginServlet extends HttpServlet {
 			if (loginResult == null) {
 				respObj.addProperty("None", "查無帳號");
 				response.getWriter().append(gson.toJson(respObj));
-				System.out.println("查無帳號");
 				return;
 			} else if (loginResult.getUserAccount().equals(fukiAccount)
 					&& loginResult.getUserPassword().equals(fukiPassword)) {
@@ -70,15 +69,8 @@ public class UserLoginServlet extends HttpServlet {
 					&& !(loginResult.getUserPassword().equals(fukiPassword))) {
 				respObj.addProperty("ErrorPassword", "密碼有誤，請重新輸入");
 				response.getWriter().append(gson.toJson(respObj));
-				System.out.println("密碼有誤，請重新輸入!!");
 				return;
 			}
-
-			System.out.println("資料庫 = " + loginResult.getUserAccount());
-			System.out.println("使用者輸入帳號 = " + fukiAccount);
-			System.out.println("=================================");
-			System.out.println("資料庫 = " + loginResult.getUserPassword());
-			System.out.println("使用者輸入密碼 = " + fukiPassword);
 
 		} catch (Exception e) {
 			e.printStackTrace();

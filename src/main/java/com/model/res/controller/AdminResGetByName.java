@@ -35,9 +35,6 @@ public class AdminResGetByName extends HttpServlet {
 			ResVO resVO = gson.fromJson(request.getReader(), ResVO.class);
 			ResService service = new ResServiceImpl();
 			List<ResVO> result = service.getByResName(resVO.getResName());
-System.out.println("我在AdminResGetByName的resVO = "+resVO);
-System.out.println("我在AdminResGetByName的result = "+result);
-			
 			
 			if (result.isEmpty()) {
 				respObj.addProperty("errMsg", "無此會員");
