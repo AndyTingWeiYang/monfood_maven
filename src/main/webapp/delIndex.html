@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MonFood | delIndex</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/indexHeader.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/delSwitch.css" />
+    <style>
+      /* 请求 Loading 样式 */
+
+      .request-loading .ant-spin-text {
+        margin-top: 5px;
+        font-size: 18px;
+        color: #509ff1;
+      }
+      .request-loading .ant-spin-dot-item {
+        background-color: #509ff1;
+      }
+
+      /* 请求 Loading 遮罩层样式 */
+      #loading {
+        position: fixed;
+        top: 56px;
+        right: 0;
+        bottom: 85px;
+        left: 0;
+        z-index: 9998;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        background: rgb(0 0 0 / 50%);
+      }
+    </style>
+    <!-- 外送員開關css -->
+    <script
+      src="https://kit.fontawesome.com/0291f08ffe.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- FontAwesome icon -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- Geocoding API -->
+    <!-- <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">  外送員會員中心 -->
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+      .container {
+        width: 80%;
+      }
+      @media (max-width: 768px) {
+        .container {
+          width: 100%;
+        }
+      }
+
+      .del-center {
+        width: 130px;
+      }
+      @media (max-width: 629.98px) {
+        .del-center {
+          width: 100px;
+          display: flex;
+          justify-content: flex-start;
+        }
+      }
+
+      .first-btn {
+        width: 60vw;
+        background-color: white;
+        border: 1px solid black;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .first-btn:hover {
+        /* hover focus要一起寫嗎? */
+      }
+
+      .btn-primary {
+        margin: auto;
+        margin-top: 20px;
+      }
+
+      .google-map {
+        height: calc(100vh - 150px);
+      }
+      @media (max-width: 629.98px) {
+        .google-map {
+          height: calc(100vh - 250px);
+        }
+      }
+      #map {
+        height: calc(100vh - 150px);
+      }
+      @media (max-width: 629.98px) {
+        #map {
+          height: calc(100vh - 250px);
+        }
+      }
+      .navbar-brand {
+        margin-right: 0;
+      }
+    </style>
+  </head>
+
+  <!-- <body onload="connect();" onunload="disconnect();"> -->
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- navbar -->
+
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color: #1a4d2e">
+        <div class="container">
+          <!-- 外送員開關 -->
+          <!-- <div class="container delswitch"> -->
+          <div class="onoffswitch">
+            <input
+              type="checkbox"
+              name="onoffswitch"
+              class="onoffswitch-checkbox offline"
+              id="myonoffswitch"
+              tabindex="0"
+            />
+            <label class="onoffswitch-label" for="myonoffswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+          <!-- </div> -->
+
+          <!-- MonFood Logo -->
+          <div style="width: 130px; text-align: center">
+            <a class="navbar-brand d-inline-flex" href="./delIndex.html">
+              <span class="logo">Mon</span>
+              <span class="logo2">Food</span>
+            </a>
+          </div>
+
+          <!-- 外送夥伴會員中心icon -->
+          <div class="del-center">
+            <a href="https://www.google.com.tw/?hl=zh_TW">
+              <!-- <i class="mdi mdi-account" style="color: white"></i>         -->
+              <!-- <i class="fa-solid fa-shoe-prints fa-lg fa-rotate-270" style="color: white;"></i>  -->
+              <i class="fa-solid fa-user" style="color: white"></i>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- navbar -->
+
+    <main id="TheMap">
+      <!-- 地圖 -->
+      <div id="loading" class="TheLoading"></div>
+      <div id="map"></div>
+
+      <!-- section -->
+      <!-- 費用視窗 -->
+      <div
+        class="modal fade"
+        id="exampleModalToggle"
+        aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel">
+                上次行程費用
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">$60元</div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-primary"
+                data-bs-target="#exampleModalToggle2"
+                data-bs-toggle="modal"
+              >
+                檢視今日獲得費用
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="exampleModalToggle2"
+        aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">
+                今日獲得費用
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              $540元
+              <br />
+              已完成7趟行程
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-toggle="modal">
+                結束
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a
+        class="first-btn btn btn-primary"
+        data-bs-toggle="modal"
+        href="#exampleModalToggle"
+        role="button"
+        >行程費用</a
+      >
+      <!-- section -->
+    </main>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
+    <!-- google api key -->
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9Wyu4IelumqKy_D_q721dTQbsGyn2goA&libraries=geometry,places,drawing&callback=initMap"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
+  
+
+    <script>
+      // 抓外送員即時位置
+      let delLng = "";
+      let delLat = "";
+
+      // 初始化地圖
+      function initMap() {
+        // 用Directions Service送出request
+        let directionsService = new google.maps.DirectionsService();
+        // 得到res開始畫路線
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        let markers = [];
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            delLng = position.coords.longitude; // 經度
+            delLat = position.coords.latitude; // 緯度
+            const delLocation = { lat: delLat, lng: delLng };
+            console.log(delLng);
+            console.log(delLat);
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 15,
+              center: delLocation,
+              zoomControl: false,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: false,
+              rotateControl: false,
+              fullscreenControl: false,
+            });
+            const marker = new google.maps.Marker({
+              position: delLocation,
+              animation: google.maps.Animation.BOUNCE,
+              map: map,
+            });
+          });
+        }
+      }
+      window.initMap = initMap;
+
+
+
+
+
+
+
+
+      let box = document.querySelector("#myonoffswitch");
+
+      // 取得resId by session
+      let delId = sessionStorage.getItem("del");
+      let delType = 1;
+
+      // 建立連線
+     
+      let myPoint = `/ResToDel/${delId}/${delType}`;
+      let host = window.location.host;
+      let path = window.location.pathname;
+      let webCtx = path.substring(0, path.indexOf("/", 1));
+      let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
+      console.log(endPointURL);
+      let webSocket;
+      function createConnection() {
+        webSocket = new WebSocket(endPointURL);
+        webSocket.onopen = function(event) {
+        // alert("Connect Success!");
+        console.log("Connect Success!");
+        console.log(event);
+      }
+    
+      webSocket.onmessage = function (event) {
+          let jsonObj = JSON.parse(event.data);
+          console.log("收到餐廳推播的外送單jsonObj = ", jsonObj);
+          if ("resNotification" === jsonObj.type) {
+            Swal.fire({
+            title: `${jsonObj.message}請問是否接受?`,
+            showDenyButton: true,
+            confirmButtonText: '接單',
+            denyButtonText: '拒單',
+          }).then((result) => {
+            
+            if (result.isConfirmed) {
+              console.log("外送員已接單");
+              console.log(jsonObj);
+              
+              let orderList = jsonObj.orderList ;
+              console.log("orderList = ",orderList)
+              sessionStorage.setItem("orderList", JSON.stringify(orderList))
+               
+              let cartList = jsonObj.cartList;
+              let cartArr = new Array();
+              $.each(cartList["cartList"], function( index, value ) {
+                  console.log( value );
+                  cartArr.push(value)
+                  sessionStorage.setItem("cartList", JSON.stringify(cartArr))                 
+              });
+            
+              window.location.replace("./delDelivery.html");
+            } else if (result.isDenied) {
+              Swal.fire('您已拒絕接受此單')
+              var delToRes = {
+                type: "delReject",
+                sender: delId,
+                receiver: jsonObj.sender+"0",
+                message: `外送員已拒絕此訂單`,
+              };
+              webSocket.send(JSON.stringify(delToRes)); // 	jsonObj改成json格式
+              console.log(delToRes);
+             
+            }
+          })
+          }
+        };
+
+      webSocket.onclose = function (event) {
+        console.log("外送員連線斷囉Disconnected!");
+      };
+
+    }
+
+
+
+
+      // 上下線控制
+      box.onchange = () => {
+        if (box.checked) {
+          alert("您已上線，開始接單");
+          createConnection();
+          $("#loading").remove();
+          return;
+        }else{   
+          alert("您已下線，無法接單");
+          webSocket.close();
+          $("#map").append(`<div id="loading" class="TheLoading"></div>`);
+        }
+      };
+
+       
+        
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+
+      
+      
+    
+
+      
+//  // 原本寫上線下線
+      // $("#myonoffswitch").on("click", function () {
+      //   $("#myonoffswitch").toggleClass("offline");
+      //   console.log(123);
+        // webSocket.onopen = function(event) {
+        //     alert("Connect Success!");
+        //     console.log("Connect Success!");
+        //     console.log(event);
+        // }
+      // });
+
+      // $("#myonoffswitch").on("click", function () {
+      //   if ($("#myonoffswitch").hasClass("offline")) {
+      //     alert("您已下線，無法接單");
+      //   }
+      // });
+
+//  //寫死取得resName ajax
+      // var delId;
+      // var delType;
+      // $.ajax({
+      //     url: "DelNameServlet",  // to do
+      //     async: false,  // 當async設定為false時，點選按鈕後，則會造成阻塞，阻止下面的程式碼執行，只有執行完ajax請求，才會去執行後面的程式碼。
+      //     type: "GET",
+      //     dataType: "json",
+      //     success: function (data) {
+      //       delId = data.Id;
+      //       delType = data.type;
+      //       console.log(delId);
+      //       console.log(delType);
+      //     },
+      // });
+      // console.log(delId);
+      // console.log(delType);
+
+    </script>
+  </body>
+</html>

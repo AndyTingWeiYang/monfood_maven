@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="<c:url value='/assets/css/res-reception-css/resReception-meal-preparation.css' />">
   <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
   <script src="<c:url value='/assets/js/admin-res-reception-js/resReception-meal-preparation.js' />"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
+  <style>
+    .swal2-title {
+        color: black !important
+    }
+    </style>
 </head>
 <body>
   <div class="container-scroller">
