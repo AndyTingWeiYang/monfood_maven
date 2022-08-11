@@ -12,6 +12,23 @@
 
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        div.adminArea{
+          border-radius: 5px;
+          text-align: center;
+          cursor: pointer;;
+        }
+        .offcanvas-body{
+          
+
+    display: flex!important;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+        }
+
       </style>
   </head>
   
@@ -29,17 +46,17 @@
       
           <div class="offcanvas-body d-flex">
 
-              <a href="userLogin.html" class="btn btn-primary black">
+              <a href="userLogin.html" class="btn btn-primary black" style="background-color: #41464b40; margin-bottom: 20px;">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                   </svg><span class="login">登入</span>
               </a>
 
-              <a href="resLogin.html" class="btn btn-primary black">
+              <a href="resLogin.html" class="btn btn-primary black " style="background-color: #41464b40; margin-bottom: 20px;" >
                 <span class="login">新增您的餐廳</span>
               </a>
 
-              <a href="delLogin.html" class="btn btn-primary black">
+              <a href="delLogin.html" class="btn btn-primary black" style="background-color: #41464b40; margin-bottom: 20px;">
                 <span class="login">註冊成為外送夥伴</span>
               </a>
           </div>
@@ -54,7 +71,7 @@
             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand d-inline-flex" href="monFoodIndex.html">
+            <a class="navbar-brand d-inline-flex" href="index.html">
               <span class="logo">Mon</span>
               <span class="logo2">Food</span>
             </a>
@@ -70,114 +87,107 @@
       
     <main>
       <!-- section -->
-      <section class="overflow-hidden" style="background-image: url(https://tga102-03.s3.amazonaws.com/index03.jpg)">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="container" id="page" >
-          <div class="row justify-content-center">
-            <div class="col-6 input-group input-group-sm w-50 align-items-center">
-              <input type="text" id="address" class="form-control address" placeholder="輸入外送地址" aria-label="Recipient's username" aria-describedby="button-addon2">
-              <button class="btn btn-primary address_search" type="submit" id="button-addon2">搜尋</button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div class="row col-12">
-        
-        
-
-      </div>
+      <section>
+        <div style="overflow: hidden; width: 100%; height: 600px;" style="position: absolute;">
+        	<div class="container" id="page" style="position: absolute; z-index: 1;">
+        		<div class="row justify-content-center">
+        			<div class="col-6 input-group input-group-sm w-50 align-items-center">
+        				<input type="text" id="address" class="form-control address" placeholder="輸入外送地址" aria-label="Recipient's username" aria-describedby="button-addon2" style="margin: 50% 0 0 0; opacity: 0.5; height: 40px;">
+        				<button class="btn btn-primary address_search" type="submit" id="button-addon2" style="margin: 50% 0 0 0; opacity: 0.7; height: 40px;">搜尋</button>
+        			</div>
+        		</div>
+        	</div>
+        	<img src="https://tga102-03.s3.amazonaws.com/313338.jpg" alt="" width="100%">
+         </div>
+        </section>
+   
+    
 
 
 
 
       <!-- 三種腳色的註冊入口 -->
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="row row-cols-1 row-cols-md-3 g-4 " style="margin: 0px 15px 0px 15px;">
         <div class="col">
           <div class="card h-100">
-            <img src="https://tga102-03.s3.amazonaws.com/pexels-rajesh-tp-1600711.jpg" class="card-img-top" alt="userLogin" >
-            <a href="userLogin.html"></a>
-            <div class="card-footer">
-              <small class="text-muted"><a href="userLogin.html" style="text-decoration: none">註冊用戶開始點餐</a></small>
+            <a href="userLogin.html" style="text-decoration: none">
+              <img src="https://tga102-03.s3.amazonaws.com/pexels-rajesh-tp-1600711.jpg" class="card-img-top" alt="userLogin" >
+              <a href="userLogin.html"></a>
+              <div class="card-footer">
+                <small class="text-muted">註冊用戶開始點餐</small>
             </div>
+            </a>
           </div>
         </div>
+
         <div class="col">
           <div class="card h-100">
-            <img src="https://tga102-03.s3.amazonaws.com/resLogin.jpeg" class="card-img-top" alt="...">
-            <div class="card-footer">
-              <small class="text-muted"> <a href="resLogin.html" style="text-decoration: none">新增您的餐廳</a></small>
-            </div>
+            <a href="resLogin.html" style="text-decoration: none">
+              <img src="https://tga102-03.s3.amazonaws.com/resLogin.jpeg" class="card-img-top" alt="...">
+              <div class="card-footer">
+                <small class="text-muted"> 新增您的餐廳</small>
+              </div>
+            </a>
           </div>
         </div>
+
         <div class="col">
           <div class="card h-100">
-            <img src="https://tga102-03.s3.amazonaws.com/pexels-photo-2519374.jpeg" class="card-img-top" alt="...">
-            <div class="card-footer">
-              <small class="text-muted">><a href="delLogin.html" style="text-decoration: none">註冊成為外送夥伴</a></small>
-            </div>
+            <a href="delLogin.html" style="text-decoration: none">
+              <img src="https://tga102-03.s3.amazonaws.com/pexels-photo-2519374.jpeg" class="card-img-top" alt="...">
+              <div class="card-footer">
+                <small class="text-muted">註冊成為外送夥伴</small>
+              </div>
+            </a>
           </div>
         </div>
+      
       </div>
-      <br>
-      <br>
-      <br>
-      <br>
       <br>
       <div id="map"></div>
 
 
             
       <!-- section -->
-      <div>提供 MonFood 優食的地區</div>
+      <div style="margin:  0 0 0 25px;">提供 MonFood 優食的地區</div>
       <br>
       <div class="container">
         <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
           <div class="col">
-            <div class="p-3 border bg-light adminArea">100_中正區</div>
+            <div class="p-3 border bg-light adminArea">中正區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">103_大同區</div>
+            <div class="p-3 border bg-light adminArea">大同區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">104_中山區</div>
+            <div class="p-3 border bg-light adminArea">中山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">105_松山區</div>
+            <div class="p-3 border bg-light adminArea">松山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">106_大安區</div>
+            <div class="p-3 border bg-light adminArea">大安區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">108_萬華區</div>
+            <div class="p-3 border bg-light adminArea">萬華區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">111_士林區</div>
+            <div class="p-3 border bg-light adminArea">士林區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">112_北投區</div>
+            <div class="p-3 border bg-light adminArea">北投區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">114_內湖區</div>
+            <div class="p-3 border bg-light adminArea">內湖區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">115_南港區</div>
+            <div class="p-3 border bg-light adminArea">南港區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">116_文山區</div>
+            <div class="p-3 border bg-light adminArea">文山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">110_信義區</div>
+            <div class="p-3 border bg-light adminArea">信義區</div>
           </div>
         </div>
       </div>
