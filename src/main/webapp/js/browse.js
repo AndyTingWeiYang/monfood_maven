@@ -293,11 +293,9 @@ $('.restriction').click(function(){
         const resList = data.resList;
         let zipCodeSession = sessionStorage.getItem("zipcode");
         let length = resList.length;
-        console.log(length);
-        console.log(zipCodeSession);
-        console.log(JSON.stringify(resList[1].zipCode));
-        for(let i=0; i < length; i++){
-          if(resList[i].zipCode == zipCodeSession){
+        if(zipCodeSession != null){
+          for(let i=0; i < length; i++){
+            if(resList[i].zipCode == zipCodeSession){
                 const resVo = resList[i];
                 var resCat;
       
@@ -345,7 +343,7 @@ $('.restriction').click(function(){
         else{
 
        
-        for(let i=0; i < length; i++){
+            for(let i=0; i < length; i++){
           
             // console.log(resList[i]);
             // for(let i = 0; i < resList.length; i++) {
@@ -393,17 +391,17 @@ $('.restriction').click(function(){
               // resPageHtml<a> 新增內容
               const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
               $('#resPageBlock').append(contentHtml);
-            // }
-          }
+        
+            }
             
 
-
-
-
-
-
-          }
         }
+
+
+
+
+         
+      }
     
       
         
