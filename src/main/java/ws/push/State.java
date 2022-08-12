@@ -18,6 +18,10 @@ public class State {
 		this.id = id;
 		this.allUser = allUser;
 	}
+	public State(String stateType, String id) {
+		this.stateType = stateType;
+		this.id = id;
+	}
 	public String getStateType() {
 		return stateType;
 	}
