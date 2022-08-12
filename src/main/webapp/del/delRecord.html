@@ -38,12 +38,14 @@
         >
           <li class="nav-item nav-category">
             <span class="nav-link">
-              <img
-                width="16px"
-                height="16px"
-                src="../assets/images/arrow-left-solid.svg"
-              />
-              <span class="ml-3">返回前台</span>
+              <a href="../delIndex.html">
+                <img
+                  width="16px"
+                  height="16px"
+                  src="../assets/images/arrow-left-solid.svg"
+                />
+                <span class="ml-3">返回前台</span>
+              </a>
             </span>
           </li>
 
@@ -444,11 +446,11 @@
             success: function (data) {
               console.log(data);
               if ("登出成功" === data) {
-                window.location.href = "monFoodIndex.html";
+                window.location.href = "../index.html";
               }
             },
             complete: function () {
-              window.location.href = "monFoodIndex.html";
+              window.location.href = "../index.html";
             },
           });
         });

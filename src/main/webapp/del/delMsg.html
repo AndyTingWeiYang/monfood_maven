@@ -12,9 +12,77 @@
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
     <link rel="stylesheet" href="../css/userProfile-header.css" />
     <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+    rel="stylesheet">
+
     <!-- <link rel="stylesheet" href="../css/delMsg.css" type="text/css" /> -->
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+      
+      ul#area{
+        overflow: scroll;
+      }
+
+      :root {
+        --red: hsl(0, 78%, 62%);
+        --cyan: hsl(180, 62%, 55%);
+        --orange: hsl(34, 97%, 64%);
+        --blue: hsl(212, 86%, 64%);
+        --varyDarkBlue: hsl(234, 12%, 34%);
+        --grayishBlue: hsl(229, 6%, 66%);
+        --veryLightGray: hsl(0, 0%, 98%);
+        --weight1: 200;
+        --weight2: 400;
+        --weight3: 600;
+      }
+
+      ul#area {
+        font-size: 15px;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--veryLightGray);
+      }
+
+      .box {
+        border-radius: 5px;
+        box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+        padding: 30px;
+        margin: 20px;
+        background-color: var(--cyan);
+      }
+
+
+
+  @media (max-width: 450px) {
+      .box {
+        height: 200px;
+      }
+  }
+
+  @media (max-width: 950px) and (min-width: 450px) {
+      .box {
+        text-align: center;
+        height: 180px;
+      }
+  }
+
+      .cyan {
+        border-top: 3px solid #1A4D2E;
+      }
+      h2 {
+        color: var(--varyDarkBlue);
+        font-weight: var(--weight3);
+      }
+
+  @media (min-width: 950px) {
+
+      .box {
+        width: 70%;
+        background-color: #CEFFCE;
+        color: var(--varyDarkBlue);
+        font-weight: var(--weight3);
+      }
+  }
     </style>
   </head>
 
@@ -151,37 +219,11 @@
             <!-- 表單區塊 -->
             
 <!-- 植入開始             -->   
-                <div id="wholeArea" style="border: solid 2px black; height: 90%">
+                <div id="wholeArea">
                   <h3>系統訊息</h3>
-                  <div id="messagesArea" style="border: solid 2px green; height: 90%; overflow: scroll"></div>
+                  <div id="messagesArea" ></div>
                 </div>
-
-
-
-
-
-
-
-
-
-<!-- <h3 id="statusOutput" class="statusOutput"></h3>
-                <div id="row"></div>
-                <div id="messagesArea" class="panel message-area" style="float: right; width: 50%; height: 70%; resize: none; overflow: auto;"  ></div>
-                <div class="panel input-area">
-                  <input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" style="min-width: 50%; max-width: 60%" /> 
-                  <input type="submit" id="sendMessage" class="button" value="Send" /> 
-                  <input type="button" id="connect" class="button" value="Connect" /> 
-                  <input type="button" id="disconnect" class="button" value="Disconnect" />
-                </div> -->
-
-
-
-
-
-
-
- 
-                       
+                    
 <!-- 植入結束          -->
    
 <!-- 表單區塊結束 -->
@@ -240,6 +282,7 @@
         var host = window.location.host;			//	localhost:8080
         var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
         var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
+        var messagesArea = $("div#messagesArea");
         var self;
         //載入登入資料          
         var getOneUrl = "../DelGetOneByID";
@@ -260,8 +303,29 @@
         
         var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
         connect();
+        
+        // LOGOUT
+        $(".logout").on("click", function () {
+          var logout = "../DelLogoutServlet";
+          $.ajax({
+            url: logout,
+            type: "POST",
+            data: JSON.stringify({
+              action: "logout",
+            }),
+            dataType: "json",
+            success: function (data) {
+              console.log(data);
+              if ("登出成功" === data) {
+                window.location.href = "../index.html";
+              }
+            },
+            complete: function () {
+              window.location.href = "../index.html";
+            },
+          });
+        });
 
-        var messagesArea = $("div#messagesArea");
               
         function connect() {
 
@@ -271,38 +335,42 @@
 			          console.log("Connect Success!");
 		        };
 
-            webSocket.onmessage = function(event) {
+            	webSocket.onmessage = function(event) {
 			          var jsonObj = JSON.parse(event.data);
 //上線載入好友列表			
-			      if ("open" === jsonObj.type) {
-                addListener();
+			      	  if ("open" === jsonObj.type) {
+                		  addListener();
 //載入歷史訊息				
-			      } else if ("history" === jsonObj.type) {
-                messagesArea.innerHTML = '';
-                var ul = document.createElement('ul');
-                ul.id = "area";
-                messagesArea.append(ul);
-                // 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
-                var messages = JSON.parse(jsonObj.message);
-                for (var i = 0; i < messages.length; i++) {
-                  var historyData = JSON.parse(messages[i]);
-                  var showMsg = historyData.message;
-                  var li = document.createElement('li');
+			          } else if ("history" === jsonObj.type) {
+                      messagesArea.innerHTML = '';
+		                  var ul = document.createElement('ul');
+		                  ul.id = "area";
+                      messagesArea.replaceWith(ul);
+		                  // messagesArea.append(ul);
+// 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+		                  var messages = JSON.parse(jsonObj.message);
+                          for (var i = 0; i < messages.length; i++) {
+                    var historyData = JSON.parse(messages[i]);
+                    var showMsg = historyData.message;
+                    var div = document.createElement('div');
+                    div.setAttribute("class", "box box-down cyan");
                   // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
-                  historyData.sender === self ? li.className += 'me' : li.className += 'friend';
-                  li.innerHTML = showMsg;
-                  ul.appendChild(li);
+                  div.innerHTML = showMsg;
+                  ul.appendChild(div);
                 }
 				        messagesArea.scrollTop = messagesArea.scrollHeight;
 // 線上聊天				
 			      } else if ("chat" === jsonObj.type) {
 // 				聊天泡泡
-                  var li = document.createElement('li');
+                  // var li = document.createElement('li');
+                  var div = document.createElement("div");
+                  div.setAttribute("class", "box box-down cyan");
+                  div.innerHTML = jsonObj.message;
           // 				判斷是誰的泡泡
-                  jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
+                  // jsonObj.sender === self ? li.className += 'me' : li.className += 'friend';
           // 				把訊息裝入泡泡
-                  li.innerHTML = jsonObj.message;
-                  console.log(li);
+                  // li.innerHTML = jsonObj.message;
+                  console.log(div);
 //alert通知有誰送訊息來
 // 				if(jsonObj.sender != self){
 // 					alert("you got mail from "+jsonObj.sender);
@@ -317,7 +385,7 @@
 // 				}
 
 // 				把裝有訊息的泡泡貼上去
-				  document.getElementById("area").appendChild(li);
+				  document.getElementById("area").appendChild(div);
 // *******		保持畫面在最下面要再了解一下
 				  messagesArea.scrollTop = messagesArea.scrollHeight;
 			    } else if ("close" === jsonObj.type) {
