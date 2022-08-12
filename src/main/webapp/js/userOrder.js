@@ -88,9 +88,9 @@ window.addEventListener('load', function(){
                                 <div class="col d-flex">
                                     <img class="align-self-center" style="width: 180px; height: 130px" src="${'data:image/jpg;base64,' + byteToBase64(this.resVO.resPic)}" alt="">
                                 </div>
-                                <div class="col" style="padding-top: 10px;" class="productList">
+                                <div class="col" style="padding-top: 10px; padding-right: 0" class="productList">
                                     <div class="resName">${this.resVO.resName}</div>
-                                    <div style="font-size: 14px;" >共 $<span class="total">${this.total}</span>- <span class="date">${this.orderDone}</span></div>
+                                    <div style="font-size: 12px;" >共 $<span class="total">${this.total}</span>- <span class="date">${this.orderDone}</span></div>
                                 </div>
                             </div>
                             <div class="col-3 align-self-center">
