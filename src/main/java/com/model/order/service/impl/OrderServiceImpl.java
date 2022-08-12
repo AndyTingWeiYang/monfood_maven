@@ -103,8 +103,8 @@ public class OrderServiceImpl implements OrderService {
 		aioCheckOutALL.setTotalAmount(orderVO.getTotal().toString());
 		aioCheckOutALL.setTradeDesc("test");
 		aioCheckOutALL.setItemName(itemName);
-		aioCheckOutALL.setClientBackURL("http://localhost:8080/monfood_maven/searching.html");
-		aioCheckOutALL.setReturnURL("http://localhost:8080/monfood_maven/pay.html");
+		aioCheckOutALL.setClientBackURL("https://35.201.129.109:8443/monfood_maven/searching.html");
+		aioCheckOutALL.setReturnURL("https://35.201.129.109:8443/monfood_maven/searching.html");
 		aioCheckOutALL.setNeedExtraPaidInfo("N");
 		
 		return allInOne.aioCheckOut(aioCheckOutALL, null);
