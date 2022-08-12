@@ -59,7 +59,7 @@ public class ResDAOImpl implements ResDAO {
 	private static final String GET_TO_RESPAGE = "SELECT RES_ID, RES_NAME, RES_CATEGORY, BZ_LOCATION, BZ_OPEN_HOURS, BZ_CLOSE_HOURS "
 			+ "FROM MonFood.RES " + "where RES_ID = ? ";
 
-	private static final String SELECTRESINFO = "SELECT * FROM MonFood.RES inner join RES_CATEGORY on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID where RES_ID = ? ";
+	private static final String SELECTRESINFO = "SELECT * FROM MonFood.RES left join RES_CATEGORY on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID where RES_ID = ? ";
 
 
 	static {

@@ -360,7 +360,7 @@
         alert("我還不知道你住哪喔");
       }
       else{
-        sessionStorage.setItem("wholeAddress", JSON.stringify(address));
+        sessionStorage.setItem("wholeAddress", address);
         sessionStorage.removeItem("zipcode");
         window.location.href="browse.html";
 

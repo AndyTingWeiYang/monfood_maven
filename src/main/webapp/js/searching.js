@@ -52,10 +52,12 @@ window.addEventListener('load', function(){
 
     // onmessage 接收到資料才會執行
     webSocket.onmessage = function (event) {
+        console.log(event);
     let data = JSON.parse(event.data);
     console.log("data = ", data);
-    if ("open" === data.stateType) {
-        console.log(data.allUser);
+    if ("userOpen" === data.stateType) {
+    // if ("message" === event.type) {
+        // console.log(data.allUser);
 
         var jsonObj = {
         type: "userNotification",

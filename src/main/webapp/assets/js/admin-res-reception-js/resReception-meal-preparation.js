@@ -2,7 +2,9 @@ $(document).ready(function() {
     let orderList;
     let delOrder;
     let intervalId;
+    // ==========yuyu========
     let orderMap;
+    let resId;
 
     function init() {
         $.ajax({
@@ -87,14 +89,6 @@ $(document).ready(function() {
                                 </div>
                                 
                     `;
-                                    
-                                    //上方原本變數
-                                    // data-resid="${orderMap.RES_ID}"
-                                    // data-productname="${orderMap.PRODUCT_NAME}"
-                                    // data-productprice="${orderMap.PRODUCT_PRICE}"
-                                    // data-producttotal="${orderMap.TOTAL}"
-                                    // data-amount="${orderMap.AMOUNT}"
-
 
                     const wrapperContent = $('<div>').addClass('accordion-item').append(accordionItemHeaderHtml).append(accordionItemBodyHtml);
                     
@@ -115,9 +109,12 @@ $(document).ready(function() {
                         $('#productList' + i).append(orderItemHtml);
                     }
                 }
+                if(resId){
+					return;
+				}
 // ===============websocket yuyu======================
                 // webSocket
-				let resId = orderMap.RES_ID;
+				resId = orderMap.RES_ID;
 				let resType = "0";
 
 				// 建立連線
@@ -142,7 +139,7 @@ $(document).ready(function() {
 					webSocket.onmessage = function(event) {
 						let jsonObj = JSON.parse(event.data);
 						console.log("jsonObj = ", jsonObj);
-						if ("open" === jsonObj.stateType) {
+						if ("resOpen" === jsonObj.stateType) {
 							console.log(jsonObj.allUser);
 							alert("onmessage 我收到後端資料囉");
 							console.log("onmessage 我收到後端資料囉");
@@ -167,23 +164,12 @@ $(document).ready(function() {
 									cartList = jsonObj.cartList;
 									orderListQQ = jsonObj.orderList;
 									alert("您已接單")
-								/*
-								*
-								*留給商家寫訂單資料
-								*
-								*
-								*
-								*
-								*
-								*
-								*
-								*/
 								} else if (result.isDenied) {
 									Swal.fire('您已拒絕接受此單')
 									var resToUser = {
 										type: "resReject",
 										sender: resId,
-										receiver: orderMap.USER_ID,
+										receiver: jsonObj.orderList.userId+"2",
 										message: `${orderMap.RES_NAME}已拒絕此訂單`,
 									};
 									webSocket.send(JSON.stringify(resToUser)); // 	jsonObj改成json格式
@@ -238,13 +224,13 @@ $(document).ready(function() {
 
     init();
 
-//    $(document).mouseover(function() {
-//        clearInterval(intervalId);
-//    });
+   $(document).mouseover(function() {
+       clearInterval(intervalId);
+   });
 
-//    $(document).mouseleave(function() {
-//        // 每5秒撈取資料
-//        clearInterval(intervalId);
-//        intervalId = setInterval(init, 5000);
-//    });
+   $(document).mouseleave(function() {
+       // 每5秒撈取資料
+       clearInterval(intervalId);
+       intervalId = setInterval(init, 5000);
+   });
 });
