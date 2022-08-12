@@ -45,9 +45,15 @@ $(function () {
     const quantity_minus = $root.find("[data-quantity-minus]");
     const quantity_plus = $root.find("[data-quantity-plus]");
     var quantity_ = quantity_target.val();
+
+
     $(quantity_minus).click(function () {
-      quantity_target.val(--quantity_);
+      if (quantity_ > 0) {
+        quantity_target.val(--quantity_);
+      }
     });
+
+
     $(quantity_plus).click(function () {
       quantity_target.val(++quantity_);
     });

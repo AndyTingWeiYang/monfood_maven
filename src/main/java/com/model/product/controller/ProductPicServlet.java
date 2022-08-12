@@ -1,8 +1,10 @@
 package com.model.product.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,12 +32,25 @@ public class ProductPicServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ServletContext sc = this.getServletContext();
+		InputStream is = null;
 		String productId = request.getParameter("productID");
 		ProductVo productVO = productListService.findPic(productId);
+
 		// 取出圖片->讀圖片
 		byte[] pic = productVO.getProductPic();
 		OutputStream out = response.getOutputStream();
-		out.write(pic);
+
+		if (pic.length == 0) {
+			is = sc.getResourceAsStream("/images/food.png");
+			int read = 0;
+			byte[] image = new byte[2048];
+			while ((read = is.read(image)) != -1) {
+				out.write(image);
+			}
+		} else {
+			out.write(pic);
+		}
 		out.flush();
 		out.close();
 	}

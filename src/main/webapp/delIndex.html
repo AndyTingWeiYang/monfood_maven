@@ -331,7 +331,7 @@
     
       webSocket.onmessage = function (event) {
           let jsonObj = JSON.parse(event.data);
-          console.log("收到餐廳推播的外送單jsonObj = ", jsonObj);
+          console.log("收到外送員上線的資料囉 = ", jsonObj);
           if ("resNotification" === jsonObj.type) {
             Swal.fire({
             title: `${jsonObj.message}請問是否接受?`,
@@ -395,10 +395,6 @@
           $("#map").append(`<div id="loading" class="TheLoading"></div>`);
         }
       };
-
-       
-        
-
 
 
       

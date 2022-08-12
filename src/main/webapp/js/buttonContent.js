@@ -27,6 +27,25 @@ webSocket.onopen = function (event) {
   console.log("Connect Success!");
 };
 
+function sendMessage() {
+  const message = document.querySelector(".message_input").value;
+  if (!message && message.trim() === "") {
+    alert("請輸入訊息");
+    return;
+  }
+  // appendNewMsg(true, message);
+  let jsonObj = {
+    type: "chat",
+    senderId: selfId,
+    receiverId: friendId,
+    message: message,
+  };
+  webSocket.send(JSON.stringify(jsonObj));
+  let message_input = document.querySelector("#msgInput" + friendId);
+  message_input.value = "";
+  message_input.focus();
+}
+
 function appendNewMsg(isMe, msg) {
   let messagesArea = document.querySelector("#messagesArea" + friendId);
   let li = document.createElement("li");
@@ -66,24 +85,7 @@ $(document).on("click", ".findChatId", function () {
   refreshChat();
 });
 
-function sendMessage() {
-  const message = document.querySelector(".message_input").value;
-  if (!message && message.trim() === "") {
-    alert("請輸入訊息");
-    return;
-  }
-  // appendNewMsg(true, message);
-  let jsonObj = {
-    type: "chat",
-    senderId: selfId,
-    receiverId: friendId,
-    message: message,
-  };
-  webSocket.send(JSON.stringify(jsonObj));
-  let message_input = document.querySelector("#msgInput" + friendId);
-  message_input.value = "";
-  message_input.focus();
-}
+
 
 function refreshChat() {
   // 移除舊的訊息
@@ -131,7 +133,9 @@ $.ajax({
 });
 
 //更新答案ajax
-$("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
+// 到其他人頁面改為動態
+$(document).on("click","#acceptPairBtn, #refusePairBtn", function (e) {
+  console.log("aa");
   fetch("UpdateAnswerServlet", {
     method: "POST",
     headers: {
@@ -143,6 +147,21 @@ $("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
     }),
   });
 });
+
+$("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
+  console.log("aa");
+  fetch("UpdateAnswerServlet", {
+    method: "POST",
+    headers: {
+      "content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      useraAnswer: e.target.value,
+      userbAnswer: e.target.value,
+    }),
+  });
+});
+
 
 //訊息列表+聊天室ajax
 $.ajax({
@@ -250,14 +269,23 @@ $.ajax({
 //配對local storage (按完接受配對or拒絕配對後當天不能再按按鈕)
 
 let twentyFourHoursSec = 24 * 60 * 60;
-$("#acceptPairBtn, #refusePairBtn").click(function () {
+$("#acceptPairBtn, #refusePairBtn").on("click", function (){
   localStorage.setItem(
     "whetherShow",
     JSON.stringify({ date: new Date().getDate() })
   );
   init()
 
-});
+})
+//到其他人頁面改為動態
+$(document).on("click","#acceptPairBtn, #refusePairBtn", function (){
+  localStorage.setItem(
+    "whetherShow",
+    JSON.stringify({ date: new Date().getDate() })
+  );
+  init()
+
+})
 
 const showBtn = (value) => {
   let acceptPairBtn = document.querySelector("#acceptPairBtn");

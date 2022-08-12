@@ -284,6 +284,10 @@ $('.restriction').click(function(){
   });
   // TODO: 餐廳顯示
   $(document).ready(function() {
+
+    sessionStorage.setItem('location','browse');
+
+
     $.ajax({
       url: 'ResGetRateServlet',
       type: 'POST',
@@ -392,25 +396,13 @@ $('.restriction').click(function(){
               const contentHtml = $(resPageHtml).append($('<div>').append(resPageContentHtml));
               $('#resPageBlock').append(contentHtml);
         
-            }
-            
-
-        }
-
-
-
-
-         
-      }
-    
-      
-        
+            }    
+        }     
+      }      
     });
             if(sessionStorage.getItem("wholeAddress")!=null){
               $("span#finalAddress").text(sessionStorage.getItem("wholeAddress"));
-
             }
-  
   });
 
 //點擊導向選擇店家
@@ -419,8 +411,7 @@ $(document).ready(function(){
       // 取得 queryString
       const urlParams = new URLSearchParams(window.location.search);
       const resId = urlParams.get('resID');
-         if(resId) {
-            
+         if(resId) {  
       }
 });
 
@@ -483,12 +474,6 @@ $('button.btn.textConfirm').on('click', function(){
       }
     })
  }
-
-
-
-
-
 });
-
 });
 
