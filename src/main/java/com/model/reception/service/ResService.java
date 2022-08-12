@@ -14,6 +14,6 @@ public interface ResService {
 
 	List<Map<String, Object>> findByOrder(Integer resId, String orderStatus);
 
-	void updateOrderStatus(Map<String, Object> dataMap);
+	List<Map<String, Object>> updateOrderStatus(Map<String, Object> dataMap);
 
 }

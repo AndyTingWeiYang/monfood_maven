@@ -19,7 +19,7 @@ public interface ResDAO {
 	    public void update(ResVO resVO); 
 	    
 	    //修該訂單狀態
-	    public void updateOrderStatus(OrderVO orderVO); 
+	    public List<Map<String, Object>> updateOrderStatus(OrderVO orderVO); 
 	    
 	    //進行刪除(刪除對象)根據PK鍵
 //	    public void delete(Integer resId) ;

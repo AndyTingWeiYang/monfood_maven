@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,12 @@ public class ResJDBCDAOimpl implements ResDAO {
 			+ "join MonFood.PRODUCT d " + "on (c.PRODUCT_ID = d.PRODUCT_ID) "
 			+ "where a.RES_ID = ? and ORDER_STATUS = ? ";
 
-	private static final String UPDATE_ORDER_STATUS = "UPDATE MonFood.ORDER SET ORDER_STATUS = ? WHERE ORDER_ID = ?";
+	private static final String UPDATE_ORDER_STATUS = "UPDATE MonFood.ORDER SET ORDER_STATUS = ? WHERE ORDER_ID = ? and RES_ID = ?";
+
+	private static final String GET_BY_ORDERID = "SELECT * " + "FROM MonFood.ORDER a " + "inner join MonFood.RES b "
+			+ "on (a.RES_ID = b.RES_ID) " + "inner join MonFood.ORDER_DETAIL c " + "on (a.ORDER_ID = c.ORDER_ID) "
+			+ "join MonFood.PRODUCT d " + "on (c.PRODUCT_ID = d.PRODUCT_ID) "
+			+ "where a.RES_ID = ? and a.ORDER_STATUS = ? and a.ORDER_ID = ?";
 
 	@Override
 	public void update(ResVO resVO) {
@@ -172,20 +178,52 @@ public class ResJDBCDAOimpl implements ResDAO {
 	}
 
 	@Override
-	public void updateOrderStatus(OrderVO orderVO) {
+	public List<Map<String, Object>> updateOrderStatus(OrderVO orderVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Map<String, Object>> orderList = new ArrayList<>();
 
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, password);
+			Integer orderStatus = orderVO.getOrderStatus();
+			Integer orderId = orderVO.getOrderId();
+			Integer resId = orderVO.getResId();
+
 			pstmt = con.prepareStatement(UPDATE_ORDER_STATUS);
 
-			pstmt.setInt(1, orderVO.getOrderStatus());
-			pstmt.setInt(2, orderVO.getOrderId());
+			pstmt.setInt(1, orderStatus);
+			pstmt.setInt(2, orderId);
+			pstmt.setInt(3, resId);
 
-			pstmt.executeUpdate();
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				pstmt = con.prepareStatement(GET_BY_ORDERID);
+				pstmt.setInt(1, resId);
+				pstmt.setInt(2, orderStatus);
+				pstmt.setInt(3, orderId);
+
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					Map<String, Object> findOrderMap = new HashMap<>();
+					findOrderMap.put("ORDER_ID", rs.getInt("ORDER_ID"));
+					findOrderMap.put("USER_ID", rs.getInt("USER_ID"));
+					findOrderMap.put("RES_ID", rs.getInt("RES_ID"));
+					findOrderMap.put("ORDER_STATUS", rs.getInt("ORDER_STATUS"));
+					findOrderMap.put("NOTE", (StringUtils.isNotBlank(rs.getString("NOTE"))) ? rs.getString("NOTE") : "");
+					findOrderMap.put("TOTAL", rs.getInt("TOTAL"));
+					findOrderMap.put("ORDER_CREATE", rs.getTimestamp("ORDER_CREATE"));
+					findOrderMap.put("RES_NAME", rs.getString("RES_NAME"));
+					findOrderMap.put("RES_ACCOUNT", rs.getString("RES_ACCOUNT"));
+					findOrderMap.put("AMOUNT", rs.getInt("AMOUNT"));
+					findOrderMap.put("PRODUCT_NAME", rs.getString("PRODUCT_NAME"));
+					findOrderMap.put("PRODUCT_PRICE", rs.getInt("PRODUCT_PRICE"));
+					findOrderMap.put("BZ_LOCATION", rs.getString("BZ_LOCATION"));
+					orderList.add(findOrderMap);
+				}
+			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -194,10 +232,20 @@ public class ResJDBCDAOimpl implements ResDAO {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}
@@ -210,7 +258,7 @@ public class ResJDBCDAOimpl implements ResDAO {
 				}
 			}
 		}
-
+		return orderList;
 	}
 
 	@Override
@@ -230,7 +278,7 @@ public class ResJDBCDAOimpl implements ResDAO {
 			rs = pstmt.executeQuery();// 結果請求 = 參數化查詢呼叫執行查詢
 
 			while (rs.next()) {
-				Map<String, Object> findOrderMap = new HashedMap<>();
+				Map<String, Object> findOrderMap = new HashMap<>();
 				findOrderMap.put("ORDER_ID", rs.getInt("ORDER_ID"));
 				findOrderMap.put("USER_ID", rs.getInt("USER_ID"));
 				findOrderMap.put("RES_ID", rs.getInt("RES_ID"));
@@ -243,7 +291,7 @@ public class ResJDBCDAOimpl implements ResDAO {
 				findOrderMap.put("AMOUNT", rs.getInt("AMOUNT"));
 				findOrderMap.put("PRODUCT_NAME", rs.getString("PRODUCT_NAME"));
 				findOrderMap.put("PRODUCT_PRICE", rs.getInt("PRODUCT_PRICE"));
-				findOrderMap.put("BZ_LOCATION",  rs.getString("BZ_LOCATION"));
+				findOrderMap.put("BZ_LOCATION", rs.getString("BZ_LOCATION"));
 				orderList.add(findOrderMap);
 			}
 		} catch (ClassNotFoundException e) {
