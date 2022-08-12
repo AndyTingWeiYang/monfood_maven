@@ -1,7 +1,6 @@
 $(document).ready(function () {
     let orderList;
     let delOrder;
-    let intervalId;
     // ==========yuyu========
     let orderMap;
     let resId;
@@ -189,12 +188,21 @@ $(document).ready(function () {
                                         dataType: 'json',
                                         success: function (data) {
                                             // append initTemplate 訂單資料
-                                            if(!data.orderList) {
-												return;
-											}
+                                            if (!data.orderList) {
+                                                return;
+                                            }
 
-                                            initTemplate(data.orderList[0]);
-                                            debugger
+                                            const orderMap = data.orderList[0];
+                                            orderList.push(orderMap);
+                                            initTemplate(orderMap);
+                                            
+                                            $('.delBtn').unbind('click').click(function () {
+							                    const orderId = $(this).data('orderid');
+							
+							                    // 待外送員接單
+							                    delOrder = orderList.find(order => parseInt(order.ORDER_ID) === orderId);
+							                    console.log(delOrder);
+							                });
                                         }
                                     });
 
@@ -225,6 +233,20 @@ $(document).ready(function () {
                     // 隨機取resId
                     delId = delIdArr[getRandomInt(delIdArr.length)];
                     addListener();
+
+                    // 更新商品訂單狀態
+                    $.ajax({
+                        url: 'UpdateOrderStatusServlet',
+                        method: 'post',
+                        data: {
+                            orderId: delOrder.ORDER_ID,
+                            orderStatus: 2
+                        },
+                        dataType: 'json',
+                        success: function () {
+							window.location.href = 'http://' + window.location.host + webCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
+						}
+                    });
                 });
 
 
