@@ -32,15 +32,11 @@ public class DeleteOneCartServlet extends HttpServlet {
 		
 		Gson gson = new Gson();
 		JsonObject req = gson.fromJson(request.getReader(), JsonObject.class);
-		
-		System.out.println(req.get("index"));
-		
 		// get user id
 		final String userId = session.getAttribute("userID").toString();
 		Jedis jedis = pool.getResource();
-		
 		// delete cart item from Redis
-//		jedis.del(jedis.lindex(userId, req.get("index")));
+		jedis.lrem(userId, 0, jedis.lindex(userId, Long.parseLong(req.get("index").toString())));
 		jedis.close();
 	}
 	

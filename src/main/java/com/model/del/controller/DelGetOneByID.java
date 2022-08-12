@@ -1,6 +1,7 @@
 package com.model.del.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -17,6 +18,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.model.del.DelService;
 import com.model.del.DelVO;
+import com.model.res.ResVO;
+import com.model.res.service.ResService;
+import com.model.res.service.impl.ResServiceImpl;
 
 /**
  * Servlet implementation class AdminDelGetAll
@@ -50,10 +54,18 @@ public class DelGetOneByID extends HttpServlet {
 //		System.out.println(delVO.getDelID());
 		DelService service = new DelService();
 		bean = service.getOneDel(delVO.getDelID());
+		
 //		
 //		System.out.println(bean);
-//		
-//	
+		ResService resService = new ResServiceImpl();
+		List<ResVO> resVos = resService.adminFindResAll();
+		String resNameList = new String();
+		for(ResVO resVO : resVos) {
+			String resName = String.valueOf(resVO.getResName());
+			resNameList += resName + "_";
+		}
+		System.out.println(resNameList);
+		bean.setDelName(bean.getDelName() + "_" + resNameList);
 		resp.getWriter().append(gson.toJson(bean));
 		
 //		

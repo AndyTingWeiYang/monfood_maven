@@ -33,7 +33,16 @@ function sendMessage() {
     alert("請輸入訊息");
     return;
   }
-  // appendNewMsg(true, message);
+
+    // 重複後移除
+    let messagesArea = document.querySelector("#messagesArea" + friendId);
+    let li = document.createElement("li");
+    li.className += "me" ;
+    li.innerHTML = message;
+    messagesArea.appendChild(li);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    messagesArea.removeChild(li);
+
   let jsonObj = {
     type: "chat",
     senderId: selfId,
@@ -41,6 +50,7 @@ function sendMessage() {
     message: message,
   };
   webSocket.send(JSON.stringify(jsonObj));
+  console.log(jsonObj);
   let message_input = document.querySelector("#msgInput" + friendId);
   message_input.value = "";
   message_input.focus();
@@ -58,6 +68,7 @@ function appendNewMsg(isMe, msg) {
 webSocket.onmessage = function (event) {
   let jsonObj = JSON.parse(event.data);
   console.log(jsonObj);
+  console.log(jsonObj.type);
 
   // 從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
   if ("history" === jsonObj.type) {
@@ -69,6 +80,7 @@ webSocket.onmessage = function (event) {
       appendNewMsg(isMe, showMsg);
     }
   } else if ("chat" === jsonObj.type) {
+    console.log("aaa");
     let message = jsonObj.message;
     let isMe = jsonObj.senderId === selfId;
     appendNewMsg(isMe, message);
