@@ -32,7 +32,6 @@ public class AdminUserGetAll extends HttpServlet {
 
 			UserService service = new UserServiceImpl();
 			List<UserVO> resultList = service.getAll();
-			System.out.println("我在adminUserGetOne的result = " + resultList);
 
 			if (resultList == null) {
 				respObj.addProperty("errMsg", "系統錯誤");

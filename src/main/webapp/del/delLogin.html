@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MonFood | userLogin</title>
+<title>MonFood | delLogin</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -103,7 +103,7 @@
 	<header>
 		<nav class="navbar navbar-expand-lg" style="background-color: #1A4D2E">
 			<div class="container">
-				<a class="navbar-brand d-inline-flex" href="index.html"> <span
+				<a class="navbar-brand d-inline-flex" href="delLogin.html"> <span
 					class="logo">Mon</span> <span class="logo2" style="color: white;">Food</span>
 				</a>
 			</div>
@@ -152,11 +152,12 @@
         
         $(function(){
 
-          // 網頁轉向
+// 註冊按鈕導向註冊頁面
           $("button.delRegister").on("click",function(){
             location.href="delRegister.html";
           });
 
+// 忘記密碼導向忘記密碼頁面
           $(".forget-password").on("click",function(){
             location.href="./resetPassword.html";
           });
@@ -164,53 +165,25 @@
           function getcookie(SessionID){
             console.log(SessionID);
           }
-
-		  $("button.btn_confirm").on("click", function(){
-			var delTel = $("input#delTel").val();
-			console.log(delTel);
-		    console.log($("input#delPassword").val());
-
-		  });
-
-		  
-		 
-
-		  
+// 最後提交按鈕綁enter
+		   $("input#delPassword").on("keyup", function(e){
+        		if($("input#delTel").val() != "" && e.which == 13){
+            		$("button.btn_confirm").click();
+        		}
+    		});
           
-//           fetch(("/DelLoginErrorServlet"),{
-//               method: "POST",
-//               headers: {
-//                 "content-Type": "application.json"
-//               },
-//               body: JSON.stringify({
-// 				delTel: $("input#delTel").val(),
-// 				delPassword: $("input#delPassword").val()
-//               })
-//         })
-//           .then(function (response) {
-//             if (response.ok) {
-//               console.log("接收登入錯誤訊息");
-//               return response.json(); // 將取得的資料，再使用 .json() 解析資料
-//             }
-//           })
-//           .then(function(data){
-// 			console.log(data);
-            
-//           });
-          
-
 // 有空綁在click事件寫在controller
 // tel驗證
-          // $("#delTel").on("blur",function(){
-          //   var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-          //   if($("#delTel").val().trim() == ""){
-          //     $(".telspan").addClass("noticespan").text('*請輸入完整電子郵件帳號');
-          //   }else if(!(pattern.test($("#delTel").val().trim()))){
-          //     $(".telspan").addClass("noticespan").text('*請輸入正確格式');
-          //   }else{
-          //     $(".telspan").removeClass("noticespan").text('');
-          //   }
-          // });
+          $("#delTel").on("blur",function(){
+        	  	var telPattern = /^[0-9]{10}$/;
+          		if($("#delTel").val().trim() == ""){
+              		$(".telspan").addClass("noticespan").text('*手機號碼不能留白喔');
+            	}else if(!(telPattern.test($("#delTel").val().trim()))){
+              		$(".telspan").addClass("noticespan").text('*這不是手機號碼吧');
+            	}else{
+              		$(".telspan").removeClass("noticespan").text('');
+            	}
+          });
           
           // 密碼驗證
           // 以下是這個正規表示式的 pattern 的內容:
@@ -219,16 +192,16 @@
           // - 小寫字母 [a-z]
           // - 大寫字母 [A-Z]
           // - 數字 \d
-//           $("#delpassword").on("blur",function(){
-//             var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-//             if($("#delpassword").val().trim() == ""){
-//               $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
-//             }else if(!(pattern.test($("#delpassword").val().trim()))){
-//               $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
-//             }else{
-//               $(".passwordspan").removeClass("noticespan").text('');
-//             }
-//           });
+          $("#delPassword").on("blur",function(){
+            var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if($("#delPassword").val().trim() == ""){
+              $(".passwordspan").addClass("noticespan").text('*請輸入密碼');  
+            }else if(!(pattern.test($("#delPassword").val().trim()))){
+              $(".passwordspan").addClass("noticespan").text(`*密碼長度須至少八個字元。密碼複雜度須包含:小寫字母、大寫字母、數字`); 
+            }else{
+              $(".passwordspan").removeClass("noticespan").text('');
+            }
+          });
 
           // 消除ajax發出後的錯誤提示
 //           $("#delTel , #delpassword").on("blur",function(){
@@ -239,36 +212,33 @@
 
 // 有空鍵盤按enter
 // 登入資料發出給伺服器
-//           $(".enter").on("click",function(){
-// //             if($("span").hasClass("noticespan")){
-// //               alert("輸入有誤請重新登入");
-// //               return;
-// //             }
-//             $.ajax({
-//               url: "DelLoginServlet",           
-//               type: "POST",                  
-//               data: JSON.stringify({
-//                 delTel: $("#delTel").val().trim(),
-//                 delPassword: $("#delPassword").val().trim()
-//               }),             
-//               contentType : "application/json;charset=utf-8",
-//               dataType: "json",             
-//               success: function(data){      // request 成功取得回應後執行
-//                 console.log(data);
-//                 if(data.LoginSuceesfully == "登入成功"){
-//                   location.href="del/del_index.html";
-//                 }else if(data.None == "查無帳號"){;
-//                   $(".pointspan").addClass("noticespan").text("查無帳號");
-//                 }else if (data.ErrorPassword == "密碼有誤，請重新輸入"){
-//                   $(".pointspan").addClass("noticespan").text("密碼有誤，請重新輸入");
-//                 }
+        //   $(".enter").on("click",function(){
+        //     if($("span").hasClass("noticespan")){
+        //       alert("輸入有誤請重新登入");
+        //       return;
+        //   	}
+            // $.ajax({
+            //   url: "DelLoginServlet",           
+            //   type: "POST",                  
+            //   data: JSON.stringify({}),             
+            //   contentType : "application/json;charset=utf-8",
+            //   dataType: "json",             
+            //   success: function(data){      // request 成功取得回應後執行
+            //     console.log(data);
+            //     if(data.LoginSuceesfully == "登入成功"){
+            //       location.href="del/del_index.html";
+            //     }else if(data.None == "查無帳號"){;
+            //       $(".pointspan").addClass("noticespan").text("查無帳號");
+            //     }else if (data.ErrorPassword == "密碼有誤，請重新輸入"){
+            //       $(".pointspan").addClass("noticespan").text("密碼有誤，請重新輸入");
+            //     }
                
-//               },error: function(errMsg){         // request 發生錯誤的話執行
-//                 console.log(errMsg);
+            //   },error: function(errMsg){         // request 發生錯誤的話執行
+            //     console.log(errMsg);
                 
-//             },
-//             });
-//           });
+            // },
+            // });
+        //   });
         });
 
 

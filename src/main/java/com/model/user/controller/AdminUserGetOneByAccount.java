@@ -33,8 +33,6 @@ public class AdminUserGetOneByAccount extends HttpServlet {
 			UserVO userVO = gson.fromJson(request.getReader(), UserVO.class);
 			UserService service = new UserServiceImpl();
 			final UserVO result = service.getOneByUserAccount(userVO.getUserAccount());
-			System.out.println("我在adminUserGetOne的userVO = " + userVO);
-			System.out.println("我在adminUserGetOne的result = " + result);
 
 			if (result == null) {
 				respObj.addProperty("errMsg", "無此會員");

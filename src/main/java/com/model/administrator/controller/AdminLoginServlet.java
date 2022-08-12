@@ -42,8 +42,6 @@ public class AdminLoginServlet extends HttpServlet {
 			AdministratorVO administratorVO = gson.fromJson(request.getReader(), AdministratorVO.class);
 			Integer adminID = administratorVO.getAdminID();
 			String adminPassword = administratorVO.getAdminPassword();
-			System.out.println(adminID);
-			System.out.println(adminPassword);
 
 	//驗證資料
 //			if(adminID==null) {
@@ -76,6 +74,7 @@ public class AdminLoginServlet extends HttpServlet {
 			} else {
 				HttpSession session = request.getSession();
 				session.setAttribute("admin", login);
+				session.setAttribute("loginStatus", "true");
 				response.getWriter().append(gson.toJson(login));
 				System.out.println("登入成功");
 			}

@@ -35,9 +35,6 @@ public class AdminUserGetOneByName extends HttpServlet {
 			UserVO userVO = gson.fromJson(request.getReader(), UserVO.class);
 			UserService service = new UserServiceImpl();
 			 List<UserVO> result = service.getOneByUserName(userVO.getUserName());
-System.out.println("我在AdminUserGetOneByName的userVO = "+userVO);
-System.out.println("我在AdminUserGetOneByName的result = "+result);
-			
 			
 			if (result.isEmpty()) {
 				respObj.addProperty("errMsg", "無此會員");
@@ -52,14 +49,6 @@ System.out.println("我在AdminUserGetOneByName的result = "+result);
 		}
 
 		response.getWriter().append(gson.toJson(respObj));
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	}
 

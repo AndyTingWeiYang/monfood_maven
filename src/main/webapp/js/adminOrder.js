@@ -65,10 +65,7 @@ $(function(){
                     <td>${data.Orders.productKcalTotal}</td>
                     <td>${data.Orders.total}</td>
                     <td>${data.Orders.delCost}</td>
-                    <td>${data.Orders.useCash}</td>
-                    <td>${data.Orders.creditId == undefined ? '' : data.Orders.creditId}</td>
                     <td>${data.Orders.bonus == undefined ? '' : data.Orders.bonus}</td>
-                    <td>${data.Orders.rating == undefined ? '' : data.Orders.rating}</td>
                     <td>${data.Orders.resRate == undefined ? '' : data.Orders.resRate}</td>
                     <td>${data.Orders.delRate == undefined ? '' : data.Orders.delRate}</td>
                     <td>${data.Orders.resComment == undefined ? '' : data.Orders.resComment}</td>
@@ -121,10 +118,7 @@ $(function(){
                                     <td>${data.productKcalTotal}</td>
                                     <td>${data.total}</td>
                                     <td>${data.delCost}</td>
-                                    <td>${data.useCash}</td>
-                                    <td>${data.creditId == undefined ? '' : data.creditId}</td>
                                     <td>${data.bonus == undefined ? '' : data.bonus}</td>
-                                    <td>${data.rating == undefined ? '' : data.rating}</td>
                                     <td>${data.resRate == undefined ? '' : data.resRate}</td>
                                     <td>${data.delRate == undefined ? '' : data.delRate}</td>
                                     <td>${data.resComment == undefined ? '' : data.resComment}</td>

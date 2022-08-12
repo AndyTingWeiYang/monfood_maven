@@ -284,6 +284,10 @@ $('.restriction').click(function(){
   });
   // TODO: 餐廳顯示
   $(document).ready(function() {
+
+    sessionStorage.setItem('location','browse');
+
+
     $.ajax({
       url: 'ResGetRateServlet',
       type: 'POST',
