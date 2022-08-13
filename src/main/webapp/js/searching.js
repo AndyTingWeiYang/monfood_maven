@@ -6,7 +6,7 @@ window.addEventListener('load', function(){
     }
 
     let orderList = JSON.parse(sessionStorage.getItem('orderList'));
-    console.log(orderList)
+    // console.log(orderList)
     $('#orderId').text(orderList.orderId);
     $('#monsPic').attr('src', orderList.monsPic);
     $('#duration').text(orderList.delTime);
@@ -17,22 +17,18 @@ window.addEventListener('load', function(){
     let resName;
   
     $.each(cartList["cartList"], function( index, value ) {
-        console.log( value );
+        // console.log( value );
         resId = value.resId;
         resName = value.resName;
-        $.each(value,function(key,value){
-            // console.log(key ,"=",value);
-        });
+        // $.each(value,function(key,value){
+        //    console.log(key ,"=",value);
+        // });
     });
    
-
-    console.log("resId = ",resId);
-    console.log("resName = ",resName);
     // 推播webSocket
     // 取得userId
     let userId = orderList.userId;
     let userType = 2;
-    console.log("userId = ",userId);
    
     // 建立連線
     let myPoint = `/ResToDel/${userId}/${userType}`;
@@ -40,43 +36,43 @@ window.addEventListener('load', function(){
     let path = window.location.pathname;
     let webCtx = path.substring(0, path.indexOf("/", 1));
     let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
-    console.log(endPointURL);
+    // console.log(endPointURL);
 
     let webSocket = new WebSocket(endPointURL);
 
     webSocket.onopen = function (event) {
-        alert("Connect Success!");
-        console.log("使用者連線上囉Connect Success!");
-        console.log(event);
+        // console.log(event);
     };
 
     // onmessage 接收到資料才會執行
     webSocket.onmessage = function (event) {
-        console.log(event);
-    let data = JSON.parse(event.data);
-    console.log("data = ", data);
-    if ("userOpen" === data.stateType) {
-    // if ("message" === event.type) {
-        // console.log(data.allUser);
-
-        var jsonObj = {
-        type: "userNotification",
-        sender: userId,
-        receiver: resId+"0",  // resId
-        message: `您有一筆訂單`,
-        cartList:cartList,
-        orderList:orderList
-        };
-        webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
-        console.log("已送出推播" ,jsonObj );
-    }else if ("resReject" === data.type){
-        console.log("通知使用者 餐廳拒單囉")
-        alert("餐廳已拒單");
-    }
+        // console.log(event);
+        let data = JSON.parse(event.data);
+        // console.log("data = ", data);
+        if ("userOpen" === data.stateType) {     
+            var jsonObj = {
+            type: "userNotification",
+            sender: userId,
+            receiver: resId+"0",
+            message: `您有一筆訂單`,
+            cartList:cartList,
+            orderList:orderList
+            };
+            webSocket.send(JSON.stringify(jsonObj));
+            // console.log("已送出推播" ,jsonObj );
+        }else if ("resReject" === data.type){
+            // console.log("通知使用者 餐廳拒單囉");
+            Swal.fire("餐廳已拒單");
+        }else if ("delAccept" === data.type){
+            Swal.fire("您的外送員"+data.delName+'"已接單');
+            sessionStorage.setItem("delName", data.delName);
+            sessionStorage.setItem("delId", data.delId);
+            setTimeout("location.href='/monfood_maven/status.html'",5000);
+        }
     };
 
     webSocket.onclose = function (event) {
-      console.log("使用者連線斷囉Disconnected!");
+    //   console.log("使用者連線斷囉Disconnected!");
     };
 
    

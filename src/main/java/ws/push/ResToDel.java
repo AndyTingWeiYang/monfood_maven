@@ -20,87 +20,67 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 
-
 @ServerEndpoint("/ResToDel/{id}/{type}")
-public class ResToDel { 
+public class ResToDel {
 	// map蒐集所有使用者的連線集合 用key針對特地對象發送訊息
 //	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
 	private static Map<String, Session> resMap = new ConcurrentHashMap<>();
 	private static Map<String, Session> delMap = new ConcurrentHashMap<>();
 	private static Map<String, Session> userMap = new ConcurrentHashMap<>();
-	//連線進來存type 
-	
-	@OnOpen    //連線建立           //使用者資訊 接受前端的路徑參數                          //蒐集連線 使用者通訊 發送訊息靠連線
-	public void onOpen(@PathParam("id") String id, @PathParam("type") String type,Session session ) {
-		
+	// 連線進來存type
+
+	@OnOpen // 連線建立 //使用者資訊 接受前端的路徑參數 //蒐集連線 使用者通訊 發送訊息靠連線
+	public void onOpen(@PathParam("id") String id, @PathParam("type") String type, Session session) {
+
 		try {
-			//存入各自set
+			// 存入各自set
 			if (!("null".equals(id))) {
-				if("0".equals(type)) {
-					resMap.put(id+type , session);
-					
+				if ("0".equals(type)) {
+					resMap.put(id + type, session);
+
 					Set<String> allDel = delMap.keySet();
-					State stateResMessage = new State("resOpen", id ,allDel);
+					State stateResMessage = new State("resOpen", id, allDel);
 					String stateResMessageJson = gson.toJson(stateResMessage);
 					if (session.isOpen()) {
-						session.getAsyncRemote().sendText(stateResMessageJson); //發上線通知		   			
+						session.getAsyncRemote().sendText(stateResMessageJson); // 發上線通知
 					}
-					
-					System.out.println("allDel: "+allDel);	
-				}else if("1".equals(type)) {
-					delMap.put(id+type , session);				
-				}else {
-					userMap.put(id+type , session);
-											
+
+					System.out.println("allDel: " + allDel);
+				} else if ("1".equals(type)) {
+					delMap.put(id + type, session);
+				} else {
+					userMap.put(id + type, session);
+
 					State stateUserMessage = new State("userOpen", id);
 					String stateUserMessageJson = gson.toJson(stateUserMessage);
 					if (session.isOpen()) {
-						session.getAsyncRemote().sendText(stateUserMessageJson); //發上線通知		   			
+						session.getAsyncRemote().sendText(stateUserMessageJson); // 發上線通知
 					}
-					
-				}						
+
+				}
 			}
-		
-//			Set<String> allDel = delMap.keySet();
-//			State stateMessage = new State("open", id, allDel);
-//			String stateMessageJson = gson.toJson(stateMessage);
-//			Collection<Session> sessions = delMap.values();
-//			// 前端要取得allDel Id
-//			for (Session eachSession : sessions) {
-//				if (eachSession.isOpen()) {
-//					eachSession.getAsyncRemote().sendText(stateMessageJson); //發上線通知		   			
-//				}
-//			}		
-			
-			
-			
-			
-			System.out.println("ResToDel : 與客戶端建立連線了！");
-			resMap.forEach((k, v) -> System.out.println("餐廳"+k));
-			delMap.forEach((k, v) -> System.out.println("外送員"+k));
-			userMap.forEach((k, v) -> System.out.println("使用者"+k));
-			
+
+//			System.out.println("ResToDel : 與客戶端建立連線了！");
+//			resMap.forEach((k, v) -> System.out.println("餐廳"+k));
+//			delMap.forEach((k, v) -> System.out.println("外送員"+k));
+//			userMap.forEach((k, v) -> System.out.println("使用者"+k));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
-		
 
 	}
-	
+
 	// 收到資料 發生事件
-	@OnMessage                // 發送者的連線
-	public void  onMessage(@PathParam("id") String id, @PathParam("type") String type,Session session, String message) throws IOException, InterruptedException {
+	@OnMessage // 發送者的連線
+	public void onMessage(@PathParam("id") String id, @PathParam("type") String type, Session session, String message)
+			throws IOException, InterruptedException {
 		PushInfo pushInfo = gson.fromJson(message, PushInfo.class);
-//		String sender = pushInfo.getSender();
 		String receiverId = pushInfo.getReceiver();
-//		System.out.println("sender = "+sender);
-		System.out.println("receiverId = "+receiverId);
-//		
-		String rejectType = receiverId.substring(receiverId.length()-1, receiverId.length());
-		System.out.println("rejectType = " + rejectType);
+		String rejectType = receiverId.substring(receiverId.length() - 1, receiverId.length());
+
 //		0是商家 1是外送員 2是使用者
 		if ("0".equals(type)) {
 			if ("2".equals(rejectType)) {
@@ -110,7 +90,7 @@ public class ResToDel {
 					receiverSession.getAsyncRemote().sendText(message);
 					session.getAsyncRemote().sendText(message);
 				}
-			}else {
+			} else {
 				Session receiverSession = delMap.get(receiverId);
 				if (receiverSession != null && receiverSession.isOpen()) {
 					// 發送訊息
@@ -118,8 +98,8 @@ public class ResToDel {
 					session.getAsyncRemote().sendText(message);
 				}
 			}
-			
-		}else if("1".equals(type)) {
+
+		} else if ("1".equals(type)) {
 			if ("0".equals(rejectType)) {
 				Session receiverSession = resMap.get(receiverId);
 				if (receiverSession != null && receiverSession.isOpen()) {
@@ -127,7 +107,7 @@ public class ResToDel {
 					receiverSession.getAsyncRemote().sendText(message);
 					session.getAsyncRemote().sendText(message);
 				}
-			}else {
+			} else {
 				Session receiverSession = userMap.get(receiverId);
 				if (receiverSession != null && receiverSession.isOpen()) {
 					// 發送訊息
@@ -135,31 +115,29 @@ public class ResToDel {
 					session.getAsyncRemote().sendText(message);
 				}
 			}
-		}else {
+		} else {
 			Session receiverSession = resMap.get(receiverId);
 			if (receiverSession != null && receiverSession.isOpen()) {
 				// 發送訊息
 				receiverSession.getAsyncRemote().sendText(message);
 				session.getAsyncRemote().sendText(message);
 			}
-			
+
 		}
-		
-		System.out.println("ResToDel : 收到一則訊息"+message);
+
+//		System.out.println("ResToDel : 收到一則訊息"+message);
 	}
 
+	@OnClose
+	public void onClose(@PathParam("id") String id, @PathParam("type") String type) {
+		resMap.remove(id);
+		delMap.remove(id);
+		userMap.remove(id);
+//        System.out.println("ResToDel : 連線關閉！"+id+type);
+	}
 
-    @OnClose
-    public void onClose(@PathParam("id") String id, @PathParam("type") String type) {
-    	resMap.remove(id);
-    	delMap.remove(id);
-    	userMap.remove(id);
-        System.out.println("ResToDel : 連線關閉！"+id+type);
-    }
-  
-    @OnError
-    public void onError(Session session, Throwable t) {
-    	System.out.println(t);
-        System.out.println("ResToDel : 連線發生錯誤！");
-    }
+	@OnError
+	public void onError(Session session, Throwable t) {
+		System.out.println("ResToDel : 連線發生錯誤！" + t);
+	}
 }

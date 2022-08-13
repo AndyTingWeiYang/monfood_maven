@@ -146,6 +146,7 @@ $(document).ready(function () {
                 // onmessage 接收到資料才會執行
                 let delIdArr = new Array();
                 let cartList;
+                let resAddress;
 /*這個QQ跟商家組的討論後要改掉*/let orderListQQ;
                 function onmessage() {
                     webSocket.onmessage = function (event) {
@@ -258,7 +259,8 @@ $(document).ready(function () {
                         receiver: delId,
                         message: `有一筆外送單來自：${orderMap.RES_NAME}`,
                         cartList: cartList,
-                        orderList: orderListQQ
+                        orderList: orderListQQ,
+                        resAddress: orderMap.BZ_LOCATION
                     };
                     webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
                     console.log(jsonObj);
