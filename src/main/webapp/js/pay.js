@@ -4,8 +4,11 @@ window.addEventListener('load', function(){
     location.href = '/monfood_maven/browse.html';
     return;
   }
+  // get user location from previous page
+  let user_loc = sessionStorage.getItem('wholeAddress');
+  $('#finalAddress').text((user_loc == undefined? '台北市中正區濟南路一段321號' : user_loc))
 
-  // location
+  // get saved location
   $.ajax({
     url: 'GetAllLocation',
     type: 'POST',
