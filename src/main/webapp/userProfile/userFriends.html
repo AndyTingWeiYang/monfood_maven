@@ -333,6 +333,11 @@
                   new Uint8Array(data[i].profilePic)
                 )
               );
+
+              let birthday = data[i].birthday
+                .replace("月", " /")
+                .replace(",", " /");
+
               var html = "";
               html += `  <div id="friendListDiv">
       <div class="d-flex w-100">
@@ -396,7 +401,7 @@
             <hr id="info" />
 
             <div id="info">生日</div>
-            <div id="birthday">${data[i].birthday}</div>
+            <div id="birthday">${birthday}</div>
             <hr id="info" />
 
             <div id="info">小怪獸等級</div>
