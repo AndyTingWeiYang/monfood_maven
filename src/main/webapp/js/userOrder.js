@@ -83,14 +83,16 @@ window.addEventListener('load', function(){
                 //    console.log(byteToBase64(this.resVO.resPic))
                     
                     let list = `
-                        <div style="border-bottom:1px solid rgb(160, 156, 156); " class="orderList col-12 d-flex justify-content-between">
+                        <div style="border-bottom:1px solid rgb(160, 156, 156); " class="orderList row d-flex justify-content-between">
                             <div class="col-6 d-flex">
-                                <div class="col d-flex">
-                                    <img class="align-self-center" style="width: 180px; height: 130px" src="${'data:image/jpg;base64,' + byteToBase64(this.resVO.resPic)}" alt="">
-                                </div>
-                                <div class="col" style="padding-top: 10px; padding-right: 0" class="productList">
-                                    <div class="resName">${this.resVO.resName}</div>
-                                    <div style="font-size: 12px;" >共 $<span class="total">${this.total}</span>- <span class="date">${this.orderDone}</span></div>
+                                <div class="row d-flex">
+                                    <div class="col d-flex" style="padding-bottom: 8px">
+                                        <img class="align-self-center" src="${'data:image/jpg;base64,' + byteToBase64(this.resVO.resPic)}" alt="">
+                                    </div>
+                                    <div class="col" style="padding-top: 10px; padding-right: 0" class="productList">
+                                        <div class="resName">${this.resVO.resName}</div>
+                                        <div style="font-size: 12px;" >共 $<span class="total">${this.total}</span>- <span class="date" style="font-size: 10px">${this.orderDone}</span></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-3 align-self-center">
@@ -118,7 +120,7 @@ window.addEventListener('load', function(){
                         if(that.orderId == this.innerText){
                             let list = `<div style="font-size: 12px;" ><span class="item">${that.productVo.productName}</span>- <span class="kcal">${that.productVo.productKcal}</span>kcal</div>`;
                             let productList = $(this).closest('.orderList').find('div');
-                            $(productList[2]).append(list)
+                            $(productList[3]).append(list)
                             return;
                         }
                         
