@@ -37,7 +37,7 @@ public class AccountStatusServlet extends HttpServlet {
 			final String resetResult = service.resetAccountStatus(account);
 
 			if (resetResult == "ResetSuccessfully") {
-				response.getWriter().append("帳號已生效，點此開始享受外送服務：http://localhost:8080/monfood_maven/del/monFoodIndex.html");
+				response.getWriter().append("帳號已生效，點此開始享受外送服務：https://35.201.129.109:8443/monfood_maven/del/monFoodIndex.html");
 //				respObj.addProperty("Success", "updateSuccess");
 //				response.getWriter().append(gson.toJson(respObj));
 			} else if (resetResult == "ResetFailed") {

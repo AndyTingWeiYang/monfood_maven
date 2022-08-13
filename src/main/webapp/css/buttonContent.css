@@ -1,11 +1,11 @@
 /* messenger */
-* {
+/* * {
     box-sizing: border-box;
-  }
+  } */
 /* 聊天室 */
 /* 增加 */
 /**************************************這邊要區別******************************************/
-ul li{
+.message-area li{
   display:inline-block;
   clear: both;
   padding: 20px;
@@ -28,14 +28,23 @@ ul li{
   margin-right: 20px;
 
 }
+
+.me2{
+  float: right;
+  background: #c7eafc;
+  color: #45829b;
+  margin-right: 20px;
+
+}
+/* 增加 */
   /**************************************這邊要區別******************************************/
 
-/* 增加 */
-  body {
+
+  /* body {
     background-color: #edeff2;
     background-color: #edeff2;
     font-family: "Calibri", "Roboto", sans-serif;
-  }
+  } */
   /**************************************這邊要區別******************************************/
 
   .chat_window {
@@ -240,18 +249,15 @@ ul li{
     border-radius: 100px;
   }
 /**************************************這邊要區別******************************************/
-  div.modal-content{
+  div#modalContentPair{
     border: none;
 }
 
-div.modal-header{
+div#modalHeaderPair{
     padding: 8px;
     background-color: #FF7F3F;
 }
 
-div.modal-body{
-    /* margin: 16px; */
-}
 /**************************************這邊要區別******************************************/
 span.logo{
     color: black;
@@ -323,20 +329,6 @@ span.logo2{
   margin: 20px 0 0 20px;
 }
 
-/**************************************這邊要區別******************************************/
-div.modal-content{
-    border: none;
-  }
-  
-  div.modal-header{
-    padding: 8px;
-    background-color: #FF7F3F;
-  }
-  
-  div.modal-body{
-    /* margin: 16px; */
-  }
-/**************************************這邊要區別******************************************/
   span.logo{
     color: black;
     font-size: 20px;
@@ -445,7 +437,7 @@ div.modal-content{
 
   /**************************************這邊要區別******************************************/
   /* floating icon */
-  body {
+#pairBody{
     text-align: center;
     background: #f1f1f1;
   }

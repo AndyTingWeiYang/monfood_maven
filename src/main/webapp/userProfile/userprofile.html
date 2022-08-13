@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../css/userProfile-header.css">
   <link rel="stylesheet" href="../css/userProfile-sidebar.css">
   <link rel="stylesheet" href="../css/userProfile.css">
+  <link rel="stylesheet" href="../css/layout.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   </style>
@@ -133,51 +134,51 @@
         <div class="mf-content-wrapper mt-5">
           <!-- 表單區塊 -->
           <div class="jumbotron">
-            <div class="form-group row">
-              <div class="col-sm-12 d-flex justify-content-around">
-                <div style="margin: 10px">
+            <div class="form-group row justify-content-around">
+              <div class="row d-flex">
+                <div class="col col-6">
                   <span>會員編號</span>
-                  <input style="width: 420px;" type="text" name="userId" class="form-control" id="userId">
+                  <input type="text" name="userId" class="form-control" id="userId">
                 </div>
-                <div style="margin: 10px">
+                <div class="col col-6">
                   <span>姓名</span>
-                  <input style="width: 420px;" type="text" name="userName" class="form-control" id="userName">
+                  <input type="text" name="userName" class="form-control" id="userName">
                 </div>
               </div>
-              <div class="col-sm-12 d-flex justify-content-around">
-                <div style="margin: 10px">
+              <div class="row d-flex">
+                <div class="col col-6">
                   <span>電話</span>
-                  <input style="width: 420px;" type="text" name="userTel" class="form-control" id="userTel">
+                  <input type="text" name="userTel" class="form-control" id="userTel">
                 </div>
-                <div style="margin: 10px">
+                <div class="col col-6">
                   <span>電子郵件</span>
-                  <input style="width: 420px;" type="text" name="userEmail" class="form-control" id="userEmail">
+                  <input type="text" name="userEmail" class="form-control" id="userEmail">
                 </div>
               </div>
-              <div class="col-sm-12 d-flex justify-content-around">
-                <div style="margin: 10px">
+              <div class="row d-flex">
+                <div class="col col-6">
                   <span>消費金額上限(每月)</span>
                   <div class="d-flex">
-                    <input style="width: 350px;" type="text" name="budget" class="form-control" id="budget">
-                    <button id="budgetsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
+                    <input type="text" name="budget" class="form-control" id="budget">
+                    <button id="budgetsubmit" type="submit" class="btn btn-primary">確認</button>
                   </div>
                   <span id="budgeterrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
-                <div style="margin: 10px">
+                <div class="col col-6">
                   <span>熱量攝取上限(每日)</span>
                   <div class="d-flex">
-                    <input style="width: 350px;" type="text" name="kcal" class="form-control" id="kcal">
-                    <button id="kcalsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
+                    <input type="text" name="kcal" class="form-control" id="kcal">
+                    <button id="kcalsubmit" type="submit" class="btn btn-primary">確認</button>
                   </div>
                   <span id="kcalerrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
               </div>
-              <div class="col-sm-12 d-flex justify-content-around">
-                <div style="margin: 10px">
+              <div class="row d-flex justify-content-around">
+                <div class="col col-8">
                   <span>自我介紹</span>
                   <div class="d-flex">
-                    <input style="width: 500px;" type="text" name="introduction" class="form-control" id="introduction">
-                    <button id="introductionsubmit" type="submit" class="btn btn-primary" style="background: #FF7F3F; border: none; margin-left: 10px">確認</button>
+                    <input type="text" name="introduction" class="form-control" id="introduction">
+                    <button id="introductionsubmit" type="submit" class="btn btn-primary">確認</button>
                   </div>
                   <span id="introductionerrMsg" style="color: #FF7F3F; font-size:12px"></span>
                 </div>
