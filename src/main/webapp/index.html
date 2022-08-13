@@ -153,40 +153,40 @@
       <div class="container">
         <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
           <div class="col">
-            <div class="p-3 border bg-light adminArea">中正區</div>
+            <div class="p-3 border bg-light adminArea" name="100">中正區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">大同區</div>
+            <div class="p-3 border bg-light adminArea" name="103">大同區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">中山區</div>
+            <div class="p-3 border bg-light adminArea" name="104">中山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">松山區</div>
+            <div class="p-3 border bg-light adminArea" name="105">松山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">大安區</div>
+            <div class="p-3 border bg-light adminArea" name="106">大安區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">萬華區</div>
+            <div class="p-3 border bg-light adminArea" name="108">萬華區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">士林區</div>
+            <div class="p-3 border bg-light adminArea" name="111">士林區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">北投區</div>
+            <div class="p-3 border bg-light adminArea" name="112">北投區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">內湖區</div>
+            <div class="p-3 border bg-light adminArea" name="114">內湖區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">南港區</div>
+            <div class="p-3 border bg-light adminArea" name="115">南港區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">文山區</div>
+            <div class="p-3 border bg-light adminArea" name="116">文山區</div>
           </div>
           <div class="col">
-            <div class="p-3 border bg-light adminArea">信義區</div>
+            <div class="p-3 border bg-light adminArea" name="110">信義區</div>
           </div>
         </div>
       </div>
@@ -369,11 +369,11 @@
 
 // 透過行政區搜尋該區商家
     $("div.adminArea").on("click", function(){
-      var zip = $(this).text();
-      var areaResult = zip.split("_");
-      let zipcode = areaResult[0];
+      let zipcode = $(this).attr("name");
+      var area = $(this).text();
+      let address = "台灣台北市" + area;
+      sessionStorage.setItem("wholeAddress", address);
       sessionStorage.setItem("zipcode", zipcode);
-      sessionStorage.removeItem("wholeAddress");
       window.location.href="browse.html";
       // console.log(zipcode);
       // console.log(JSON.stringify(zipcode));
