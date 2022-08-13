@@ -171,6 +171,9 @@ window.addEventListener('load', function(){
     });
     })
   }
+
+  sessionStorage.setItem('location','browse');
+
 // select 標籤
 $('select').on('change', function(){
   if($(this).find('option:selected').val() == 0){
