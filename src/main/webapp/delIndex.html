@@ -34,7 +34,7 @@
         right: 0;
         bottom: 85px;
         left: 0;
-        z-index: 9998;
+        z-index: 1;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -155,7 +155,7 @@
 
           <!-- 外送夥伴會員中心icon -->
           <div class="del-center">
-            <a href="https://www.google.com.tw/?hl=zh_TW">
+            <a href="./del/delInfo.html">
               <!-- <i class="mdi mdi-account" style="color: white"></i>         -->
               <!-- <i class="fa-solid fa-shoe-prints fa-lg fa-rotate-270" style="color: white;"></i>  -->
               <i class="fa-solid fa-user" style="color: white"></i>
@@ -276,8 +276,8 @@
             delLng = position.coords.longitude; // 經度
             delLat = position.coords.latitude; // 緯度
             const delLocation = { lat: delLat, lng: delLng };
-            console.log(delLng);
-            console.log(delLat);
+            // console.log(delLng);
+            // console.log(delLat);
 
             const map = new google.maps.Map(document.getElementById("map"), {
               zoom: 15,
@@ -299,39 +299,27 @@
       }
       window.initMap = initMap;
 
-
-
-
-
-
-
-
-      let box = document.querySelector("#myonoffswitch");
-
       // 取得resId by session
       let delId = sessionStorage.getItem("del");
       let delType = 1;
 
-      // 建立連線
-     
+      // 建立連線    
       let myPoint = `/ResToDel/${delId}/${delType}`;
       let host = window.location.host;
       let path = window.location.pathname;
       let webCtx = path.substring(0, path.indexOf("/", 1));
       let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
-      console.log(endPointURL);
+      // console.log(endPointURL);
       let webSocket;
       function createConnection() {
         webSocket = new WebSocket(endPointURL);
         webSocket.onopen = function(event) {
-        // alert("Connect Success!");
-        console.log("Connect Success!");
-        console.log(event);
+        // console.log(event);
       }
     
       webSocket.onmessage = function (event) {
           let jsonObj = JSON.parse(event.data);
-          console.log("收到外送員上線的資料囉 = ", jsonObj);
+          // console.log("收到外送員上線的資料囉 = ", jsonObj);
           if ("resNotification" === jsonObj.type) {
             Swal.fire({
             title: `${jsonObj.message}請問是否接受?`,
@@ -341,21 +329,32 @@
           }).then((result) => {
             
             if (result.isConfirmed) {
-              console.log("外送員已接單");
-              console.log(jsonObj);
-              
+              // console.log(jsonObj);             
               let orderList = jsonObj.orderList ;
-              console.log("orderList = ",orderList)
-              sessionStorage.setItem("orderList", JSON.stringify(orderList))
+              sessionStorage.setItem("orderList", JSON.stringify(orderList));
+              sessionStorage.setItem("resAddress", jsonObj.resAddress);
                
               let cartList = jsonObj.cartList;
               let cartArr = new Array();
               $.each(cartList["cartList"], function( index, value ) {
-                  console.log( value );
+                  // console.log( value );
                   cartArr.push(value)
                   sessionStorage.setItem("cartList", JSON.stringify(cartArr))                 
               });
-            
+
+              let delName = (sessionStorage.getItem("resName")).split(",",1);
+              var delToUser = {
+                type: "delAccept",
+                sender: delId,
+                receiver: orderList.userId+"2",
+                message: `外送員已接受此訂單`,
+                delName:delName,
+                delId:delId,
+              };
+              webSocket.send(JSON.stringify(delToUser)); // 	jsonObj改成json格式
+              // console.log(delToUser);
+        
+              // 轉向外送頁
               window.location.replace("./delDelivery.html");
             } else if (result.isDenied) {
               Swal.fire('您已拒絕接受此單')
@@ -363,10 +362,10 @@
                 type: "delReject",
                 sender: delId,
                 receiver: jsonObj.sender+"0",
-                message: `外送員已拒絕此訂單`,
+                message: `外送員已拒絕此訂單`
               };
               webSocket.send(JSON.stringify(delToRes)); // 	jsonObj改成json格式
-              console.log(delToRes);
+              // console.log(delToRes);
              
             }
           })
@@ -374,15 +373,13 @@
         };
 
       webSocket.onclose = function (event) {
-        console.log("外送員連線斷囉Disconnected!");
+        // console.log("外送員連線斷囉Disconnected!");
       };
 
     }
 
-
-
-
       // 上下線控制
+      let box = document.querySelector("#myonoffswitch");
       box.onchange = () => {
         if (box.checked) {
           alert("您已上線，開始接單");
@@ -395,65 +392,6 @@
           $("#map").append(`<div id="loading" class="TheLoading"></div>`);
         }
       };
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-      
-
-      
-      
-    
-
-      
-//  // 原本寫上線下線
-      // $("#myonoffswitch").on("click", function () {
-      //   $("#myonoffswitch").toggleClass("offline");
-      //   console.log(123);
-        // webSocket.onopen = function(event) {
-        //     alert("Connect Success!");
-        //     console.log("Connect Success!");
-        //     console.log(event);
-        // }
-      // });
-
-      // $("#myonoffswitch").on("click", function () {
-      //   if ($("#myonoffswitch").hasClass("offline")) {
-      //     alert("您已下線，無法接單");
-      //   }
-      // });
-
-//  //寫死取得resName ajax
-      // var delId;
-      // var delType;
-      // $.ajax({
-      //     url: "DelNameServlet",  // to do
-      //     async: false,  // 當async設定為false時，點選按鈕後，則會造成阻塞，阻止下面的程式碼執行，只有執行完ajax請求，才會去執行後面的程式碼。
-      //     type: "GET",
-      //     dataType: "json",
-      //     success: function (data) {
-      //       delId = data.Id;
-      //       delType = data.type;
-      //       console.log(delId);
-      //       console.log(delType);
-      //     },
-      // });
-      // console.log(delId);
-      // console.log(delType);
-
     </script>
   </body>
 </html>

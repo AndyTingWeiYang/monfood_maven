@@ -42,6 +42,32 @@ a > div > div{
 
 /* 聊天室 */
 
+  /* cahtroom new */
+  ul li{
+    display:inline-block;
+    clear: both;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .friend{
+    background: #ffe6cb;
+    float: left;
+    color: #c48843;
+    margin-left: 20px;
+  }
+
+  .me{
+    float: right;
+    background: #c7eafc;
+    color: #45829b;
+    margin-right: 20px;
+
+  }
+  /* ^^cahtroom new^^ */
+
   .chat_window {
     position: absolute;
     width: calc(100% - 20px);

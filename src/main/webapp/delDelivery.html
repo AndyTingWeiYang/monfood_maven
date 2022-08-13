@@ -112,7 +112,32 @@
           height: calc(100vh - 290px);
         }
       }
-      
+
+      /* cahtroom */
+      ul li{
+        display:inline-block;
+        clear: both;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 2px;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+
+      .friend{
+        background: #ffe6cb;
+        float: left;
+        color: #c48843;
+        margin-left: 20px;
+      }
+
+      .me{
+        float: right;
+        background: #c7eafc;
+        color: #45829b;
+        margin-right: 20px;
+
+      }
+      /* ^^cahtroom^^ */
       </style>
   </head>
   
@@ -144,9 +169,9 @@
             </div>
 
             <!-- 外送夥伴會員中心icon -->
-            <div class="del-center" >
+            <div class="del-center disabled" >
               <!-- <a href="#"> -->
-                <i class="fa-solid fa-shoe-prints fa-lg fa-rotate-270" style="color: white;"></i>         
+                <!-- <i class="fa-solid fa-shoe-prints fa-lg fa-rotate-270" style="color: white;"></i>          -->
               <!-- </a> -->
             </div>
           </div>
@@ -193,7 +218,11 @@
               <div class="modal-body">
                 <!-- 訂單明細放進來↓ -->
                 <h3>外送資訊</h3>
-                <h5 id="res-name">店名連結</h5>
+                <h5 id="res-name"></h5>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                  </svg>
+                <span id="res-address"></span>
                 <div>
                   <div>
                     送至
@@ -202,7 +231,7 @@
                     </svg>
                     <span id="del-address"></span>
                   </div>
-                  <div>預計送達時間 <span id="del-time"></span></div>
+                  <div>預計車程時間 <span id="del-time"></span></div>
                 </div>
 
 
@@ -210,30 +239,15 @@
                 <h5>付款方式</h5>
                 <div class="list-group">
                   <div class="list-group-item payment">
-                    <div>總金額$<span id="lump-sum">xxx</span>元</div>
-                    <div id="payment-method">現金/信用卡</div>
+                    <div>總金額$<span id="lump-sum"></span>元</div>
+                    <div id="payment-method"></div>
                   </div>
                 </div>
 
-                
                 <hr>
                 <h5>訂單內容</h5>
                 <div class="list-group">
-
-                  <div class="order-list">
-                    <div class="list-group-item">
-                      <div class="meal-title">
-                        <div id="meal">品項a</div>
-                        <div>$<span id="meal-price">餐點價格</span></div>                       
-                      </div>
-                      <p class="meal-list">餐點內容</p>
-                      <p class="meal-list">餐點1</p>
-                      <p class="meal-list">餐點2</p>
-                      <p class="meal-list">餐點3</p>
-                    </div>
-                  </div>
-                
-                  
+                  <div class="order-list"></div>                  
                 </div>
    
                 <!-- 訂單明細放進來↑ --> 
@@ -270,7 +284,7 @@
           <div class="modal-dialog modal-fullscreen-sm-down">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel">與使用者<span id="user-name">XXX</span>聯絡</h5>
+                <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel">與使用者聯絡</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -305,14 +319,39 @@
 
       <script src="assets/js/jQuery-3.6.0.js"></script>
       
-      <script>
-      
+      <script>         
+          // 訂單資訊
+          let resAddress = sessionStorage.getItem('resAddress');
+          $("#res-address").text(resAddress);
+          let cartList = JSON.parse(sessionStorage.getItem('cartList'));
+          let orderList = JSON.parse(sessionStorage.getItem('orderList'));
+          $("#lump-sum").text(orderList.total);
+          $("#payment-method").text(orderList.payBy);
 
+          let listgroupitem;
+          $.each(cartList, function( index, value ) {
+              // console.log(index);
+              // console.log(value);
+    
+              $("#res-name").text(value.resName);
+
+              listgroupitem = `
+              <div class="list-group-item">
+                <div class="meal-title">
+                  <div id="meal">${value.productName}</div>
+                  <div>$<span id="meal-price">${value.productPrice}</span></div>                       
+                </div>
+                <p class="amount">數量${value.amount}</p>        
+              </div>         
+              `;          
+            $(".order-list").before(listgroupitem);
+
+          });
 
           // 完成訂單倒轉畫面
           var btnOrderFinish = document.querySelector(".btnOrderFinish");
           btnOrderFinish.addEventListener("click",function(){
-            var worker = new Worker("../js/worker_countdown.js");
+            var worker = new Worker("./js/worker_countdown.js");
             worker.onmessage = function (e) {
               document.querySelector("#countsec").innerHTML = e.data;
               if (e.data == 0) {
@@ -321,67 +360,65 @@
               }
             };
           });
-          
-       
-            
-
+                
           //聯絡使用者的聊天室
-          (function () {
-          var Message;
-          Message = function (arg) {
-            (this.text = arg.text), (this.message_side = arg.message_side);
-            this.draw = (function (_this) {
-              return function () {
-                var $message;
-                $message = $($(".message_template").clone().html());
-                $message
-                  .addClass(_this.message_side)
-                  .find(".text")
-                  .html(_this.text);
-                $(".messages").append($message);
-                return setTimeout(function () {
-                  return $message.addClass("appeared");
-                }, 0);
-              };
-            })(this);
-            return this;
+          function appendNewMsg(isMe, msg) {
+            let messagesArea = document.querySelector(".messages");
+            let li = document.createElement("li");
+            li.className += isMe ? "me" : "friend";
+            li.innerHTML = msg;
+            messagesArea.appendChild(li);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+          }
+
+          // WebSocket
+          let userId = orderList.userId;
+          let delId = sessionStorage.getItem('del');
+          let delType = "1";
+
+          // 建立連線
+          let myPoint = `/chatroom/${delId}/${delType}`;
+          let host = window.location.host;
+          let path = window.location.pathname;
+          let webCtx = path.substring(0, path.indexOf("/", 1));
+          let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
+          // console.log(endPointURL);
+
+          let webSocket = new WebSocket(endPointURL);
+
+          webSocket.onopen = function(event) {
+            // console.log("外送員連線上囉Connect Success!");					
           };
-          $(function () {
-            var getMessageText, message_side, sendMessage;
-            message_side = "right";
-            getMessageText = function () {
-              var $message_input;
-              $message_input = $(".message_input");
-              return $message_input.val();
+
+          webSocket.onmessage = function(event) {
+            let jsonObj = JSON.parse(event.data);
+            // console.log("onmessage收到的訊息 = ", jsonObj);
+              if ("userSend" === jsonObj.type) {
+                // console.log("我有收到userSend");
+                let message = jsonObj.message;
+                let isMe = jsonObj.sender === delId;
+                appendNewMsg(isMe, message);
+              } 
+          };  
+
+          $(".send_message").on("click",function(){
+            var jsonObj = {
+              type: "delSend",
+              sender: delId,
+              receiver: userId+"2",
+              message: $(".message_input").val(),
             };
-            sendMessage = function (text) {
-              var $messages, message;
-              if (text.trim() === "") {
-                return;
-              }
-              $(".message_input").val("");
-              $messages = $(".messages");
-              message_side = message_side === "left" ? "right" : "left";
-              message = new Message({
-                text: text,
-                message_side: message_side,
-              });
-              message.draw();
-              return $messages.animate(
-                { scrollTop: $messages.prop("scrollHeight") },
-                300
-              );
-            };
-            $(".send_message").click(function (e) {
-              return sendMessage(getMessageText());
-            });
-            $(".message_input").keyup(function (e) {
-              if (e.which === 13) {
-                return sendMessage(getMessageText());
-              }
-            });
+            webSocket.send(JSON.stringify(jsonObj)); 
+            // console.log("發出去的訊息 = ",jsonObj);
+
+            appendNewMsg(true, $(".message_input").val());
+            $(".message_input").val("");
           });
-          }.call(this));
+
+
+          webSocket.onclose = function(event) {
+            // console.log("商家連線斷囉Disconnected!");
+          };
 
 
           // //google map api
@@ -400,13 +437,13 @@
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(
                 function (position) {
-                  console.log(position);
+                  // console.log(position);
                   delLng = position.coords.longitude; // 經度
                   delLat = position.coords.latitude; // 緯度
 
                   const delLocation = { lat: delLat, lng: delLng };
-                  console.log(delLng);
-                  console.log(delLat);
+                  // console.log(delLng);
+                  // console.log(delLat);
 
                   const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 15,
@@ -434,7 +471,7 @@
                   directionsService.route(
                     {
                       origin: delLocation ,
-                      destination: "國立臺北商業大學",  //目的地到時候要串使用者及商家位置
+                      destination: orderList.address ,  //目的地到時候要串使用者及商家位置
                       travelMode: "DRIVING",
                       unitSystem: google.maps.UnitSystem.METRIC,
                       // drivingOptions: pessimistic,
@@ -444,43 +481,17 @@
                     },
                     (response, status) => {
                       if(status == "OK"){
-                        console.log(response);
+                        // console.log(response);
                         
                         // 取得地址及時間
                         let delAddress = response.routes[0].legs[0].end_address;
-                        console.log(delAddress);
+                        // console.log(delAddress);
                         $("#del-address").text(delAddress);
                      
-                     
                         let delTime = response.routes[0].legs[0].duration.text;
-                        console.log(delTime);
+                        // console.log(delTime);
                         $("#del-time").text(delTime);
                         
-                        
-
-                        // 資訊窗 // 回傳路線上每個步驟的細節
-                        // var steps = response.routes[0].legs[0].steps;
-                        // steps.forEach((e, i) => {
-                        //     // console.log(steps);
-                        //     // 加入地圖標記
-                        //     markers[i] = new google.maps.Marker({
-                        //     position: { lat: e.start_location.lat(), lng: e.start_location.lng() },
-                        //     map: map,
-                        //     label: { text: i + '', color: "#fff" }
-                        //     });
-                        //     // 加入資訊視窗
-                        //     infowindows[i] = new google.maps.InfoWindow({
-                        //     content: e.instructions
-                        //     });
-                        //     // 加入地圖標記點擊事件
-                        //     markers[i].addListener('click', function () {
-                        //     if(infowindows[i].anchor){
-                        //         infowindows[i].close();
-                        //     }else{
-                        //         infowindows[i].open(map, markers[i]);
-                        //     }
-                        //     });
-                        // });
                         directionsDisplay.setDirections(response);
                       }else{
                         console.log(status);

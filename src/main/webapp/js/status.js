@@ -7,6 +7,7 @@ window.addEventListener('load', function(){
 
     let cartList = JSON.parse(sessionStorage.getItem('cartList'))
     let orderList = JSON.parse(sessionStorage.getItem('orderList'));
+    
     var res;
 
     // get res location
@@ -119,5 +120,66 @@ window.addEventListener('load', function(){
 
       })
     })
+    //chatroom
+    function appendNewMsg(isMe, msg) {
+      let messagesArea = document.querySelector(".messages");
+      let li = document.createElement("li");
+      li.className += isMe ? "me" : "friend";
+      li.innerHTML = msg;
+      messagesArea.appendChild(li);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
 
-})
+    // WebScoket
+    let delName = (sessionStorage.getItem('delName')+'"').slice(1,-1);
+    let delId = sessionStorage.getItem('delId');
+    let userId = orderList.userId;
+    let userType = "2";
+
+    $(".title").text(delName);
+
+    // 建立連線
+    let myPoint = `/chatroom/${userId}/${userType}`;
+    let host = window.location.host;
+    let path = window.location.pathname;
+    let webCtx = path.substring(0, path.indexOf("/", 1));
+    let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
+    // console.log(endPointURL);
+
+    let webSocket = new WebSocket(endPointURL);
+
+    webSocket.onopen = function(event) {
+      // console.log("使用者連線上囉Connect Success!");					
+    };
+    
+    webSocket.onmessage = function(event) {
+      let jsonObj = JSON.parse(event.data);
+      // console.log("onmessage收到的訊息 = ", jsonObj);
+      if ("delSend" === jsonObj.type){      
+        let message = jsonObj.message;
+        let isMe = jsonObj.sender === userId;
+        appendNewMsg(isMe, message);
+      }
+    };  
+
+    $(".send_message").on("click",function(){
+      var jsonObj = {
+        type: "userSend",
+        sender: userId,
+        receiver: delId+"1",
+        message: $(".message_input").val(),
+      };
+      webSocket.send(JSON.stringify(jsonObj)); 
+      // console.log("發出去的訊息 = ",jsonObj);
+
+      appendNewMsg(true, $(".message_input").val());
+      $(".message_input").val("");
+    });
+
+
+    webSocket.onclose = function(event) {
+      // console.log("商家連線斷囉Disconnected!");
+    };
+
+
+});
