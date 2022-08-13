@@ -41,14 +41,14 @@ window.addEventListener('load', function(){
     let webSocket = new WebSocket(endPointURL);
 
     webSocket.onopen = function (event) {
-        // console.log(event);
+        console.log(event);
     };
 
     // onmessage 接收到資料才會執行
     webSocket.onmessage = function (event) {
-        // console.log(event);
+        console.log(event);
         let data = JSON.parse(event.data);
-        // console.log("data = ", data);
+        console.log("data = ", data);
         if ("userOpen" === data.stateType) {     
             var jsonObj = {
             type: "userNotification",
@@ -59,9 +59,9 @@ window.addEventListener('load', function(){
             orderList:orderList
             };
             webSocket.send(JSON.stringify(jsonObj));
-            // console.log("已送出推播" ,jsonObj );
+            console.log("已送出推播" ,jsonObj );
         }else if ("resReject" === data.type){
-            // console.log("通知使用者 餐廳拒單囉");
+            console.log("通知使用者 餐廳拒單囉");
             Swal.fire("餐廳已拒單");
         }else if ("delAccept" === data.type){
             Swal.fire("您的外送員"+data.delName+'"已接單');
@@ -72,7 +72,7 @@ window.addEventListener('load', function(){
     };
 
     webSocket.onclose = function (event) {
-    //   console.log("使用者連線斷囉Disconnected!");
+      console.log("使用者連線斷囉Disconnected!");
     };
 
    
