@@ -42,7 +42,7 @@ public class ResPhotoPreviewServlet extends HttpServlet {
 		byte[] resPic = resVo.getResPic();
 		OutputStream os = response.getOutputStream();
 
-		if (resPic == null) {
+		if (resPic == null || resPic.length == 0) {
 			is = sc.getResourceAsStream("/images/user.png");
 			int read = 0;
 			byte[] image = new byte[2048];

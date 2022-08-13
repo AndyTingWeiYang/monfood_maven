@@ -41,7 +41,7 @@ public class ProductPicServlet extends HttpServlet {
 		byte[] pic = productVO.getProductPic();
 		OutputStream out = response.getOutputStream();
 
-		if (pic.length == 0) {
+		if (pic == null || pic.length == 0) {
 			is = sc.getResourceAsStream("/images/food.png");
 			int read = 0;
 			byte[] image = new byte[2048];
