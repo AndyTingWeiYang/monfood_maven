@@ -11,6 +11,7 @@ window.addEventListener('load', function(){
     type: 'POST',
     dataType: 'json',
     success: function(msg){
+      console.log(msg)
       $.each(msg.locations, function(index, data){
         let loc_list = `
           <li class="d-flex justify-content-between align-items-center">
@@ -20,6 +21,9 @@ window.addEventListener('load', function(){
         `
         $('#userLocation').append(loc_list);
       })
+    },
+    error: function(errMsg){
+      console.log(errMsg)
     }
   })
 

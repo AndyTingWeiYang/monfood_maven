@@ -37,11 +37,11 @@ public class LoginFilter implements Filter{
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		Object loginStatus = session.getAttribute("isuserLogin");
 		if("true".equals(loginStatus)) {
-			System.out.println("run here");
+//			System.out.println("run here");
 			chain.doFilter(request, response);
 		}
 		else {
-			System.out.println("not login");
+//			System.out.println("not login");
 			((HttpServletResponse)response).sendRedirect(context.getContextPath() + "/userLogin.html");
 		}
 		

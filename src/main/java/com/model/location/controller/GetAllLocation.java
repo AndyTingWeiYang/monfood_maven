@@ -27,7 +27,16 @@ public class GetAllLocation extends HttpServlet {
 		Gson gson = new Gson();
 		JsonObject respObj = new JsonObject();
 		HttpSession session = request.getSession();
+		
+		if ("null".equals(session.getAttribute("userID"))) {
+			return;
+		}
+		
 		Integer userId = (Integer) session.getAttribute("userID");
+		
+		if (userId == null) {
+			return;
+		}
 		
 		try {
 			LocationService service = new LocationServiceImpl();
