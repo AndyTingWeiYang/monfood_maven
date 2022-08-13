@@ -28,20 +28,14 @@ webSocket.onopen = function (event) {
 };
 
 function sendMessage() {
-  const message = document.querySelector(".message_input").value;
+  const message = document.querySelector("#msgInput" + friendId).value;
   if (!message && message.trim() === "") {
     alert("請輸入訊息");
     return;
   }
+// 顯示自己傳送的訊息
+    appendNewMsg(true,  message);
 
-    // 重複後移除
-    let messagesArea = document.querySelector("#messagesArea" + friendId);
-    let li = document.createElement("li");
-    li.className += "me" ;
-    li.innerHTML = message;
-    messagesArea.appendChild(li);
-    messagesArea.scrollTop = messagesArea.scrollHeight;
-    messagesArea.removeChild(li);
 
   let jsonObj = {
     type: "chat",
@@ -83,7 +77,15 @@ webSocket.onmessage = function (event) {
     console.log("aaa");
     let message = jsonObj.message;
     let isMe = jsonObj.senderId === selfId;
-    appendNewMsg(isMe, message);
+    let messagesArea = document.querySelector("#messagesArea" + friendId);
+    let li = document.createElement("li");
+    li.className += isMe ? "me2" : "friend";
+    li.innerHTML = message;
+    messagesArea.appendChild(li);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    // 上線自己訊息會重複， 把重複移除
+      $(".me2").hide();
+
   }
 };
 
@@ -220,8 +222,8 @@ $.ajax({
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div id="modalHeader" class="modal-header">
+      <div id="modalContentPair" class="modal-content">
+        <div id="modalHeaderPair" class="modal-header">
           <h5>
             <span class="logo">Mon</span><span class="logo2">Food</span>
           </h5>
