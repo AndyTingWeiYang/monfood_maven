@@ -32,11 +32,11 @@ window.addEventListener('load', function(){
    
     // 建立連線
     let myPoint = `/ResToDel/${userId}/${userType}`;
-    let host = window.location.host;
-    let path = window.location.pathname;
-    let webCtx = path.substring(0, path.indexOf("/", 1));
-    let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
-    // console.log(endPointURL);
+    // let host = window.location.host;
+    // let path = window.location.pathname;
+    // let webCtx = path.substring(0, path.indexOf("/", 1));
+    let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + myPoint;
+    console.log(endPointURL);
 
     let webSocket = new WebSocket(endPointURL);
 

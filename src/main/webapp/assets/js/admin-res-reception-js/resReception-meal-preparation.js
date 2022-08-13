@@ -131,10 +131,10 @@ $(document).ready(function () {
 
                 // 建立連線
                 let myPoint = `/ResToDel/${resId}/${resType}`;
-                let host = window.location.host;
-                let path = window.location.pathname;
-                let webCtx = path.substring(0, path.indexOf("/", 1));
-                let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
+                // let host = window.location.host;
+                // let path = window.location.pathname;
+                // let webCtx = path.substring(0, path.indexOf("/", 1));
+                let endPointURL = "wss://35.201.129.109:8443/monfood_maven"+ myPoint;
                 console.log(endPointURL);
 
                 let webSocket = new WebSocket(endPointURL);
