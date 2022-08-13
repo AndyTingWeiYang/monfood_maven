@@ -4,6 +4,7 @@
   }
 /* 聊天室 */
 /* 增加 */
+/**************************************這邊要區別******************************************/
 ul li{
   display:inline-block;
   clear: both;
@@ -12,7 +13,7 @@ ul li{
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
 }
-
+/**************************************這邊要區別******************************************/
 .friend{
   background: #ffe6cb;
   float: left;
@@ -27,12 +28,15 @@ ul li{
   margin-right: 20px;
 
 }
+  /**************************************這邊要區別******************************************/
+
 /* 增加 */
   body {
     background-color: #edeff2;
     background-color: #edeff2;
     font-family: "Calibri", "Roboto", sans-serif;
   }
+  /**************************************這邊要區別******************************************/
 
   .chat_window {
     position: absolute;
@@ -235,7 +239,7 @@ ul li{
     height:50px;
     border-radius: 100px;
   }
-
+/**************************************這邊要區別******************************************/
   div.modal-content{
     border: none;
 }
@@ -248,7 +252,7 @@ div.modal-header{
 div.modal-body{
     /* margin: 16px; */
 }
-
+/**************************************這邊要區別******************************************/
 span.logo{
     color: black;
     font-size: 20px;
@@ -319,6 +323,7 @@ span.logo2{
   margin: 20px 0 0 20px;
 }
 
+/**************************************這邊要區別******************************************/
 div.modal-content{
     border: none;
   }
@@ -331,7 +336,7 @@ div.modal-content{
   div.modal-body{
     /* margin: 16px; */
   }
-  
+/**************************************這邊要區別******************************************/
   span.logo{
     color: black;
     font-size: 20px;
@@ -438,12 +443,13 @@ div.modal-content{
     margin: 10px 0 10px 0;
   }
 
+  /**************************************這邊要區別******************************************/
   /* floating icon */
   body {
     text-align: center;
     background: #f1f1f1;
   }
-  
+  /**************************************這邊要區別******************************************/
     #floating-button {
       width: 65px;
       height: 65px;
