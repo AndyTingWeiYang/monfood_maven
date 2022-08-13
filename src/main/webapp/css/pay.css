@@ -7,12 +7,14 @@
     }
 }
 
-a#changeAddress{
+a#changeAddress, a#changeAddress:active,a#changeAddress:focus{
     padding: 1px; 
     background-color: lightgray;
     border: none;
     font-size: 8px;
     border-radius: 0;
+    outline: none;     
+    box-shadow:none; 
 }
 
 a#changeAddress:focus{
@@ -52,10 +54,10 @@ input.discount{
 }
 
 .form-check-input:checked, .form-check-input.focus, .form-check-input:active{
-    background-color: rgb(46, 45, 45); 
-    border-color: rgb(46, 45, 45); 
-    outline: none;
-    box-shadow: none;
+    background-color: rgb(46, 45, 45) !important; 
+    border-color: rgb(46, 45, 45)!important; 
+    outline: none!important;
+    box-shadow: none!important;
 }
 
 button.btn.submit{
