@@ -2,7 +2,7 @@
 //取得userId ajax
 let selfId;
 $.ajax({
-  url: "IdServlet",
+  url: "/monfood_maven/IdServlet",
   async: false,
   type: "GET",
   dataType: "json",
@@ -123,7 +123,7 @@ function refreshChat() {
 //配對者資訊ajax
 function pair(){
   $.ajax({
-    url: "PairInfoServlet",
+    url: "/monfood_maven/PairInfoServlet",
     type: "GET",
     dataType: "json",
     success: function (data) {
@@ -146,7 +146,6 @@ function pair(){
       $("#name1").append(data[0].userName);
     },
   });
-  console.log("s");
 }
 
 
@@ -155,7 +154,7 @@ function pair(){
 function update() {
   $(document).on("click","#acceptPairBtn, #refusePairBtn", function (e) {
     console.log("aa");
-    fetch("UpdateAnswerServlet", {
+    fetch("/monfood_maven/UpdateAnswerServlet", {
       method: "POST",
       headers: {
         "content-Type": "application/json",
@@ -169,7 +168,7 @@ function update() {
   
   $("#acceptPairBtn, #refusePairBtn").on("click", function (e) {
     console.log("aa");
-    fetch("UpdateAnswerServlet", {
+    fetch("/monfood_maven/UpdateAnswerServlet", {
       method: "POST",
       headers: {
         "content-Type": "application/json",
@@ -180,7 +179,6 @@ function update() {
       }),
     });
   });
-  console.log("uu");
 }
 
 
@@ -188,7 +186,7 @@ function update() {
 //訊息列表+聊天室ajax
 function chat() {
   $.ajax({
-    url: "PairListServlet",
+    url: "/monfood_maven/PairListServlet",
     type: "GET",
     dataType: "json",
     success: function (data) {
@@ -287,7 +285,6 @@ function chat() {
       }
     },
   });
-  console.log("cc");
 }
 
 
