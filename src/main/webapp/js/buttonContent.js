@@ -16,10 +16,13 @@ console.log(selfId);
 
 let friendId;
 let MyPoint = `/ChatWebsocket/${selfId}`;
-let host = window.location.host;
-let path = window.location.pathname;
-let webCtx = path.substring(0, path.indexOf("/", 1));
-let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+// let host = window.location.host;
+// let path = window.location.pathname;
+// let webCtx = path.substring(0, path.indexOf("/", 1));
+let endPointURL = "ws://" + window.location.host + "/monfood_maven" + MyPoint;
+
+// 上雲
+// let endPointURL = "ws://35.201.129.109:8443/monfood_maven" + MyPoint;
 
 let webSocket = new WebSocket(endPointURL);
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>MonFood</title>
+    <title>MonFood || DelMember Center</title>
 
     <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css"/>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/>
@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
     <link rel="stylesheet" href="../css/userProfile-header.css" />
     <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+    <!-- SWEATALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
@@ -21,6 +24,15 @@
 
       div.form-control.-none {
         display: none;
+      }
+
+      label.col-form-label {
+        margin-top: 20px;
+      }
+
+      .noticespan {
+        color: red;
+        font-size: 10px;
       }
 
     </style>
@@ -147,7 +159,7 @@
               type="button"
               data-toggle="offcanvas"
             >
-              <span class="mdi mdi-format-line-spacing"></span>
+              <span class="mdi mdi-view-headline"></span>
             </button>
           </div>
         </nav>
@@ -158,14 +170,16 @@
           <div class="mf-content-wrapper mt-5">
             <!-- 表單區塊 -->
             <div class="jumbotron">
-              <div class="form-group row">
-                <div class="col-sm-12 bank_info">
+              <div class="form-group row" style="justify-content: space-around;">
+                <div class="col-sm-6 bank_info">
 <!-- 植入開始             -->   
+
                     <div class="form-group row">
                       <label for="accountName" class="col-sm-12 col-form-label">帳戶人姓名</label>
                       <div class="col-sm-12">
                         <div class="form-control acct_name delAccountName"></div>
                         <input id="accountName" type="text" name="accountName" class="form-control input_acct_name -none"/>
+                        <span class="noticespan delAccountNamespan"></span>
                       </div>
 
                       <div class="col-sm-12">
@@ -173,7 +187,7 @@
                         <div>
                           <div class="form-control bank_name delBankname"></div>
                           <select id="bankName" name="bankName" class="form-select select_bank_name" aria-label="Default select example" hidden="true">
-                            <option selected>請選擇</option>
+                            <option selected>請選擇銀行名稱與代碼</option>
                             <option value="004">004_臺灣銀行</option>
                             <option value="005">005_土地銀行</option>
                             <option value="006">006_合作商銀</option>
@@ -276,6 +290,7 @@
                             <option value="951">951_北農中心</option>
                             <option value="954">954_中南部地區農漁會</option>
                           </select>
+                          <span class="noticespan bankNamespan"></span>
                         </div>
                       </div>
 
@@ -283,6 +298,7 @@
                       <div class="col-sm-12">
                         <div class="form-control acct delBankaccount"></div>
                         <input id="account" type="text" name="account" class="form-control input_acct -none"/>
+                        <span class="noticespan delBankaccountspan"></span>
                       </div>
                     </div>
                     
@@ -290,7 +306,7 @@
                       <button type="button"class="btn btn_edit btn-outline-dark mf-bdr-15">修改
                       </button>
                     </div>
-                        
+    
 <!-- 植入結束          -->
                 </div>
               </div>
@@ -310,7 +326,7 @@
             <div class="col-12">
               <div class="row justify-content-between">
                 <div class="col-6 align-self-center">
-                  <a class="navbar-brand d-inline-flex" href="index.html">
+                  <a class="navbar-brand d-inline-flex" href="../index.html">
                     <span class="logo">Mon</span>
                     <span class="logo2">Food</span>
                   </a>
@@ -319,13 +335,13 @@
                 <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
                   <ul class="list-unstyled justify-content-center">
                     <li class="mt-3 mb-1">
-                      <a href="resLogin.html" class="transparent">新增您的餐廳</a>
+                      <a href="../resLogin.html" class="transparent">新增您的餐廳</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                      <a href="../delLogin.html">註冊成為外送夥伴</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="aboutUs.html">關於MonFood</a>
+                      <a href="../index.html">關於MonFood</a>
                     </li>
                   </ul>
                 </div>
@@ -338,38 +354,31 @@
 <!--FOOTER END -->
 
     <script src="../assets/js/jQuery-3.6.0.js"></script>
-    <script src="../assets/js/bootstrap.js"></script>
-    <script src="../assets/js/off-canvas.js"></script>
-    <script src="../assets/js/hoverable-collapse.js"></script>
-    <script src="../assets/js/misc.js"></script>
-    <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/todolist.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       window.onload = function () {
 //登入後載入資料
-          var getOneUrl = "../DelGetOneByID";
-          fetch(getOneUrl, {
-            method: "POST",
-            headers: {
-              "content-Type": "application.json",
-            },
-            body: JSON.stringify({
-            }),
-          })
-            .then(function (response) {
-              if (response.ok) {
-                console.log("成功載入登入資料");
-                return response.json(); // 將取得的資料，再使用 .json() 解析資料
-              }
-            })
-            .then(function (data) {
-              $("div.delAccountName").text(data.delAccountName);
-              $("div.delBankname").text(data.delBankcode + "  " + data.delBankname);
-              $("div.delBankaccount").text(data.delBankaccount);
-            });   
+        var update_acct_name;
+        var update_bank_acct;
+        var getOneUrl = "../DelGetOneByID";
+        fetch(getOneUrl, {
+          method: "POST",
+          headers: {"content-Type": "application.json",},
+          body: JSON.stringify({ }),
+        })
+        .then(function (response) {
+          if (response.ok) {
+            console.log("成功載入登入資料");
+            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+          }
+        })
+        .then(function (data) {
+          $("div.delAccountName").text(data.delAccountName);
+          $("div.delBankname").text(data.delBankcode + "  " + data.delBankname);
+          $("div.delBankaccount").text(data.delBankaccount);
+        });
+
 // 銀行資料修改
-          $("button.btn_edit").on("click", function () {
+        $("button.btn_edit").on("click", function () {
 
           if ($("div.bank_info").attr("data-edit") == undefined) {
             $("div.bank_info").attr("data-edit", true);
@@ -378,95 +387,117 @@
             $("select.form-select").attr("hidden", false);
             $("button.btn_edit").html("確認");
           } else {
-            var update_acct_name = $("input.input_acct_name").val().trim();
-            var update_bank_acct = $("input.input_acct").val().trim();
+            update_acct_name = $("input.input_acct_name").val().trim();
+            update_bank_acct = $("input.input_acct").val().trim();
             var update_code_name = $("select.select_bank_name").find("option:selected").text();
             var banknamecode = update_code_name.split("_");
             var update_bankcode = banknamecode[0];
             var update_bankname = banknamecode[1];
-            console.log(update_acct_name);
-            console.log(update_bank_acct);
-            console.log(update_bankcode);
-            console.log(update_bankname);
             
-                  if ( update_acct_name == "" || update_bank_acct == "" || update_bankcode == "" || update_bankname == "") {
-                      alert("請輸入待辦事項");
-                  } 
-                  else {
-                      $("div.acct_name").html(update_acct_name).toggleClass("-none");
-                      $("input.input_acct_name").val(update_acct_name).toggleClass("-none");
-                      $("div.acct").html(update_bank_acct).toggleClass("-none");
-                      $("input.input_acct").val(update_bank_acct).toggleClass("-none");
-                      $("div.bank_name").text(update_code_name).toggleClass("-none");
-                      $("select.form-select").val(update_code_name).attr("hidden", true);
-                      $("div.bank_info").removeAttr("data-edit");
-                      $("button.btn_edit").html("修改");
-                      btn_confirm();                   
-//ajax傳修改資料
-                      var url = "../DelEditBank";
-                      fetch(url, {
-                        method: "POST",
-                        headers: {
-                          "content-Type": "application.json",
-                        },
-                        body: JSON.stringify({
-                           delAccountName: update_acct_name,
-                           delBankname: update_bankname,
-                           delBankcode: update_bankcode,
-                           delBankaccount: update_bank_acct
-                        }),
-                      })
-                      .then(function (response) {
-                            if (response.ok) {
-                              console.log("成功送出修改資料");
-                              return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                            }
-                      })  
-               
-                  }
-              }
-          })
-  
-  
-          function btn_confirm() {
-          Swal.fire("修改成功", "更新完成", "success");
-        }
-        function img_change() {
-                Swal.fire('上傳照片', '請選擇照片', 'success')
-    }
+            if ( $("span").hasClass("noticespan")) {
+              swinputError();
+            }else {
+              $("div.acct_name").html(update_acct_name).toggleClass("-none");
+              $("input.input_acct_name").val(update_acct_name).toggleClass("-none");
+              $("div.acct").html(update_bank_acct).toggleClass("-none");
+              $("input.input_acct").val(update_bank_acct).toggleClass("-none");
+              $("div.bank_name").text(update_code_name).toggleClass("-none");
+              $("select.form-select").val(update_code_name).attr("hidden", true);
+              $("div.bank_info").removeAttr("data-edit");
+              $("button.btn_edit").html("修改");
+              updateok();                   
+// ajax傳修改資料
+              var url = "../DelEditBank";
+              fetch(url, {
+                method: "POST",
+                headers: {"content-Type": "application.json"},
+                body: JSON.stringify({
+                  delAccountName: update_acct_name,
+                  delBankname: update_bankname,
+                  delBankcode: update_bankcode,
+                  delBankaccount: update_bank_acct
+                }),
+              })
+              .then(function (response) {
+                if (response.ok) {
+                  console.log("成功送出修改資料");
+                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                }
+              })  
+            }
+          }
+        });
 
+// 帳戶人姓名驗證
+          $("div.col-sm-12").on("blur", "input#accountName", function(){
+            update_acct_name = $("input#accountName").val();
+            if(update_acct_name == ""){
+              $(".delAccountNamespan").addClass("noticespan").text("*請輸入銀行帳戶人姓名");               
+            }else{
+              $(".delAccountNamespan").removeClass("noticespan").text("");              
+            }
+          });
 
-    function isPoneAvailable($poneInput) {  
-      var myreg=/^[0][9][0-9]{8}$/;  
-      if (!myreg.test($("input.info_input_phone").val())) {  
-         return false;  
-      } else {  
-         return true;  
-      }  
-    } 
+// 銀行帳號驗證
+          $("div.col-sm-12").on("blur", "input#account", function(){
+            update_bank_acct = $("input#account").val();
+            if(update_bank_acct == ""){
+              $(".delBankaccountspan").addClass("noticespan").text("*請輸入完整銀行帳號");               
+            }else{
+              $(".delBankaccountspan").removeClass("noticespan").text("");              
+            }
+          });
+
+// 銀行名稱驗證
+          $("div.col-sm-12").on("blur", "select#bankName", function(){
+            if($("#bankName option:selected").val() == "請選擇銀行名稱與代碼"){
+              $(".bankNamespan").addClass("noticespan").text("*請選擇您的銀行");               
+            }else{
+              $(".bankNamespan").removeClass("noticespan").text("");              
+            }
+          });
+   
+// sweatAlert for typing error
+          function swinputError(){
+            Swal.fire({
+              title: '輸入錯誤!',
+              text: '請再次檢查輸入資料是否有誤',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            })
+          }
+
+// sweatAlert for update success
+          function updateok(){
+            Swal.fire({
+              title: '更新成功',
+              text: '已將您的資料更新',
+              icon: 'succeess',
+              confirmButtonText: 'OK'
+            })
+          }
 
 // LOGOUT
-$(".logout").on("click", function(){
-                     
-                     var logout = "../DelLogoutServlet"
-                     $.ajax({
-                         url: logout,            
-                         type: "POST",                
-                         data: JSON.stringify({
-                           action: "logout"
-                         }),             
-                     dataType: "json",           
-                     success: function(data){      
-                       console.log(data);
-                       if("登出成功"===data){
-                         window.location.href="../index.html";
-                       }
-                     },
-                     complete: function(){
-                       window.location.href="../index.html";
-                     }
-                     });
-                 });
+          $(".logout").on("click", function(){
+            var logout = "../DelLogoutServlet"
+            $.ajax({
+              url: logout,            
+              type: "POST",                
+              data: JSON.stringify({
+                action: "logout"
+              }),             
+              dataType: "json",           
+              success: function(data){      
+                console.log(data);
+                if("登出成功"===data){
+                  window.location.href="../index.html";
+                }
+              },
+              complete: function(){
+                window.location.href="../index.html";
+              }
+            });
+          });
 
 
 

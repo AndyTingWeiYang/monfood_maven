@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>MonFood</title>
+    <title>MonFood || DelMember Center</title>
 
     <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css"/>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/>
@@ -12,15 +12,24 @@
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
     <link rel="stylesheet" href="../css/userProfile-header.css" />
     <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+    <!-- SWEATALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+      div.imgcolumn{
+        display: flex;
+        align-content: stretch;
+        justify-content: space-between;
+      }
     </style>
   </head>
 
   <body>
     <div class="container-scroller">
 <!-- SIDEBAR START -->
-      <nav class="sidebar sidebar-offcanvas mf-sidebar" id="sidebar">
+          <nav class="sidebar sidebar-offcanvas mf-sidebar" id="sidebar">
         <ul class="nav" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item nav-category">
             <span class="nav-link">
@@ -102,43 +111,34 @@
 
       <div class="container-fluid page-body-wrapper">
 <!-- HEADER START -->
-        <nav id="header" class="navbar p-0 fixed-top d-flex flex-row mf-navbar" style="background-color: #1A4D2E;">
-          <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-            <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                <span class="mdi mdi-menu"></span>
-            </button> -->
-            <ul class="navbar-nav w-100 d-flex justify-content-center">
-              <span class="logo">Mon</span>
-              <span class="logo2">Food</span>
-            </ul>
-            <ul class="navbar-nav navbar-nav-right">
-              <div class="navbar-profile">
-                <span class="nav-item menu-items">
-                  <a class="nav-link" href="javascript:;">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-person-fill logout"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
-                      />
-                    </svg>
-                    <span class="menu-title align-item-center logout">登出</span>
-                  </a>
-                </span>
-              </div>
-            </ul>
+<nav id="header" class="navbar p-0 fixed-top d-flex flex-row mf-navbar" style="background-color: #1A4D2E;">
+  <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+    <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+        <span class="mdi mdi-menu"></span>
+    </button> -->
+    <ul class="navbar-nav w-100 d-flex justify-content-center">
+      <span class="logo">Mon</span>
+      <span class="logo2">Food</span>
+    </ul>
+    <ul class="navbar-nav navbar-nav-right">
+      <div class="navbar-profile">
+        <span class="nav-item menu-items">
+          <a class="nav-link" href="javascript:;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill logout" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+            <span class="menu-title align-item-center logout">登出</span>                    
+          </a>
+        </span>
+      </div>
+    </ul>
 <!-- 手機畫面漢堡選單 -->
             <button
               class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
               type="button"
               data-toggle="offcanvas"
             >
-              <span class="mdi mdi-format-line-spacing"></span>
+              <span class="mdi mdi-view-headline"></span>
             </button>
           </div>
         </nav>
@@ -152,124 +152,80 @@
               <div class="form-group row">
                 <div class="col-sm-12">
 <!-- 植入開始             -->   
-                    <div class="row">
+                    <div class="row" style="justify-content: center;">
                       <div class="col-sm-6">
                         <div class="list list-row block">
 
-                          <div class="list-item" data-id="19">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-success">v</span></a>
+                          <div class="list-item" data-id="1">       
+                            <div class="flex imgcolumn">
+                              <h3>身分證</h3>
+                              <img style="width: 20%" id="delIDPhoto" src="" alt=""/>
                             </div>
-                            <div class="flex div_id">
-                              <a href="#" class="item-author text-color" data-abc="true">身分證</a>
+                            <div class="no-wrap">
                               <input type="file" class="input_id" />
-                              <img style="width: 20%"id="delIDPhoto"src=""alt=""/>
-                              <div class="item-except text-muted text-sm h-1x">
-                                已核准
-                              </div>
                             </div>
                           </div>
 
                           <hr/>
 
-                          <div class="list-item" data-id="17">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-warning">P</span></a>
-                            </div>
-                            <div class="flex">
-                              <a href="#" class="item-author text-color" data-abc="true">機車行照</a>
-                                <input type="file" class="input_car" />
-                                <img style="width: 20%" id="carLicense" src="" alt=""/>
-                              <div class="item-except text-muted text-sm h-1x">
-                                審核中
-                              </div>
+                          <div class="list-item" data-id="2">       
+                            <div class="flex imgcolumn">
+                              <h3>機車行照</h3>
+                              <img style="width: 20%" id="carLicense" src="" alt=""/>
                             </div>
                             <div class="no-wrap">
-                              <div class="item-date text-muted text-sm d-none d-md-block">13/3/19</div>
+                              <input type="file" class="input_car" />
                             </div>
                           </div>
 
                           <hr />
 
-                          <div class="list-item" data-id="16">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-warning">P</span></a>
-                            </div>
-                            
-                            <div class="flex">
-                              <a href="#" class="item-author text-color" data-abc="true">機車駕照</a>
-                                <input type="file" class="input_drive" />
+                          <div class="list-item" data-id="3">       
+                            <div class="flex imgcolumn">
+                              <h3>機車駕照</h3>
                               <img style="width: 20%" id="driveLicense" src="" alt=""/>
-                              <div class="item-except text-muted text-sm h-1x">
-                                審核中
-                              </div>
                             </div>
-
                             <div class="no-wrap">
-                              <div class="item-date text-muted text-sm d-none d-md-block">03/1/19</div>
+                              <input type="file" class="input_drive" />
                             </div>
                           </div>
 
                           <hr/>
-
-                          <div class="list-item" data-id="4">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-warning">P</span></a>
-                            </div>
-
-                            <div class="flex">
-                              <a href="#" class="item-author text-color" data-abc="true">強制險</a>
-                              <input type="file" class="input_insurance" />
+                                                               
+                          <div class="list-item" data-id="4">       
+                            <div class="flex imgcolumn">
+                              <h3>強制險</h3>
                               <img style="width: 20%" id="insurance" src="" alt=""/>
-                              <div class="item-except text-muted text-sm h-1x">
-                                審核中
-                              </div>
                             </div>
-
                             <div class="no-wrap">
-                              <div class="item-date text-muted text-sm d-none d-md-block">2 hours ago</div>
+                              <input type="file" class="input_insurance" />
                             </div>
                           </div>
-                          
+
                           <hr/>
                           
-                          <div class="list-item" data-id="4">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-success">v</span></a>
-                            </div>
-
-                            <div class="flex">
-                              <a href="#" class="item-author text-color" data-abc="true">良民證</a>
-                              <input type="file" class="input_criminal" />
+                          <div class="list-item" data-id="5">       
+                            <div class="flex imgcolumn">
+                              <h3>良民證</h3>
                               <img style="width: 20%" id="criminalRecord" src="" alt=""/>
-                              <div class="item-except text-muted text-sm h-1x">
-                                已核准
-                              </div>
                             </div>
-
                             <div class="no-wrap">
-                              <div class="item-date text-muted text-sm d-none d-md-block">2 hours ago</div>
+                              <input type="file" class="input_criminal" />
                             </div>
                           </div>
 
                           <hr/>
 
-                          <div class="list-item" data-id="4">
-                            <div>
-                              <a href="#" data-abc="true"><span class="w-48 avatar gd-success">v</span></a>
-                            </div>
-                            <div class="flex">
-                              <a href="#" class="item-author text-color" data-abc="true">法律協議</a>
-                              <div class="item-except text-muted text-sm h-1x">已核准</div>
-                            </div>
-                            <div class="no-wrap">
-                              <div class="item-date text-muted text-sm d-none d-md-block">2 hours ago</div>
-                            </div>   
+                          <div class="flex">  
+                            <button class="info btn btn_edit btn-outline-dark mf-bdr-15">click</button>
                           </div>
+
+                       
+                        </div>
                         
                         </div>
                       </div>
-                      <button class="info">click</button>
+                      
                     </div>
 <!-- 植入結束          -->
                 </div>
@@ -299,13 +255,13 @@
                 <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
                   <ul class="list-unstyled justify-content-center">
                     <li class="mt-3 mb-1">
-                      <a href="resLogin.html" class="transparent">新增您的餐廳</a>
+                      <a href="../resLogin.html" class="transparent">新增您的餐廳</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                      <a href="../delLogin.html">註冊成為外送夥伴</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="aboutUs.html">關於MonFood</a>
+                      <a href="../index.html">關於MonFood</a>
                     </li>
                   </ul>
                 </div>
@@ -318,136 +274,112 @@
 <!--FOOTER END -->
 
     <script src="../assets/js/jQuery-3.6.0.js"></script>
-    <script src="../assets/js/bootstrap.js"></script>
-    <script src="../assets/js/off-canvas.js"></script>
-    <script src="../assets/js/hoverable-collapse.js"></script>
-    <script src="../assets/js/misc.js"></script>
-    <script src="../assets/js/settings.js"></script>
-    <script src="../assets/js/todolist.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-         var uploadID;
-        var uploadcar;
-        var uploaddrive;
-        var uploadcriminal;
-        var uploadinsurance;
-//頁面載入後載入登入資料      
-        $(function(){
-            var getOneUrl = "../DelGetPic";
-    fetch((getOneUrl),{
+      var uploadID;
+      var uploadcar;
+      var uploaddrive;
+      var uploadcriminal;
+      var uploadinsurance;
+//  頁面載入後載入登入資料      
+      $(function(){
+        var getOneUrl = "../DelGetPic";
+        fetch((getOneUrl),{
           method: "POST",
-          headers: {
-            "content-Type": "application.json"
-          },
-          body: JSON.stringify({
-          })
-    })
-      .then(function (response) {
-        if (response.ok) {
-          console.log("載入登入資料完成");
-          return response.json(); // 將取得的資料，再使用 .json() 解析資料
-        }
-      })
-      .then(function(data){
+          headers: {"content-Type": "application.json"},
+          body: JSON.stringify({})
+        })
+        .then(function (response) {
+          if (response.ok) {
+            console.log("載入登入資料完成");
+            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+            updateok();
+          }
+        })
+        .then(function(data){
 
-        $("#delIDPhoto").attr("src", "data:img/jpg;base64," + data[0]);   
-        $("#carLicense").attr("src", "data:img/jpg;base64," + data[1]); 
-        $("#driveLicense").attr("src", "data:img/jpg;base64," + data[2]); 
-        $("#criminalRecord").attr("src", "data:img/jpg;base64," + data[3]);
-        $("#insurance").attr("src", "data:img/jpg;base64," + data[4]);
+          $("#delIDPhoto").attr("src", "data:img/jpg;base64," + data[0]);   
+          $("#carLicense").attr("src", "data:img/jpg;base64," + data[1]); 
+          $("#driveLicense").attr("src", "data:img/jpg;base64," + data[2]); 
+          $("#criminalRecord").attr("src", "data:img/jpg;base64," + data[3]);
+          $("#insurance").attr("src", "data:img/jpg;base64," + data[4]);
         
-        uploadID = $("#delIDPhoto").attr("src");
-        uploadcar = $("#carLicense").attr("src");
-        uploaddrive = $("#driveLicense").attr("src");
-        uploadcriminal = $("#criminalRecord").attr("src");
-        uploadinsurance = $("#insurance").attr("src");
-        
-        
+          uploadID = $("#delIDPhoto").attr("src");
+          uploadcar = $("#carLicense").attr("src");
+          uploaddrive = $("#driveLicense").attr("src");
+          uploadcriminal = $("#criminalRecord").attr("src");
+          uploadinsurance = $("#insurance").attr("src");
+    
+        });
       });
-
-});
-
-
 
 //更新圖片
       $("button.info").on("click", function () {
         var editUrl = "../DelEditPic";
-
         $.ajax({
-            url: editUrl,
-            type: "POST",
-            data: JSON.stringify({
-              delIDPhoto: uploadID,
-              carLicense: uploadcar,
-              driveLicense: uploaddrive,
-              criminalRecord: uploadcriminal,
-              insurance: uploadinsurance,
-            }),
-            dataType: "JSON",
-            success: function () {
-              console.log("成功傳出編輯資訊");
-              btn_confirm();
+          url: editUrl,
+          type: "POST",
+          data: JSON.stringify({
+            delIDPhoto: uploadID,
+            carLicense: uploadcar,
+            driveLicense: uploaddrive,
+            criminalRecord: uploadcriminal,
+            insurance: uploadinsurance,
+          }),
+          dataType: "JSON",
+          success: function (data) {
+            console.log("成功傳出編輯資訊");
+            console.log(data);
+            updateok();
             },
           });
       });
 
-
-
-//選擇圖片後轉成base64並產生預覽
+// 選擇圖片後轉成base64並產生預覽
       $("input.input_id").on("change", function () {
         var input_id = $(".input_id");
-
         run(this, function (data) {
-            uploadID = data;
+          uploadID = data;
           $("#delIDPhoto").attr("src", data);        
         });
 
         $("input.input_car").on("change", function () {
             var input_id = $(".input_car");
-
             run(this, function (data) {
-                uploadcar = data;
-                $("#carLicense").attr("src", data);        
-             });
+              uploadcar = data;
+              $("#carLicense").attr("src", data);        
+            });
          });
 
-         $("input.input_drive").on("change", function () {
-            var input_id = $(".input_drive");
+        $("input.input_drive").on("change", function () {
+          var input_id = $(".input_drive");
+          run(this, function (data) {
+            uploaddrive = data;
+            $("#driveLicense").attr("src", data);        
+          });
+        });
 
-            run(this, function (data) {
-                uploaddrive = data;
-                $("#driveLicense").attr("src", data);        
-             });
-         });
+        $("input.input_criminal").on("change", function () {
+          var input_id = $(".input_criminal");
+          run(this, function (data) {
+            uploadcriminal = data;
+            $("#criminalRecord").attr("src", data);        
+          });
+        });
 
-         $("input.input_criminal").on("change", function () {
-            var input_id = $(".input_criminal");
-
-            run(this, function (data) {
-                uploadcriminal = data;
-                $("#criminalRecord").attr("src", data);        
-             });
-         });
-
-         $("input.input_insurance").on("change", function () {
-            var input_id = $(".input_insurance");
-
-            run(this, function (data) {
-                uploadinsurance = data;
-                $("#insurance").attr("src", data);        
-             });
-         });
-
-        
-
-
+        $("input.input_insurance").on("change", function () {
+          var input_id = $(".input_insurance");
+          run(this, function (data) {
+            uploadinsurance = data;
+            $("#insurance").attr("src", data);        
+          });
+        });
+     
+// 自定義圖檔轉base64        
         function run(input_id, get_data) {
           /*input_file:檔案按鈕物件*/
           /*get_data: 轉換成功後執行的方法*/
           if (typeof FileReader === "undefined") {
-            alert(
-              "抱歉,你的瀏覽器不支援 FileReader,不能將圖片轉換為Base64,請使用現代瀏覽器操作!"
-            );
+            alert("抱歉,你的瀏覽器不支援 FileReader,不能將圖片轉換為Base64,請使用現代瀏覽器操作!");
           } else {
             try {
               /*圖片轉Base64 核心程式碼*/
@@ -472,46 +404,37 @@
           }
         }
 
-        function btn_confirm() {
-          Swal.fire("修改成功", "更新完成", "success");
+// sweatAlert for update success
+        function updateok(){
+          Swal.fire({
+            title: '更新成功',
+            text: '已將您的資料更新',
+            icon: 'succeess',
+            confirmButtonText: 'OK'
+          })
         }
-        function img_change() {
-                Swal.fire('上傳照片', '請選擇照片', 'success')
-    }
-
-
-    function isPoneAvailable($poneInput) {  
-      var myreg=/^[0][9][0-9]{8}$/;  
-      if (!myreg.test($("input.info_input_phone").val())) {  
-         return false;  
-      } else {  
-         return true;  
-      }  
-    } 
 
 // LOGOUT
-$(".logout").on("click", function(){
-  alert("hi");
-                     
-                     var logout = "../DelLogoutServlet"
-                     $.ajax({
-                         url: logout,            
-                         type: "POST",                
-                         data: JSON.stringify({
-                           action: "logout"
-                         }),             
-                     dataType: "json",           
-                     success: function(data){      
-                       console.log(data);
-                       if("登出成功"===data){
-                         window.location.href="../index.html";
-                       }
-                     },
-                     complete: function(){
-                       window.location.href="../index.html";
-                     }
-                     });
-                 });
+        $(".logout").on("click", function(){                
+          var logout = "../DelLogoutServlet"
+          $.ajax({
+            url: logout,            
+            type: "POST",                
+            data: JSON.stringify({
+              action: "logout"
+            }),             
+            dataType: "json",           
+            success: function(data){      
+              console.log(data);
+              if("登出成功"===data){
+                window.location.href="monFoodIndex.html";
+              }
+            },
+            complete: function(){
+              window.location.href="monFoodIndex.html";
+            }
+          });
+        });
 
 
 

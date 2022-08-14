@@ -139,11 +139,11 @@ window.addEventListener('load', function(){
     $(".title").text(delName);
 
     // 建立連線
-    let myPoint = `/chatroom/${userId}/${userType}`;
-    // let host = window.location.host;
+    let myPoint = `/ResToDel/${userId}/${userType}`;
+    let host = window.location.host;
     // let path = window.location.pathname;
     // let webCtx = path.substring(0, path.indexOf("/", 1));
-    let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + myPoint;
+    let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
     console.log(endPointURL);
 
     let webSocket = new WebSocket(endPointURL);
@@ -176,6 +176,12 @@ window.addEventListener('load', function(){
       $(".message_input").val("");
     });
 
+
+    $(".message_input").on("keyup",function(e){
+      if(e.which==13){
+        $(".send_message").click();
+      };
+    });
 
     webSocket.onclose = function(event) {
       // console.log("商家連線斷囉Disconnected!");

@@ -115,7 +115,7 @@ init();
                         </div>
                     </form>
                     <div class="d-flex justify-content-end mt-5">
-                        <a id="btnUpdate" href="resprofile-info.jsp">
+                        <a id="btnUpdate" href="ResInfoPreviewOldData">
                         	<button type="button" class="btn btn-outline-dark mf-bdr-15 ml-2">更新</button>
                         </a>
 <!--                         <button type="button" id="btnCancel2" class="btn btn-outline-dark mf-bdr-15 ml-2">取消 -->
