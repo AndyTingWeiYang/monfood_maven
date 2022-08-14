@@ -3,15 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>MonFood</title>
+    <title>MonFood || DelMember Center</title>
 
     <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css"/>
-    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/>
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/> 
     <link rel="stylesheet" href="../assets/css/style.css" />
-    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
-    <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" /> 
+    <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" /> 
     <link rel="stylesheet" href="../css/userProfile-header.css" />
     <link rel="stylesheet" href="../css/userProfile-sidebar.css" />
+    <!-- SWEATALERT -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
       
@@ -21,7 +24,9 @@
         /* border: 2px solid blue; */
       }
       input.info_input{
-        width: 80%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        width: 30%;
       }
 
       input.info_input.-none{
@@ -36,6 +41,16 @@
       button.btn.btn-primary{
         background-color: #1A4D2E;
         border: #1A4D2E;
+      }
+
+      .noticespan {
+        color: red;
+        font-size: 10px;
+      }
+
+      .okspan {
+        color: green;
+        font-size: 10px;
       }
 
     </style>
@@ -153,7 +168,7 @@
               type="button"
               data-toggle="offcanvas"
             >
-              <span class="mdi mdi-format-line-spacing"></span>
+              <span class="mdi mdi-view-headline"></span>
             </button>
           </div>
         </nav>
@@ -164,8 +179,8 @@
           <div class="mf-content-wrapper mt-5">
             <!-- 表單區塊 -->
             <div class="jumbotron">
-              <div class="form-group row">
-                <div class="col-sm-12">
+              <div class="form-group row" style="justify-content: space-around;">
+                <div class="col-sm-6">
 <!-- 植入開始             -->   
                       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                       <div class="container bootdey flex-grow-1 container-p-y">
@@ -198,7 +213,8 @@
                                     <h6>帳號:</h6>
                                     <li class="info delAccount "></li>
                                     <input type="text" class="info_input info_input_account -none">
-                                    
+                                    <span class="noticespan emailspan okspan"></span>
+
                                     <hr>
                                     
                                     <h6>生日:</h6>
@@ -208,8 +224,8 @@
                                     
                                     <h6>手機:</h6>
                                     <li class="info info_phone delTel"></li>
-                                    <input type="text" class="info_input info_input_phone -none" placeholder="請輸入您的手機號" oninput = "value=value.replace(/[^\d]/g,'')" maxlength="11">
-                                    
+                                    <input type="text" class="info_input info_input_phone -none" placeholder="請輸入您的手機號" oninput = "value=value.replace(/[^\d]/g,'')" maxlength="10">
+                                    <span class="noticespan telspan okspan"></span>
                                     <hr>
                                   
                                     <h6>帳戶狀態:</h6>
@@ -252,13 +268,13 @@
                 <div class="col-6 col-lg-2 col-md-3 mt-sm-0 mt-0" style="font-size: 13px">
                   <ul class="list-unstyled justify-content-center">
                     <li class="mt-3 mb-1">
-                      <a href="resLogin.html" class="transparent">新增您的餐廳</a>
+                      <a href="../resLogin.html" class="transparent">新增您的餐廳</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="delLogin.html">註冊成為外送夥伴</a>
+                      <a href="../delLogin.html">註冊成為外送夥伴</a>
                     </li>
                     <li class="mb-1 transparent">
-                      <a href="aboutUs.html">關於MonFood</a>
+                      <a href="../index.html">關於MonFood</a>
                     </li>
                   </ul>
                 </div>
@@ -277,130 +293,184 @@
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
     <script src="../assets/js/todolist.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       window.onload = function () {
+        var update_info_phone;
+        var update_info_account;
 // LOGIN狀態下載入資料
-              var getOneUrl = "../DelGetOneByID";
+        var getOneUrl = "../DelGetOneByID";
+        fetch((getOneUrl),{
+          method: "POST",
+          headers: {"content-Type": "application.json"},
+          body: JSON.stringify({})
+        })
+        .then(function (response) {
+          if (response.ok) {	
+            console.log("成功載入登入資料");		
+            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+          }
+        })
+        .then(function(data){
+          sessionStorage.setItem("del", data.delID);
+          let delName = data.delName;
+          let delNameString = JSON.stringify(delName);
+          let nameList = delNameString.split("_");
+          sessionStorage.setItem("resName", nameList);
+          let delNameFinal = nameList[0].replace("\"", "");
+          $("span.loginDelID").text(data.delID);
+          $("h4.loginName").text(delNameFinal);
+          $("li.delName").text(delNameFinal);
+          $("li.delAccount").text(data.delAccount);
+          $("li.delBirthday").text(data.delBirthday);
+          $("li.delTel").text(data.delTel);
+          if(data.status == "1"){
+            $("li.status").html(`<span class="fa fa-check text-primary">使用中</span>`);
+          } else if(data.status == "2"){
+            $("li.status").html(`<span class="fa fa-times">暫停使用請聯絡客服</span>`);
+          }
+        });
 
-              fetch((getOneUrl),{
-                    method: "POST",
-                    headers: {
-                      "content-Type": "application.json"
-                    },
-                    body: JSON.stringify({
-                    })
-              })
-                .then(function (response) {
-                  if (response.ok) {	// 接收到回傳的物件
-                    console.log("成功載入登入資料");		// 如果正確取得資料，沒有發生錯誤
-                    return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                  }
-                })
-                .then(function(data){
-                    sessionStorage.setItem("del", data.delID);
-                    let delName = data.delName;
-                    let delNameString = JSON.stringify(delName);
-                    let nameList = delNameString.split("_");
-                    sessionStorage.setItem("resName", nameList);
-                    let delNameFinal = nameList[0].replace("\"", "");
-                    $("span.loginDelID").text(data.delID);
-                    $("h4.loginName").text(delNameFinal);
-                    $("li.delName").text(delNameFinal);
-                    $("li.delAccount").text(data.delAccount);
-                    $("li.delBirthday").text(data.delBirthday);
-                    $("li.delTel").text(data.delTel);
-                    if(data.status == "1"){
-                      $("li.status").html(`<span class="fa fa-check text-primary">使用中</span>`);
-                    } else if(data.status == "2"){
-                      $("li.status").html(`<span class="fa fa-times">暫停使用請聯絡客服</span>`);
-                    }
-                });
 // 基本資料修改並傳入DB
-                $("button.btn_edit").on("click", function(){
-                        if($("ul.info").attr("data-edit") == undefined){ // 進入編輯狀態
-                              $("ul.info").attr("data-edit", true);
-                              $("li.info").toggleClass("-none");
-                              $("input.info_input").toggleClass("-none");
-                              $("button.btn_edit").html("確認");
-                        }else{
-                              var update_info_phone = ($("input.info_input_phone").val()).trim();
-                              var update_info_account = ($("input.info_input_account").val()).trim();
-                              if(update_info_phone == "" || update_info_account == ""){
-                                      alert("請輸入待辦事項");
-                              }else{
-                                      // alert("修改成功");
-                                      $("li.info_phone").html(update_info_phone).toggleClass("-none");
-                                      $("input.info_input_phone").val(update_info_phone).toggleClass("-none");
-                                      $("li.delAccount").html(update_info_account).toggleClass("-none");
-                                      $("input.info_input_account").val(update_info_account).toggleClass("-none");
-                                      $("ul.info").removeAttr("data-edit");
-                                      $("button.btn_edit").html("修改");
-                                      btn_confirm();
-                            //ajax傳出修改資料
-                                      const url = "../DelEditInfo";
-                                      fetch(url, {
-                                        method: "POST",
-                                        headers: {
-                                          "content-Type": "application.json",
-                                        },
-                                        body: JSON.stringify({
-                                          delAccount: update_info_account,
-                                          delTel: update_info_phone
-                                        }),
-                                      })
-                                        .then(function (response) {
-                                            // 接收到回傳的物件
-                                            if (response.ok) {
-                                            // 如果正確取得資料，沒有發生錯誤
-                                            console.log("成功送出修改資料");
-                                            return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                                            }
-                                        })         
-                                     
-                              }
-                        }
-                  });
-// SWEATALERT
-                  function btn_confirm() {
-                      Swal.fire('修改成功', '更新完成', 'success')
-                  }
-                  function img_change() {
-                      Swal.fire('上傳照片', '請選擇照片', 'success')
-                  }
-                  function isPoneAvailable($poneInput) {  
-                      var myreg=/^[0][9][0-9]{8}$/;  
-                      if (!myreg.test($("input.info_input_phone").val())) {  
-                          return false;  
-                      } else {  
-                          return true;  
-                      }  
-                  } 
+        $("button.btn_edit").on("click", function(){
+          if($("ul.info").attr("data-edit") == undefined){ // 進入編輯狀態
+            $("ul.info").attr("data-edit", true);
+            $("li.info").toggleClass("-none");
+            $("input.info_input").toggleClass("-none");
+            $("button.btn_edit").html("確認");
+          }else{
+            update_info_phone = ($("input.info_input_phone").val()).trim();
+            update_info_account = ($("input.info_input_account").val()).trim();
+            if($("span").hasClass("noticespan")){
+              swinputError();
+            }else{
+             
+              $("li.info_phone").html(update_info_phone).toggleClass("-none");
+              $("input.info_input_phone").val(update_info_phone).toggleClass("-none");
+              $("li.delAccount").html(update_info_account).toggleClass("-none");
+              $("input.info_input_account").val(update_info_account).toggleClass("-none");
+              $("ul.info").removeAttr("data-edit");
+              $("button.btn_edit").html("修改");
+              updateok();
+             
+//ajax傳出修改資料
+              const url = "../DelEditInfo";
+              fetch(url, {
+                method: "POST",
+                headers: {"content-Type": "application.json"},
+                body: JSON.stringify({
+                  delAccount: update_info_account,
+                  delTel: update_info_phone
+                }),
+              })
+              .then(function (response) {
+                if (response.ok) {
+                  // 如果正確取得資料，沒有發生錯誤
+                  console.log("成功送出修改資料");
+                  $("span.okspan").addClass("noticespan").text("");
+                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
+                }
+              })         
+            }
+          }
+        });
+
+// 電子郵件修改驗證
+        $("ul.info").on("blur", "input.info_input", function(){
+          update_info_account = $("input.info_input_account").val();
+          var pattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+          if(update_info_account == ""){
+            $(".emailspan").addClass("noticespan").removeClass("okspan").text('*請輸入完整電子郵件帳號');  
+          }else if(!(pattern.test(update_info_account.trim()))){
+            $(".emailspan").addClass("noticespan").removeClass("okspan").text('*電子郵件帳號格式有誤');  
+          }else{  
+            var regicheck = "../DelRegiCheckServlet"
+            $.ajax({
+              url: regicheck,          
+              type: "POST",                  
+              data: JSON.stringify({
+                delAccount: update_info_account
+              }),            
+              dataType: "json",           
+              success: function(data){      
+                if("可以喔~"===data){
+                  $(".emailspan").removeClass("noticespan").addClass("okspan").text(data);
+                }else{
+                  $(".emailspan").removeClass("okspan").addClass("noticespan").text(data);
+                }
+              }
+            });
+          }
+        });
+
+// 手機號碼修改驗證
+        $("ul.info").on("blur", "input.info_input", function(){
+          update_info_phone = $("input.info_input_phone").val();  
+          var pattern = /[0-9]/;
+          if(update_info_phone == ""){
+            $(".telspan").removeClass("okspan").addClass("noticespan").text('*請輸入手機號碼');  
+          }else if(!(pattern.test(update_info_phone.trim()))){
+            $(".telspan").removeClass("okspan").addClass("noticespan").text('*請輸入數字');               
+          }else{
+            var regicheck = "../DelRegiCheckServlet"
+            $.ajax({
+              url: regicheck,          
+              type: "POST",                  
+              data: JSON.stringify({
+                delTel: update_info_phone
+              }),            
+              dataType: "json",           
+              success: function(data){      
+                if("可以喔~"===data){
+                  $(".telspan").removeClass("noticespan").addClass("okspan").text(data);
+                }else{
+                  $(".telspan").removeClass("okspan").addClass("noticespan").text(data);
+                }
+              }
+            });
+          }
+        });
 
 // LOGOUT
-                  $(".logout").on("click", function(){
-                     
-        	            var logout = "../DelLogoutServlet"
-                      $.ajax({
-                          url: logout,            
-                          type: "POST",                
-                          data: JSON.stringify({
-                            action: "logout"
-                          }),             
-                      dataType: "json",           
-                      success: function(data){      
-                        console.log(data);
-                        if("登出成功"===data){
-                          window.location.href="../index.html";
-                        }
-                      },
-                      complete: function(){
-                        window.location.href="../index.html";
-                      }
-                      });
-                  });
+        $(".logout").on("click", function(){
+          var logout = "../DelLogoutServlet";
+          $.ajax({
+            url: logout,            
+            type: "POST",                
+            data: JSON.stringify({
+              action: "logout"
+            }),             
+            dataType: "json",           
+            success: function(data){      
+              console.log(data);
+              if("登出成功"===data){
+                window.location.href="../index.html";
+              }
+            },
+            complete: function(){
+              window.location.href="../index.html";
+            }
+          });
+        });
          
+// sweatAlert for typing error
+        function swinputError(){
+          Swal.fire({
+            title: '輸入錯誤!',
+            text: '請再次檢查輸入資料是否有誤',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
+        }
 
+// sweatAlert for update success
+        function updateok(){
+          Swal.fire({
+            title: '更新成功',
+            text: '已將您的資料更新',
+            icon: 'succeess',
+            confirmButtonText: 'OK'
+          })
+        }
 
 
 

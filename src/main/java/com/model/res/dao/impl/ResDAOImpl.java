@@ -301,7 +301,7 @@ public class ResDAOImpl implements ResDAO {
 
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<>();
-				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("rate", rs.getDouble("ROUND(AVG(RES_RATE),1)"));
 				map.put("resId", rs.getInt("RES_ID"));
 				map.put("resCategory", rs.getInt("RES_CATEGORY"));
 				map.put("resName", rs.getString("RES_NAME"));
