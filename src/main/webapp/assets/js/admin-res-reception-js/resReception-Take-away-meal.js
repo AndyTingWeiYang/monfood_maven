@@ -2,6 +2,7 @@ $(document).ready(function() {
     let orderList;
     let delOrder;
     let intervalId;
+    let orderMap;
 
     function init() {
         $.ajax({
@@ -20,7 +21,7 @@ $(document).ready(function() {
                 }
 
                 for(let i = 0; i < orderList.length; i++) {
-                    const orderMap = orderList[i];
+                    orderMap = orderList[i];
 
                     const accordionList = `
                         <div class="accordion" id="accordionExample-${i}"></div><br>
@@ -128,13 +129,82 @@ $(document).ready(function() {
 
     init();
 
-   $(document).mouseover(function() {
-       clearInterval(intervalId);
-   });
+//    $(document).mouseover(function() {
+//        clearInterval(intervalId);
+//    });
 
-   $(document).mouseleave(function() {
-       // 每5秒撈取資料
-       clearInterval(intervalId);
-       intervalId = setInterval(init, 5000);
-   });
+//    $(document).mouseleave(function() {
+//        // 每5秒撈取資料
+//        clearInterval(intervalId);
+//        intervalId = setInterval(init, 5000);
+//    });
+
+// ===============websocket yuyu======================
+// webSocket
+    resId = sessionStorage.getItem("resId");
+    let resType = "0";
+
+    // 建立連線
+    let myPoint = `/ResToDel/${resId}/${resType}`;
+    let host = window.location.host;
+    // let path = window.location.pathname;
+    // let webCtx = path.substring(0, path.indexOf("/", 1));
+    let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
+    console.log(endPointURL);
+
+    let webSocket = new WebSocket(endPointURL);
+
+    webSocket.onopen = function (event) {
+        console.log("商家連線上囉Connect Success!");
+    };
+
+
+    let delId ;
+    webSocket.onmessage = function (event) {
+        let jsonObj = JSON.parse(event.data);
+        console.log("jsonObj = ", jsonObj);
+        if ("delAccept" === jsonObj.type) {          
+            console.log("收到外送員已接單jsonObj = ",jsonObj);
+            delId = jsonObj.delId;
+            console.log("delId = ",delId)
+        }
+    }    
+
+
+    $('#taken').click(function () {
+        console.log("按下btn");
+        addListener();
+    });
+
+    function addListener() {
+        var jsonObj = {
+            type: "taken",
+            sender: resId,
+            receiver: delId + "1",
+            message: `可取餐了`,          
+        };
+        webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
+        console.log(jsonObj);
+    }
+
+
+    webSocket.onclose = function (event) {
+        console.log("商家連線斷囉Disconnected!");
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });

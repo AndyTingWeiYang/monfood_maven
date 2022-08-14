@@ -132,14 +132,15 @@ $(document).ready(function () {
                 // ===============websocket yuyu======================
                 // webSocket
                 resId = orderMap.RES_ID;
+                sessionStorage.setItem("resId",resId)
                 let resType = "0";
 
                 // 建立連線
                 let myPoint = `/ResToDel/${resId}/${resType}`;
-                // let host = window.location.host;
+                let host = window.location.host;
                 // let path = window.location.pathname;
                 // let webCtx = path.substring(0, path.indexOf("/", 1));
-                let endPointURL = "wss://35.201.129.109:8443/monfood_maven"+ myPoint;
+                let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
                 console.log(endPointURL);
 
                 let webSocket = new WebSocket(endPointURL);
@@ -181,7 +182,7 @@ $(document).ready(function () {
                                 if (result.isConfirmed) {
                                     cartList = jsonObj.cartList;
                                     orderListQQ = jsonObj.orderList;
-                                    alert("您已接單");
+                                    Swal.fire("您已接單");
 
                                     // 更新商品訂單狀態
                                     $.ajax({
@@ -238,6 +239,7 @@ $(document).ready(function () {
                     console.log("按下btn");
                     // 隨機取resId
                     delId = delIdArr[getRandomInt(delIdArr.length)];
+                   
                     addListener();
 
                     // 更新商品訂單狀態

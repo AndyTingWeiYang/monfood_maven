@@ -182,8 +182,8 @@
       <main>
           <!-- title -->
           <div class="title">
-            <span style="font-size: 25px;"><b>餐點狀態：</b></span>
-            <span id="meal-status">請前往領取餐點</span>
+            <span style="font-size: 25px;"><b>訂單狀態：</b></span>
+            <span id="meal-status"></span>
             <!-- meal-status = 已接單請前往領取餐點、請前往送餐、完成送餐請點擊完成訂單 -->
           </div>
 
@@ -231,7 +231,6 @@
                     </svg>
                     <span id="del-address"></span>
                   </div>
-                  <div>預計車程時間 <span id="del-time"></span></div>
                 </div>
 
 
@@ -319,14 +318,17 @@
 
       <script src="assets/js/jQuery-3.6.0.js"></script>
       
-      <script>         
-          // 訂單資訊
+      <script>     
           let resAddress = sessionStorage.getItem('resAddress');
-          $("#res-address").text(resAddress);
           let cartList = JSON.parse(sessionStorage.getItem('cartList'));
           let orderList = JSON.parse(sessionStorage.getItem('orderList'));
+          
+        
+          // 訂單資訊
+          $("#res-address").text(resAddress);
           $("#lump-sum").text(orderList.total);
           $("#payment-method").text(orderList.payBy);
+          $("#del-address").text(orderList.address);
 
           let listgroupitem;
           $.each(cartList, function( index, value ) {
@@ -377,11 +379,11 @@
           let delType = "1";
 
           // 建立連線
-          let myPoint = `/chatroom/${delId}/${delType}`;
-          // let host = window.location.host;
+          let myPoint = `/ResToDel/${delId}/${delType}`;
+          let host = window.location.host;
           // let path = window.location.pathname;
           // let webCtx = path.substring(0, path.indexOf("/", 1));
-          let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + myPoint;
+          let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
           console.log(endPointURL);
 
           let webSocket = new WebSocket(endPointURL);
@@ -398,7 +400,11 @@
                 let message = jsonObj.message;
                 let isMe = jsonObj.sender === delId;
                 appendNewMsg(isMe, message);
-              } 
+              }else if("taken" === jsonObj.type) {
+                console.log("我有收到taken");
+                alert("我有收到taken");
+              }
+
           };  
 
           $(".send_message").on("click",function(){
@@ -415,6 +421,11 @@
             $(".message_input").val("");
           });
 
+          $(".message_input").on("keyup",function(e){
+            if(e.which==13){
+              $(".send_message").click();
+            };
+          });
 
           webSocket.onclose = function(event) {
             // console.log("商家連線斷囉Disconnected!");
@@ -471,7 +482,7 @@
                   directionsService.route(
                     {
                       origin: delLocation ,
-                      destination: orderList.address ,  //目的地到時候要串使用者及商家位置
+                      destination: resAddress ,  //目的地到時候要串使用者及商家位置
                       travelMode: "DRIVING",
                       unitSystem: google.maps.UnitSystem.METRIC,
                       // drivingOptions: pessimistic,
@@ -483,14 +494,16 @@
                       if(status == "OK"){
                         // console.log(response);
                         
-                        // 取得地址及時間
-                        let delAddress = response.routes[0].legs[0].end_address;
+                        // 取得地址
+                        // let delAddress = response.routes[0].legs[0].end_address;
                         // console.log(delAddress);
-                        $("#del-address").text(delAddress);
-                     
+ 
+                        // 取得時間
                         let delTime = response.routes[0].legs[0].duration.text;
-                        // console.log(delTime);
-                        $("#del-time").text(delTime);
+                        // console.log(delTime);          
+
+                        // 首頁資訊
+                        $("#meal-status").text(`請前往${resAddress}領取餐點。預估所需時間${delTime}`);
                         
                         directionsDisplay.setDirections(response);
                       }else{

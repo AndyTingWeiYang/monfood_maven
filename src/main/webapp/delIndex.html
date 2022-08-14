@@ -302,14 +302,15 @@
       // 取得resId by session
       let delId = sessionStorage.getItem("del");
       let delType = 1;
+      let resId;
 
       // 建立連線    
       let myPoint = `/ResToDel/${delId}/${delType}`;
-      // let host = window.location.host;
+      let host = window.location.host;
       // let path = window.location.pathname;
       // let webCtx = path.substring(0, path.indexOf("/", 1));
       // let endPointURL = "wss://" + window.location.host + webCtx + myPoint;
-      let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + myPoint;
+      let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
       console.log(endPointURL);
       let webSocket;
       function createConnection() {
@@ -338,7 +339,9 @@
               let cartList = jsonObj.cartList;
               let cartArr = new Array();
               $.each(cartList["cartList"], function( index, value ) {
-                  // console.log( value );
+                  console.log( value );
+                  resId = value.resId;
+                  console.log("resId = " , resId);
                   cartArr.push(value)
                   sessionStorage.setItem("cartList", JSON.stringify(cartArr))                 
               });
@@ -354,6 +357,17 @@
               };
               webSocket.send(JSON.stringify(delToUser)); // 	jsonObj改成json格式
               // console.log(delToUser);
+
+              var delToRes = {
+                type: "delAccept",
+                sender: delId,
+                receiver: resId + "0",
+                message: `外送員已接受此訂單`,
+                delName:delName,
+                delId:delId,
+              };
+              webSocket.send(JSON.stringify(delToRes));
+              console.log("delToRes = ",delToRes);
         
               // 轉向外送頁
               window.location.replace("./delDelivery.html");
