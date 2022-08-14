@@ -19,6 +19,7 @@ import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.orderdetail.OrderDetailVO;
 import com.model.product.ProductVo;
+import com.model.reception.OrderStatus;
 import com.model.res.ResVO;
 
 public class OrderJDBCDAOimpl implements OrderDAO {
@@ -763,7 +764,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				dataMap.put("orderDone", rs.getTimestamp("ORDER_DONE"));
 				dataMap.put("note", rs.getString("NOTE"));
 				dataMap.put("resComment", rs.getString("RES_COMMENT"));
-				dataMap.put("orderStatus", rs.getInt("ORDER_STATUS"));
+				dataMap.put("orderStatus", OrderStatus.getOrderStatus(rs.getInt("ORDER_STATUS")));
 				mapList.add(dataMap);
 			}
 
