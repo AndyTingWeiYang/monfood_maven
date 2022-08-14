@@ -32,7 +32,7 @@ public class MailService {
 	private final static String PORT = "587";
 	private final static String STARTTLE_ENABLE = "true";
 	private final static String SENDER = "yuyuforjava@gmail.com";
-	private final static String PASSWORD = "yltgnhluijoarptp";
+	private final static String PASSWORD = "sdysyfatgrfyzntz";
 
 //  設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
 	public void sendMail(String recipients, String mailSubject, String mailBody) {
