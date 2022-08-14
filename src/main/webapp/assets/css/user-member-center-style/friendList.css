@@ -1,10 +1,10 @@
 /* 好友資訊彈窗 */
 
-div.modal-content{
+#infoModal{
   border: none;
 }
 
-div.modal-header{
+#modalHeader{
   background-color: #FF7F3F;
   padding: 8px;
 }

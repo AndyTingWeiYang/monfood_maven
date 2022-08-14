@@ -122,6 +122,7 @@ function refreshChat() {
 
 //配對者資訊ajax
 function pair(){
+  console.log("pairF");
   $.ajax({
     url: "/monfood_maven/PairInfoServlet",
     type: "GET",
@@ -136,9 +137,16 @@ function pair(){
         $("#intro").css("background-color", "white");
   
       }
-      var base64String = btoa(
-        String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
-      );
+      // var base64String = btoa(
+      //   String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
+      // );
+
+      var base64String = btoa(new Uint8Array(data[0].profilePic).reduce(
+        function (data, byte) {
+            return data + String.fromCharCode(byte);
+        },
+        ''
+    ));
       
       $("#headshot").attr("src", `data:image/png;base64,${base64String}`);
       $(".name").append(data[0].userName);
