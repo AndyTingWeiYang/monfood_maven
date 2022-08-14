@@ -66,7 +66,7 @@
 			<li class="nav-item menu-items"><a class="nav-link"
 				href="resprofile-order-history.jsp"> <span class="menu-icon">
 						<i class="mdi mdi-playlist-play"></i>
-				</span> <span class="menu-title">歷史訂單</span>
+				</span> <span class="menu-title">訂單明細查詢</span>
 			</a></li>
 		</ul>
 	</nav>

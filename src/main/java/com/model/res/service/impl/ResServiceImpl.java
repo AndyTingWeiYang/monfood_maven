@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
 import com.model.product.util.ErrorMsgException;
@@ -174,10 +175,10 @@ public class ResServiceImpl implements ResService {
 	}
 
 	@Override
-	public List<Map<String, Object>> resFindOrderService(Integer orderId) {
+	public List<Map<String, Object>> resFindOrderService(OrderVO orderVO) {
 		OrderDAO orderDAO = new OrderJDBCDAOimpl();
 
-		return orderDAO.resFindOrderService(orderId);
+		return orderDAO.resFindOrderService(orderVO);
 	}
 
 	public List<ResVO> getByResName(String resName) {

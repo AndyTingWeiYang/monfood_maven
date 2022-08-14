@@ -3,6 +3,7 @@ package com.model.res.service;
 import java.util.List;
 import java.util.Map;
 
+import com.model.order.OrderVO;
 import com.model.product.util.ErrorMsgException;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
@@ -33,7 +34,7 @@ public interface ResService {
 
 	ResVO selectByResId(Integer resId);
 
-	List<Map<String, Object>> resFindOrderService(Integer orderId);
+	List<Map<String, Object>> resFindOrderService(OrderVO orderVO);
 
 	// 評分
 	List<Map<String, Object>> getRate();
