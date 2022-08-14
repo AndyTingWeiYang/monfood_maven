@@ -1,9 +1,6 @@
 package com.model.user.controller;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,9 +34,13 @@ public class AccountStatusServlet extends HttpServlet {
 			final String resetResult = service.resetAccountStatus(account);
 
 			if (resetResult == "ResetSuccessfully") {
-				response.getWriter().append("帳號已生效，點此開始享受外送服務：https://35.201.129.109:8443/monfood_maven/del/monFoodIndex.html");
+
+				response.getWriter()
+						.append("帳號已生效，點此開始享受外送服務：https://35.201.129.109:8443/monfood_maven/del/monFoodIndex.html");
+
 //				respObj.addProperty("Success", "updateSuccess");
 //				response.getWriter().append(gson.toJson(respObj));
+
 			} else if (resetResult == "ResetFailed") {
 				respObj.addProperty("Failed", "updateFailed");
 				response.getWriter().append(gson.toJson(respObj));
