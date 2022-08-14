@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.model.product.util.ErrorMsgException;
 import com.model.product.util.IntTypeAdapter;
 import com.model.res.ResDto;
+import com.model.res.ResVO;
 import com.model.res.dao.ResDAO;
 import com.model.res.dao.impl.ResDAOImpl;
 import com.model.res.service.ResService;
@@ -58,15 +59,21 @@ public class ResInfoUpdateServlet extends HttpServlet {
 		try {
 			Map<String, Object> dataMap = resToMap(request);
 			Part resFile = request.getPart("resFile");
-			InputStream is = resFile.getInputStream();
-			byte[] buffer = new byte[is.available()];
-			is.read(buffer);
-
-			dataMap.put("resFile", buffer);
-
 			// 取得 session 物件中的會員編號
 			HttpSession session = request.getSession(false);
 			Integer resID = (Integer) session.getAttribute("resID");
+
+			byte[] buffer = new byte[0];
+			if (StringUtils.isNotBlank(resFile.getSubmittedFileName())) {
+				InputStream is = resFile.getInputStream();
+				buffer = new byte[is.available()];
+				is.read(buffer);
+
+				dataMap.put("resFile", buffer);
+			} else {
+				ResVO res = resService.selectByResId(resID);
+				dataMap.put("resFile", res.getResPic());
+			}
 
 			dataMap.put("resID", resID);
 			System.out.println(dataMap);

@@ -43,7 +43,17 @@
          $('#ownerName').on('blur', checkInputOwnerName);
          $('#resPhone').on('blur', checkInputResPhone);
          $('#bzAdd').on('blur', checkInputBzAdd);
+         
+         <c:if test="${not empty resVO.zipCode}">
+			twzipcode.set(${resVO.zipCode});
+			<c:if test="${not empty resVO.bzLocation}" >
+				const countryDistrict = twzipcode.get('county') + twzipcode.get('district');
+				const bzLocation= '${resVO.bzLocation}';
+				$('#bzAdd').val(bzLocation.substring(countryDistrict.length));
+			</c:if>
+         </c:if>
      }
+     
      // 上傳圖片
      function fileUpload() {
          $('#resFile').fileinput({
@@ -75,7 +85,7 @@
          formData.append('district', twzipcode.get('district'));
          formData.append('zipcode', twzipcode.get('zipcode'));
          formData.append('bzAdd', $('#bzAdd').val());
-         formData.append('resFile', files[0]);
+         formData.append('resFile', (files.length !== 0) ? files[0] : null);
 
          $.ajax({
              url: 'ResInfoUpdateServlet',
@@ -170,24 +180,24 @@
                             <div class="col-sm-6">
                                 <label for="ownerName" class="col-sm-6 col-form-label">聯絡人姓名</label>
                                 <input class="col-sm-12 form-control " id="ownerName" name="ownerName"
-                                    placeholder="請輸入聯絡人姓名"><span id="checkOwnerNameSp" style="color:red;"></span>
+                                    placeholder="請輸入聯絡人姓名" value="${resVO.ownerName}"><span id="checkOwnerNameSp" style="color:red;"></span>
                             </div>
                             <div class="col-sm-6">
                                 <label for="resPhone" class="col-sm-6 col-form-label">餐廳電話</label>
                                 <input class="col-sm-12 form-control " id="resPhone" name="resPhone"
-                                    placeholder="請輸入餐廳電話"><span id="checkResPhoneSp" style="color:red;"></span>
+                                    placeholder="請輸入餐廳電話" value="${resVO.resTel}"><span id="checkResPhoneSp" style="color:red;"></span>
                                     
                             </div>
                             <div class="col-sm-6">
                                 <label for="resCategory" class="col-sm-6 col-form-label">餐廳類型</label>
                                 <select id="resCategory" name="resCategory" class="form-select"
                                     aria-label="Default select example">
-                                    <option selected>請選擇</option>
-                                    <option value="1">台式</option>
-                                    <option value="2">日式</option>
-                                    <option value="3">泰式</option>
-                                    <option value="4">美式</option>
-                                    <option value="5">韓式</option>
+                                    <option>請選擇</option>
+                                    <option value="1" ${(resVO.resCategory==1)?'selected':'' }>台式</option>
+                                    <option value="2" ${(resVO.resCategory==2)?'selected':'' }>日式</option>
+                                    <option value="3" ${(resVO.resCategory==3)?'selected':'' }>泰式</option>
+                                    <option value="4" ${(resVO.resCategory==4)?'selected':'' }>美式</option>
+                                    <option value="5" ${(resVO.resCategory==5)?'selected':'' }>韓式</option>
                                 </select>
 
                             </div>
@@ -203,7 +213,7 @@
                                     </div>
                                     <div class="col-sm-9" style="padding: 0;">
                                         <input id="bzAdd" type="text" class="form-control " name="bzAdd"
-                                            placeholder="請輸入詳細地址"><span id="checkBzAddSp" style="color:red;"></span>
+                                            placeholder="請輸入詳細地址"><span id="checkBzAddSp" style="color:red;" value=""></span>
                                     </div>
                                 </div>
                             </div>
