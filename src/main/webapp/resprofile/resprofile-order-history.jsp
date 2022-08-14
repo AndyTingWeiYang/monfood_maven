@@ -28,14 +28,16 @@ $(document).ready(function () {
 		$('#orderList').DataTable();
 		
 		$('#checkbtn').click(function() {		
-			let orderId= {
-				orderId: $('#orderId').val()
+			let orderVO= {
+				orderId: $('#orderId').val(),
+				userId: $('#userId').val()
 			};
+			
 			// ajax pay load
 			   $.ajax({
 					url: 'ResFindOrderServlet',
 					type: 'post',
-					data: JSON.stringify(orderId),
+					data: JSON.stringify(orderVO),
 					dataType: 'json',
 					success: function(data){
 						const evalResult = eval(JSON.stringify(data.orderList));
@@ -98,21 +100,26 @@ $(document).ready(function () {
 				<div class="mf-content-wrapper">
 					<!-- 表單區塊 -->
 					 <span class="monfood-title mr-1"></span>
-                    <h3 style="display: inline-block;">歷史訂單</h3>
+                    <h3 style="display: inline-block;">訂單明細查詢</h3>
 					<form class="jumbotron" method="post" action="ResFindOrderServlet">
 						<div class="form-group row ">
-							<div class="row col-md-12 col-sm-12 mb-3">
+							<div class="row col-md-6 col-sm-12 mb-3">
 								<label for="orderId" class="col-form-label col-md-12 col-sm-12">訂單編號</label>
 								<div class="col-md-12 col-sm-12">
 									<input id="orderId" type="text" name="orderId" class="form-control">
 								</div>
 							</div>
-
+							<div class="row col-md-6 col-sm-12 mb-3">
+								<label for="userId" class="col-form-label col-md-12 col-sm-12">會員編號</label>
+								<div class="col-md-12 col-sm-12">
+									<input id="userId" type="text" name="userId" class="form-control">
+								</div>
+							</div>
 						</div>
 						<div class="d-flex justify-content-center">
 							<button id="checkbtn" type="button"
 								class="btn btn-outline-dark mf-bdr-15">查詢</button>
-							<button type="button" class="btn btn-outline-dark mf-bdr-15 ml-4">清除</button>
+							<button type="reset" class="btn btn-outline-dark mf-bdr-15 ml-4">清除</button>
 						</div>
 					</form>
 					<!-- DataTable -->

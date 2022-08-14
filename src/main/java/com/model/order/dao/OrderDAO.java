@@ -23,7 +23,7 @@ public interface OrderDAO {
 
 	Double getRating(Integer resId);
 	
-	List<Map<String, Object>>  resFindOrderService(Integer orderId);
+	List<Map<String, Object>>  resFindOrderService(OrderVO orderVO);
 
 	List<OrderVO> getAllById(Integer userId);
 

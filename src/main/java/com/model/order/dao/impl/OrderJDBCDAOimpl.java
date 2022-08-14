@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.model.del.DelVO;
 import com.model.order.OrderVO;
@@ -36,21 +39,13 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	private static final String GET_ORDER_TIMES = "select USER_ID, count(1) as ORDER_TIMES from `ORDER` where USER_ID = ? group by USER_ID";
 	private static final String GET_RATING = "SELECT AVG(RES_RATE) FROM `ORDER` where RES_ID = ?";
 	private static final String GET_ALL_BY_ID = "SELECT o.ORDER_ID, o.USER_ID, o.RES_ID, o.DEL_ID, o.ORDER_DONE, o.TOTAL, o.RATING, o.RES_RATE, o.DEL_RATE, o.RES_COMMENT, o.DEL_COMMENT, r.RES_NAME, r.RES_PIC FROM `ORDER` o\r\n"
-			+ "join RES r\r\n"
-			+ "on o.RES_ID = r.RES_ID\r\n"
-			+ "join DEL dl\r\n"
-			+ "on o.DEL_ID = dl.DEL_ID\r\n"
-			+ "where o.USER_ID =?\r\n"
-			+ "order by o.ORDER_ID";
-	
-	private static final String GET_PRODUCT_BY_ID ="SELECT o.ORDER_ID, p.PRODUCT_NAME, p.PRODUCT_KCAL FROM `ORDER` o\r\n"
-			+ "join ORDER_DETAIL d\r\n"
-			+ "on d.ORDER_ID = o.ORDER_ID\r\n"
-			+ "join PRODUCT p\r\n"
-			+ "on p.PRODUCT_ID = d.PRODUCT_ID\r\n"
-			+ "where o.USER_ID =?\r\n"
-			+ "order by o.ORDER_ID";
-	
+			+ "join RES r\r\n" + "on o.RES_ID = r.RES_ID\r\n" + "join DEL dl\r\n" + "on o.DEL_ID = dl.DEL_ID\r\n"
+			+ "where o.USER_ID =?\r\n" + "order by o.ORDER_ID";
+
+	private static final String GET_PRODUCT_BY_ID = "SELECT o.ORDER_ID, p.PRODUCT_NAME, p.PRODUCT_KCAL FROM `ORDER` o\r\n"
+			+ "join ORDER_DETAIL d\r\n" + "on d.ORDER_ID = o.ORDER_ID\r\n" + "join PRODUCT p\r\n"
+			+ "on p.PRODUCT_ID = d.PRODUCT_ID\r\n" + "where o.USER_ID =?\r\n" + "order by o.ORDER_ID";
+
 	@Override
 	public Double getRating(Integer resId) {
 
@@ -448,7 +443,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
-	
+
 	@Override
 	public void update(OrderVO orderVO) {
 		Connection con = null;
@@ -493,13 +488,13 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
-	
+
 	@Override
 	public List<OrderVO> getAllById(Integer userId) {
 
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		OrderVO orderVO = null;
-		ProductVo productVo =null;
+		ProductVo productVo = null;
 		ResVO resVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -514,11 +509,11 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 
 			while (rs.next()) {
 				orderVO = new OrderVO();
-				
+
 				resVO = new ResVO();
 				resVO.setResName(rs.getString("RES_NAME"));
 				resVO.setResPic(rs.getBytes("RES_PIC"));
-				
+
 				orderVO.setOrderId(rs.getInt("ORDER_ID"));
 				orderVO.setUserId(rs.getInt("USER_ID"));
 				orderVO.setResId(rs.getInt("RES_ID"));
@@ -530,7 +525,8 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				orderVO.setDelRate(rs.getDouble("DEL_RATE"));
 				orderVO.setResComment(rs.getString("RES_COMMENT"));
 				orderVO.setDelComment(rs.getString("DEL_COMMENT"));
-				orderVO.setResVO(resVO);;
+				orderVO.setResVO(resVO);
+				;
 				list.add(orderVO);
 
 			}
@@ -566,13 +562,13 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<OrderVO> getAllProductById(Integer userId) {
 
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		OrderVO orderVO = null;
-		ProductVo productVo =null;
+		ProductVo productVo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -589,7 +585,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 				productVo = new ProductVo();
 				productVo.setProductName(rs.getString("PRODUCT_NAME"));
 				productVo.setProductKcal(rs.getInt("PRODUCT_KCAL"));
-				
+
 				orderVO.setOrderId(rs.getInt("ORDER_ID"));
 				orderVO.setProductVo(productVo);
 				list.add(orderVO);
@@ -627,7 +623,7 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 		return list;
 	}
-	
+
 	public static void main(String[] args) {
 
 		OrderDAO dao = new OrderJDBCDAOimpl();
@@ -713,21 +709,48 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> resFindOrderService(Integer orderId) {
-		String resFindOrder = "select * from MonFood.ORDER ORD"
-				+ " inner join ORDER_DETAIL ORDT on ORD.ORDER_ID = ORDT.ORDER_ID"
-				+ "	inner join PRODUCT PD on ORDT.PRODUCT_ID = PD.PRODUCT_ID" 
-				+ " where ORD.ORDER_ID = ? ";
+	public List<Map<String, Object>> resFindOrderService(OrderVO orderVO) {
+		String resFindOrder = "SELECT * FROM MonFood.ORDER a " + " join MonFood.RES b " + " on (a.RES_ID = b.RES_ID) "
+				+ " join MonFood.ORDER_DETAIL c " + " on (a.ORDER_ID = c.ORDER_ID) " + " join MonFood.PRODUCT d "
+				+ " on (c.PRODUCT_ID = d.PRODUCT_ID) " + "where a.RES_ID = ? ";
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Map<String, Object> dataMap = null;
+		Map<String, Object> fieldMap = new LinkedHashMap<>();
 		List<Map<String, Object>> mapList = new ArrayList<>();
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(resFindOrder);
-			pstmt.setInt(1, orderId);
+
+			// 動態 SQL 查詢
+			// and USER_ID = 1 and a.ORDER_ID = 28
+			StringBuffer sbf = new StringBuffer();
+			sbf.append(resFindOrder);
+
+			String orderIdStr = castTypeToStr(orderVO.getOrderId());
+			String userIdStr = castTypeToStr(orderVO.getUserId());
+			// 判斷是否有組合好的語句
+			if (StringUtils.isNotBlank(orderIdStr)) {
+				sbf.append(" and a.ORDER_ID = ? ");
+				fieldMap.put("orderId", orderVO.getOrderId());
+			}
+
+			if (StringUtils.isNotBlank(userIdStr)) {
+				sbf.append(" and USER_ID = ? ");
+				fieldMap.put("userId", orderVO.getUserId());
+			}
+			pstmt = con.prepareStatement(sbf.toString());
+			pstmt.setInt(1, orderVO.getResId());
+
+			int fieldIndex = 2;
+			for (String key : fieldMap.keySet()) {
+				Object value = fieldMap.get(key);
+				pstmt.setInt(fieldIndex, (int) value);
+				fieldIndex++;
+			}
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -773,5 +796,15 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 		return mapList;
+	}
+
+	// 將各類別轉型為字串
+	private <T> String castTypeToStr(T value) {
+		String data = null;
+		if (value != null) {
+			data = value.toString();
+		}
+
+		return data;
 	}
 }
