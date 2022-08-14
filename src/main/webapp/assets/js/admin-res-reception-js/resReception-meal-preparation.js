@@ -1,4 +1,9 @@
 $(document).ready(function () {
+	let resProtocol = window.location.protocol;
+    let resHost = window.location.host;
+    let resPath = window.location.pathname;
+    let resWebCtx = resPath.substring(0, resPath.indexOf("/", 1));
+    
     let orderList;
     let delOrder;
     // ==========yuyu========
@@ -245,7 +250,7 @@ $(document).ready(function () {
                         },
                         dataType: 'json',
                         success: function () {
-							window.location.href = 'http://' + window.location.host + webCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
+							window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
 						}
                     });
                 });

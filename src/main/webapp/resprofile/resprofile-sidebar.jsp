@@ -16,7 +16,7 @@
 		<ul class="nav">
 			<li class="nav-item nav-category"><a href="#"> <span
 					class="nav-link"> <a
-						href="<c:url value='/admin-res-reception/resReception-new-order.jsp' />">
+						href="<c:url value='/admin-res-reception/resReception-meal-preparation.jsp' />">
 							<img width="16px" height="16px"
 							src="<c:url value='/assets/images/arrow-left-solid.svg' />">
 							<span class="ml-3">返回前台</span>
