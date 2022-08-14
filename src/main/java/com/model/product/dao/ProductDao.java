@@ -12,7 +12,7 @@ public interface ProductDao {
 	// 查詢多筆資料
 	public List<ProductVo> findAll(ProductVo productVO);
 
-	public boolean insert(ProductVo product);
+	public boolean insert(Map<String, Object> dataMap);
 
 	public boolean update(ProductVo product);
 
