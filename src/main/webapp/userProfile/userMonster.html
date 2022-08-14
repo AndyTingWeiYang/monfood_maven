@@ -21,6 +21,17 @@
     <link rel="stylesheet" href="../css/buttonContent.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+      
+      input.x, .progress {
+              width: 350px !important;
+      }
+      @media (max-width: 767.98px){
+          input.x, .progress {
+              width: 250px !important;
+          }
+      }
+
+
     </style>
   </head>
 
@@ -250,10 +261,9 @@
                     <div>
                       <span>紅利折抵(LV<span id="monsLevel"></span>)</span>
                       <input
-                        style="width: 350px"
                         type="text"
                         name="discount"
-                        class="form-control"
+                        class="form-control x"
                         id="discount"
                       />
                     </div>
@@ -267,7 +277,6 @@
                       <div
                         class="progress"
                         style="
-                          width: 350px;
                           height: 25px;
                           background-color: white;
                         "

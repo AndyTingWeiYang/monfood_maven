@@ -79,7 +79,10 @@ public class ResToDel {
 			throws IOException, InterruptedException {
 		PushInfo pushInfo = gson.fromJson(message, PushInfo.class);
 		String receiverId = pushInfo.getReceiver();
+		System.out.println("receiverId = " + receiverId);
 		String rejectType = receiverId.substring(receiverId.length() - 1, receiverId.length());
+		
+
 
 //		0是商家 1是外送員 2是使用者
 		if ("0".equals(type)) {
@@ -116,12 +119,25 @@ public class ResToDel {
 				}
 			}
 		} else {
-			Session receiverSession = resMap.get(receiverId);
-			if (receiverSession != null && receiverSession.isOpen()) {
-				// 發送訊息
-				receiverSession.getAsyncRemote().sendText(message);
-				session.getAsyncRemote().sendText(message);
+			String receive = receiverId.substring(receiverId.length() - 1, receiverId.length());;
+			System.out.println("receive = "+ receive);
+			if ("0".equals(receive)) {
+				Session receiverSession = resMap.get(receiverId);
+				if (receiverSession != null && receiverSession.isOpen()) {
+					// 發送訊息
+					receiverSession.getAsyncRemote().sendText(message);
+					session.getAsyncRemote().sendText(message);
+				}
+			}else{
+				Session receiverSession = delMap.get(receiverId);
+				if (receiverSession != null && receiverSession.isOpen()) {
+					// 發送訊息
+					receiverSession.getAsyncRemote().sendText(message);
+					session.getAsyncRemote().sendText(message);
+				}
 			}
+			
+			
 
 		}
 
