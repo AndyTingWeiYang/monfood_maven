@@ -180,18 +180,18 @@
 }
 
 .btn-primary{
-  background-color: transparent;
-  color: black;
-  border: none;
-  opacity: 0.8;
+  background-color: transparent !important; 
+  color: black !important;
+  border: none !important;
+  opacity: 0.8 !important;
 }
 
 .btn-primary:hover{
-  background-color: transparent;
-  color: black;
-  border: none;
-  opacity: 1;
-  transform: scale(1.1);
+  background-color: transparent !important;
+  color: black !important;
+  border: none !important;
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
 }
 .monfood-modalFooter{
   display: flex; 
@@ -209,6 +209,8 @@
   height: 37px;
   width: 400px; 
   background-color: #ff7f3f;
+  position: relative;
+  right:20px;
 }
 
 .monfood-addToCart:hover{

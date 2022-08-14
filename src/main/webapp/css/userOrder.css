@@ -7,10 +7,6 @@ div.modal-header{
     background-color: #FF7F3F;
 }
 
-div.modal-body{
-    /* margin: 16px; */
-}
-
 span.logo{
     color: black;
     font-size: 20px;
@@ -61,15 +57,15 @@ img.align-self-center{
 }
 @media (max-width: 767.98px){
     .row.result {
-        width: 400px;
-    }
-    .col-6, .col-3, .col{
-        flex: 0 0 auto;
         width: 100%;
+    }
+    .x{
+        flex: 0 0 auto !important;
+        width: 100% !important;
     }
 
     img.align-self-center{
-        width: 265.333px;
+        width: 200px;
         height: 149.250px;
     }
 }

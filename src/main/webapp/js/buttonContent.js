@@ -16,10 +16,13 @@ console.log(selfId);
 
 let friendId;
 let MyPoint = `/ChatWebsocket/${selfId}`;
-let host = window.location.host;
-let path = window.location.pathname;
-let webCtx = path.substring(0, path.indexOf("/", 1));
-let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+// let host = window.location.host;
+// let path = window.location.pathname;
+// let webCtx = path.substring(0, path.indexOf("/", 1));
+// let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+// 上雲
+let endPointURL = "ws://35.201.129.109:8443/monfood_maven" + MyPoint;
 
 let webSocket = new WebSocket(endPointURL);
 
@@ -122,6 +125,7 @@ function refreshChat() {
 
 //配對者資訊ajax
 function pair(){
+  console.log("pairF");
   $.ajax({
     url: "/monfood_maven/PairInfoServlet",
     type: "GET",
@@ -136,9 +140,16 @@ function pair(){
         $("#intro").css("background-color", "white");
   
       }
-      var base64String = btoa(
-        String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
-      );
+      // var base64String = btoa(
+      //   String.fromCharCode.apply(null, new Uint8Array(data[0].profilePic))
+      // );
+
+      var base64String = btoa(new Uint8Array(data[0].profilePic).reduce(
+        function (data, byte) {
+            return data + String.fromCharCode(byte);
+        },
+        ''
+    ));
       
       $("#headshot").attr("src", `data:image/png;base64,${base64String}`);
       $(".name").append(data[0].userName);
@@ -196,9 +207,15 @@ function chat() {
       }
       console.log(data);
       for (var i = 0; i < data.length; i++) {
-        var base64String = btoa(
-          String.fromCharCode.apply(null, new Uint8Array(data[i].profilePic))
-        );
+        // var base64String = btoa(
+        //   String.fromCharCode.apply(null, new Uint8Array(data[i].profilePic))
+        // );
+        var base64String = btoa(new Uint8Array(data[i].profilePic).reduce(
+          function (data, byte) {
+              return data + String.fromCharCode(byte);
+          },
+          ''
+      ));
         var html = "";
         html += `              <a
         href="#"

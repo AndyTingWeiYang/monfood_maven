@@ -3,7 +3,12 @@
 div.loc_and_input{
     text-align: center;
 }
+@media (min-width: 992px){
 
+    .container{
+        max-width: 960px !important;
+    }
+}
 .monfood-notification{
     text-align: center;
     height: 150px;

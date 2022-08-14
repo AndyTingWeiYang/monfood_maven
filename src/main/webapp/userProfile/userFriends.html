@@ -15,6 +15,8 @@
       rel="stylesheet"
       href="../assets/vendors/mdi/css/materialdesignicons.min.css"
     />
+    <!-- include button -->
+    <!-- <link rel="stylesheet" href="../css/buttonContent.css" /> -->
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/bootstrap.css" />
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
@@ -305,6 +307,8 @@
         </footer>
       </div>
     </div>
+    <!-- include button -->
+    <!-- <div w3-include-html="/monfood_maven/buttonContent.html"></div> -->
     <!-- ===== footer end ===== -->
     <script src="http://www.w3schools.com/lib/w3data.js"></script>
     <script src="../assets/js/jQuery-3.6.0.js"></script>
@@ -314,6 +318,43 @@
     <script src="../assets/js/misc.js"></script>
     <script src="../assets/js/settings.js"></script>
     <script src="../assets/js/todolist.js"></script>
+    <!-- include button -->
+    <!-- <script src="../js/buttonContent.js"></script> -->
+    <!-- include button -->
+    <!-- <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /* Loop through a collection of all HTML elements: */
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain atrribute:*/
+          file = elmnt.getAttribute("w3-include-html");
+          if (file) {
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+              if (this.readyState == 4) {
+                if (this.status == 200) {
+                  elmnt.innerHTML = this.responseText;
+                }
+                if (this.status == 404) {
+                  elmnt.innerHTML = "Page not found.";
+                }
+                /* Remove the attribute, and call this function once more: */
+                elmnt.removeAttribute("w3-include-html");
+                includeHTML();
+              }
+            };
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+          }
+        }
+      }
+      includeHTML();
+    </script> -->
     <script>
       window.onload = function () {
         $.ajax({
@@ -327,11 +368,20 @@
             }
             console.log(data);
             for (var i = 0; i < data.length; i++) {
+              // var base64String = btoa(
+              //   String.fromCharCode.apply(
+              //     null,
+              //     new Uint8Array(data[i].profilePic)
+              //   )
+              // );
               var base64String = btoa(
-                String.fromCharCode.apply(
-                  null,
-                  new Uint8Array(data[i].profilePic)
-                )
+                new Uint8Array(data[i].profilePic).reduce(function (
+                  data,
+                  byte
+                ) {
+                  return data + String.fromCharCode(byte);
+                },
+                "")
               );
 
               let birthday = data[i].birthday
@@ -380,7 +430,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div id = "infoModal" class="modal-content">
           <div id="modalHeader" class="modal-header">
             <h5>
               <span class="logo">Mon</span

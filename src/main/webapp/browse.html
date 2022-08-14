@@ -12,6 +12,8 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
+    <!-- include button -->
+    <link rel="stylesheet" href="css/buttonContent.css" />
     <link rel="stylesheet" href="css/userHeader.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/layout.css" />
@@ -438,7 +440,8 @@
           </div>
       </li> -->
     </main>
-
+   <!-- include button -->
+   <div w3-include-html="buttonContent.html"></div>
     <!-- Footer -->
     <div style="background-color: #ff7f3f">
         <div class="container pb-0 mb-0 text-light" style="background-color: #ff7f3f">
@@ -477,5 +480,42 @@
       <script src="js/browse.js"></script>
       <script src="js/restaurant.js"></script>
       <script src="js/logout.js"></script>
+       <!-- include button -->
+    <script src="js/buttonContent.js"></script>
+     <!-- include button -->
+     <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /* Loop through a collection of all HTML elements: */
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain atrribute:*/
+          file = elmnt.getAttribute("w3-include-html");
+          if (file) {
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+              if (this.readyState == 4) {
+                if (this.status == 200) {
+                  elmnt.innerHTML = this.responseText;
+                }
+                if (this.status == 404) {
+                  elmnt.innerHTML = "Page not found.";
+                }
+                /* Remove the attribute, and call this function once more: */
+                elmnt.removeAttribute("w3-include-html");
+                includeHTML();
+              }
+            };
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+          }
+        }
+      }
+      includeHTML();
+    </script>
   </body>
 </html>
