@@ -39,8 +39,8 @@ $(document).ready(function() {
 			// bzOpenHours: "12:15:00 上午"
 			// bzCloseHours: "12:30:00 上午"
 			// TODO: 套件塞值無效(以解決) 少了#抓id (但顯示是12小時制...無言) 
-			$('#bzOpenHours').val(resVO.bzOpenHours);
-			$('#bzCloseHours').val(resVO.bzCloseHours);
+			$('#bzOpenHours').val(data.bzOpenHours);
+			$('#bzCloseHours').val(data.bzCloseHours);
 			
 			//原本String時用來切的 但改成Ingeter就沒用
 // 			const bzWeekTime = resVO.bzWeekTime.split(',');
@@ -70,7 +70,7 @@ $(document).ready(function() {
 					<form method="post" action="UpdateResReceptionServlet">
                     <label for="resAccount" class="col-sm-12 col-form-label"></label>
                     <div class="col-sm-12">
-                        <input type="text" readonly name="resAccount" class="form-control" id="resAccount">
+<!--                         <input type="text" readonly name="resAccount" class="form-control" id="resAccount"> -->
                     </div>
                     <div>營業時間設定</div>
                     <div class="">周期設定:

@@ -480,7 +480,7 @@ span.logo2{
     }
   
     #container-floating:hover .plus {
-      animation: plus-in 0.15s linear;
+      /* animation: plus-in 0.15s linear; */
       animation-fill-mode: forwards;
     }
   
@@ -528,7 +528,7 @@ span.logo2{
       right: 40px;
       bottom: 120px;
       animation-delay: 0.2s;
-      animation: bounce-out-nds 0.3s linear;
+      /* animation: bounce-out-nds 0.3s linear; */
       animation-fill-mode: forwards;
     }
   
@@ -539,8 +539,8 @@ span.logo2{
       background: #d3a411;
       right: 40px;
       bottom: 180px;
-      animation-delay: 0.15s;
-      animation: bounce-out-nds 0.15s linear;
+      /* animation-delay: 0.15s; */
+      /* animation: bounce-out-nds 0.15s linear; */
       animation-fill-mode: forwards;
     }
   

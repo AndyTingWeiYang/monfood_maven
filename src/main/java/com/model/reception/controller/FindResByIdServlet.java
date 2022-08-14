@@ -71,7 +71,7 @@ public class FindResByIdServlet extends HttpServlet {
 		String bzOpenHours = sdf.format(resVO.getBzOpenHours());
 //		System.out.println(bzOpenHours);
 		
-		String bzCloseHours = sdf.format(resVO.getBzOpenHours());
+		String bzCloseHours = sdf.format(resVO.getBzCloseHours());
 //		System.out.println(bzCloseHours);
 
 

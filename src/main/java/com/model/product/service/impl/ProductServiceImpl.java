@@ -124,14 +124,13 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		// 將 Map 物件變成 JSON 字串做序列化
-		String dataJsonStr = gson.toJson(dataMap);
+//		String dataJsonStr = gson.toJson(dataMap);
 
 		// 用 gson 將拿到的 JSON 字串轉 VO
-		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
+//		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
 
-		System.out.println(productVO);
 		// 將結果用 dao 回傳給 service
-		boolean result = productDao.insert(productVO);
+		boolean result = productDao.insert(dataMap);
 
 		return result;
 	}

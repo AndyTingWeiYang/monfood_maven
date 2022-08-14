@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 
@@ -410,7 +411,7 @@ public class ProductDAOImpl implements ProductDao {
 	}
 
 	@Override
-	public boolean insert(ProductVo product) {
+	public boolean insert(Map<String, Object> dataMap) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -418,15 +419,15 @@ public class ProductDAOImpl implements ProductDao {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(INSERT);
 			// 從VO設定好的資料 ->放入DB內
-			pstmt.setInt(1, product.getResID());// FK
-			pstmt.setBytes(2, product.getProductPic());
-			pstmt.setInt(3, product.getProductStatus());
-			pstmt.setInt(4, product.getProductPrice());
-			pstmt.setInt(5, product.getProductKcal());
-			pstmt.setString(6, product.getProductName());
+			pstmt.setInt(1, MapUtils.getInteger(dataMap, "resID"));// FK
+			pstmt.setBytes(2, (byte[]) MapUtils.getObject(dataMap, "productPic"));
+			pstmt.setInt(3, MapUtils.getInteger(dataMap, "productStatus"));
+			pstmt.setInt(4, MapUtils.getInteger(dataMap, "productPrice"));
+			pstmt.setInt(5, MapUtils.getInteger(dataMap, "productKcal"));
+			pstmt.setString(6, MapUtils.getString(dataMap, "productName"));
 			// 時間轉換:抓當下時間
 			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-			pstmt.setInt(8, product.getStock());
+			pstmt.setInt(8, MapUtils.getInteger(dataMap, "stock"));
 
 			int count = pstmt.executeUpdate();
 			if (count > 0) {

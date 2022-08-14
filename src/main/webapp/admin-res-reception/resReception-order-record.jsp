@@ -27,7 +27,7 @@
           <!-- 表單區塊 -->
           <label for="resAccount" class="col-sm-12 col-form-label"></label>
           <div class="col-sm-12">
-            <input type="text" readonly name="resAccount" class="form-control" id="resAccount">
+<!--             <input type="text" readonly name="resAccount" class="form-control" id="resAccount"> -->
           </div>
           <!-- AccordionBlock Start -->
           <div id="accordionBlock"></div>

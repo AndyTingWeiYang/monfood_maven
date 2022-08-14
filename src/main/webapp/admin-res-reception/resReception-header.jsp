@@ -33,7 +33,7 @@
             <ul class="navbar-nav navbar-nav-right">
                 <div class="navbar-profile">
                     <span class="nav-item menu-items">
-                        <a class="nav-link" href="<c:url value='/resprofile/resprofile-info-preview.jsp'/>">
+                        <a class="nav-link" href="<c:url value='/resprofile/ResInfoPreviewServlet'/>">
                             <span class="menu-title align-item-center">後臺設定</span>
                         </a>
                     </span>
