@@ -84,19 +84,19 @@ window.addEventListener('load', function(){
                     
                     let list = `
                         <div style="border-bottom:1px solid rgb(160, 156, 156); " class="orderList row d-flex justify-content-between">
-                            <div class="col-6 d-flex">
+                            <div class="col-6 x d-flex">
                                 <div class="row d-flex">
-                                    <div class="col d-flex" style="padding-bottom: 8px">
+                                    <div class="col x d-flex" style="padding-bottom: 8px">
                                         <img class="align-self-center" src="${'data:image/jpg;base64,' + byteToBase64(this.resVO.resPic)}" alt="">
                                     </div>
-                                    <div class="col" style="padding-top: 10px; padding-right: 0" class="productList">
+                                    <div class="col x" style="padding-top: 10px; padding-right: 0" class="productList">
                                         <div class="resName">${this.resVO.resName}</div>
                                         <div style="font-size: 12px;" >共 $<span class="total">${this.total}</span>- <span class="date" style="font-size: 10px">${this.orderDone}</span></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3 align-self-center">
-                                <div class="col">
+                            <div class="col-3 x align-self-center">
+                                <div class="col x">
                                     <div>
                                         <span style="font-size: 10px;">訂單編號: <span class="orderId">${this.orderId}</span></span>
                                     </div>
