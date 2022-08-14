@@ -387,7 +387,8 @@
           // 使用datepicker disable並驗證格式
           var currentDate = new Date();
           $("#userbirthday").datepicker({
-            dateFormat: "yy-mm-dd",        
+            dateFormat: "yy-mm-dd",  
+            yearRange : "1942:2022",     
             autoclose:true,
             endDate: "currentDate",
             maxDate: currentDate,
