@@ -16,7 +16,7 @@
       href="../assets/vendors/mdi/css/materialdesignicons.min.css"
     />
     <!-- include button -->
-    <!-- <link rel="stylesheet" href="../css/buttonContent.css" /> -->
+    <link rel="stylesheet" href="../css/buttonContent.css" />
     <link rel="stylesheet" href="../assets/css/style.css" />
     <link rel="stylesheet" href="../assets/css/bootstrap.css" />
     <link rel="stylesheet" href="../assets/css/monfood-skeleton.css" />
@@ -308,7 +308,7 @@
       </div>
     </div>
     <!-- include button -->
-    <!-- <div w3-include-html="/monfood_maven/buttonContent.html"></div> -->
+    <div w3-include-html="/monfood_maven/buttonContent.html"></div>
     <!-- ===== footer end ===== -->
     <script src="http://www.w3schools.com/lib/w3data.js"></script>
     <script src="../assets/js/jQuery-3.6.0.js"></script>
@@ -319,9 +319,9 @@
     <script src="../assets/js/settings.js"></script>
     <script src="../assets/js/todolist.js"></script>
     <!-- include button -->
-    <!-- <script src="../js/buttonContent.js"></script> -->
+    <script src="../js/buttonContent.js"></script>
     <!-- include button -->
-    <!-- <script>
+    <script>
       function includeHTML() {
         var z, i, elmnt, file, xhttp;
         /* Loop through a collection of all HTML elements: */
@@ -354,7 +354,7 @@
         }
       }
       includeHTML();
-    </script> -->
+    </script>
     <script>
       window.onload = function () {
         $.ajax({
@@ -395,7 +395,6 @@
         <p id="friendName">${data[i].userName}</p>
         <div id="removeBtnDiv">
           <button
-            class="nd3 nds"
             data-toggle="tooltip"
             data-placement="left"
             data-bs-toggle="modal"
@@ -444,7 +443,7 @@
             ></button>
           </div>
           <h4 id="title">好友資訊</h4>
-          <div id="waitPairInfo" class="col align-self-center">
+          <div class="col align-self-center">
             <img id = "headshot${data[i].userId}" class="headshot" src="" />
             <div id="info">姓名</div>
             <div id="name">${data[i].userName}</div>
