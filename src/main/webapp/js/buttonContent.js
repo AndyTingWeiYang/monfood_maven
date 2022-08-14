@@ -204,9 +204,15 @@ function chat() {
       }
       console.log(data);
       for (var i = 0; i < data.length; i++) {
-        var base64String = btoa(
-          String.fromCharCode.apply(null, new Uint8Array(data[i].profilePic))
-        );
+        // var base64String = btoa(
+        //   String.fromCharCode.apply(null, new Uint8Array(data[i].profilePic))
+        // );
+        var base64String = btoa(new Uint8Array(data[i].profilePic).reduce(
+          function (data, byte) {
+              return data + String.fromCharCode(byte);
+          },
+          ''
+      ));
         var html = "";
         html += `              <a
         href="#"
