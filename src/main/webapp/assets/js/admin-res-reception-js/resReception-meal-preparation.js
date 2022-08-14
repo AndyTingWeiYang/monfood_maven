@@ -175,6 +175,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 title: jsonObj.message + "請問是否接受?",
                                 showDenyButton: true,
+                                allowOutsideClick: false,
                                 confirmButtonText: '接單',
                                 denyButtonText: '拒單',
                             }).then((result) => {
@@ -223,6 +224,17 @@ $(document).ready(function () {
                                     };
                                     webSocket.send(JSON.stringify(resToUser)); // 	jsonObj改成json格式
                                     console.log(resToUser);
+                                    
+                                    // 更新商品訂單狀態
+                                    $.ajax({
+                                        url: 'UpdateOrderStatusServlet',
+                                        method: 'post',
+                                        data: {
+                                            orderId: jsonObj.orderList.orderId,
+                                            orderStatus: 4
+                                        },
+                                        success: function() {}
+                                    });
                                 }
                             })
                         } else if ("delReject" === jsonObj.type) {

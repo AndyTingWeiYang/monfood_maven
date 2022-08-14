@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.MapUtils;
 
 import com.model.order.OrderVO;
+import com.model.reception.OrderStatus;
 import com.model.reception.dao.ResDAO;
 import com.model.reception.dao.impl.ResJDBCDAOimpl;
 import com.model.reception.service.ResService;
@@ -67,19 +68,20 @@ public class ResServiceImpl implements ResService {
 		List<Map<String, Object>> tmpOrderList = dao.findByOrder(resId, orderStatus);
 
 		// groupby
-		Map<String, List<Map<String, Object>>> dataList = tmpOrderList.stream().collect(Collectors.groupingBy(map -> MapUtils.getString(map, "ORDER_ID"),
-				LinkedHashMap::new, Collectors.toList()));
-		
+		Map<String, List<Map<String, Object>>> dataList = tmpOrderList.stream().collect(Collectors
+				.groupingBy(map -> MapUtils.getString(map, "ORDER_ID"), LinkedHashMap::new, Collectors.toList()));
+
 		List<Map<String, Object>> orderList = new ArrayList<>();
-		for(String key : dataList.keySet()) {
+		for (String key : dataList.keySet()) {
 			// groupby 過後的資料
 			List<Map<String, Object>> orderGroupList = dataList.get(key);
 			Map<String, Object> parentMap = orderGroupList.get(0);
-			
+
 			Map orderGroupMap = new HashMap<>();
 			orderGroupMap.put("RES_NAME", MapUtils.getString(parentMap, "RES_NAME"));
 			orderGroupMap.put("ORDER_ID", MapUtils.getString(parentMap, "ORDER_ID"));
-			orderGroupMap.put("ORDER_STATUS", MapUtils.getString(parentMap, "ORDER_STATUS"));
+			int statusIndex = Integer.parseInt(MapUtils.getString(parentMap, "ORDER_STATUS"));
+			orderGroupMap.put("ORDER_STATUS", OrderStatus.getOrderStatus(statusIndex));
 			orderGroupMap.put("TOTAL", MapUtils.getString(parentMap, "TOTAL"));
 			orderGroupMap.put("ORDER_CREATE", MapUtils.getString(parentMap, "ORDER_CREATE"));
 			orderGroupMap.put("BZ_LOCATION", MapUtils.getString(parentMap, "BZ_LOCATION"));
@@ -87,20 +89,20 @@ public class ResServiceImpl implements ResService {
 			orderGroupMap.put("NOTE", MapUtils.getString(parentMap, "NOTE"));
 			orderGroupMap.put("RES_ACCOUNT", MapUtils.getString(parentMap, "RES_ACCOUNT"));
 			orderGroupMap.put("USER_ID", MapUtils.getString(parentMap, "USER_ID"));
-			
+
 			List<Map<String, Object>> productList = new ArrayList<>();
-			for(Map<String, Object> orderInnerMap : orderGroupList) {
+			for (Map<String, Object> orderInnerMap : orderGroupList) {
 				Map<String, Object> productMap = new HashMap<>();
 				productMap.put("PRODUCT_NAME", MapUtils.getString(orderInnerMap, "PRODUCT_NAME"));
 				productMap.put("PRODUCT_PRICE", MapUtils.getString(orderInnerMap, "PRODUCT_PRICE"));
 				productMap.put("AMOUNT", MapUtils.getString(orderInnerMap, "AMOUNT"));
 				productList.add(productMap);
 			}
-			
+
 			orderGroupMap.put("productList", productList);
 			orderList.add(orderGroupMap);
 		}
-		
+
 		return orderList;
 	}
 
@@ -112,21 +114,22 @@ public class ResServiceImpl implements ResService {
 		orderVO.setOrderId(MapUtils.getInteger(dataMap, "orderId"));
 		orderVO.setOrderStatus(MapUtils.getInteger(dataMap, "orderStatus"));
 		List<Map<String, Object>> tmpOrderList = dao.updateOrderStatus(orderVO);
-		
+
 		// groupby
-		Map<String, List<Map<String, Object>>> dataList = tmpOrderList.stream().collect(Collectors.groupingBy(map -> MapUtils.getString(map, "ORDER_ID"),
-				LinkedHashMap::new, Collectors.toList()));
-		
+		Map<String, List<Map<String, Object>>> dataList = tmpOrderList.stream().collect(Collectors
+				.groupingBy(map -> MapUtils.getString(map, "ORDER_ID"), LinkedHashMap::new, Collectors.toList()));
+
 		List<Map<String, Object>> orderList = new ArrayList<>();
-		for(String key : dataList.keySet()) {
+		for (String key : dataList.keySet()) {
 			// groupby 過後的資料
 			List<Map<String, Object>> orderGroupList = dataList.get(key);
 			Map<String, Object> parentMap = orderGroupList.get(0);
-			
+
 			Map orderGroupMap = new HashMap<>();
 			orderGroupMap.put("RES_NAME", MapUtils.getString(parentMap, "RES_NAME"));
 			orderGroupMap.put("ORDER_ID", MapUtils.getString(parentMap, "ORDER_ID"));
-			orderGroupMap.put("ORDER_STATUS", MapUtils.getString(parentMap, "ORDER_STATUS"));
+			int statusIndex = Integer.parseInt(MapUtils.getString(parentMap, "ORDER_STATUS"));
+			orderGroupMap.put("ORDER_STATUS", OrderStatus.getOrderStatus(statusIndex));
 			orderGroupMap.put("TOTAL", MapUtils.getString(parentMap, "TOTAL"));
 			orderGroupMap.put("ORDER_CREATE", MapUtils.getString(parentMap, "ORDER_CREATE"));
 			orderGroupMap.put("BZ_LOCATION", MapUtils.getString(parentMap, "BZ_LOCATION"));
@@ -134,20 +137,20 @@ public class ResServiceImpl implements ResService {
 			orderGroupMap.put("NOTE", MapUtils.getString(parentMap, "NOTE"));
 			orderGroupMap.put("RES_ACCOUNT", MapUtils.getString(parentMap, "RES_ACCOUNT"));
 			orderGroupMap.put("USER_ID", MapUtils.getString(parentMap, "USER_ID"));
-			
+
 			List<Map<String, Object>> productList = new ArrayList<>();
-			for(Map<String, Object> orderInnerMap : orderGroupList) {
+			for (Map<String, Object> orderInnerMap : orderGroupList) {
 				Map<String, Object> productMap = new HashMap<>();
 				productMap.put("PRODUCT_NAME", MapUtils.getString(orderInnerMap, "PRODUCT_NAME"));
 				productMap.put("PRODUCT_PRICE", MapUtils.getString(orderInnerMap, "PRODUCT_PRICE"));
 				productMap.put("AMOUNT", MapUtils.getString(orderInnerMap, "AMOUNT"));
 				productList.add(productMap);
 			}
-			
+
 			orderGroupMap.put("productList", productList);
 			orderList.add(orderGroupMap);
 		}
-		
+
 		return orderList;
 	}
 

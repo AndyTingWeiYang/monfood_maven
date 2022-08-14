@@ -1,4 +1,9 @@
 $(document).ready(function() {
+	let resProtocol = window.location.protocol;
+    let resHost = window.location.host;
+    let resPath = window.location.pathname;
+    let resWebCtx = resPath.substring(0, resPath.indexOf("/", 1));
+	
     let orderList;
     let delOrder;
     let intervalId;
@@ -174,7 +179,22 @@ $(document).ready(function() {
     $('#taken').click(function () {
         console.log("按下btn");
         addListener();
-    });
+        
+		// 更新商品訂單狀態
+		$.ajax({
+			url: 'UpdateOrderStatusServlet',
+			method: 'post',
+			data: {
+				orderId: delOrder.ORDER_ID,
+				orderStatus: 3
+			},
+			dataType: 'json',
+			success: function () {
+				window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-order-record.jsp';
+			}
+		});        
+        
+	});
 
     function addListener() {
         var jsonObj = {
