@@ -324,7 +324,7 @@ $(document).on("click","#acceptPairBtn, #refusePairBtn", function (){
     "whetherShow",
     JSON.stringify({ date: new Date().getDate() })
   );
-  init()
+  init();
 
 })
 
