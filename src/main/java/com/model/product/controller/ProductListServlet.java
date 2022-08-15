@@ -53,7 +53,7 @@ public class ProductListServlet extends HttpServlet {
 			Map<String, Object> dataMap = requestToMap(request);
 			dataMap.put("resID", resID);
 
-			List<ProductVo> productList = productService.findAll(dataMap);
+			List<Map<String, Object>> productList = productService.findAll(dataMap);
 
 			request.setAttribute("productList", productList);
 			RequestDispatcher rd = request.getRequestDispatcher("resprofile-product-list.jsp");

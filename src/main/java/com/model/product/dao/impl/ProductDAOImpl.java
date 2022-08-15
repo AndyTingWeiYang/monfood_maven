@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.model.product.ProductVo;
 import com.model.product.dao.ProductDao;
-
+import com.model.product.util.ProductStatus;
 
 public class ProductDAOImpl implements ProductDao {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -30,9 +30,8 @@ public class ProductDAOImpl implements ProductDao {
 //	private static DataSource ds = null;
 
 	private static final String GET_ALL_PDT = "SELECT PRODUCT_ID, RES_ID, PRODUCT_PRICE, PRODUCT_NAME, PRODUCT_KCAL "
-			+ "FROM PRODUCT "
-			+ "WHERE RES_ID = ?";
-	
+			+ "FROM PRODUCT " + "WHERE RES_ID = ?";
+
 	private static final String SELECT = "select * from MonFood.PRODUCT where 1 = 1 ";
 	private static final String INSERT = "insert into MonFood.PRODUCT (RES_ID, PRODUCT_PIC, PRODUCT_STATUS, PRODUCT_PRICE, PRODUCT_KCAL, PRODUCT_NAME, UPDATE_TIME,STOCK)values (?,  ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "update MonFood.PRODUCT set  PRODUCT_PIC = ?, PRODUCT_STATUS = ?, PRODUCT_PRICE = ?, PRODUCT_KCAL = ?, PRODUCT_NAME = ? , STOCK = ? where PRODUCT_ID= ?";
@@ -45,10 +44,10 @@ public class ProductDAOImpl implements ProductDao {
 	private static final String GET_ALL = "select * from MonFood.PRODUCT order by PRODUCT_ID";
 	private static final String FIND_RES_INFO = "select * from RES inner join RES_CATEGORY "
 			+ " on RES.RES_CATEGORY = RES_CATEGORY.RES_CATEGORY_ID" + " where RES_ID = ? ";
-	
-	private static final String UPDATE_STOCK ="update MonFood.PRODUCT set STOCK = ? where PRODUCT_ID= ?";
-	private static final String UPDATE_STATUS ="update MonFood.PRODUCT set PRODUCT_STATUS = ? where PRODUCT_ID= ?";
-	
+
+	private static final String UPDATE_STOCK = "update MonFood.PRODUCT set STOCK = ? where PRODUCT_ID= ?";
+	private static final String UPDATE_STATUS = "update MonFood.PRODUCT set PRODUCT_STATUS = ? where PRODUCT_ID= ?";
+
 	static {
 //			Context context = new InitialContext();
 //			ds = (DataSource) context.lookup("java:comp/env/jdbc/MonFood"); // JNDI 還沒取名，待修改
@@ -119,8 +118,8 @@ public class ProductDAOImpl implements ProductDao {
 	}
 
 	@Override
-	public List<ProductVo> findAll(ProductVo product) {
-		List<ProductVo> productList = new ArrayList<>();
+	public List<Map<String, Object>> findAll(ProductVo product) {
+		List<Map<String, Object>> productList = new ArrayList<>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -136,9 +135,10 @@ public class ProductDAOImpl implements ProductDao {
 			// 取得產品 ID
 			String productIdStr = castTypeToStr(product.getProductID());
 			Map<String, Object> fieldMap = new LinkedHashMap<>();
+
 			sbf.append(" and RES_ID = ? ");
 			fieldMap.put("resID", product.getResID());
-			
+
 			// 將Integer->String判斷是否為空
 			if (StringUtils.isNotBlank(productIdStr)) {
 				sbf.append(" and PRODUCT_ID = ? ");
@@ -178,18 +178,18 @@ public class ProductDAOImpl implements ProductDao {
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				// 叫出DB的資料
-				ProductVo productVO = new ProductVo();
-				productVO.setProductID(rs.getInt("PRODUCT_ID"));
-				productVO.setResID(rs.getInt("RES_ID"));
-				productVO.setProductStatus(rs.getInt("PRODUCT_STATUS"));
-				productVO.setProductPrice(rs.getInt("PRODUCT_PRICE"));
-				productVO.setProductKcal(rs.getInt("PRODUCT_KCAL"));
-				productVO.setProductName(rs.getString("PRODUCT_NAME"));
-				productVO.setUpdateTime(rs.getTimestamp("UPDATE_TIME"));
-				productVO.setStock(rs.getInt("STOCK"));
-
-				productList.add(productVO);
+				// 叫出DB的資料，放入Map
+				Map<String, Object> productMap = new HashMap<>();
+				productMap.put("productID", rs.getInt("PRODUCT_ID"));
+				productMap.put("resID", rs.getInt("RES_ID"));
+				productMap.put("productStatus", ProductStatus.getProductStatus(rs.getInt("PRODUCT_STATUS")));
+				productMap.put("productPrice", rs.getInt("PRODUCT_PRICE"));
+				productMap.put("productKcal", rs.getInt("PRODUCT_KCAL"));
+				productMap.put("productName", rs.getString("PRODUCT_NAME"));
+				productMap.put("updateTime", rs.getTimestamp("UPDATE_TIME"));
+				productMap.put("stock", rs.getInt("STOCK"));
+				productMap.put("resID", rs.getInt("RES_ID"));
+				productList.add(productMap);
 			}
 
 		} catch (SQLException e) {
@@ -615,14 +615,14 @@ public class ProductDAOImpl implements ProductDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(GET_ALL_PDT);
 			pstmt.setInt(1, resId);
-		
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -665,7 +665,7 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return pdtList;
 	}
-	
+
 	@Override
 	public boolean updateStock(ProductVo productVo) {
 		Connection conn = null;
@@ -703,7 +703,7 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean updateStatus(ProductVo productVo) {
 		Connection conn = null;
@@ -711,16 +711,16 @@ public class ProductDAOImpl implements ProductDao {
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = conn.prepareStatement(UPDATE_STATUS);
-			
+
 			// 將VO 設定好的資料->DB
 			pstmt.setInt(1, productVo.getProductStatus());
 			pstmt.setInt(2, productVo.getProductID());
 			int count = pstmt.executeUpdate();
-			
+
 			if (count > 0) {
 				return true;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -741,6 +741,5 @@ public class ProductDAOImpl implements ProductDao {
 		}
 		return false;
 	}
-	
-	
+
 }

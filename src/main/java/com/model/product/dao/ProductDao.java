@@ -10,7 +10,7 @@ public interface ProductDao {
 	public Map<String, Object> findByID(String productID);
 
 	// 查詢多筆資料
-	public List<ProductVo> findAll(ProductVo productVO);
+	public List<Map<String, Object>> findAll(ProductVo productVO);
 
 	public boolean insert(Map<String, Object> dataMap);
 

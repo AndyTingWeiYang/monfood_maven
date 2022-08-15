@@ -10,7 +10,7 @@ public interface ProductService {
 
 	Map<String, Object> findByID(String productID);
 
-	List<ProductVo> findAll(Map<String, Object> dataMap) throws ErrorMsgException;
+	List<Map<String, Object>> findAll(Map<String, Object> dataMap) throws ErrorMsgException;
 
 	ProductVo findPic(String productID);
 
