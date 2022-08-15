@@ -66,7 +66,7 @@ window.addEventListener('load', function(){
             Swal.fire("餐廳已拒單 請重新下單");
             sessionStorage.removeItem('orderList');
             sessionStorage.removeItem('cartList');
-            location.href = /monfood_maven/browse.html;
+            location.href = '/monfood_maven/browse.html';
             
         }else if ("delAccept" === data.type){
             Swal.fire("您的外送員"+data.delName+'"已接單');
