@@ -6,7 +6,6 @@ window.addEventListener('load', function(){
     }
 
     let orderList = JSON.parse(sessionStorage.getItem('orderList'));
-    delete orderList.monsPic; // 圖片太大導致連線一直斷
     // console.log(orderList)
     $('#orderId').text(orderList.orderId);
     $('#monsPic').attr('src', orderList.monsPic);
@@ -50,7 +49,8 @@ window.addEventListener('load', function(){
         console.log(event);
         let data = JSON.parse(event.data);
         console.log("data = ", data);
-        if ("userOpen" === data.stateType) {     
+        if ("userOpen" === data.stateType) {    
+            delete orderList.monsPic; // 圖片太大導致連線一直斷
             var jsonObj = {
             type: "userNotification",
             sender: userId,
