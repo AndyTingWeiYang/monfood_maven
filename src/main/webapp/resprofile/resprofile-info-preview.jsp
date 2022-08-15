@@ -44,8 +44,8 @@ function init(){
 	});
 	
 	
-	let resIDSp =sessionStorage.setItem("resID" ,$('#resIDSp').text());
-	console.log(resIDSp);
+	let resIDSp =sessionStorage.setItem("resId" ,$('#resIDSp').text());
+
 
 }
 
