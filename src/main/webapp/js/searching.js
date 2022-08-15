@@ -63,7 +63,11 @@ window.addEventListener('load', function(){
             console.log("已送出推播" ,jsonObj );
         }else if ("resReject" === data.type){
             console.log("通知使用者 餐廳拒單囉");
-            Swal.fire("餐廳已拒單");
+            Swal.fire("餐廳已拒單 請重新下單");
+            sessionStorage.removeItem('orderList');
+            sessionStorage.removeItem('cartList');
+            location.href = /monfood_maven/browse.html;
+            
         }else if ("delAccept" === data.type){
             Swal.fire("您的外送員"+data.delName+'"已接單');
             sessionStorage.setItem("delName", data.delName);
@@ -83,7 +87,7 @@ window.addEventListener('load', function(){
                     console.log(errMsg)
                 }
             })
-            // setTimeout("location.href='/monfood_maven/status.html'",5000);
+            setTimeout("location.href='/monfood_maven/status.html'",5000);
         }
     };
 

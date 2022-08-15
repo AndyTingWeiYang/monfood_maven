@@ -159,7 +159,7 @@ $(document).ready(function () {
                         console.log("jsonObj = ", jsonObj);
                         if ("resOpen" === jsonObj.stateType) {
                             console.log(jsonObj.allUser);
-                            alert("onmessage 我收到後端資料囉");
+                            // alert("onmessage 我收到後端資料囉");
                             console.log("onmessage 我收到後端資料囉");
 
                             // 取得delId 存進陣列
@@ -238,7 +238,7 @@ $(document).ready(function () {
                             })
                         } else if ("delReject" === jsonObj.type) {
                             console.log("通知餐廳 外送員拒單囉")
-                            alert("外送員已拒單");
+                            Swal.fire("外送員已拒單");
                         }
                     };
                 }
