@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
@@ -27,8 +25,6 @@ import com.model.product.util.ErrorMsgException;
 import com.model.product.util.IntTypeAdapter;
 import com.model.res.ResDto;
 import com.model.res.ResVO;
-import com.model.res.dao.ResDAO;
-import com.model.res.dao.impl.ResDAOImpl;
 import com.model.res.service.ResService;
 import com.model.res.service.impl.ResServiceImpl;
 
@@ -100,7 +96,7 @@ public class ResInfoUpdateServlet extends HttpServlet {
 
 	private Map<String, Object> resToMap(HttpServletRequest request) {
 		Enumeration<String> formList = request.getParameterNames();
-		Map<String, Object> dataMap = new HashedMap<>();
+		Map<String, Object> dataMap = new HashMap<>();
 
 		while (formList.hasMoreElements()) {
 			String nameKey = formList.nextElement();
