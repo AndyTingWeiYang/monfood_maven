@@ -131,8 +131,7 @@ $(document).ready(function () {
                 }
                 // ===============websocket yuyu======================
                 // webSocket
-                resId = orderMap.RES_ID;
-                sessionStorage.setItem("resId",resId)
+                resId = sessionStorage.getItem("resId");  
                 let resType = "0";
 
                 // 建立連線
