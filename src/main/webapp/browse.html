@@ -85,9 +85,6 @@
       </div>
       <div class="container d-flex justify-content-between" style="margin: 0px">
         <div class="row" style="margin: 0px">
-          <!-- <div class="col-md-3">
-            <h4 style="float: right">S156</h4>
-          </div> -->
           <div class="col-9">
             <h4></h4>
           </div>
@@ -121,19 +118,8 @@
 
           <div class="row">
               <div class="col">
-                  <ul style="padding: 0">
-                      <li class="d-flex justify-content-between align-items-center">
-                          <span class="addressBtn">桃園市龜山區文青二路</span>
-                          <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
-                      </li>
-                      <li class="d-flex justify-content-between align-items-center">
-                          <span class="addressBtn">台北市松山區健康路</span>
-                          <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close" >確認</button>
-                      </li>
-                      <li class="d-flex justify-content-between align-items-center">
-                          <span class="addressBtn">新北市新店區湖子內路</span>
-                          <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
-                      </li>
+                  <ul id="userLocation" style="padding: 0">
+
                   </ul>
               </div>
           </div>
@@ -215,9 +201,7 @@
 
     <main>
       <!--  -->
-      <div id="notiBlock" class="monfood-notification">
-          <!-- <div id="promoteBlock">輸入【 ${prmoteCode} 】，折抵 $ ${promotePrice} !<br />日常補貨每日三省，省錢、省事、又省力！！！</div> -->
-      </div>
+      <div id="notiBlock" class="monfood-notification"></div>
 
 
       <div class="loc_and_input">
@@ -257,7 +241,7 @@
           <div class="flip">
               <span class="1" style="font-size: 20px">選擇篩選條件</span>
           </div>
-          <div class="resCategory-panel">
+          <div class="resCategory-panel panel">
               <div>
                 餐廳分類
                   <span class="button">
@@ -291,17 +275,11 @@
          <span class="s1">所有餐廳</span>
       </div>
       
-  <!-- TODO: 餐廳區塊 -->
       <div class="container">
           <div id="resPageBlock" class="row" style="justify-content: space-around">
           </div> 
       </div>
 
-      <!-- <li class="d-flex justify-content-center">
-          <div class="show_more">
-             <button class="show_more">顯示更多</button>
-          </div>
-      </li> -->
     </main>
    <!-- include button -->
    <div w3-include-html="buttonContent.html"></div>
@@ -339,13 +317,15 @@
     </div>
     <!-- Footer -->
 
-      <script src="assets/js/jquery.forMandy.js"></script>
-      <script src="js/browse.js"></script>
-      <script src="js/restaurant.js"></script>
-      <script src="js/logout.js"></script>
-       <!-- include button -->
+
+    <script src="js/venders/jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/browse.js"></script>
+    <script src="js/restaurant.js"></script>
+    <script src="js/logout.js"></script>
+    <!-- include button -->
     <script src="js/buttonContent.js"></script>
-     <!-- include button -->
+    <script src="assets/js/jquery.forMandy.js"></script>
+    <!-- include button -->
      <script>
       function includeHTML() {
         var z, i, elmnt, file, xhttp;

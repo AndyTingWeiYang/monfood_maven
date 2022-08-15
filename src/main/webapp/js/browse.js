@@ -1,5 +1,6 @@
 $(function () {
   $(".flip").click(function () {
+    console.log('123')
     $(".panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
@@ -37,6 +38,29 @@ $(document).ready(function() {
 
 // google
 window.addEventListener('load', function(){
+
+  // get saved location
+  $.ajax({
+    url: 'GetAllLocation',
+    type: 'POST',
+    dataType: 'json',
+    success: function(msg){
+      console.log(msg)
+      $.each(msg.locations, function(index, data){
+        let loc_list = `
+          <li class="d-flex justify-content-between align-items-center">
+            <span class="addressBtn">${this.location}</span>
+            <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
+          </li>
+        `
+        $('#userLocation').append(loc_list);
+      })
+    },
+    error: function(errMsg){
+      console.log(errMsg)
+    }
+  })
+
   var mylatlng = { lat: 25.0393131, lng: 121.3871121 };
   var res = {lat: 25.0444475, lng:121.5212073};
 
@@ -94,7 +118,22 @@ window.addEventListener('load', function(){
 
     document.querySelector('button.btn.textConfirm').addEventListener('click', function(){
       document.getElementById('finalAddress').innerText = document.getElementById('address').value
-      
+        // insert location for user
+        if($('#address').val().trim() != null || $('#address').val().trim() != ''){
+
+          $.ajax({
+            url: 'InsertLocation',
+            type: 'POST',
+            data: JSON.stringify({
+              location: $('#address').val()
+            }),
+            dataType: 'json',
+            success: function(msg){
+            },
+            error: function(errMsg){
+            }
+          })
+        }
       // 路線相關設定
       var request = {
         origin: res,
@@ -104,26 +143,26 @@ window.addEventListener('load', function(){
       
       
       // 繪製路線
-    directionsService.route(request, function (result, status) {
-      if (status == 'OK') {
-        // 回傳路線上每個步驟的細節
-        directionsDisplay.setDirections(result);
-        // 路程時間
-        var duration = parseInt(result.routes[0].legs[0].duration.value);
-        // 目前時間
-        var today = new Date();
-        // 轉為毫秒數
-        var t_s = today.getTime();
+    // directionsService.route(request, function (result, status) {
+    //   if (status == 'OK') {
+    //     // 回傳路線上每個步驟的細節
+    //     directionsDisplay.setDirections(result);
+    //     // 路程時間
+    //     var duration = parseInt(result.routes[0].legs[0].duration.value);
+    //     // 目前時間
+    //     var today = new Date();
+    //     // 轉為毫秒數
+    //     var t_s = today.getTime();
         
-        var time = new Date();
-        time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
-        var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-        document.getElementById("duration").innerText = arrival;
+    //     var time = new Date();
+    //     time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
+    //     var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
+    //     document.getElementById("duration").innerText = arrival;
         
-      } else {
-        // console.log(status);
-      }
-    });
+    //   } else {
+    //     // console.log(status);
+    //   }
+    // });
     
   })
 })
@@ -464,4 +503,6 @@ $('button.btn.textConfirm').on('click', function(){
  }
 });
 });
-
+$('.1').on('click', function(){
+  console.log('hiiiiiiiiiiiiiii');
+});
