@@ -69,7 +69,7 @@ window.addEventListener('load', function(){
             sessionStorage.setItem("delName", data.delName);
             sessionStorage.setItem("delId", data.delId);
             $.ajax({
-                url: '/UpdateDelId',
+                url: '/monfood_maven/UpdateDelId',
                 type: 'POST',
                 data: JSON.stringify({
                     delId: data.delId,
