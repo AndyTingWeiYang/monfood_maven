@@ -132,7 +132,7 @@
       
              },error: function(){
             	$("#fancybox-close").trigger('click'); 
-             	swal('新增失敗', '請確認是否有空格', 'error');
+             	swal('新增失敗', '請確認是否輸入錯誤', 'error');
              }
          });
      });
