@@ -397,12 +397,12 @@
       let box = document.querySelector("#myonoffswitch");
       box.onchange = () => {
         if (box.checked) {
-          alert("您已上線，開始接單");
+          Swal.fire("您已上線，開始接單")
           createConnection();
           $("#loading").remove();
           return;
         }else{   
-          alert("您已下線，無法接單");
+          Swal.fire("您已下線，無法接單")
           webSocket.close();
           $("#map").append(`<div id="loading" class="TheLoading"></div>`);
         }
