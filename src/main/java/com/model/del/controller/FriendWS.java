@@ -2,6 +2,7 @@ package com.model.del.controller;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,10 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 import com.model.del.ChatMessage;
+import com.model.del.DelService;
+import com.model.del.DelVO;
 import com.model.del.State;
+import com.model.del.service.DelServiceImpl;
 
 
 @ServerEndpoint("/FriendWS/{userName}")
@@ -62,6 +66,15 @@ public class FriendWS {
 		ChatMessage chatMessage = gson.fromJson(message, ChatMessage.class);
 		String sender = chatMessage.getSender();
 		String receiver = chatMessage.getReceiver();
+		Collection<Session> toAllSessions = sessionsMap.values();
+		DelService service = new DelService();
+		List<DelVO> dels = service.getAll();
+		Set<String> allDels = new HashSet<String>();
+		for(DelVO del : dels) {
+			String delString = String.valueOf(del.getDelID());
+			allDels.add(delString);
+		}
+		Set<String> userNames = sessionsMap.keySet();
 		
 		//把存在redis的歷史訊息取出
 		if ("history".equals(chatMessage.getType())) {
@@ -83,6 +96,14 @@ public class FriendWS {
 			receiverSession.getAsyncRemote().sendText(message);
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
+		}
+		else if("ToAll".equals(receiver)) {
+			for(String userName : userNames) {
+				sessionsMap.get(userName).getAsyncRemote().sendText(message);
+				}
+			for(String allDel : allDels) {
+				JedisHandleMessage.saveChatMessage(sender, allDel, message);
+			}
 		}
 		System.out.println("Message received: " + message);
 	}

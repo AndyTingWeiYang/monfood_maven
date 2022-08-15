@@ -45,7 +45,6 @@ public class DelGetOneByID extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		DelVO delVO = (DelVO) session.getAttribute("del");
-		System.out.println(delVO.toString()+"存在session的資料");
 		
 
 //		System.out.println("before bean");
@@ -64,7 +63,6 @@ public class DelGetOneByID extends HttpServlet {
 			String resName = String.valueOf(resVO.getResName());
 			resNameList += resName + "_";
 		}
-		System.out.println(resNameList);
 		bean.setDelName(bean.getDelName() + "_" + resNameList);
 		resp.getWriter().append(gson.toJson(bean));
 		

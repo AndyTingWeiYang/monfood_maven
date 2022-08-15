@@ -9,23 +9,22 @@ public class JedisHandleMessage {
 	// 此範例key的設計為(發送者名稱:接收者名稱)，實際應採用(發送者會員編號:接收者會員編號)
 
 	private static JedisPool pool = JedisPoolUtil.getJedisPool();
-
+	static int i = 0;
+	
 	public static List<String> getHistoryMsg(String sender, String receiver) {
 		String key = new StringBuilder(sender).append(":").append(receiver).toString();
 		Jedis jedis = null;
 		jedis = pool.getResource();
 		//lrange 列出key為key的list 從頭(0) 到結束(-1)
 		List<String> historyData = jedis.lrange(key, 0, -1);
-		System.out.println("from Redis: " + historyData);
-//		這行怎麼用??
-//		long xxx = jedis.lrem(key, 0, key);
-		System.out.println("from Redis: " + historyData + "remove: " );
 		jedis.close();
 		return historyData;
 	}
 
 	public static void saveChatMessage(String sender, String receiver, String message) {
 		// 對雙方來說，都要各存著歷史聊天記錄
+		i += 1;
+		System.out.println("存redis的計數器:"+i);
 		String senderKey = new StringBuilder(sender).append(":").append(receiver).toString();
 		String receiverKey = new StringBuilder(receiver).append(":").append(sender).toString();
 		Jedis jedis = pool.getResource();
@@ -35,5 +34,7 @@ public class JedisHandleMessage {
 
 		jedis.close();
 	}
+	
+	
 
 }
