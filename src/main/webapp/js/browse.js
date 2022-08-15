@@ -1,6 +1,7 @@
 $(function () {
   $(".flip").click(function () {
-    $(".resCategory-panel").slideToggle("slow");
+    console.log('123')
+    $(".panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
   });
@@ -30,13 +31,35 @@ $(document).ready(function() {
   })
 });
 
-navigator.geolocation.getCurrentPosition(function(position) {
-  //do_something(position.coords.latitude, position.coords.longitude);
-});
+// navigator.geolocation.getCurrentPosition(function(position) {
+//   do_something(position.coords.latitude, position.coords.longitude);
+// });
 
 
 // google
 window.addEventListener('load', function(){
+
+  // get saved location
+  $.ajax({
+    url: 'GetAllLocation',
+    type: 'POST',
+    dataType: 'json',
+    success: function(msg){
+      console.log(msg)
+      $.each(msg.locations, function(index, data){
+        let loc_list = `
+          <li class="d-flex justify-content-between align-items-center">
+            <span class="addressBtn">${this.location}</span>
+            <button class="btn addressConfirm" data-bs-dismiss="offcanvas" aria-label="Close">確認</button>
+          </li>
+        `
+        $('#userLocation').append(loc_list);
+      })
+    },
+    error: function(errMsg){
+      console.log(errMsg)
+    }
+  })
 
   var mylatlng = { lat: 25.0393131, lng: 121.3871121 };
   var res = {lat: 25.0444475, lng:121.5212073};
@@ -56,32 +79,32 @@ window.addEventListener('load', function(){
   // 路線相關設定
   var request = {
     origin: res,
-    destination: document.getElementById('finalAddress').innerText,
+    destination: mylatlng,
     travelMode: 'DRIVING'
   };
 
     
   // 繪製路線
-  directionsService.route(request, function (result, status) {
-    if (status == 'OK') {
-      // 回傳路線上每個步驟的細節
-      directionsDisplay.setDirections(result);
-      // 路程時間
-      var duration = parseInt(result.routes[0].legs[0].duration.value);
-      // 目前時間
-      var today = new Date();
-      // 轉為毫秒數
-      var t_s = today.getTime();
+  // directionsService.route(request, function (result, status) {
+  //   if (status == 'OK') {
+  //     // 回傳路線上每個步驟的細節
+  //     directionsDisplay.setDirections(result);
+  //     // 路程時間
+  //     var duration = parseInt(result.routes[0].legs[0].duration.value);
+  //     // 目前時間
+  //     var today = new Date();
+  //     // 轉為毫秒數
+  //     var t_s = today.getTime();
       
-      var time = new Date();
-      time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
-      var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-      // document.getElementById("duration").innerText = arrival;
+  //     var time = new Date();
+  //     time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
+  //     var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
+  //     document.getElementById("duration").innerText = arrival;
       
-    } else {
-      // console.log(status);
-    }
-  });
+  //   } else {
+  //     // console.log(status);
+  //   }
+  // });
   
     
   // 輸入地址按下確認更改位置
@@ -93,14 +116,24 @@ window.addEventListener('load', function(){
   
   google.maps.event.addListener(autocomplete, 'place_changed', function (){
 
-    // var place = autocomplete.getPlace();
-    // var lat = place.geometry.location.lat();
-    // var lng = place.geometry.location.lng();
-    // mylatlng = { lat: lat, lng: lng }
-
     document.querySelector('button.btn.textConfirm').addEventListener('click', function(){
       document.getElementById('finalAddress').innerText = document.getElementById('address').value
-      
+        // insert location for user
+        if($('#address').val().trim() != null || $('#address').val().trim() != ''){
+
+          $.ajax({
+            url: 'InsertLocation',
+            type: 'POST',
+            data: JSON.stringify({
+              location: $('#address').val()
+            }),
+            dataType: 'json',
+            success: function(msg){
+            },
+            error: function(errMsg){
+            }
+          })
+        }
       // 路線相關設定
       var request = {
         origin: res,
@@ -110,26 +143,26 @@ window.addEventListener('load', function(){
       
       
       // 繪製路線
-    directionsService.route(request, function (result, status) {
-      if (status == 'OK') {
-        // 回傳路線上每個步驟的細節
-        directionsDisplay.setDirections(result);
-        // 路程時間
-        var duration = parseInt(result.routes[0].legs[0].duration.value);
-        // 目前時間
-        var today = new Date();
-        // 轉為毫秒數
-        var t_s = today.getTime();
+    // directionsService.route(request, function (result, status) {
+    //   if (status == 'OK') {
+    //     // 回傳路線上每個步驟的細節
+    //     directionsDisplay.setDirections(result);
+    //     // 路程時間
+    //     var duration = parseInt(result.routes[0].legs[0].duration.value);
+    //     // 目前時間
+    //     var today = new Date();
+    //     // 轉為毫秒數
+    //     var t_s = today.getTime();
         
-        var time = new Date();
-        time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
-        var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
-        // document.getElementById("duration").innerText = arrival;
+    //     var time = new Date();
+    //     time.setTime(t_s + duration*1000 + 15*60*1000); // 將目前時間與路程時間加總 (加上預設餐點時間15分鐘)
+    //     var arrival = time.getHours() + ":" + time.getMinutes(); // 格式化
+    //     document.getElementById("duration").innerText = arrival;
         
-      } else {
-        // console.log(status);
-      }
-    });
+    //   } else {
+    //     // console.log(status);
+    //   }
+    // });
     
   })
 })
@@ -171,16 +204,7 @@ window.addEventListener('load', function(){
     });
     })
   }
-
   sessionStorage.setItem('location','browse');
-
-// select 標籤
-$('select').on('change', function(){
-  if($(this).find('option:selected').val() == 0){
-    $(this).closest('li').remove();
-  }
-})
-
 })
 
 //以上勿動//
@@ -316,8 +340,12 @@ $('.restriction').click(function(){
                 resCat = "美式";
                 }else if(resVo.resCategory==5){
                 resCat = "韓式";
+                }else if(resVo.resCategory==5){
+                resCat = "飲料咖啡";
+                }else if(resVo.resCategory==5){
+                resCat = "越式";
                 }
-      
+
                 let resPageHtml = `
                   <a id="resPage" 
                     class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
@@ -368,6 +396,10 @@ $('.restriction').click(function(){
               resCat = "美式";
               }else if(resVo.resCategory==5){
               resCat = "韓式";
+              }else if(resVo.resCategory==5){
+              resCat = "飲料咖啡";
+              }else if(resVo.resCategory==5){
+              resCat = "越式";
               }
               // console.log(resCat);
               // console.log(resVo.resCategory);

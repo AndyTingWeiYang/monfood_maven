@@ -13,12 +13,14 @@
 
         <ul class="nav" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item nav-category">
-                <span class="nav-link">
-                    <img width="16px" height="16px" src="assets/images/arrow-left-solid.svg">
-                    <span class="ml-3">返回前台</span>
-                </span>
+                <a href="index.html">
+                    <span class="nav-link">
+                        <img width="16px" height="16px" src="assets/images/arrow-left-solid.svg">
+                        <span class="ml-3">返回前台</span>
+                    </span>
+                </a>
             </li>
-            <li class="nav-item profile">
+            <!-- <li class="nav-item profile">
                 <div class="profile-desc">
                     <div class="profile-pic">
                         <div class="count-indicator">
@@ -32,7 +34,7 @@
                     </div>
 
                 </div>
-            </li>
+            </li> -->
 
             <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="adminUser.html" aria-expanded="false"
@@ -87,14 +89,6 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="adminMessage.html">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-logout text-danger"></i>
-                    </span>
-                    <span class="menu-title">訊息管理</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
                 <a class="nav-link" href="adminCost.html">
                     <span class="menu-icon">
                         <i class="mdi mdi-logout text-danger"></i>
@@ -102,10 +96,21 @@
                     <span class="menu-title">費用管理</span>
                 </a>
             </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="adminToDel.html">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-logout text-danger"></i>
+                    </span>
+                    <span class="menu-title">系統訊息</span>
+                </a>
+            </li>
 
         </ul>
     </nav>
 
 </body>
+<script>
+    sessionStorage.getItem("")
+</script>
 
 </html>

@@ -196,7 +196,6 @@
         }
         throw new Error(response.statusText);
       }).then(function(data){
-        console.log(data.adminID);
         if(data.adminID!=null){
 	        window.location.href="adminUser.html";
         	
