@@ -139,6 +139,18 @@ webSocket.onmessage = function(event) {
 
 };  
 
+$(".btnOrderFinish").on("click",function(){
+  console.log("按下btn")
+  var jsonObj = {
+    type: "orderFinish",
+    sender: delId,
+    receiver: userId+"2",
+    message: "訂單已完成",
+  };
+  webSocket.send(JSON.stringify(jsonObj));
+  console.log("發出去的訊息 = ",jsonObj);
+})
+
 $(".send_message").on("click",function(){
   var jsonObj = {
     type: "delSend",

@@ -159,6 +159,12 @@ window.addEventListener('load', function(){
         let message = jsonObj.message;
         let isMe = jsonObj.sender === userId;
         appendNewMsg(isMe, message);
+      }else if("orderFinish" === jsonObj.type){
+        Swal.fire("訂單完成");
+        sessionStorage.removeItem('orderList');
+        sessionStorage.removeItem('cartList');
+        setTimeout("location.href='/monfood_maven/browse.html'",5000);
+        console.log("收到的訊息 = ",jsonObj);
       }
     };  
 
