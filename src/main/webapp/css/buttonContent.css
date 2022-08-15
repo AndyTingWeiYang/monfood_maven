@@ -379,12 +379,16 @@ span.logo2{
     }
   
   #refusePairBtn{
+    border: none;
+    background-color: gray;
     position: absolute;
     bottom: 5px;
   }
   
   
   #acceptPairBtn{
+    border: none;
+    background-color: gray;
     position: absolute;
     bottom: 5px;
   

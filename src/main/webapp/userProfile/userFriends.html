@@ -362,13 +362,13 @@
           url: "/monfood_maven/PairListServlet",
           type: "GET",
           dataType: "json",
-          success: function (data) {
-            if (data.length == 0) {
+          success: function (allData) {
+            if (allData.length == 0) {
               let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
               $("#friendList").append(noFriends);
             }
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
+            console.log(allData);
+            for (var i = 0; i < allData.length; i++) {
               // var base64String = btoa(
               //   String.fromCharCode.apply(
               //     null,
@@ -376,7 +376,7 @@
               //   )
               // );
               var base64String = btoa(
-                new Uint8Array(data[i].profilePic).reduce(function (
+                new Uint8Array(allData[i].profilePic).reduce(function (
                   data,
                   byte
                 ) {
@@ -385,21 +385,21 @@
                 "")
               );
 
-              let birthday = data[i].birthday
+              let birthday = allData[i].birthday
                 .replace("月", " /")
                 .replace(",", " /");
 
               var html = "";
               html += `  <div id="friendListDiv">
       <div class="d-flex w-100">
-        <h5 class="mb-1 avatarList"></h5>
-        <p id="friendName">${data[i].userName}</p>
+        <h5 class="avatarLists"></h5>
+        <p id="friendName">${allData[i].userName}</p>
         <div id="removeBtnDiv">
           <button
             data-toggle="tooltip"
             data-placement="left"
             data-bs-toggle="modal"
-            data-bs-target="#friendInfoModal${data[i].userId}";
+            data-bs-target="#friendInfoModal${allData[i].userId}";
             id="removeBtn"
           >
             <svg
@@ -424,7 +424,7 @@
     
     <div
       class="modal fade"
-      id="friendInfoModal${data[i].userId}"
+      id="friendInfoModal${allData[i].userId}"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -445,9 +445,9 @@
           </div>
           <h4 id="title">好友資訊</h4>
           <div class="col align-self-center">
-            <img id = "headshot${data[i].userId}" class="headshot" src="" />
+            <img id = "headshot${allData[i].userId}" class="headshot" src="" />
             <div id="info">姓名</div>
-            <div id="name">${data[i].userName}</div>
+            <div id="name">${allData[i].userName}</div>
             <hr id="info" />
 
             <div id="info">生日</div>
@@ -455,12 +455,12 @@
             <hr id="info" />
 
             <div id="info">小怪獸等級</div>
-            <div id="level">${data[i].monsLevel}</div>
+            <div id="level">${allData[i].monsLevel}</div>
             <hr id="info" />
 
             <div id="info">自我介紹</div>
             <div id="introduction">
-              ${data[i].userProfile}
+              ${allData[i].userProfile}
             </div>
             <hr id="info" />
           </div>
@@ -470,12 +470,12 @@
     `;
 
               $("#friendList").append(html);
-              console.log(document.querySelectorAll(".avatarList"));
-              document.querySelectorAll(".avatarList")[
+              console.log(document.querySelectorAll(".avatarLists"));
+              document.querySelectorAll(".avatarLists")[
                 i
               ].style.backgroundImage =
                 "url('data:image/png;base64," + base64String + "')";
-              $(`#headshot${data[i].userId}`).attr(
+              $(`#headshot${allData[i].userId}`).attr(
                 "src",
                 `data:image/png;base64,${base64String}`
               );
