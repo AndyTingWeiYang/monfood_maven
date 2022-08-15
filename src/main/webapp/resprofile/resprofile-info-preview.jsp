@@ -42,6 +42,11 @@ function init(){
 		overlayColor: '#000',
 		overlayOpcity: 0.8
 	});
+	
+	
+	let resIDSp =sessionStorage.setItem("resID" ,$('#resIDSp').text());
+	console.log(resIDSp);
+
 }
 
 $('#btnCancel2').click(function(){
@@ -70,9 +75,7 @@ init();
                         <div class="form-group row">
                         	<div class="row">
                         		<div class="col-sm-12">
-                        		     <div class="resID">
-                                    會員編號 : ${sessionScope.resID}
-                                	</div>
+                        		     <div class="resID">會員編號 : <span id="resIDSp">${resMap.resID}</span></div>
 								<div>商家會員圖片預覽</div> 
 							</div>
                         	</div>

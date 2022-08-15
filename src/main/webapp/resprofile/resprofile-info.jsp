@@ -198,6 +198,8 @@
                                     <option value="3" ${(resVO.resCategory==3)?'selected':'' }>泰式</option>
                                     <option value="4" ${(resVO.resCategory==4)?'selected':'' }>美式</option>
                                     <option value="5" ${(resVO.resCategory==5)?'selected':'' }>韓式</option>
+                                    <option value="6" ${(resVO.resCategory==6)?'selected':'' }>飲料咖啡</option>
+                                    <option value="7" ${(resVO.resCategory==7)?'selected':'' }>越式</option>
                                 </select>
 
                             </div>
