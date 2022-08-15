@@ -19,10 +19,12 @@ let MyPoint = `/ChatWebsocket/${selfId}`;
 // let host = window.location.host;
 // let path = window.location.pathname;
 // let webCtx = path.substring(0, path.indexOf("/", 1));
-let endPointURL = "ws://" + window.location.host + "/monfood_maven" + MyPoint;
+// 本地端
+// let endPointURL = "ws://" + window.location.host + "/monfood_maven" + MyPoint;
 
 // 上雲
-// let endPointURL = "ws://35.201.129.109:8443/monfood_maven" + MyPoint;
+// let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + MyPoint;
+let endPointURL = "wss://" + window.location.host + "/monfood_maven" + MyPoint;
 
 let webSocket = new WebSocket(endPointURL);
 
@@ -124,7 +126,7 @@ function refreshChat() {
 
 
 //配對者資訊ajax
-function pair(){
+
   console.log("pairF");
   $.ajax({
     url: "/monfood_maven/PairInfoServlet",
@@ -157,12 +159,12 @@ function pair(){
       $("#name1").append(data[0].userName);
     },
   });
-}
+
 
 
 //更新答案ajax
 // 到其他人頁面改為動態
-function update() {
+
   $(document).on("click","#acceptPairBtn, #refusePairBtn", function (e) {
     console.log("aa");
     fetch("/monfood_maven/UpdateAnswerServlet", {
@@ -190,12 +192,12 @@ function update() {
       }),
     });
   });
-}
+
 
 
 
 //訊息列表+聊天室ajax
-function chat() {
+
   $.ajax({
     url: "/monfood_maven/PairListServlet",
     type: "GET",
@@ -203,7 +205,7 @@ function chat() {
     success: function (data) {
       if (data.length == 0) {
         let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
-        $(".list-group").append(noFriends);
+        $(".list-groups").append(noFriends);
       }
       console.log(data);
       for (var i = 0; i < data.length; i++) {
@@ -295,14 +297,13 @@ function chat() {
         </div>
       </div>
     </div>`;
-        $(".list-group").append(html);
+        $(".list-groups").append(html);
         $("#as").append(html2);
         document.querySelectorAll(".avatarList")[i].style.backgroundImage =
           "url('data:image/png;base64," + base64String + "')";
       }
     },
   });
-}
 
 
 
@@ -343,12 +344,6 @@ const init = () => {
   showBtn(true);
 };
 
+window.addEventListener("load", init);
 
-// 避免要再重新刷一次頁面才會載入資訊
-window.onload = function(){
-  init();
-  pair();
-  update();
-  chat();
-}
 
