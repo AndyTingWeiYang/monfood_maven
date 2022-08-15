@@ -125,12 +125,12 @@ public class DelEditPic extends HttpServlet {
 		delVO.setCriminalRecord(criminalByte);
 		delVO.setInsurance(insuranceByte);
 		
-		System.out.println(delVO);
+//		System.out.println(delVO);
 		com.model.del.service.DelService service = new DelServiceImpl();
 		DelVO result = service.updatePic(delVO);
 		
-		//		resp.getWriter().append(gson.toJson(respObj));
-//		System.out.println(result);
+		resp.getWriter().append(gson.toJson(result));
+		System.out.println("update ok"+result);
 		
 
 	}

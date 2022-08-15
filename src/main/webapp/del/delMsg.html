@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>MonFood</title>
+    <title>MonFood || DelMember Center</title>
 
     <link rel="stylesheet" href="/monfood_maven/assets/css/user-member-center-style/friendList.css"/>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css"/>
@@ -20,6 +20,10 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
       
+      a.nav-link:hover{
+        background-color: #1A4D2E !important;
+      }
+
       ul#area{
         overflow: scroll;
       }
@@ -48,23 +52,23 @@
         box-shadow: 0px 30px 40px -20px var(--grayishBlue);
         padding: 30px;
         margin: 20px;
-        background-color: var(--cyan);
+        background-color: #CEFFCE;
       }
 
 
 
-  @media (max-width: 450px) {
+    @media (max-width: 450px) {
       .box {
         height: 200px;
       }
-  }
+    }
 
-  @media (max-width: 950px) and (min-width: 450px) {
+    @media (max-width: 950px) and (min-width: 450px) {
       .box {
         text-align: center;
         height: 180px;
       }
-  }
+    }
 
       .cyan {
         border-top: 3px solid #1A4D2E;
@@ -74,15 +78,15 @@
         font-weight: var(--weight3);
       }
 
-  @media (min-width: 950px) {
+    @media (min-width: 950px) {
 
       .box {
         width: 70%;
-        background-color: #CEFFCE;
+        background-color: rgb(220, 220, 220);
         color: var(--varyDarkBlue);
         font-weight: var(--weight3);
       }
-  }
+    }
     </style>
   </head>
 
@@ -100,12 +104,9 @@
             </span>
           </li>
 
-          <li class="nav-item profile d-flex justify-content-center">
-            <input type="file" id="upload-file" style="display: none;">
-            <label for="upload-file">
-              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
-            </label>
-          </li>
+          <br>
+          <br>
+          <br>
 
           <li class="nav-item menu-items">
             <a style="background-color: white; color: rgb(30, 29, 29)" class="nav-link" data-toggle="collapse" href="delInfo.html" aria-expanded="false" aria-controls="ui-basic">
@@ -207,7 +208,7 @@
               type="button"
               data-toggle="offcanvas"
             >
-              <span class="mdi mdi-format-line-spacing"></span>
+              <span class="mdi mdi-view-headline"></span>
             </button>
           </div>
         </nav>
@@ -284,7 +285,7 @@
         var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
         var messagesArea = $("div#messagesArea");
         var self;
-        //載入登入資料          
+//載入登入資料          
         var getOneUrl = "../DelGetOneByID";
         
         $.ajax({
@@ -301,10 +302,11 @@
           }
         })
         
+// 和WS建立連線        
         var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
         connect();
         
-        // LOGOUT
+// LOGOUT
         $(".logout").on("click", function () {
           var logout = "../DelLogoutServlet";
           $.ajax({
@@ -354,8 +356,11 @@
                     var showMsg = historyData.message;
                     var div = document.createElement('div');
                     div.setAttribute("class", "box box-down cyan");
+                    // let btn_delete = document.createElement("button");
+                    // btn_delete.setAttribute("class", "delete_msg");
+                    div.innerHTML = showMsg;
+                    // div.append(btn_delete);
                   // 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
-                  div.innerHTML = showMsg;
                   ul.appendChild(div);
                 }
 				        messagesArea.scrollTop = messagesArea.scrollHeight;
@@ -445,6 +450,10 @@
             // });
           }
 
+//刪除訊息
+        // $("div#wholeArea").on("click", "button.delete_msg", function(){
+        //   alert("wait to finish delete msg");
+        // });          
 
 
 

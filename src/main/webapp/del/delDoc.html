@@ -18,6 +18,10 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+      a.nav-link:hover{
+        background-color: #1A4D2E !important;
+      }
+
       div.imgcolumn{
         display: flex;
         align-content: stretch;
@@ -40,12 +44,9 @@
             </span>
           </li>
 
-          <li class="nav-item profile d-flex justify-content-center">
-            <input type="file" id="upload-file" style="display: none;">
-            <label for="upload-file">
-              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
-            </label>
-          </li>
+          <br>
+          <br>
+          <br>
 
           <li class="nav-item menu-items">
             <a style="background-color: white; color: rgb(30, 29, 29)" class="nav-link" data-toggle="collapse" href="delInfo.html" aria-expanded="false" aria-controls="ui-basic">
@@ -272,7 +273,7 @@
       </div>
     </div>
 <!--FOOTER END -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <script src="../assets/js/jQuery-3.6.0.js"></script>
     <script>
       var uploadID;
@@ -280,7 +281,7 @@
       var uploaddrive;
       var uploadcriminal;
       var uploadinsurance;
-//  頁面載入後載入登入資料      
+//  頁面載入後載入登入資料  
       $(function(){
         var getOneUrl = "../DelGetPic";
         fetch((getOneUrl),{
@@ -326,9 +327,13 @@
             insurance: uploadinsurance,
           }),
           dataType: "JSON",
+          beforeSend: function(){  
+            $("div.list-row").append("<div class='temp_loading'><span><i class='fas fa-spinner fa-spin fa-5x'></i></span></div>");     
+          },
           success: function (data) {
             console.log("成功傳出編輯資訊");
             console.log(data);
+            location.reload();
             updateok();
             },
           });

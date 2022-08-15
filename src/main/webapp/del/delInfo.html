@@ -23,6 +23,11 @@
         padding: 5px;
         /* border: 2px solid blue; */
       }
+
+      a.nav-link:hover{
+        background-color: #1A4D2E !important;
+      }
+
       input.info_input{
         border-radius: 10px;
         margin-bottom: 20px;
@@ -69,14 +74,9 @@
               </a>
             </span>
           </li>
-
-          <li class="nav-item profile d-flex justify-content-center">
-            <input type="file" id="upload-file" style="display: none;">
-            <label for="upload-file">
-              <img id="profilePic" class="img-xs rounded-circle" src="../images/default-user-icon-13.jpg" alt="">
-            </label>
-          </li>
-
+          <br>
+          <br>
+          <br>
           <li class="nav-item menu-items">
             <a style="background-color: #1A4D2E; color: rgb(30, 29, 29)" class="nav-link" data-toggle="collapse" href="delInfo.html" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon">
@@ -186,12 +186,6 @@
                       <div class="container bootdey flex-grow-1 container-p-y">
 
                           <div class="media align-items-center py-3 mb-3">
-                            <div>
-                              <div class="div_photo">
-                                <img src="assets/images/faces/face1.png" alt="" class="d-block ui-w-100 rounded-circle" id="img_photo">
-                              </div>
-                              <!-- <input class="input_photo -none" type="file"> -->
-                            </div>
                             <div class="media-body ml-4">
                               <h4 class="font-weight-bold mb-0 loginName"></h4>
                               <div class="text-muted mb-2 loginDelID" >#ID:<span class="loginDelID"></span></div>
