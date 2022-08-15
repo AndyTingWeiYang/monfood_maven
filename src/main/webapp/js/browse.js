@@ -340,8 +340,12 @@ $('.restriction').click(function(){
                 resCat = "美式";
                 }else if(resVo.resCategory==5){
                 resCat = "韓式";
+                }else if(resVo.resCategory==5){
+                resCat = "飲料咖啡";
+                }else if(resVo.resCategory==5){
+                resCat = "越式";
                 }
-      
+
                 let resPageHtml = `
                   <a id="resPage" 
                     class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
@@ -392,6 +396,10 @@ $('.restriction').click(function(){
               resCat = "美式";
               }else if(resVo.resCategory==5){
               resCat = "韓式";
+              }else if(resVo.resCategory==5){
+              resCat = "飲料咖啡";
+              }else if(resVo.resCategory==5){
+              resCat = "越式";
               }
               // console.log(resCat);
               // console.log(resVo.resCategory);
@@ -503,6 +511,4 @@ $('button.btn.textConfirm').on('click', function(){
  }
 });
 });
-$('.1').on('click', function(){
-  console.log('hiiiiiiiiiiiiiii');
-});
+
