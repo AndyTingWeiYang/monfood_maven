@@ -1,20 +1,14 @@
 package com.model.order.service.impl;
 
-import java.nio.channels.AcceptPendingException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.loader.entity.NaturalIdEntityJoinWalker;
-import org.quartz.jobs.ee.jms.SendDestinationMessageJob;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.model.monster.IMonsterDAO;
 import com.model.monster.MonsterJDBCDAO;
 import com.model.monster.MonsterVO;
@@ -23,8 +17,6 @@ import com.model.order.dao.OrderDAO;
 import com.model.order.dao.impl.OrderJDBCDAOimpl;
 import com.model.order.service.OrderService;
 import com.model.orderdetail.OrderDetailVO;
-import com.model.orderdetail.dao.OrderDetailDAO;
-import com.model.orderdetail.dao.impl.OrderDetailDAOimpl;
 import com.model.orderdetail.service.OrderDetailService;
 import com.model.orderdetail.service.impl.OrderDetailServiceimpl;
 import com.model.product.ProductVo;
@@ -36,7 +28,6 @@ import com.model.promotelist.dao.Impl.PromoteListJDBCDAO;
 import com.model.user.dao.UserDAO;
 import com.model.user.dao.impl.UserDAOImpl;
 
-import antlr.debug.NewLineEvent;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
@@ -287,7 +278,15 @@ public class OrderServiceImpl implements OrderService {
 		return 1;
 	}
 	
-	
+	@Override
+	public Integer updateDelId(OrderVO orderVO) {
+		if (orderVO == null) {
+			return -1;
+		}
+		
+		dao.updateDelId(orderVO);
+		return 1;
+	}
 	
 	
 }

@@ -29,4 +29,6 @@ public interface OrderDAO {
 
 	List<OrderVO> getAllProductById(Integer userId);
 
+	void updateDelId(OrderVO orderVO);
+
 }

@@ -20,4 +20,5 @@ public interface OrderService {
 	Integer updateRating(OrderVO orderVO);
 	String ecpayValidation(List<String> nameList, Integer orderId, OrderVO orderVO);
 	Integer createOrder(List<JsonElement> list, OrderVO orderVO) throws SQLException;
+	Integer updateDelId(OrderVO orderVO);
 }

@@ -14,10 +14,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.model.del.DelVO;
 import com.model.order.OrderVO;
 import com.model.order.dao.OrderDAO;
-import com.model.orderdetail.OrderDetailVO;
 import com.model.product.ProductVo;
 import com.model.reception.OrderStatus;
 import com.model.res.ResVO;
@@ -42,11 +40,11 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 	private static final String GET_ALL_BY_ID = "SELECT o.ORDER_ID, o.USER_ID, o.RES_ID, o.DEL_ID, o.ORDER_DONE, o.TOTAL, o.RATING, o.RES_RATE, o.DEL_RATE, o.RES_COMMENT, o.DEL_COMMENT, r.RES_NAME, r.RES_PIC FROM `ORDER` o\r\n"
 			+ "join RES r\r\n" + "on o.RES_ID = r.RES_ID\r\n" + "join DEL dl\r\n" + "on o.DEL_ID = dl.DEL_ID\r\n"
 			+ "where o.USER_ID =?\r\n" + "order by o.ORDER_ID";
-
 	private static final String GET_PRODUCT_BY_ID = "SELECT o.ORDER_ID, p.PRODUCT_NAME, p.PRODUCT_KCAL FROM `ORDER` o\r\n"
 			+ "join ORDER_DETAIL d\r\n" + "on d.ORDER_ID = o.ORDER_ID\r\n" + "join PRODUCT p\r\n"
 			+ "on p.PRODUCT_ID = d.PRODUCT_ID\r\n" + "where o.USER_ID =?\r\n" + "order by o.ORDER_ID";
-
+	private static final String UPDATE_DELID = "update `ORDER` set DEL_ID = ? where ORDER_ID = ?";
+	
 	@Override
 	public Double getRating(Integer resId) {
 
@@ -489,6 +487,48 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 		}
 
 	}
+	
+	@Override
+	public void updateDelId(OrderVO orderVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_DELID);
+
+			pstmt.setInt(1, orderVO.getDelId());
+			pstmt.setInt(2, orderVO.getOrderId());
+
+			pstmt.executeUpdate();
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 
 	@Override
 	public List<OrderVO> getAllById(Integer userId) {
@@ -623,90 +663,6 @@ public class OrderJDBCDAOimpl implements OrderDAO {
 			}
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		OrderDAO dao = new OrderJDBCDAOimpl();
-
-		// insert
-		OrderVO orderVOi = new OrderVO();
-		orderVOi.setUserId(1);
-		orderVOi.setResId(1);
-		orderVOi.setNote("快");
-		orderVOi.setUserLocation("台北市中正區濟南路一段321號");
-		orderVOi.setProductKcalTotal(123);
-		orderVOi.setTotal(123);
-		orderVOi.setDelCost(10);
-		orderVOi.setUseCash(false);
-		orderVOi.setCreditId("1234444444");
-		orderVOi.setDiscount(10);
-		orderVOi.setPromoteId(1);
-		dao.insert(orderVOi);
-
-		// select all
-		List<OrderVO> list = dao.getAll();
-		for (OrderVO alist : list) {
-			System.out.print(alist.getOrderId() + ",");
-			System.out.print(alist.getUserId() + ",");
-			System.out.print(alist.getResId() + ",");
-			System.out.print(alist.getDelId() + ",");
-			System.out.print(alist.getOrderStatus() + ",");
-			System.out.print(alist.getNote() + ",");
-			System.out.print(alist.getUserLocation() + ",");
-			System.out.print(alist.getOrderCreate() + ",");
-			System.out.print(alist.getOrderDone() + ",");
-			System.out.print(alist.getProductKcalTotal() + ",");
-			System.out.print(alist.getTotal() + ",");
-			System.out.print(alist.getDelCost() + ",");
-			System.out.print(alist.getUseCash() + ",");
-			System.out.print(alist.getCreditId() + ",");
-			System.out.print(alist.getDiscount() + ",");
-			System.out.print(alist.getRating() + ",");
-			System.out.print(alist.getResRate() + ",");
-			System.out.print(alist.getDelRate() + ",");
-			System.out.print(alist.getResComment() + ",");
-			System.out.print(alist.getDelComment() + ",");
-			System.out.print(alist.getPromoteId());
-			System.out.println();
-		}
-
-		// select one
-		OrderVO orderVO = dao.findByPrimaryKey(1);
-		System.out.print(orderVO.getOrderId() + ",");
-		System.out.print(orderVO.getUserId() + ",");
-		System.out.print(orderVO.getResId() + ",");
-		System.out.print(orderVO.getDelId() + ",");
-		System.out.print(orderVO.getOrderStatus() + ",");
-		System.out.print(orderVO.getNote() + ",");
-		System.out.print(orderVO.getUserLocation() + ",");
-		System.out.print(orderVO.getOrderCreate() + ",");
-		System.out.print(orderVO.getOrderDone() + ",");
-		System.out.print(orderVO.getProductKcalTotal() + ",");
-		System.out.print(orderVO.getTotal() + ",");
-		System.out.print(orderVO.getDelCost() + ",");
-		System.out.print(orderVO.getUseCash() + ",");
-		System.out.print(orderVO.getCreditId() + ",");
-		System.out.print(orderVO.getDiscount() + ",");
-		System.out.print(orderVO.getRating() + ",");
-		System.out.print(orderVO.getResRate() + ",");
-		System.out.print(orderVO.getDelRate() + ",");
-		System.out.print(orderVO.getResComment() + ",");
-		System.out.print(orderVO.getDelComment() + ",");
-		System.out.print(orderVO.getPromoteId());
-
-		// update
-		OrderVO orderVOu = new OrderVO();
-		orderVOu.setRating(true);
-		orderVOu.setResRate(4.0);
-		orderVOu.setDelRate(3.0);
-		orderVOu.setResComment("很難吃");
-		orderVOu.setDelComment("速度快");
-		orderVOu.setOrderId(6);
-		dao.update(orderVOu);
-
-		// delete
-		dao.delete(6);
 	}
 
 	@Override

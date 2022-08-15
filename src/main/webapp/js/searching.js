@@ -68,7 +68,22 @@ window.addEventListener('load', function(){
             Swal.fire("您的外送員"+data.delName+'"已接單');
             sessionStorage.setItem("delName", data.delName);
             sessionStorage.setItem("delId", data.delId);
-            setTimeout("location.href='/monfood_maven/status.html'",5000);
+            $.ajax({
+                url: '/UpdateDelId',
+                type: 'POST',
+                data: JSON.stringify({
+                    delId: data.delId,
+                    orderId: orderList.orderId
+                }),
+                dataType: 'json',
+                success: function(msg){
+                    console.log(msg)
+                },
+                error: function(errMsg){
+                    console.log(errMsg)
+                }
+            })
+            // setTimeout("location.href='/monfood_maven/status.html'",5000);
         }
     };
 
