@@ -17,6 +17,7 @@
     <script src="assets/js/misc.js"></script>
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jQuery-3.6.0.js"></script>
 </head>
 
 <body>
@@ -33,38 +34,15 @@
                 <span class="logo2">Food</span>
             </ul>
             <ul class="navbar-nav navbar-nav-right">
-                <!-- 小鈴鐺 -->
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                        data-toggle="dropdown">
-                        <i class="mdi mdi-bell"></i>
-                        <span class="count bg-danger"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list mf-dropdown-menu"
-                        aria-labelledby="notificationDropdown">
-                        <h6 class="p-3 mb-0">Notifications</h6>
-                        <div class="mf-dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <div class="preview-icon bg-dark rounded-circle">
-                                    <i class="mdi mdi-calendar text-success"></i>
-                                </div>
-                            </div>
-                            <div class="preview-item-content">
-                                <p class="preview-subject mb-1">Event today</p>
-                                <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                            </div>
-                        </a>
-                    </div>
-                </li> -->
+                
                 <div class="navbar-profile">
                     <span class="nav-item menu-items">
-                        <a class="nav-link" href="javascript:;">
+                        <a class="nav-link" href="AdminLogoutServlet">
                             <!-- <span class="menu-icon">
                             <i class="mdi mdi-logout text-danger"></i>
                         </span> -->
                             <i class="fa-solid fa-shoe-prints"></i>
-                            <span class="menu-title align-item-center">Log out</span>
+                            <span class="menu-title align-item-center logout">Log out</span>
                         </a>
                     </span>
                 </div>
@@ -79,5 +57,36 @@
         </div>
     </nav>
 </body>
+
+<script>
+    window.addEventListener('load', function(){
+        w3.includeHTML(function () {
+        alert("hi");
+    $(".logout").on("click", function () {
+        console.log("hi");
+        var logout = "/AdminLogoutServlet";
+        $.ajax({
+            url: logout,
+            type: "POST",
+            data: JSON.stringify({
+              action: "logout",
+            }),
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if ("登出成功" === data) {
+                    window.location.href = "adminLogin.html";
+                }
+            },
+            complete: function () {
+                window.location.href = "adminLogin.html";
+            },
+        });
+    });
+});
+})
+</script>
+
+
 
 </html>
