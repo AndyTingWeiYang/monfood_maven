@@ -80,4 +80,16 @@ public class DelServiceImpl implements DelService {
 		}
 	
 	}
+
+	@Override
+	public String resetPassword(String delAccount, String delPassword) {
+		DelVO delVO = dao.findByaccount(delAccount);
+		if(delVO.getDelID()==null) {
+			return "此帳號尚未註冊";
+		} else {
+			delVO.setDelPassword(delPassword);
+			dao.updateWithoutPic(delVO);
+		}
+		return "修改密碼成功";
+	}
 }

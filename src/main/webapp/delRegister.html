@@ -7,7 +7,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
       <link rel="stylesheet" href="./css/index.css">
       <!-- datepicker -->
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
       <!-- SWEATALERT -->
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    
@@ -19,7 +19,6 @@
         }
 
         .form-group{
-          height:calc(100vh - 56px);
           display: flex;
           justify-content: center; /* 水平對齊 */
           align-content: center; /* 垂直對齊 */
@@ -100,7 +99,7 @@
       
       <main>
         <!-- section -->
-      <div class="container ">
+      <div class="container-fluid">
         <div class=" row mx-auto">
             <form   class="row g-3 form-group">
                 <div class="col-12">
@@ -135,7 +134,7 @@
                 </div>
   
                 <div class="col-md-10 col-12">
-                  <input type="text" class="form-control" id="delBirthday" placeholder="出生日期  範例：1990-01-01" />
+                  <input type="date" class="form-control" id="delBirthday">
                   <span class="noticespan birthdayspan"></span>
                 </div>
 
@@ -417,6 +416,8 @@
         
         $(function(){
 
+        
+
 // 姓名驗證
           $("#delName").on("blur",function(){
             if($("#delName").val().trim() == ""){
@@ -510,34 +511,44 @@
           });
           
 // 設定datepicker語言
-          $.datepicker.regional['zh-TW']={
-          dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
-          dayNamesMin:["日","一","二","三","四","五","六"],
-          monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-          monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-          prevText:"上月",
-          nextText:"次月",
-          weekHeader:"週"
-          };
-          // 將預設語系設定為中文
-          $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
-          // 使用datepicker disable並驗證格式
-          var currentDate = new Date();
-          $("#delBirthday").datepicker({
-            dateFormat: "yy-mm-dd",        
-            autoclose:true,
-            endDate: "currentDate",
-            maxDate: currentDate,
-            changeMonth: true,
-            changeYear: true
-            }).on("change", function (e) {
-              // $(this).datepicker('hide');        
-              if(($("#delBirthday").val()=="")){
-                $(".birthdayspan").addClass("noticespan").text('*請選擇您的生日'); 
-              }else{
-                $(".birthdayspan").removeClass("noticespan").text('');
-              }
-            });
+          // $.datepicker.regional['zh-TW']={
+          // dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+          // dayNamesMin:["日","一","二","三","四","五","六"],
+          // monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+          // monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+          // prevText:"上月",
+          // nextText:"次月",
+          // weekHeader:"週"
+          // };
+          // // 將預設語系設定為中文
+          // $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+          // // 使用datepicker disable並驗證格式
+          // var currentDate = new Date();
+          // $("#delBirthday").datepicker({
+          //   dateFormat: "yy-mm-dd",        
+          //   autoclose:true,
+          //   endDate: "currentDate",
+          //   maxDate: currentDate,
+          //   changeMonth: true,
+          //   changeYear: true
+          //   }).on("change", function (e) {
+          //     // $(this).datepicker('hide');        
+          //     if(($("#delBirthday").val()=="")){
+          //       $(".birthdayspan").addClass("noticespan").text('*請選擇您的生日'); 
+          //     }else{
+          //       $(".birthdayspan").removeClass("noticespan").text('');
+          //     }
+          //   });
+// 取得出生日期
+          $("#delBirthday").on("change", function(){
+            let delBirthday = $("#delBirthday").val();
+            // console.log(delBirthday);
+            if(($("#delBirthday").val()=="")){
+               $(".birthdayspan").addClass("noticespan").text('*請選擇您的生日'); 
+            }else{
+              $(".birthdayspan").removeClass("noticespan").text('');
+            }
+          });
 
 // 車牌號碼驗證
           $("#platenumber").on("blur",function(){
