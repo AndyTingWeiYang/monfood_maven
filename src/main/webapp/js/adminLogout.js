@@ -1,5 +1,4 @@
 window.addEventListener('load', function(){
-    alert("hi");
     $(".logout").on("click", function () {
         var logout = "/AdminLogoutServlet";
         $.ajax({

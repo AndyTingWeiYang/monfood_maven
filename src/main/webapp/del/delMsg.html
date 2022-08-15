@@ -281,8 +281,8 @@
 //websocket需要資訊       
         var MyPoint;		//  /FriendWS/
         var host = window.location.host;			//	localhost:8080
-        var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
-        var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
+        // var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
+        // var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
         var messagesArea = $("div#messagesArea");
         var self;
 //載入登入資料          
@@ -302,8 +302,9 @@
           }
         })
         
-// 和WS建立連線        
-        var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+// 和WS建立連線
+        let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;        
+        // var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
         connect();
         
 // LOGOUT

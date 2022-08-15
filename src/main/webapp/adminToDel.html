@@ -147,9 +147,10 @@
 
         var MyPoint = "/FriendWS/admin";		//  /FriendWS/
 	      var host = window.location.host;			//	localhost:8080
-	      var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
-	      var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
-	      var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	      // var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
+	      // var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
+	      // var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+        let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
 
 	      var statusOutput = document.getElementById("statusOutput");
 	      var messagesArea = document.getElementById("messagesArea");
