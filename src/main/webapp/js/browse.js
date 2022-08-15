@@ -1,5 +1,6 @@
 $(function () {
   $(".flip").click(function () {
+    console.log('123')
     $(".panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
@@ -464,4 +465,6 @@ $('button.btn.textConfirm').on('click', function(){
  }
 });
 });
-
+$('.1').on('click', function(){
+  console.log('hiiiiiiiiiiiiiii');
+});
