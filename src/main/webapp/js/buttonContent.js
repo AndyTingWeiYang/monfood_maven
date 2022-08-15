@@ -205,7 +205,7 @@ function refreshChat() {
     success: function (data) {
       if (data.length == 0) {
         let noFriends = `<div>您目前無任何好友，快看看今日配對 ! </div>`;
-        $(".list-group").append(noFriends);
+        $(".list-groups").append(noFriends);
       }
       console.log(data);
       for (var i = 0; i < data.length; i++) {
