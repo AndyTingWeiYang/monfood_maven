@@ -32,7 +32,7 @@
         position: fixed;
         top: 56px;
         right: 0;
-        bottom: 85px;
+        bottom: 0px;
         left: 0;
         z-index: 1;
         display: flex;
@@ -84,29 +84,18 @@
         justify-content: center;
         align-items: center;
       }
-      .first-btn:hover {
-        /* hover focus要一起寫嗎? */
-      }
 
       .btn-primary {
         margin: auto;
         margin-top: 20px;
       }
 
-      .google-map {
-        height: calc(100vh - 150px);
-      }
-      @media (max-width: 629.98px) {
-        .google-map {
-          height: calc(100vh - 250px);
-        }
-      }
       #map {
-        height: calc(100vh - 150px);
+        height: calc(100vh - 56px);
       }
       @media (max-width: 629.98px) {
         #map {
-          height: calc(100vh - 250px);
+          height: calc(100vh - 56px);
         }
       }
       .navbar-brand {
