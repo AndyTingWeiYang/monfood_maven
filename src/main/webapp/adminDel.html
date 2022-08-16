@@ -36,95 +36,33 @@
       <div class="main-panel">
         <!-- ===== 內容客製化區塊 start ===== -->
         <div class="mf-content-wrapper mt-5">
-          <!-- 表單區塊 -->
+ 
           <div class="jumbotron">
             <div class="form-group row">
+              <span class="pointspan"></span>
               <label for="delName" class="col-sm-12 col-form-label">外送員姓名</label>
               <div class="col-sm-12">
-                <input type="text" placeholder="輸入查詢外送員姓名" name="delName" class="form-control inputDelName" id="delName">
+                <input type="text" placeholder="輸入查詢外送員名稱" name="delName" class="form-control" id="delName">
               </div>
-              <label for="delTel" class="col-sm-12 col-form-label inputDelTel">外送員電話</label>
+              <label for="delTel" class="col-sm-12 col-form-label">外送員電話</label>
               <div class="col-sm-12">
                 <input type="text" placeholder="輸入查詢外送員電話" name="delTel" class="form-control" id="delTel">
               </div>
               <div class="col-sm-12 d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-primary delGetAll">list all</button>
-                <!-- <a class="delGetAll" href="adminDelGetAll.html">list all</a> -->
-                <button type="submit" class="btn btn-primary delGetOne" style="background: #3d424e; border: none;">送出查詢</button>
+                <button type="submit" class="btn btn-primary" id="enter" style="background: #3d424e; border: none;">送出查詢</button>
               </div>
 
-            </div>
-          </div>
-<!-- =========================================================== -->
-<!-- <div class="card-body table-responsive p-0" style="height: 300px;">
-  <table class="table table-head-fixed text-nowrap">
-    <thead>
-      <tr>
-        
-        <th>電話</th>
-        <th>車牌號碼</th>
-        <th>狀態</th>
-        <th>銀行帳戶名稱</th>
-        <th>銀行名稱</th>
-        <th>銀行代碼</th>
-        <th>銀行帳號</th>
-        
-      </tr>
-      <tr>
-       
-        <th><input type="editTel"></th>
-        <th><input type="editplatenumber"></th>
-        <th><input type="editStatus"></th>
-        <th><input type="editBankname"></th>
-        <th><input type="editBankcode"></th>
-        <th><input type="editBancaccount"></th>
-      </tr>
-    </thead>
-   
-  </table>
-</div> -->
-
-
-
-
-         
-          <!-- ========查詢結果========================================================================== -->
-          
-          <div class="row result ">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header"style="background-color: #e9ecef;">
-                  <h3 class="card-title" style="color: black;">查詢結果</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                  <table class="table table-head-fixed text-nowrap">
-                    <thead>
-             
-                    </thead>
-                    <tbody class="result">
-                      
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.card-body -->
+               
+              <div class="searchResult">
+              <!-- 查詢結果 -->
               </div>
-              <!-- /.card -->
-            </div>
-          </div>
-        </div>
+          
 
+        
 
-
-    
-          
-          
-          
-          
-          
           <!-- ========查詢結果========================================================================== -->
                 <!-- /.card-body -->
-              </div>
+              
               <!-- /.card -->
             </div>
           </div>
@@ -160,242 +98,142 @@
     });
 
 // edit
-    $(".result").on("click", "button.edit", function(){
+    // $(".result").on("click", "button.edit", function(){
       
-      var delID =  $(".delID").text();
-      var delName = $("td.delName").text();
-      var delAccount = $("td.delAccount").text();
-      var editPassword = $("input.editPassword").val();
-      var editTel = $("input.editTel").val();
-      var delBirthday = $("td.delBirthday").text();
-      var editPlatenumber = $("input.editPlatenumber").val();
-      var editStatus = $("input.editStatus").val();
-      var updateTime = new Date();
-      var editAccountname = $("input.editAccountname").val();
-      var editBankname = $("input.editBankname").val();
-      var editBankcode = $("input.editBankcode").val();
-      var editBankaccount = $("input.editBankaccount").val();
-      var delEdit = "delEdit";
+    //   var delID =  $(".delID").text();
+    //   var delName = $("td.delName").text();
+    //   var delAccount = $("td.delAccount").text();
+    //   var editPassword = $("input.editPassword").val();
+    //   var editTel = $("input.editTel").val();
+    //   var delBirthday = $("td.delBirthday").text();
+    //   var editPlatenumber = $("input.editPlatenumber").val();
+    //   var editStatus = $("input.editStatus").val();
+    //   var updateTime = new Date();
+    //   var editAccountname = $("input.editAccountname").val();
+    //   var editBankname = $("input.editBankname").val();
+    //   var editBankcode = $("input.editBankcode").val();
+    //   var editBankaccount = $("input.editBankaccount").val();
+    //   var delEdit = "delEdit";
 
-      console.log(delAccount);
-      console.log(delBirthday);
-      console.log(updateTime);
-      console.log(editPassword);
+    //   console.log(delAccount);
+    //   console.log(delBirthday);
+    //   console.log(updateTime);
+    //   console.log(editPassword);
 
-      const url = "AdminDelEdit";
-      fetch((url), {
-        method: "POST",
-        headers: {
-          "content-Type": "application.json"
-        },
-        body: JSON.stringify({
+    //   const url = "AdminDelEdit";
+    //   fetch((url), {
+    //     method: "POST",
+    //     headers: {
+    //       "content-Type": "application.json"
+    //     },
+    //     body: JSON.stringify({
 
-          // action: delEdit,
-          "delID": delID,
-          "delName": delName,
-          "delAccount": delAccount,
-          "delPassword": editPassword,
-          "delTel": editTel,
-          "delBirthday": delBirthday,
-          "platenumber": editPlatenumber,
-          "status": editStatus,
-          "updateTime": updateTime,
-          "delAccountName": editAccountname,
-          "delBankname": editBankname,
-          "delBankcode": editBankcode,
-          "delBankaccount": editBankaccount
+    //       // action: delEdit,
+    //       "delID": delID,
+    //       "delName": delName,
+    //       "delAccount": delAccount,
+    //       "delPassword": editPassword,
+    //       "delTel": editTel,
+    //       "delBirthday": delBirthday,
+    //       "platenumber": editPlatenumber,
+    //       "status": editStatus,
+    //       "updateTime": updateTime,
+    //       "delAccountName": editAccountname,
+    //       "delBankname": editBankname,
+    //       "delBankcode": editBankcode,
+    //       "delBankaccount": editBankaccount
         
-        })
-      }).then(function(response){
-        if(response.ok){
-          console.log("修改成功收到回應");
-          return response.json();
-        }
-        throw new Error(response.statusText);
-      }).then(function(data){
-        console.log(data);
-      });
+    //     })
+    //   }).then(function(response){
+    //     if(response.ok){
+    //       console.log("修改成功收到回應");
+    //       return response.json();
+    //     }
+    //     throw new Error(response.statusText);
+    //   }).then(function(data){
+    //     console.log(data);
+    //   });
      
             
 
 
     
-    });
+    // });
 
 
 
 // getOne
-    $(".delGetOne").on("click", function(){
-      var inputDelName = $(".inputDelName").val().trim();
+    $("button#enter").on("click", function(){
+      var inputDelName = $("#delName").val().trim();
       var inputDelTel = $("#delTel").val().trim();
 
-      if(!inputDelName || !inputDelTel){
-        alert("請輸入帳號或是手機號碼");
-      }
-      
-      else{
-
-      const url = "AdminDelGetOne";
-
-      var tableHead = `
-          <tr>
-              <td>外送員ID</td>
-              <td>外送員姓名</td>
-              <td>外送員帳號</td>
-              <td>外送員密碼</td>
-              <td>生日</td>
-              <td>電話</td>
-              <td>車牌號碼</td>
-              <td>狀態</td>
-              <td>帳戶人姓名</td>
-              <td>銀行名稱</td>
-              <td>銀行代碼</td>
-              <td>銀行帳號</td>                   
-          </tr>
-      `
-      $("tbody.result").html(tableHead);
-            
-      fetch((url),{
-                  method: "POST",
-                  headers: {
-                    "content-Type": "application.json"
-                  },
-                  body: JSON.stringify({
-                    delName: inputDelName,
-                    delTel: inputDelTel
-                  })
-            })
-              .then(function (response) {
-                // 接收到回傳的物件
-                if (response.ok) {
-                  // 如果正確取得資料，沒有發生錯誤
-                  console.log("getone回應沒問題");
-                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                
-                }
-                throw new Error(response.statusText);
-              })
-              .then(function (data) {
-                // 這裡真的取得資料：data
-                var obj = JSON.stringify(data);
-                var mapData = JSON.parse(obj);
-              if(mapData.delID != null){
-              	var delID = mapData.delID;
-                var delName = mapData.delName;
-                var delAccount = mapData.delAccount;
-                var delPassword = mapData.delPassword;
-                var delTel = mapData.delTel;
-                var delBirthday = mapData.delBirthday;
-                var platenumber = mapData.platenumber;
-                var status = mapData.status;
-                var delAccountName = mapData.delAccountName;
-                var delBankname = mapData.delBankname;
-                var delBankcode = mapData.delBankcode;
-                var delBankaccount = mapData.delBankaccount;
-                //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
-                
+      if(inputDelName=="" && inputDelTel==""){
+        fetch("AdminDelGetAll")
+        .then(function (response) {
+        // 接收到回傳的物件
+          if (response.ok) {
+            // 如果正確取得資料，沒有發生錯誤
+            console.log("回應沒問題");
+            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+          }
+          throw new Error(response.statusText);
+        })
+        .then(function (data) {
+          // 這裡真的取得資料：data
+          var obj = JSON.stringify(data);
+          var mapData = JSON.parse(obj);             
+          let title = `
+            <h3 class="card-title" style="color: black;">查詢結果</h3>
+            <div class="result">
+                      
+              <div class="card">
+                                                
+                <div class="card-body table-responsive p-0"  >
+                  <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                      <tr>
+                        <td>外送員ID</td>
+                        <td>外送員姓名</td>
+                        <td>外送員帳號</td>
+                        <td>生日</td>
+                        <td>電話</td>
+                        <td>車牌號碼</td>
+                        <td>狀態</td>
+                        <td>帳戶人姓名</td>
+                        <td>銀行名稱</td>
+                        <td>銀行代碼</td>
+                        <td>銀行帳號</td>      
+                      </tr>
+                                  
+                    </thead>
+                    <tbody class="result">
+                       
+                    </tbody>  
+                  </table>              
+                          
+                </div>
                         
-    
-                        
-
-                  // const tr = document.createElement("tr");
-                  var delVO = `
-                  <tr>
-                    <td class="delID">${delID}</td>
-                    <td class="delName">${delName}</td>
-                    <td class="delAccount">${delAccount}</td>
-                    <td class="editPassword">${delPassword}</td>
-                    <td class="delBirthday">${delBirthday}</td>
-                    <td class="editTel">${delTel}</td>
-                    <td class="editPlatenumber">${platenumber}</td>
-                    <td class="editStatus">${status}</td>
-                    <td class="editAccountname">${delAccountName}</td>
-                    <td class="editBankname">${delBankname}</td>
-                    <td class="editBankcode">${delBankcode}</td>
-                    <td class="editBankaccount">${delBankaccount}</td>
-                  </tr>
-                
-                  `
-                 $("tbody.result").append(delVO);
-              }                 	
+              </div>
               
-              })
-              .catch(function (error) {
-                // 發生任何錯誤，就會執行 catch 裡的程式
-                alert("登入失敗請重新嘗試");
-                console.log(error); // 這裡取得錯誤資訊：error
-                $("tbody.result").html();
-              });
+                      
+            </div>  
+            `
+          $(".searchResult").html(title);
 
-            }
-    });
-
-
-
-
-
-//getAll
-    document.querySelector("button.delGetAll").addEventListener("click", function(){
-      const url = "AdminDelGetAll";
-      var tableHead = `
-          <tr>
-              <td>外送員ID</td>
-              <td>外送員姓名</td>
-              <td>外送員帳號</td>
-              <td>外送員密碼</td>
-              <td>生日</td>
-              <td>電話</td>
-              <td>車牌號碼</td>
-              <td>狀態</td>
-              <td>帳戶人姓名</td>
-              <td>銀行名稱</td>
-              <td>銀行代碼</td>
-              <td>銀行帳號</td>                   
-          </tr>
-      `
-      $("tbody.result").html(tableHead);
-
-      $("div.result").addClass("-on");
-            fetch(url)
-              .then(function (response) {
-                // 接收到回傳的物件
-                if (response.ok) {
-                  // 如果正確取得資料，沒有發生錯誤
-                  console.log("回應沒問題");
-                  return response.json(); // 將取得的資料，再使用 .json() 解析資料
-                }
-                throw new Error(response.statusText);
-              })
-              .then(function (data) {
-                // 這裡真的取得資料：data
-                var obj = JSON.stringify(data);
-                var mapData = JSON.parse(obj);
-                console.log(data[0]);
-                console.log("========");
-                console.log(mapData);
-                console.log(mapData[0]);
-                
-                //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
-                for(i=0; i<data.length; i++){
-                	var delID = mapData[i].delID;
-                	var delName = mapData[i].delName;
-                  var delAccount = mapData[i].delAccount;
-                  var delPassword = mapData[i].delPassword;
-                  var delTel = mapData[i].delTel;
-                  var delBirthday = mapData[i].delBirthday;
-                  var platenumber = mapData[i].platenumber;
-                  var status = mapData[i].status;
-                  var delAccountName = mapData[i].delAccountName;
-                  var delBankname = mapData[i].delBankname;
-                  var delBankcode = mapData[i].delBankcode;
-                  var delBankaccount = mapData[i].delBankaccount;
-
-                  console.log(delID);
-
-                
-
-                  // const tr = document.createElement("tr");
-                  var delVO = `
+          for(i=0; i<data.length; i++){
+            var delID = mapData[i].delID;
+            var delName = mapData[i].delName;
+            var delAccount = mapData[i].delAccount;
+            var delPassword = mapData[i].delPassword;
+            var delTel = mapData[i].delTel;
+            var delBirthday = mapData[i].delBirthday;
+            var platenumber = mapData[i].platenumber;
+            var status = mapData[i].status;
+            var delAccountName = mapData[i].delAccountName;
+            var delBankname = mapData[i].delBankname;
+            var delBankcode = mapData[i].delBankcode;
+            var delBankaccount = mapData[i].delBankaccount;
+            var delVO = `
                   <tr>
                     <td>${delID}</td>
                     <td>${delName}</td>
@@ -413,17 +251,201 @@
                    
                 </tr>
                   `
-                 $("tbody.result").append(delVO);
+              $("tbody.result").append(delVO);
            
                 	
-                }
-              })
-              .catch(function (error) {
-                // 發生任何錯誤，就會執行 catch 裡的程式
-                console.log(error); // 這裡取得錯誤資訊：error
-                $("tbody.result").html();
-              });
+          }
+        })
+      } else{           
+        fetch(("AdminDelGetOne"),{
+          method: "POST",
+          headers: {"content-Type": "application.json"},
+          body: JSON.stringify({
+            delName: inputDelName,
+            delTel: inputDelTel
+          })
+        })
+        .then(function (response) {
+          // 接收到回傳的物件
+          if (response.ok) {
+            // 如果正確取得資料，沒有發生錯誤
+            console.log("getone回應沒問題");
+            return response.json(); // 將取得的資料，再使用 .json() 解析資料
+          }
+          throw new Error(response.statusText);
+        })
+        .then(function (data) {
+          // 這裡真的取得資料：data
+          var obj = JSON.stringify(data);
+          var mapData = JSON.parse(obj);
+          if(mapData.delID != null){
+            var delID = mapData.delID;
+            var delName = mapData.delName;
+            var delAccount = mapData.delAccount;
+            var delPassword = mapData.delPassword;
+            var delTel = mapData.delTel;
+            var delBirthday = mapData.delBirthday;
+            var platenumber = mapData.platenumber;
+            var status = mapData.status;
+            var delAccountName = mapData.delAccountName;
+            var delBankname = mapData.delBankname;
+            var delBankcode = mapData.delBankcode;
+            var delBankaccount = mapData.delBankaccount;
+                  
+            let html = `
+                    <h3 class="card-title" style="color: black;">查詢結果</h3>
+                    <div class="result">
+                      
+                        <div class="card">
+                                                
+                          <div class="card-body table-responsive p-0"  >
+                            <table class="table table-head-fixed text-nowrap">
+                              <thead>
+                                <tr>
+                                  <td>外送員ID</td>
+                                  <td>外送員姓名</td>
+                                  <td>外送員帳號</td>
+                                  <td>生日</td>
+                                  <td>電話</td>
+                                  <td>車牌號碼</td>
+                                  <td>狀態</td>
+                                  <td>帳戶人姓名</td>
+                                  <td>銀行名稱</td>
+                                  <td>銀行代碼</td>
+                                  <td>銀行帳號</td>      
+                                </tr>
+                                  
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>${delID}</td>
+                                  <td>${delName ?? ''}</td>
+                                  <td>${delAccount}</td>
+                                  <td>${delBirthday ?? ''}</td>
+                                  <td>${delTel ?? ''}</td>
+                                  <td>${platenumber ?? ''}</td>
+                                  <td>${status ?? ''}</td>
+                                  <td>${delAccountName ?? ''}</td>
+                                  <td>${delBankname ?? ''}</td>
+                                  <td>${delBankcode ?? ''}</td>                 
+                                  <td>${delBankaccount ?? ''}</td>                 
+                                </tr>  
+                              </tbody>  
+                            </table>              
+                          
+                          </div>
+                        
+                        </div>
+              
+                      
+                    </div>              
+                  `;
+            $(".searchResult").html(html);
+          }                 	
+        })
+        .catch(function (error) {
+          // 發生任何錯誤，就會執行 catch 裡的程式
+          alert("查無此筆資料");
+          console.log(error); // 這裡取得錯誤資訊：error
+          $("tbody.result").html();
+        });
+      }
     });
+
+
+
+
+
+//getAll
+    // document.querySelector("button.delGetAll").addEventListener("click", function(){
+    //   const url = "AdminDelGetAll";
+    //   var tableHead = `
+    //       <tr>
+    //           <td>外送員ID</td>
+    //           <td>外送員姓名</td>
+    //           <td>外送員帳號</td>
+    //           <td>外送員密碼</td>
+    //           <td>生日</td>
+    //           <td>電話</td>
+    //           <td>車牌號碼</td>
+    //           <td>狀態</td>
+    //           <td>帳戶人姓名</td>
+    //           <td>銀行名稱</td>
+    //           <td>銀行代碼</td>
+    //           <td>銀行帳號</td>                   
+    //       </tr>
+    //   `
+    //   $("tbody.result").html(tableHead);
+
+    //   $("div.result").addClass("-on");
+    //         fetch(url)
+    //           .then(function (response) {
+    //             // 接收到回傳的物件
+    //             if (response.ok) {
+    //               // 如果正確取得資料，沒有發生錯誤
+    //               console.log("回應沒問題");
+    //               return response.json(); // 將取得的資料，再使用 .json() 解析資料
+    //             }
+    //             throw new Error(response.statusText);
+    //           })
+    //           .then(function (data) {
+    //             // 這裡真的取得資料：data
+    //             var obj = JSON.stringify(data);
+    //             var mapData = JSON.parse(obj);
+    //             console.log(data[0]);
+    //             console.log("========");
+    //             console.log(mapData);
+    //             console.log(mapData[0]);
+                
+    //             //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
+    //             for(i=0; i<data.length; i++){
+    //             	var delID = mapData[i].delID;
+    //             	var delName = mapData[i].delName;
+    //               var delAccount = mapData[i].delAccount;
+    //               var delPassword = mapData[i].delPassword;
+    //               var delTel = mapData[i].delTel;
+    //               var delBirthday = mapData[i].delBirthday;
+    //               var platenumber = mapData[i].platenumber;
+    //               var status = mapData[i].status;
+    //               var delAccountName = mapData[i].delAccountName;
+    //               var delBankname = mapData[i].delBankname;
+    //               var delBankcode = mapData[i].delBankcode;
+    //               var delBankaccount = mapData[i].delBankaccount;
+
+    //               console.log(delID);
+
+                
+
+    //               // const tr = document.createElement("tr");
+    //               var delVO = `
+    //               <tr>
+    //                 <td>${delID}</td>
+    //                 <td>${delName}</td>
+    //                 <td>${delAccount}</td>
+    //                 <td>${delPassword}</td>
+    //                 <td>${delBirthday}</td>
+    //                 <td>${delTel}</td>
+    //                 <td class="platenumber">${platenumber}</td>
+    //                 <td>${status}</td>
+    //                 <td>${delAccountName}</td>
+    //                 <td>${delBankname}</td>
+    //                 <td>${delBankcode}</td>
+    //                 <td>${delBankaccount}</td>
+                 
+                   
+    //             </tr>
+    //               `
+    //              $("tbody.result").append(delVO);
+           
+                	
+    //             }
+    //           })
+    //           .catch(function (error) {
+    //             // 發生任何錯誤，就會執行 catch 裡的程式
+    //             console.log(error); // 這裡取得錯誤資訊：error
+    //             $("tbody.result").html();
+    //           });
+    // });
   </script>
 </body>
 

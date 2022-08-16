@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVo> findAll(Map<String, Object> dataMap) throws ErrorMsgException {
+	public List<Map<String, Object>> findAll(Map<String, Object> dataMap) throws ErrorMsgException {
 		ErrorMsgException eme = null;
 		// 檢核特殊字元
 		String productID = MapUtils.getString(dataMap, "productID");
@@ -68,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 		// 用 gson 將拿到的 JSON 字串轉 VO
 		ProductVo productVO = gson.fromJson(dataJsonStr, ProductVo.class);
 
-		List<ProductVo> productList = productDao.findAll(productVO);
+		List<Map<String, Object>> productList = productDao.findAll(productVO);
 
 		return productList;
 	}
