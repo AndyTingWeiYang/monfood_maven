@@ -340,9 +340,9 @@ $('.restriction').click(function(){
                 resCat = "美式";
                 }else if(resVo.resCategory==5){
                 resCat = "韓式";
-                }else if(resVo.resCategory==5){
+                }else if(resVo.resCategory==6){
                 resCat = "飲料咖啡";
-                }else if(resVo.resCategory==5){
+                }else if(resVo.resCategory==7){
                 resCat = "越式";
                 }
 
@@ -396,9 +396,9 @@ $('.restriction').click(function(){
               resCat = "美式";
               }else if(resVo.resCategory==5){
               resCat = "韓式";
-              }else if(resVo.resCategory==5){
+              }else if(resVo.resCategory==6){
               resCat = "飲料咖啡";
-              }else if(resVo.resCategory==5){
+              }else if(resVo.resCategory==7){
               resCat = "越式";
               }
               // console.log(resCat);
