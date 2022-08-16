@@ -281,8 +281,8 @@
 //websocket需要資訊       
         var MyPoint;		//  /FriendWS/
         var host = window.location.host;			//	localhost:8080
-        // var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
-        // var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
+        var path = window.location.pathname;		//	/WebSocketChatWeb/chat.jsp
+        var webCtx = path.substring(0, path.indexOf('/', 1));	//	/WebSocketChatWeb substring含頭不含尾
         var messagesArea = $("div#messagesArea");
         var self;
 //載入登入資料          
@@ -303,7 +303,7 @@
         })
         
 // 和WS建立連線
-        let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;        
+        let endPointURL = "wss://" + window.location.host + "/monfood_maven" + MyPoint;        
         // var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
         connect();
         
@@ -342,9 +342,11 @@
 			          var jsonObj = JSON.parse(event.data);
 //上線載入好友列表			
 			      	  if ("open" === jsonObj.type) {
+                    console.log("delMsg get open");
                 		  addListener();
 //載入歷史訊息				
 			          } else if ("history" === jsonObj.type) {
+                  console.log("delMsg get history");
                       messagesArea.innerHTML = '';
 		                  var ul = document.createElement('ul');
 		                  ul.id = "area";
@@ -368,6 +370,7 @@
 // 線上聊天				
 			      } else if ("chat" === jsonObj.type) {
 // 				聊天泡泡
+              console.log("delMsg get chat");
                   // var li = document.createElement('li');
                   var div = document.createElement("div");
                   div.setAttribute("class", "box box-down cyan");
