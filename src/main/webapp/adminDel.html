@@ -225,7 +225,7 @@
 
 
 // getOne
-    $(".delGetOne").on("click", function(){
+    $("button#enter").on("click", function(){
       var inputDelName = $(".inputDelName").val().trim();
       var inputDelTel = $("#delTel").val().trim();
 
@@ -294,9 +294,12 @@
                 var delBankaccount = mapData.delBankaccount;
                 //抓到select後新增兒子option val= zipcode, text= zipcode adminregion
                 
-                        
-    
-                        
+          let html = `
+                  <h3 class="card-title" style="color: black;">查詢結果</h3>
+                  <div class="result">
+                    
+                      <div class="card">
+                                               
 
                   // const tr = document.createElement("tr");
                   var delVO = `
