@@ -228,6 +228,23 @@ $('#searchPdt').keypress(function(e){
 
             for(let i = 0; i < resList.length; i++) {
               const resVo = resList[i];
+
+              if(resVo.resCategory==1){
+                resCat = "台式";
+                }else if(resVo.resCategory==2){
+                resCat = "日式";
+                }else if(resVo.resCategory==3){
+                resCat = "泰式";
+                }else if(resVo.resCategory==4){
+                resCat = "美式";
+                }else if(resVo.resCategory==5){
+                resCat = "韓式";
+                }else if(resVo.resCategory==6){
+                resCat = "飲料咖啡";
+                }else if(resVo.resCategory==7){
+                resCat = "越式";
+                }
+
               let resPageHtml = `
                 <a id="resPage" 
                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
@@ -276,6 +293,23 @@ $('.restriction').click(function(){
 
         for(let i = 0; i < resList.length; i++) {
 		    const resVo = resList[i];
+
+        if(resVo.resCategory==1){
+          resCat = "台式";
+          }else if(resVo.resCategory==2){
+          resCat = "日式";
+          }else if(resVo.resCategory==3){
+          resCat = "泰式";
+          }else if(resVo.resCategory==4){
+          resCat = "美式";
+          }else if(resVo.resCategory==5){
+          resCat = "韓式";
+          }else if(resVo.resCategory==6){
+          resCat = "飲料咖啡";
+          }else if(resVo.resCategory==7){
+          resCat = "越式";
+          }
+
             let resPageHtml = `
                 <a id="resPage" 
                   class="col-xl-4 col-lg-6 col-sm-12 col d-flex justify-content-center mb-5" 
