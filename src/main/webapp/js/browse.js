@@ -1,6 +1,5 @@
 $(function () {
   $(".flip").click(function () {
-    console.log('123')
     $(".panel").slideToggle("slow");
     $(".xs1").toggle();
     $(".xs2").toggle();
@@ -57,7 +56,6 @@ window.addEventListener('load', function(){
       })
     },
     error: function(errMsg){
-      console.log(errMsg)
     }
   })
 
@@ -230,19 +228,19 @@ $('#searchPdt').keypress(function(e){
               const resVo = resList[i];
 
               if(resVo.resCategory==1){
-                resCat = "台式";
+                  resVo.resCategory = "台式";
                 }else if(resVo.resCategory==2){
-                resCat = "日式";
+                  resVo.resCategory = "日式";
                 }else if(resVo.resCategory==3){
-                resCat = "泰式";
+                  resVo.resCategory = "泰式";
                 }else if(resVo.resCategory==4){
-                resCat = "美式";
+                  resVo.resCategory = "美式";
                 }else if(resVo.resCategory==5){
-                resCat = "韓式";
+                  resVo.resCategory = "韓式";
                 }else if(resVo.resCategory==6){
-                resCat = "飲料咖啡";
+                  resVo.resCategory = "飲料咖啡";
                 }else if(resVo.resCategory==7){
-                resCat = "越式";
+                  resVo.resCategory = "越式";
                 }
 
               let resPageHtml = `
@@ -290,24 +288,28 @@ $('.restriction').click(function(){
     success: function(data){
       $('#resPageBlock').html('');
         const resList = data.resList;
+        debugger
+        console.log('aaaaaaaaaa');
+        console.log(resList.rescategory);
+        console.log('aaaaaaaaaaaa');
 
         for(let i = 0; i < resList.length; i++) {
 		    const resVo = resList[i];
 
         if(resVo.resCategory==1){
-          resCat = "台式";
+          resVo.resCategory = "台式";
           }else if(resVo.resCategory==2){
-          resCat = "日式";
+            resVo.resCategory = "日式";
           }else if(resVo.resCategory==3){
-          resCat = "泰式";
+            resVo.resCategory = "泰式";
           }else if(resVo.resCategory==4){
-          resCat = "美式";
+            resVo.resCategory = "美式";
           }else if(resVo.resCategory==5){
-          resCat = "韓式";
+            resVo.resCategory = "韓式";
           }else if(resVo.resCategory==6){
-          resCat = "飲料咖啡";
+            resVo.resCategory = "飲料咖啡";
           }else if(resVo.resCategory==7){
-          resCat = "越式";
+            resVo.resCategory = "越式";
           }
 
             let resPageHtml = `
@@ -493,7 +495,6 @@ $(document).ready(function(){
         data: {},
         
         success: function(data){
-            console.log(data);
 
             const promoteMap = data.promoteMap;
             let notiHtml = `
