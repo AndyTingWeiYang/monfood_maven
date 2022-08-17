@@ -164,13 +164,13 @@ $(document).ready(function() {
     };
 
 
-    // let delId ;
+    let receiverDelId ;
     webSocket.onmessage = function (event) {
         let jsonObj = JSON.parse(event.data);
         console.log("jsonObj = ", jsonObj);
         if ("delAccept" === jsonObj.type) {          
             console.log("收到外送員已接單jsonObj = ",jsonObj);
-            delId = jsonObj.delId;
+            receiverDelId = jsonObj.delId;
             console.log("delId = ",delId)
         }
     }    
@@ -182,7 +182,7 @@ $(document).ready(function() {
         var jsonObj = {
             type: "taken",
             sender: resId,
-            receiver: delId + "1",
+            receiver: receiverDelId + "1",
             message: `可取餐了`,          
         };
         webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
