@@ -47,23 +47,27 @@ public class DelGetPic extends HttpServlet {
 		com.model.del.service.DelService delService = new DelServiceImpl();
 		DelVO resultBean = delService.getOnebyID(loginDelVO.getDelID());
 		
-		
-//將證件照取出回傳頁面		
-		String IDString = DatatypeConverter.printBase64Binary(resultBean.getDelIDPhoto());
-		String carString = DatatypeConverter.printBase64Binary(resultBean.getCarLicense());
-		String driveString = DatatypeConverter.printBase64Binary(resultBean.getDriverLicense());
-		String criminalString = DatatypeConverter.printBase64Binary(resultBean.getCriminalRecord());
-		String insuranceString = DatatypeConverter.printBase64Binary(resultBean.getInsurance());
+//將證件照取出回傳頁面
+		if(null == resultBean.getDelIDPhoto()) {
+			resp.getWriter().append(gson.toJson("請盡速上傳文件"));
+		} else {
 
-		String[] pics = new String[5];
+			String IDString = DatatypeConverter.printBase64Binary(resultBean.getDelIDPhoto());
+			String carString = DatatypeConverter.printBase64Binary(resultBean.getCarLicense());
+			String driveString = DatatypeConverter.printBase64Binary(resultBean.getDriverLicense());
+			String criminalString = DatatypeConverter.printBase64Binary(resultBean.getCriminalRecord());
+			String insuranceString = DatatypeConverter.printBase64Binary(resultBean.getInsurance());
+
+			String[] pics = new String[5];
 		
-		pics[0]=IDString;
-		pics[1]=carString;
-		pics[2]=driveString;
-		pics[3]=criminalString;
-		pics[4]=insuranceString;
+			pics[0]=IDString;
+			pics[1]=carString;
+			pics[2]=driveString;
+			pics[3]=criminalString;
+			pics[4]=insuranceString;
 		
-		resp.getWriter().append(gson.toJson(pics));
+			resp.getWriter().append(gson.toJson(pics));
+		}
 		
 		}
 	}

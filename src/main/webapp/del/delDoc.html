@@ -297,46 +297,56 @@
           }
         })
         .then(function(data){
+      
+          if(data === "請盡速上傳文件"){
+            alert(data);
+            // needPic();
+          } else {
 
-          $("#delIDPhoto").attr("src", "data:img/jpg;base64," + data[0]);   
-          $("#carLicense").attr("src", "data:img/jpg;base64," + data[1]); 
-          $("#driveLicense").attr("src", "data:img/jpg;base64," + data[2]); 
-          $("#criminalRecord").attr("src", "data:img/jpg;base64," + data[3]);
-          $("#insurance").attr("src", "data:img/jpg;base64," + data[4]);
-        
-          uploadID = $("#delIDPhoto").attr("src");
-          uploadcar = $("#carLicense").attr("src");
-          uploaddrive = $("#driveLicense").attr("src");
-          uploadcriminal = $("#criminalRecord").attr("src");
-          uploadinsurance = $("#insurance").attr("src");
+            $("#delIDPhoto").attr("src", "data:img/jpg;base64," + data[0]);   
+            $("#carLicense").attr("src", "data:img/jpg;base64," + data[1]); 
+            $("#driveLicense").attr("src", "data:img/jpg;base64," + data[2]); 
+            $("#criminalRecord").attr("src", "data:img/jpg;base64," + data[3]);
+            $("#insurance").attr("src", "data:img/jpg;base64," + data[4]);
+            
+            uploadID = $("#delIDPhoto").attr("src");
+            uploadcar = $("#carLicense").attr("src");
+            uploaddrive = $("#driveLicense").attr("src");
+            uploadcriminal = $("#criminalRecord").attr("src");
+            uploadinsurance = $("#insurance").attr("src");
+          }
     
         });
       });
 
 //更新圖片
       $("button.info").on("click", function () {
-        var editUrl = "../DelEditPic";
-        $.ajax({
-          url: editUrl,
-          type: "POST",
-          data: JSON.stringify({
-            delIDPhoto: uploadID,
-            carLicense: uploadcar,
-            driveLicense: uploaddrive,
-            criminalRecord: uploadcriminal,
-            insurance: uploadinsurance,
-          }),
-          dataType: "JSON",
-          beforeSend: function(){  
-            $("div.list-row").append("<div class='temp_loading'><span><i class='fas fa-spinner fa-spin fa-5x'></i></span></div>");     
-          },
-          success: function (data) {
-            console.log("成功傳出編輯資訊");
-            console.log(data);
-            location.reload();
-            updateok();
-            },
-          });
+        if(uploadID!=null && uploadcar!=null && uploaddrive != null && uploadcriminal != null && uploadinsurance != null){
+
+          var editUrl = "../DelEditPic";
+          $.ajax({
+            url: editUrl,
+            type: "POST",
+            data: JSON.stringify({
+              delIDPhoto: uploadID,
+              carLicense: uploadcar,
+              driveLicense: uploaddrive,
+              criminalRecord: uploadcriminal,
+              insurance: uploadinsurance,
+            }),
+            dataType: "JSON",
+            // beforeSend: function(){  
+              //   $("div.list-row").append("<div class='temp_loading'><span><i class='fas fa-spinner fa-spin fa-5x'></i></span></div>");     
+              // },
+              success: function (data) {
+                console.log("成功傳出編輯資訊");
+                console.log(data);
+                alert(data);
+              },
+            });
+          } else {
+            alert("請上傳所有文件");
+          }
       });
 
 // 選擇圖片後轉成base64並產生預覽
@@ -417,7 +427,17 @@
             icon: 'succeess',
             confirmButtonText: 'OK'
           })
-        }
+        };
+
+// sweatAlert for plz upload ur pic
+        function needPic(){
+          Swal.fire({
+            title: '記得上傳文件喔',
+            text: '已將您的資料更新',
+            confirmButtonText: 'OK'
+          })
+        };
+
 
 // LOGOUT
         $(".logout").on("click", function(){                
