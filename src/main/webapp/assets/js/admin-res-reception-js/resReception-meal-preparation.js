@@ -239,26 +239,7 @@ $(document).ready(function () {
                         } else if ("delReject" === jsonObj.type) {
                             console.log("通知餐廳 外送員拒單囉")
                             Swal.fire("外送員已拒單");
-                        } else if ("delAcceptToHref" === jsonObj.type){
-                            console.log("通知餐廳 外送員接單囉")
-                            Swal.fire(`外送員${jsonObj.delName}已接單`);
-                            
-                            // 外送員確定已接單後，商家訂單狀態才可以轉向
-		                    // 更新商品訂單狀態，並轉頁
-	                  
-			                    $.ajax({
-			                        url: 'UpdateOrderStatusServlet',
-			                        method: 'post',
-			                        data: {
-			                            orderId: delOrder.ORDER_ID,
-			                            orderStatus: 2
-			                        },
-			                        dataType: 'json',
-			                        success: function () {
-										// window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
-									}
-			                    });
-                        }
+                        } 
                     };
                 }
                 onmessage();
@@ -272,18 +253,18 @@ $(document).ready(function () {
                    
                     addListener();
 
-                    // $.ajax({
-                    //     url: 'UpdateOrderStatusServlet',
-                    //     method: 'post',
-                    //     data: {
-                    //         orderId: delOrder.ORDER_ID,
-                    //         orderStatus: 2
-                    //     },
-                    //     dataType: 'json',
-                    //     success: function () {
-                    //         window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
-                    //     }
-                    // });
+                    $.ajax({
+                        url: 'UpdateOrderStatusServlet',
+                        method: 'post',
+                        data: {
+                            orderId: delOrder.ORDER_ID,
+                            orderStatus: 2
+                        },
+                        dataType: 'json',
+                        success: function () {
+                            window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
+                        }
+                    });
               });
 
 

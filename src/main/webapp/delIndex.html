@@ -358,17 +358,6 @@
               };
               webSocket.send(JSON.stringify(delToRes));
 
-              var delToResHref = {
-                type: "delAcceptToHref",
-                sender: delId,
-                receiver: resId + "0",
-                message: `外送員已接受此訂單`,
-                delName:delName,
-                delId:delId,
-              };
-              webSocket.send(JSON.stringify(delToResHref));
-              console.log("delId = ",delId);
-              console.log("delToRes = ",delToResHref);
         
               // 轉向外送頁
               window.location.replace("./delDelivery.html");
