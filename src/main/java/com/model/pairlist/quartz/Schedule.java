@@ -28,7 +28,7 @@ public class Schedule extends HttpServlet {
 
 		  JobDetail job = JobBuilder.newJob(matchJob.class).withIdentity("午夜排程任務觸發","配對").build();
 
-//0 0/1 * * * ? >>> 一分鐘執行一次(可)
+
 		  CronTrigger trigger = TriggerBuilder.newTrigger() .withIdentity("午夜排程任務觸發", "配對") .withSchedule(CronScheduleBuilder.cronSchedule("1 0 0 * * ?")).build();//每天的00:00:01秒執行         
 
 		 

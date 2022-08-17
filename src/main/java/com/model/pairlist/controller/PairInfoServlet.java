@@ -27,8 +27,8 @@ public class PairInfoServlet extends HttpServlet {
 		java.util.Date date = new java.util.Date();
 		java.sql.Date today = new java.sql.Date(date.getTime());
 		Gson gson = new Gson();
-		response.setContentType("application/json;charset=UTF-8");//回傳json格式並使用UTF-8編碼
-		response.addHeader("Access-Control-Allow-Origin", "*");//*為允許可以跨域連線進自己設計的本機連線
+		response.setContentType("application/json;charset=UTF-8");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		PairListService service = new PairListServiceImpl();
 		PrintWriter out = response.getWriter();
 		out.print(gson.toJson(service.findPairInfo(useraId, today)));
