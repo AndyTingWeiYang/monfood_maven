@@ -190,7 +190,7 @@ $(document).ready(function() {
 			},
 			dataType: 'json',
 			success: function () {
-				window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-order-record.jsp';
+				// window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-order-record.jsp';
 			}
 		});        
         
