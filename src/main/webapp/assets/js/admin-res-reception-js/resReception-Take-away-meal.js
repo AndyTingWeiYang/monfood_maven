@@ -182,8 +182,7 @@ $(document).ready(function() {
         var jsonObj = {
             type: "taken",
             sender: resId,
-            // receiver: delId + "1",
-            receiver: "11",
+            receiver: delId + "1",
             message: `可取餐了`,          
         };
         webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
