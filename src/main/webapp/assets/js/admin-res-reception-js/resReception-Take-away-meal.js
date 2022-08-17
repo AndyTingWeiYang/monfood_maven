@@ -164,7 +164,7 @@ $(document).ready(function() {
     };
 
 
-    let delId ;
+    // let delId ;
     webSocket.onmessage = function (event) {
         let jsonObj = JSON.parse(event.data);
         console.log("jsonObj = ", jsonObj);
