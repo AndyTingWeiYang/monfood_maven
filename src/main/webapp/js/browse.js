@@ -400,7 +400,7 @@ $('.restriction').click(function(){
                       </div>
                       <div class="row justify-content-between monfood-resCategorydiv">
                           <div class="col-md-6 d-flex"></div>
-                          <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
+                          <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}</div>
                       </div>
                   </div>
                 `;
@@ -458,7 +458,7 @@ $('.restriction').click(function(){
                     </div>
                     <div class="row justify-content-between monfood-resCategorydiv">
                         <div class="col-md-6 d-flex"></div>
-                        <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}料理</div>
+                        <div id="resCategory" class="col-md-6 monfood-resCategory">${resCat}</div>
                     </div>
                 </div>
               `;
