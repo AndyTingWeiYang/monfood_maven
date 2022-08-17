@@ -239,7 +239,22 @@ $(document).ready(function () {
                         } else if ("delReject" === jsonObj.type) {
                             console.log("通知餐廳 外送員拒單囉")
                             Swal.fire("外送員已拒單");
-                        } 
+                        } else if ("delAccept" === jsonObj.type){
+                            let receiveDelId = jsonObj.delId;
+                            sessionStorage.setItem("resId",receiveDelId);
+                            $.ajax({
+                                url: 'UpdateOrderStatusServlet',
+                                method: 'post',
+                                data: {
+                                    orderId: delOrder.ORDER_ID,
+                                    orderStatus: 2
+                                },
+                                dataType: 'json',
+                                success: function () {
+                                    window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
+                                }
+                            });
+                        }
                     };
                 }
                 onmessage();
