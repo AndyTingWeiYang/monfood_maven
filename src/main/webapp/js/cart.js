@@ -136,8 +136,9 @@ window.addEventListener('load', function(){
 
     // select 標籤
     $('.cartList').on('change', 'select', function(){
-        console.log($(this).closest('li').index());
-        
+        //  = $(this).find('option:selected').val() * 2
+        $(this).closest('li').find('.totalPrice').text($(this).find('option:selected').val()*parseInt($(this).closest('li').find('.itemPrice').text()));
+        // console.log()
         if($(this).find('option:selected').val() == 0){
             $.ajax({
               url: 'DeleteOneCartServlet',

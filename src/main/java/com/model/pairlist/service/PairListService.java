@@ -18,7 +18,6 @@ public interface PairListService {
 	//更新會員答案及狀態
 	boolean updateAnswerAndStatus(PairListVo pairListVo);
 
-//	void match();
 	
 	
 

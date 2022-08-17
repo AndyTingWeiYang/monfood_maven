@@ -32,11 +32,6 @@ public class ChatWebsocket {
 	public void onOpen(@PathParam("userId") Integer userId, Session userSession) {
 		// 一個session代表一個使用者跟server之間的通訊
 		sessionsMap.put(userId, userSession);
-//		System.out.println(sessionsMap);
-//		Set<Integer> AllId = sessionsMap.keySet();
-//		System.out.println(AllId);
-//		Collection<Session> sessions = sessionsMap.values();
-//		System.out.println(sessions);
 
 	}
 

@@ -40,16 +40,16 @@ public class ResDAOImpl implements ResDAO {
 	// 查詢是否有此會員帳號
 	private static final String ISDUPLICATEACCOUNT = "SELECT RES_ACCOUNT FROM MonFood.RES WHERE RES_ACCOUNT = ? ";
 	// 使用餐廳分類查詢一筆多筆資料
-	private static final String SELECTBYCATEGORY = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM RES LEFT JOIN `ORDER` on RES.RES_ID = ORDER.RES_ID WHERE RES_CATEGORY = ? GROUP by RES.RES_ID ";
+	private static final String SELECTBYCATEGORY = "SELECT ROUND(AVG(RES_RATE),1) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM RES LEFT JOIN `ORDER` on RES.RES_ID = ORDER.RES_ID WHERE RES_CATEGORY = ? GROUP by RES.RES_ID ";
 	// 使用
 	private static final String GETRATE = "SELECT ROUND(AVG(RES_RATE),1) , RES.ZIP_CODE, RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 //	//搜尋框模糊查詢
 
 //	private static final String GETRATE = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, RES.BZ_LOCATION, RES.BZ_OPEN_HOURS, RES.BZ_CLOSE_HOURS FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 	// 首頁搜尋行政區內餐廳
-	private static final String GETRESFORINDEX = "SELECT AVG(RES_RATE) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, ZIP_CODE FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
+	private static final String GETRESFORINDEX = "SELECT ROUND(AVG(RES_RATE),1) , RES.RES_ID, RES.RES_NAME, RES.RES_CATEGORY, ZIP_CODE FROM MonFood.RES LEFT JOIN `ORDER` on RES.RES_ID = `ORDER`.RES_ID GROUP by RES.RES_ID ";
 
-	private static final String SEARCHPRODUCT = "SELECT AVG(RES_RATE), RES.*, PRODUCT.* "
+	private static final String SEARCHPRODUCT = "SELECT ROUND(AVG(RES_RATE),1) , RES.*, PRODUCT.* "
 			+ "FROM MonFood.RES LEFT JOIN `ORDER` ON RES.RES_ID = `ORDER`.RES_ID "
 			+ "INNER JOIN PRODUCT ON RES.RES_ID = PRODUCT.RES_ID " + "WHERE PRODUCT.PRODUCT_NAME like ? "
 			+ "GROUP BY RES.RES_ID, PRODUCT.PRODUCT_ID";
@@ -199,7 +199,7 @@ public class ResDAOImpl implements ResDAO {
 
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<>();
-				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("rate", rs.getDouble("ROUND(AVG(RES_RATE),1)"));
 				map.put("resId", rs.getInt("RES_ID"));
 				map.put("resCategory", rs.getInt("RES_CATEGORY"));
 				map.put("resName", rs.getString("RES_NAME"));
@@ -251,7 +251,7 @@ public class ResDAOImpl implements ResDAO {
 
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<>();
-				map.put("rate", rs.getDouble("AVG(RES_RATE)"));
+				map.put("rate", rs.getDouble("ROUND(AVG(RES_RATE),1)"));
 				map.put("resId", rs.getInt("RES_ID"));
 				map.put("resCategory", rs.getInt("RES_CATEGORY"));
 				map.put("resName", rs.getString("RES_NAME"));
@@ -849,7 +849,7 @@ public class ResDAOImpl implements ResDAO {
 
 			while (rs.next()) {
 				ResVO resVO = new ResVO();
-				String rate = String.valueOf(rs.getDouble("AVG(RES_RATE)"));
+				String rate = String.valueOf(rs.getDouble("ROUND(AVG(RES_RATE),1)"));
 				String name = rs.getString("RES_NAME");
 				String resName = rate + "_" + name;
 				resVO.setResId(rs.getInt("RES_ID"));
