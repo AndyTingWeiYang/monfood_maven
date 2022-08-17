@@ -178,8 +178,16 @@ $(document).ready(function() {
 
     $('#taken').click(function () {
         console.log("按下btn");
-        addListener();
         
+        var jsonObj = {
+            type: "taken",
+            sender: resId,
+            receiver: delId + "1",
+            message: `可取餐了`,          
+        };
+        webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
+        console.log(jsonObj);
+
 		// 更新商品訂單狀態
 		$.ajax({
 			url: 'UpdateOrderStatusServlet',
@@ -196,16 +204,7 @@ $(document).ready(function() {
         
 	});
 
-    function addListener() {
-        var jsonObj = {
-            type: "taken",
-            sender: resId,
-            receiver: delId + "1",
-            message: `可取餐了`,          
-        };
-        webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
-        console.log(jsonObj);
-    }
+
 
 
     webSocket.onclose = function (event) {
