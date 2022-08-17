@@ -242,6 +242,7 @@ $(document).ready(function () {
                         } else if ("delAccept" === jsonObj.type){
                             let receiveDelId = jsonObj.delId;
                             sessionStorage.setItem("resId",receiveDelId);
+                            console.log("resId = " , receiveDelId);
                             $.ajax({
                                 url: 'UpdateOrderStatusServlet',
                                 method: 'post',
@@ -251,6 +252,8 @@ $(document).ready(function () {
                                 },
                                 dataType: 'json',
                                 success: function () {
+                                    // 觸發click事件
+                                    $("match").trigger("click");
                                     window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
                                 }
                             });
@@ -267,19 +270,6 @@ $(document).ready(function () {
                     delId = delIdArr[getRandomInt(delIdArr.length)];
                    
                     addListener();
-
-                    $.ajax({
-                        url: 'UpdateOrderStatusServlet',
-                        method: 'post',
-                        data: {
-                            orderId: delOrder.ORDER_ID,
-                            orderStatus: 2
-                        },
-                        dataType: 'json',
-                        success: function () {
-                            window.location.href = resProtocol + '//' + resHost + resWebCtx + '/admin-res-reception/resReception-Take-away-meal.jsp';
-                        }
-                    });
               });
 
 
