@@ -345,7 +345,8 @@
                 delId:delId,
               };
               webSocket.send(JSON.stringify(delToUser)); // 	jsonObj改成json格式
-              // console.log(delToUser);
+              console.log("delId = ",delId);
+              console.log(delToUser);
 
               var delToRes = {
                 type: "delAccept",
@@ -356,10 +357,11 @@
                 delId:delId,
               };
               webSocket.send(JSON.stringify(delToRes));
+              console.log("delId = ",delId);
               console.log("delToRes = ",delToRes);
         
               // 轉向外送頁
-              window.location.replace("./delDelivery.html");
+              // window.location.replace("./delDelivery.html");
             } else if (result.isDenied) {
               Swal.fire('您已拒絕接受此單')
               var delToRes = {
