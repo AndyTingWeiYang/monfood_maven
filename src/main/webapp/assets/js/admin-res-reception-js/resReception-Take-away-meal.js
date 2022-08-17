@@ -146,12 +146,12 @@ $(document).ready(function() {
 
 // ===============websocket yuyu======================
 // webSocket
-    resId = sessionStorage.getItem("resId");
+    let resId = sessionStorage.getItem("resId");
     let resType = "0";
 
     // 建立連線
     let myPoint = `/ResToDel/${resId}/${resType}`;
-    let host = window.location.host;
+    // let host = window.location.host;
     // let path = window.location.pathname;
     // let webCtx = path.substring(0, path.indexOf("/", 1));
     let endPointURL = "wss://" + window.location.host + "/monfood_maven" + myPoint;
@@ -164,13 +164,13 @@ $(document).ready(function() {
     };
 
 
-    let receiverDelId ;
+    let delId ;
     webSocket.onmessage = function (event) {
         let jsonObj = JSON.parse(event.data);
         console.log("jsonObj = ", jsonObj);
         if ("delAccept" === jsonObj.type) {          
             console.log("收到外送員已接單jsonObj = ",jsonObj);
-            receiverDelId = jsonObj.delId;
+            delId = jsonObj.delId;
             console.log("delId = ",delId)
         }
     }    
@@ -182,7 +182,8 @@ $(document).ready(function() {
         var jsonObj = {
             type: "taken",
             sender: resId,
-            receiver: receiverDelId + "1",
+            // receiver: delId + "1",
+            receiver: "11",
             message: `可取餐了`,          
         };
         webSocket.send(JSON.stringify(jsonObj)); // 	jsonObj改成json格式
