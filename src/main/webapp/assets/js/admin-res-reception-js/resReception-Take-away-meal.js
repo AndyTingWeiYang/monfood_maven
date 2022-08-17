@@ -178,7 +178,6 @@ $(document).ready(function() {
 
     $('#taken').click(function () {
         console.log("按下btn");
-        delId = sessionStorage.getItem("delId");
         var jsonObj = {
             type: "taken",
             sender: resId,
