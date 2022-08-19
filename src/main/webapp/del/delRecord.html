@@ -369,12 +369,21 @@
             success: function (data) {
               var totalAmount = JSON.stringify(data.result[0]);
               var times = JSON.stringify(data.result[1]);
+              let totalCut = totalAmount.replace("\"", "");
+              let timesCut = times.replace("\"", "");
+              console.log(data);
+              console.log(data.result[2].length);
+              console.log(data.result);
+              console.log(totalCut);
+              console.log(timesCut);
 
-              for (let i = 0; i < data.result.length; i++) {
+
+              for (let i = 0; i < data.result[2].length; i++) {
                 var comment = JSON.stringify(data.result[2][i]);
                 console.log(comment);
-                if (comment == null){
-                  $("div.delComment").text("尚無評論");
+                if (comment == "null"){
+                  // $("div.delComment").text("");
+                  continue
                 } else {
                   $("div.delComment").append(
                     `<div>
