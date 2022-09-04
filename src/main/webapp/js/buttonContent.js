@@ -20,11 +20,11 @@ let MyPoint = `/ChatWebsocket/${selfId}`;
 // let path = window.location.pathname;
 // let webCtx = path.substring(0, path.indexOf("/", 1));
 // 本地端
-// let endPointURL = "ws://" + window.location.host + "/monfood_maven" + MyPoint;
+let endPointURL = "ws://" + window.location.host + "/monfood_maven" + MyPoint;
 
 // 上雲
 // let endPointURL = "wss://35.201.129.109:8443/monfood_maven" + MyPoint;
-let endPointURL = "wss://" + window.location.host + "/monfood_maven" + MyPoint;
+// let endPointURL = "wss://" + window.location.host + "/monfood_maven" + MyPoint;
 
 let webSocket = new WebSocket(endPointURL);
 
